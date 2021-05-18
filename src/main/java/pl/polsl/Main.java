@@ -5,13 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.var;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class Main extends Application {
     private static Scene scene;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         /*Parent root = FXMLLoader.load(getClass().getResource("signIn.fxml"));
         primaryStage.setTitle("Hello World");
         scene = new Scene(root, 300, 275);
@@ -23,12 +26,14 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        var url = Main.class.getResource("/view/" + fxml + ".fxml");
+        FXMLLoader fxmlLoader = new FXMLLoader(url);
 
         return fxmlLoader.load();
     }
