@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoGeneratorSettingsState">
+    <option name="ignoredFields">
+      <set>
+        <option value="" />
+      </set>
+    </option>
+    <option name="moduleName" value="Szkola" />
+    <option name="moduleNameToSettings">
+      <map>
+        <entry key="Szkola">
+          <value>
+            <ModuleSettings>
+              <option name="entityPackageName" value="pl.polsl" />
+              <option name="entityParentDirectory" value="$PROJECT_DIR$/src" />
+              <option name="repositoryPackageName" value="pl.polsl" />
+              <option name="repositoryParentDirectory" value="$PROJECT_DIR$/src" />
+            </ModuleSettings>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="DatabaseSettingsState">
-    <option name="language" value="pl-PL" />
+    <option name="database" value="szkola" />
+    <option name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+    <option name="driverPath" value="C:\Users\hanna\.m2\repository\db\mysql-connector-java-8.0.25.jar" />
+    <option name="url" value="jdbc:mysql://localhost/szkola" />
   </component>
 </project>

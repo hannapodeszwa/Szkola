@@ -24,7 +24,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
+        <schema name="szkola" object-types="table, view, procedure, function, index" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
@@ -36,6 +40,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d" />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d" dataset="szkola.nauczyciele" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -525,7 +532,7 @@
       <regional-settings>
         <date-format value="MEDIUM" />
         <number-format value="UNGROUPED" />
-        <locale value="SYSTEM_DEFAULT" />
+        <locale value="pl_PL" />
         <use-custom-formats value="false" />
       </regional-settings>
       <environment>
