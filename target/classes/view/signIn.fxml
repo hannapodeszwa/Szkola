@@ -4,11 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<<<<<<< HEAD
-<GridPane alignment="center" hgap="10" prefHeight="300.0" prefWidth="300.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.SignInController">
-=======
 <GridPane alignment="center" hgap="10" prefHeight="300.0" prefWidth="300.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.SignInController">
->>>>>>> b680f820ee48e0d84a53abd5884a6a636f74d28e
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -19,18 +15,11 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-<<<<<<< HEAD
       <Pane prefHeight="300.0" prefWidth="300.0">
          <children>
-            <Button layoutX="101.0" layoutY="219.0" mnemonicParsing="false" text="Administrator" />
+            <Button fx:id="buttonAdministrator" layoutX="101.0" layoutY="206.0" mnemonicParsing="false" onAction="#administratorButton" text="Administrator" />
+            <Button fx:id="buttonTeacher" layoutX="98.0" layoutY="169.0" mnemonicParsing="false" onAction="#teacherButton" text="Nauczyciel" />
          </children></Pane>
-=======
-      <Pane prefHeight="300.0" prefWidth="300.0" />
->>>>>>> b680f820ee48e0d84a53abd5884a6a636f74d28e
-      <Button fx:id="buttonTeacher" mnemonicParsing="false" onAction="#teacherButton" text="Nauczyciel">
-         <GridPane.margin>
-            <Insets left="100.0" top="100.0" />
-         </GridPane.margin></Button>
       <Button fx:id="buttonStudent" mnemonicParsing="false" onAction="#studentButton" text="Uczeń">
          <GridPane.margin>
             <Insets left="100.0" />
