@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.MenuAdministratorController">
+   <children>
+      <Button layoutX="76.0" layoutY="103.0" mnemonicParsing="false" text="Zarządzaj użytkownikami" />
+      <Button layoutX="110.0" layoutY="150.0" mnemonicParsing="false" text="Utworz plan" />
+      <Label layoutX="94.0" layoutY="38.0" text="Konto administratora" />
+   </children>
+</AnchorPane>
