@@ -1,4 +1,4 @@
-package pl.polsl;
+package pl.polsl.controller;
 
 public class MenuController {
 
