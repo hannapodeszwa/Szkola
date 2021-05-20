@@ -26,14 +26,14 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
-        <schema name="mysql" object-types="table, view, procedure, function" />
-        <schema name="szkola" object-types="table, view, procedure, function" />
+        <schema name="szkola" object-types="table, view, procedure, function, constraint, index, column, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
-      <console name="szkola" type="STANDARD" schema="szkola" session="Main" />
+      <console name="szkola" type="STANDARD" schema="szkola" session="Main"><![CDATA[--INSERT INTO uczniowie  VALUES(NULL,NULL,'Adam',NULL,'Kowalski'
+select * from uczniowie]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -43,6 +43,11 @@
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d" dataset="szkola.uczniowie" active-filter-id="8af913d4-9ae0-4b3f-b885-5bb28ba81662">
+      <filter id="8af913d4-9ae0-4b3f-b885-5bb28ba81662" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="ID" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
     <filter-actions connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d" dataset="szkola.nauczyciele" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
