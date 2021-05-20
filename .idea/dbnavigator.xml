@@ -538,7 +538,7 @@ select * from uczniowie]]></console>
       <regional-settings>
         <date-format value="MEDIUM" />
         <number-format value="UNGROUPED" />
-        <locale value="SYSTEM_DEFAULT" />
+        <locale value="pl_PL" />
         <use-custom-formats value="false" />
       </regional-settings>
       <environment>

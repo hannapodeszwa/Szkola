@@ -10,7 +10,7 @@ public final class MyManager {
     private static EntityManager em;
 
     private MyManager(){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pl.polsl_DziennikOcen_war_1.0-SNAPSHOTPU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("groupId_Szkola_jar_1.0-SNAPSHOTPU");
         em = emf.createEntityManager();
     }
 
