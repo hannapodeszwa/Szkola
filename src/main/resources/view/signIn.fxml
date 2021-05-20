@@ -19,6 +19,7 @@
          <children>
             <Button fx:id="buttonAdministrator" layoutX="101.0" layoutY="206.0" mnemonicParsing="false" onAction="#administratorButton" text="Administrator" />
             <Button fx:id="buttonTeacher" layoutX="98.0" layoutY="169.0" mnemonicParsing="false" onAction="#teacherButton" text="Nauczyciel" />
+            <TextField accessibleRole="TEXT" layoutX="41.0" layoutY="71.0" />
          </children></Pane>
       <Button fx:id="buttonStudent" mnemonicParsing="false" onAction="#studentButton" text="Uczeń">
          <GridPane.margin>
