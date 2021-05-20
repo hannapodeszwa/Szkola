@@ -25,4 +25,9 @@ public class SignInController {
         System.out.println("Logowanie nauczyciela");
     }
 
+    public void administratorButton(ActionEvent event) throws IOException
+    {
+        System.out.println("Logowanie administratora");
+        Main.setRoot("menuAdministrator");
+    }
 }
