@@ -55,6 +55,7 @@ public class ManageStudentsController {
     public void deleteStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Usuwanie ucznia");
+        Main.setRoot("deleteUserConfirmation");
 
     }
 

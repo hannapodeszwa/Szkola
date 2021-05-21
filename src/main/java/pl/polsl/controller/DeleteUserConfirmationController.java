@@ -4,10 +4,10 @@ import javafx.event.ActionEvent;
 
 import java.io.IOException;
 
-public class AddOrUpdateStudentsController {
+public class DeleteUserConfirmationController {
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        System.out.println("Modyfikowanie profilu ucznia");
+        System.out.println("Usuwanie ucznia");
 
     }
 
