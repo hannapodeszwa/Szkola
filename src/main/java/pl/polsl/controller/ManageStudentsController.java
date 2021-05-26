@@ -43,19 +43,19 @@ public class ManageStudentsController {
     public void addStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Logowanie ucznia");
-        Main.setRoot("addOrUpdateStudent");
+        Main.setRoot("addOrUpdateStudentForm");
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Logowanie ucznia");
-        Main.setRoot("addOrUpdateStudent");
+        Main.setRoot("addOrUpdateStudentForm");
     }
     //wyswietlanie wszystkich studentow
     public void deleteStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Usuwanie ucznia");
-        Main.setRoot("deleteUserConfirmation");
+        Main.setRoot("deleteUserConfirmationForm");
 
     }
 
