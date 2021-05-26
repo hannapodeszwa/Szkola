@@ -5,12 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import lombok.var;
+//import lombok.var;
+//import lombok.var;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 public class Main extends Application {
@@ -35,7 +37,7 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        var url = Main.class.getResource("/view/" + fxml + ".fxml");
+        URL url = Main.class.getResource("/view/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
 
         return fxmlLoader.load();
