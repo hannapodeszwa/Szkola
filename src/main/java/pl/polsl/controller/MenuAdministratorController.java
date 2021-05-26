@@ -9,16 +9,16 @@ public class MenuAdministratorController {
 
     public void pressManageStudentsButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageStudents");
+        Main.setRoot("manageStudentsForm");
     }
     public void pressManageTeacherButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageTeachers");
+        Main.setRoot("manageTeachersForm");
     }
 
     public void createScheduleButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("createSchedule");
+        Main.setRoot("createScheduleForm");
     }
 
 }
