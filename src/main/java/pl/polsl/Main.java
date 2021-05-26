@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.io.IOException;
+import java.net.URL;
 import java.util.logging.Logger;
 
 public class Main extends Application {
@@ -24,8 +25,9 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();*/
 
-        scene = new Scene(loadFXML("signIn"), 300, 300);
-        primaryStage.setTitle("Logowanie");
+        scene = new Scene(loadFXML("signIn"), 400, 400);
+        primaryStage.setTitle("Szkola");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
@@ -35,14 +37,14 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        var url = Main.class.getResource("/view/" + fxml + ".fxml");
+        URL url = Main.class.getResource("/view/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
 
         return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
-        MyManager m = MyManager.getInstance();
+        //MyManager m = MyManager.getInstance();
 
 
         launch(args);
