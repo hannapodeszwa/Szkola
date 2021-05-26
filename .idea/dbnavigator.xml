@@ -28,8 +28,8 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
-      <console name="szkola" type="STANDARD" schema="szkola" session="Main"><![CDATA[--INSERT INTO uczniowie  VALUES(NULL,NULL,'Adam',NULL,'Kowalski'
-select * from uczniowie]]></console>
+      <console name="szkola" type="STANDARD" schema="szkola" session="Main">--INSERT INTO uczniowie  VALUES(NULL,NULL,'Adam',NULL,'Kowalski'
+select * from uczniowie</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
