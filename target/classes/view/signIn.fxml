@@ -1,33 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" hgap="10" prefHeight="300.0" prefWidth="300.0" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.SignInController">
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400" minWidth="400" prefHeight="400.0" prefWidth="400.0" scaleShape="false" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.SignInController">
    <children>
-      <Pane prefHeight="300.0" prefWidth="300.0">
+      <VBox alignment="CENTER" layoutX="-2.0" layoutY="1.0" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="buttonAdministrator" layoutX="101.0" layoutY="206.0" mnemonicParsing="false" onAction="#administratorButton" text="Administrator" />
-            <Button fx:id="buttonTeacher" layoutX="98.0" layoutY="169.0" mnemonicParsing="false" onAction="#teacherButton" text="Nauczyciel" />
-            <TextField accessibleRole="TEXT" layoutX="41.0" layoutY="71.0" />
-         </children></Pane>
-      <Button fx:id="buttonStudent" mnemonicParsing="false" onAction="#studentButton" text="Uczeń">
-         <GridPane.margin>
-            <Insets left="100.0" />
-         </GridPane.margin></Button>
-      <Label text="Logowanie:">
-         <GridPane.margin>
-            <Insets bottom="200.0" left="100.0" />
-         </GridPane.margin></Label>
+            <Label text="Sign In">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></Label>
+      
+            <TextField fx:id="loginTextField" accessibleRole="TEXT" onInputMethodTextChanged="#textChanged" promptText="Login" />
+            <PasswordField fx:id="passwordTextField" accessibleRole="PASSWORD_FIELD" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
+            <ComboBox fx:id="rolesComboBox" prefWidth="150.0" value="Student">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Student" />
+                     <String fx:value="Teacher" />
+                     <String fx:value="Parent" />
+                     <String fx:value="Administrator" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+            <Label fx:id="errorLabel" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#signInClick" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Sign In">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin></Button>
+         </children>
+         <padding>
+            <Insets left="100.0" right="100.0" />
+         </padding>
+      </VBox>
    </children>
-</GridPane>
+</AnchorPane>

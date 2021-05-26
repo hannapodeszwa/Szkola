@@ -5,8 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-//import lombok.var;
-//import lombok.var;
+import lombok.var;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,14 +19,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*Parent root = FXMLLoader.load(getClass().getResource("signIn.fxml"));
-        primaryStage.setTitle("Hello World");
-        scene = new Scene(root, 300, 275);
-        primaryStage.setScene(scene);
-        primaryStage.show();*/
 
-        scene = new Scene(loadFXML("signIn"), 300, 300);
-        primaryStage.setTitle("Logowanie");
+        scene = new Scene(loadFXML("signIn"), 600, 600);
+        primaryStage.setTitle("Szkola");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
