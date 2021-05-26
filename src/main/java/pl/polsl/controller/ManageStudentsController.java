@@ -28,7 +28,7 @@ public class ManageStudentsController {
         List l=s.displayStudents();
 
 
-        nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
+       nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         classC.setCellValueFactory(new PropertyValueFactory<>("klass"));
 

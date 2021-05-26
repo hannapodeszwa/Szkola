@@ -21,9 +21,12 @@ public class Student {
 
         em = MyManager.getEntityManager();
 
-        TypedQuery query =
+       TypedQuery query =
                 em.createNamedQuery("uczniowie.findAll", Uczniowie.class);
         List<Uczniowie> results = query.getResultList();
+
+    /*    Query q = em.createQuery("SELECT a FROM Uczniowie a");
+        List results = q.getResultList();*/
 return results;
     }
 
