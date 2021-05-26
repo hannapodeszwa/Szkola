@@ -38,6 +38,9 @@ public class SignInController {
     @FXML
     private ComboBox rolesComboBox;
 
+    private Parent parent;
+    private Scene scene;
+
     @FXML
     public void initialize() {
         loginTextField.textProperty().addListener((observable -> {
