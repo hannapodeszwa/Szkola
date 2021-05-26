@@ -25,11 +25,14 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();*/
 
-        scene = new Scene(loadFXML("signIn"), 400, 400);
+        scene = new Scene(loadFXML("common/signIn"));
         primaryStage.setTitle("Szkola");
-        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
+
         primaryStage.show();
+
     }
 
     public static void setRoot(String fxml) throws IOException {
