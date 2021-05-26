@@ -1,5 +1,5 @@
 package pl.polsl.controller;
 
-public class MenuController {
+public class StudentMenuController {
 
 }

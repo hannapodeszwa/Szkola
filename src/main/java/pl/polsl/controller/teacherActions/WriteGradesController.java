@@ -1,2 +1,3 @@
-package pl.polsl.controller.teacherActions;public class writeGradesController {
+package pl.polsl.controller.teacherActions;
+public class WriteGradesController {
 }
