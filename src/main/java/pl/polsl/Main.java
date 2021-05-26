@@ -20,13 +20,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*Parent root = FXMLLoader.load(getClass().getResource("signIn.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("signI-n.fxml"));
         primaryStage.setTitle("Hello World");
         scene = new Scene(root, 300, 275);
         primaryStage.setScene(scene);
         primaryStage.show();*/
 
-        scene = new Scene(loadFXML("signIn"), 300, 300);
+        scene = new Scene(loadFXML("signIn"), 600, 600);
         primaryStage.setTitle("Logowanie");
         primaryStage.setScene(scene);
         primaryStage.show();
