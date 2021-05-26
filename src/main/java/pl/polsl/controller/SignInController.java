@@ -20,9 +20,10 @@ public class SignInController {
         System.out.println("Logowanie ucznia");
         Main.setRoot("menu");
     }
-   public void teacherButton(ActionEvent event)
+   public void teacherButton(ActionEvent event) throws IOException
     {
         System.out.println("Logowanie nauczyciela");
+        Main.setRoot("menuTeacher");
     }
 
     public void administratorButton(ActionEvent event) throws IOException

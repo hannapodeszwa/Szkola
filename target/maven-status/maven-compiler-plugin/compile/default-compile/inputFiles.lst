@@ -10,14 +10,17 @@ C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\CreateScheduleCo
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Oceny.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\Main.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\SignInController.java
+C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\MenuTeacherController.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Klasy.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Sale.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\MenuController.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Rodzice.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\model\Student.java
+C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\AddOrUpdateTeachersController.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Udzialwkonkursie.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\ManageStudentsController.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Uwagi.java
+C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\controller\DeleteUserConfirmationController.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Uczniowie.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Nieobecnosci.java
 C:\Users\hanna\Desktop\Szkola\src\main\java\pl\polsl\entities\Kolanaukowe.java

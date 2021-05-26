@@ -8,17 +8,17 @@ import java.io.IOException;
 public class ManageTeachersController {
     public void addTeacherButton(ActionEvent event) throws IOException
     {
-       // Main.setRoot("addOrUpdateTeacher");
+       Main.setRoot("addOrUpdateTeacher");
     }
 
     public void updateTeacherButton(ActionEvent event) throws IOException
     {
-       // Main.setRoot("addOrUpdateTeacher");
+       Main.setRoot("addOrUpdateTeacher");
     }
 
     public void deleteTeacherButton(ActionEvent event) throws IOException
     {
         System.out.println("Usuwanie nauczyciela");
-        // Main.setRoot("addOrUpdateStudent");
+        Main.setRoot("deleteUserConfirmation");
     }
 }

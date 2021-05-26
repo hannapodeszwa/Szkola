@@ -24,12 +24,16 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes />
+    <loaded-nodes>
+      <connection connection-id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
+        <schema name="szkola" object-types="table, view" />
+      </connection>
+    </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="c8aaa84a-6e83-446e-807d-66ee82dc050d">
-      <console name="szkola" type="STANDARD" schema="szkola" session="Main">--INSERT INTO uczniowie  VALUES(NULL,NULL,'Adam',NULL,'Kowalski'
-select * from uczniowie</console>
+      <console name="szkola" type="STANDARD" schema="szkola" session="Main"><![CDATA[--INSERT INTO uczniowie  VALUES(NULL,NULL,'Adam',NULL,'Kowalski'
+select * from uczniowie]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -534,7 +538,7 @@ select * from uczniowie</console>
       <regional-settings>
         <date-format value="MEDIUM" />
         <number-format value="UNGROUPED" />
-        <locale value="SYSTEM_DEFAULT" />
+        <locale value="pl_PL" />
         <use-custom-formats value="false" />
       </regional-settings>
       <environment>
