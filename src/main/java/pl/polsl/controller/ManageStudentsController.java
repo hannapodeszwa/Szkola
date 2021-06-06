@@ -64,6 +64,7 @@ public class ManageStudentsController implements ParametrizedController {
     {
         System.out.println("Logowanie ucznia");
         Map params = new HashMap<String, String>();
+
         params.put("imie","Adam");
         params.put("nazwisko","Mickiewicz");
         params.put("klasa","3C");
