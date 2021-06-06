@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.WriteGradesController">
+   <children>
+      <VBox alignment="CENTER" layoutX="55.0" layoutY="58.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
+         <children>
+            <Label text="Student details" />
+            <TextField fx:id="idTextField" promptText="ID" />
+            <TextField fx:id="nameTextField" promptText="Name" />
+            <TextField fx:id="surnameTextField" promptText="Surname" />
+         </children>
+      </VBox>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
+      <VBox alignment="CENTER" layoutX="318.0" layoutY="70.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
+         <children>
+            <Label text="Grade details" />
+            <ComboBox fx:id="gradeComboBox" prefWidth="150.0" />
+            <ComboBox fx:id="valueComboBox" prefWidth="150.0" />
+            <TextField fx:id="descriptionTextField" prefHeight="58.0" prefWidth="195.0" promptText="Description" />
+         </children>
+      </VBox>
+      <Button layoutX="255.0" layoutY="323.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="80.0" styleClass="button-confirm" text="Submit" />
+   </children>
+</AnchorPane>

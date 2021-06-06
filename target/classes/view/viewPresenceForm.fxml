@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.ViewPresenceController">
+   <children>
+      <Button fx:id="backButton" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
+      <TableView layoutX="14.0" layoutY="14.0" prefHeight="325.0" prefWidth="580.0">
+        <columns>
+            <TableColumn prefWidth="31.0" text="ID" />
+          <TableColumn prefWidth="119.0" text="Name" />
+          <TableColumn prefWidth="117.0" text="Surname" />
+            <TableColumn prefWidth="112.0" text="Subject" />
+            <TableColumn prefWidth="88.0" text="Date" />
+            <TableColumn prefWidth="112.0" text="Excused" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

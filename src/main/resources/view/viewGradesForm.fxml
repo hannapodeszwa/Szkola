@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.ViewGradesController">
+   <children>
+      <Button fx:id="backButton" layoutX="9.0" layoutY="361.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
+      <TableView fx:id="gradesTableView" layoutX="9.0" layoutY="6.0" AnchorPane.bottomAnchor="47.0" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="6.0">
+        <columns>
+            <TableColumn prefWidth="42.0" text="ID" />
+          <TableColumn prefWidth="106.0" text="Name" />
+          <TableColumn prefWidth="92.0" text="Surname" />
+            <TableColumn prefWidth="60.0" text="Grade" />
+            <TableColumn prefWidth="49.0" text="Value" />
+            <TableColumn prefWidth="101.0" text="Date" />
+            <TableColumn prefWidth="129.0" text="Description" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

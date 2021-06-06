@@ -48,7 +48,7 @@ public class ManageStudentsController implements ParametrizedController {
         List l=s.displayStudents();
 
 
-        nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
+       nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         classC.setCellValueFactory(new PropertyValueFactory<>("klass"));
 
@@ -90,4 +90,6 @@ public class ManageStudentsController implements ParametrizedController {
         Main.setRoot("deleteUserConfirmation");
 
     }
+
+
 }
