@@ -23,21 +23,11 @@ public class ManageStudentsController implements ParametrizedController {
     @FXML
     private TableColumn<Uczniowie, String> classC;
 
-    private Integer xdd = 5;
-
-    public void testtest(){
-        xdd = 10;
-    }
-
 
 
     @Override
-    public void passArguments(Map<String,String> params) {
-        params.put("imie","Adam");
-        params.put("nazwisko","Mickiewicz");
-        params.put("klasa","3C");
-        params.put("tryb","modyfikowanie");
-        params.put("tryb","dodawanie");
+    public void passArguments(Map params) {
+
     }
 
 
@@ -48,7 +38,7 @@ public class ManageStudentsController implements ParametrizedController {
         List l=s.displayStudents();
 
 
-       nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         classC.setCellValueFactory(new PropertyValueFactory<>("klass"));
 
@@ -65,9 +55,6 @@ public class ManageStudentsController implements ParametrizedController {
         System.out.println("Logowanie ucznia");
         Map params = new HashMap<String, String>();
 
-        params.put("imie","Adam");
-        params.put("nazwisko","Mickiewicz");
-        params.put("klasa","3C");
         params.put("tryb","dodawanie");
         Main.setRoot("addOrUpdateStudentForm",params);
     }
@@ -77,9 +64,8 @@ public class ManageStudentsController implements ParametrizedController {
         System.out.println("Logowanie ucznia");
 
         Map params = new HashMap<String, String>();
-        params.put("imie","Adam");
-        params.put("nazwisko","Mickiewicz");
-        params.put("klasa","3C");
+
+        params.put("uczen", tableStudents.getSelectionModel().getSelectedItem());
         params.put("tryb","modyfikowanie");
         //AddOrUpdateStudentsController
         Main.setRoot("addOrUpdateStudentForm",params);

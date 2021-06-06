@@ -17,17 +17,24 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
     public TextField poleNazwisko;
     public ComboBox poleKlasa;
 
+
+    private Uczniowie modyfikowany;
+
     @Override
-    public void passArguments(Map<String, String> params) {
+    public void passArguments(Map params) {
         if (params.get("tryb") == "dodawanie")
             tryb = tr.Dodaj;
-        else
+        else {
             tryb = tr.Modyfikuj;
+            modyfikowany = (Uczniowie) params.get("uczen");
+        }
 
-        poleImie.setText(params.getOrDefault("imie", "Błądzisław"));
-        poleNazwisko.setText(params.getOrDefault("nazwisko", "Errorkiewicz"));
-        poleAdres.setText(params.getOrDefault("adres", "Błędowo"));
-
+        if (modyfikowany != null) {
+            poleImie.setText(modyfikowany.getImie());
+            poleDrugieImie.setText(modyfikowany.getDrugieImie());
+            poleNazwisko.setText(modyfikowany.getNazwisko());
+            poleAdres.setText(modyfikowany.getAdres());
+        }
     }
 
     public enum tr {Dodaj, Modyfikuj}
@@ -51,13 +58,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
             (new Student()).persist(u);
         } else if (tryb == tr.Modyfikuj) {
             System.out.println("Modyfikowanie profilu ucznia");
-            Uczniowie u = new Uczniowie();
-            u.setID(44);
-            u.setImie("Adam");
-            u.setNazwisko("Mickiewicz");
-            u.setAdres("Litwa");
-            u.setIdKlasy(1);
-            (new Student()).update(u);
+            (new Student()).update(modyfikowany);
         }
 
     }
