@@ -1,2 +1,4 @@
-
-
+target/classes/META-INF/persistence.xml
+src/main/resources/META-INF/persistence.xml
+/target/classes/
+/IdeaProjects

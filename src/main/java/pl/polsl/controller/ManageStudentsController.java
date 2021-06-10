@@ -9,9 +9,11 @@ import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.*;
 import javafx.scene.control.TableView;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ManageStudentsController {
+public class ManageStudentsController implements ParametrizedController {
     @FXML
     private TableView<Uczniowie> tableStudents;
     @FXML
@@ -21,6 +23,14 @@ public class ManageStudentsController {
     @FXML
     private TableColumn<Uczniowie, String> classC;
 
+
+
+    @Override
+    public void passArguments(Map params) {
+
+    }
+
+
     @FXML
     public void initialize()
     {
@@ -28,7 +38,7 @@ public class ManageStudentsController {
         List l=s.displayStudents();
 
 
-       nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
         classC.setCellValueFactory(new PropertyValueFactory<>("klass"));
 
@@ -43,19 +53,28 @@ public class ManageStudentsController {
     public void addStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Logowanie ucznia");
-        Main.setRoot("addOrUpdateStudentForm");
+        Map params = new HashMap<String, String>();
+
+        params.put("tryb","dodawanie");
+        Main.setRoot("addOrUpdateStudentForm",params);
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Logowanie ucznia");
-        Main.setRoot("addOrUpdateStudentForm");
+
+        Map params = new HashMap<String, String>();
+
+        params.put("uczen", tableStudents.getSelectionModel().getSelectedItem());
+        params.put("tryb","modyfikowanie");
+        //AddOrUpdateStudentsController
+        Main.setRoot("addOrUpdateStudentForm",params);
     }
     //wyswietlanie wszystkich studentow
     public void deleteStudentsButton(ActionEvent event) throws IOException
     {
         System.out.println("Usuwanie ucznia");
-        Main.setRoot("deleteUserConfirmationForm");
+        Main.setRoot("deleteUserConfirmation");
 
     }
 
