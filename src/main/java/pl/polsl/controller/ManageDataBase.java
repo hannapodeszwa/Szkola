@@ -1,34 +1,19 @@
-package pl.polsl.model;
+package pl.polsl.controller;
 
 import pl.polsl.MyManager;
-import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.entities.Uczniowie;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.util.List;
 
-public class Subject implements ManageDataBase {
-    /**
-     * Entity manager
-     */
-    EntityManager em;
+public interface ManageDataBase {
 
-    public List displaySubjects()
-    {
-        em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("przedmioty.findAll", Przedmioty.class);
-        List<Przedmioty> results = query.getResultList();
-        return results;
-    }
+
     /**
      * Modifies existing student in database
      *
      * @param object new object
      */
-    /*public void update(Object object) {
-        em = MyManager.getEntityManager();
+    public default void update(Object object) {
+        EntityManager em = MyManager.getEntityManager();
         try {
             em.getTransaction().begin();
 
@@ -45,8 +30,8 @@ public class Subject implements ManageDataBase {
      *
      * @param object new object
      */
-   /* public void persist(Object object) {
-        em = MyManager.getEntityManager();
+    public default void persist(Object object) {
+        EntityManager  em = MyManager.getEntityManager();
         try {
             em.getTransaction().begin();
 
@@ -57,8 +42,8 @@ public class Subject implements ManageDataBase {
         }
     }
 
-    public void delete(Object object) {
-        em = MyManager.getEntityManager();
+    public default void delete(Object object) {
+        EntityManager   em = MyManager.getEntityManager();
         try {
             em.getTransaction().begin();
 
@@ -68,6 +53,6 @@ public class Subject implements ManageDataBase {
             em.getTransaction().rollback();
         }
     }
-*/
+
 
 }

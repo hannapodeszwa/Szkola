@@ -21,5 +21,12 @@
       <Label layoutX="59.0" layoutY="326.0" text="Przedmiot:" />
       <ComboBox fx:id="subject" layoutX="151.0" layoutY="322.0" prefWidth="150.0" />
       <Label layoutX="55.0" layoutY="96.0" text="Drugie imie:" />
+      <ListView fx:id="subjectsList" layoutX="377.0" layoutY="37.0" prefHeight="49.0" prefWidth="170.0" />
+      <TableView fx:id="subjectsTable" layoutX="362.0" layoutY="114.0" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="subjectName" prefWidth="75.0" text="Przedmiot" />
+          <TableColumn fx:id="choose" prefWidth="75.0" text="Wybierz" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
