@@ -33,9 +33,14 @@ public class MenuAdministratorController {
     {
         Main.setRoot("manageClassForm");
     }
-    public void createScheduleButton(ActionEvent event) throws IOException
+    public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {
         Main.setRoot("createScheduleForm");
+    }
+
+    public void pressLogOutButton(ActionEvent event) throws IOException
+    {
+        Main.setRoot("signIn");
     }
 
 }

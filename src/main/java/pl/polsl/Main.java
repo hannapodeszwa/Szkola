@@ -47,14 +47,8 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent ret = fxmlLoader.load();
         Object ob = fxmlLoader.getController();
-        if (ob != null && ob.getClass() == (new AddOrUpdateStudentsController()).getClass())
-            ((AddOrUpdateStudentsController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateTeachersController()).getClass())
-            ((AddOrUpdateTeachersController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateSubjectController()).getClass())
-            ((AddOrUpdateSubjectController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateClassController()).getClass())
-            ((AddOrUpdateClassController)ob).passArguments(params);
+        if (ob != null && ob instanceof ParametrizedController)
+            ((ParametrizedController)ob).passArguments(params);
         return ret;
     }
 

@@ -3,5 +3,8 @@ package pl.polsl.controller;
 import java.util.Map;
 
 public interface ParametrizedController {
-    public void passArguments(Map params);
+    default void passArguments(Map params) {
+        if (!params.isEmpty())
+            System.out.println("Przesłano parametry, ale funkcja do ich obsługi nie jest zaimplementowana!");
+    }
 }

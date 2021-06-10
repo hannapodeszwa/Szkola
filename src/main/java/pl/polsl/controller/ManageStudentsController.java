@@ -79,4 +79,8 @@ public class ManageStudentsController implements ParametrizedController {
     }
 
 
+    public void goBackButtonClick(ActionEvent event) throws IOException {
+        System.out.println("Powrot");
+        Main.setRoot("adminMenuForm");
+    }
 }
