@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageStudentsController implements ParametrizedController {
+public class ManageStudentsController {
     @FXML
     private TableView<Uczniowie> tableStudents;
     @FXML
@@ -24,11 +24,6 @@ public class ManageStudentsController implements ParametrizedController {
     private TableColumn<Uczniowie, String> classC;
 
 
-
-    @Override
-    public void passArguments(Map params) {
-
-    }
 
 
     @FXML
@@ -81,6 +76,6 @@ public class ManageStudentsController implements ParametrizedController {
 
     public void goBackButtonClick(ActionEvent event) throws IOException {
         System.out.println("Powrot");
-        Main.setRoot("adminMenuForm");
+        Main.setRoot("menu/adminMenuForm");
     }
 }

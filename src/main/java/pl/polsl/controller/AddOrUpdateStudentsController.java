@@ -22,7 +22,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
     private Uczniowie modyfikowany;
 
     @Override
-    public void passArguments(Map params) {
+    public void receiveArguments(Map params) {
         if (params.get("tryb") == "dodawanie")
             tryb = tr.Dodaj;
         else {

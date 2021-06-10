@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageTeachersController implements ParametrizedController {
+public class ManageTeachersController {
     @FXML
     private TableView<Nauczyciele> tableTeachers;
     @FXML
@@ -27,10 +27,6 @@ public class ManageTeachersController implements ParametrizedController {
     @FXML
     private TableColumn<Uczniowie, String> surnameC;
 
-    @Override
-    public void passArguments(Map params) {
-
-    }
 
     @FXML
     public void initialize()

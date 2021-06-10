@@ -17,14 +17,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageClassController implements ParametrizedController {
+public class ManageClassController {
     @FXML
     private TableView<Klasy> tableClass;
     @FXML
     private TableColumn<Klasy, String> nameC;
-
-    @Override
-    public void passArguments(Map params) {    }
 
     @FXML
     public void initialize()
