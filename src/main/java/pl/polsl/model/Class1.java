@@ -1,31 +1,32 @@
 package pl.polsl.model;
 
 import pl.polsl.MyManager;
-import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class Teacher {
-
+public class Class1 {
     /**
      * Entity manager
      */
     EntityManager em;
 
-
-    public List displayTeachers()
+    public List displayClass()
     {
         em = MyManager.getEntityManager();
-
-        TypedQuery query =
-                em.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
-        List<Nauczyciele> results = query.getResultList();
+        TypedQuery query = em.createNamedQuery("klasy.findAll", Klasy.class);
+        List<Klasy> results = query.getResultList();
         return results;
     }
 
+    /**
+     * Modifies existing student in database
+     *
+     * @param object new object
+     */
     public void update(Object object) {
         em = MyManager.getEntityManager();
         try {
@@ -55,4 +56,5 @@ public class Teacher {
             em.getTransaction().rollback();
         }
     }
+
 }

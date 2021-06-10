@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.polsl.controller.ManageClassController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <TableView fx:id="tableClass" layoutX="47.0" layoutY="36.0" prefHeight="299.0" prefWidth="250.0">
+            <columns>
+                <TableColumn id="nameC" fx:id="nameC" prefWidth="246.99998474121094" text="Nazwa" />
+            </columns>
+        </TableView>
+        <Button fx:id="buttonAddNewSubject" layoutX="366.0" layoutY="44.0" mnemonicParsing="false" onAction="#addClassButton" text="Dodaj nową klase" />
+        <Button fx:id="buttonUpdateSubject" layoutX="366.0" layoutY="100.0" mnemonicParsing="false" onAction="#updateClassButton" text="Modyfikuj klase" />
+        <Button layoutX="366.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteClassButton" text="Usuń klase" />
+        <Button layoutX="477.0" layoutY="323.0" mnemonicParsing="false" onAction="#cancelButton" text="Wróć" />
+
+    </children>
+</AnchorPane>

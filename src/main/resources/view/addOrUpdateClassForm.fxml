@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="pl.polsl.controller.AddOrUpdateClassController"
+            prefHeight="400.0" prefWidth="600.0">
+    <children>
+        <Button layoutX="356.0" layoutY="329.0" mnemonicParsing="false" onAction="#confirmChangesButton" styleClass="button-confirm" text="Zatwierdz" />
+        <Button layoutX="462.0" layoutY="329.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="25.0" prefWidth="68.0" text="Anuluj" />
+        <TextField fx:id="name" layoutX="135.0" layoutY="83.0" />
+        <Label layoutX="72.0" layoutY="86.0" prefHeight="18.0" prefWidth="28.0" text="Nazwa:" />
+    </children>
+</AnchorPane>

@@ -5,8 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.polsl.controller.AddOrUpdateStudentsController;
-import pl.polsl.controller.ManageStudentsController;
+import pl.polsl.controller.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,6 +49,12 @@ public class Main extends Application {
         Object ob = fxmlLoader.getController();
         if (ob != null && ob.getClass() == (new AddOrUpdateStudentsController()).getClass())
             ((AddOrUpdateStudentsController)ob).passArguments(params);
+        else if (ob != null && ob.getClass() == (new AddOrUpdateTeachersController()).getClass())
+            ((AddOrUpdateTeachersController)ob).passArguments(params);
+        else if (ob != null && ob.getClass() == (new AddOrUpdateSubjectController()).getClass())
+            ((AddOrUpdateSubjectController)ob).passArguments(params);
+        else if (ob != null && ob.getClass() == (new AddOrUpdateClassController()).getClass())
+            ((AddOrUpdateClassController)ob).passArguments(params);
         return ret;
     }
 

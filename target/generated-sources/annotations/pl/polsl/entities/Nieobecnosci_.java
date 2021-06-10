@@ -5,7 +5,7 @@ import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-06-06T12:55:23")
+@Generated(value="EclipseLink-2.7.7.v20200504-rNA", date="2021-06-10T14:44:05")
 @StaticMetamodel(Nieobecnosci.class)
 public class Nieobecnosci_ { 
 

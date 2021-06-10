@@ -15,10 +15,11 @@ import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ManageTeachersController {
-    private final Stage thisStage;
+public class ManageTeachersController implements ParametrizedController {
     @FXML
     private TableView<Nauczyciele> tableTeachers;
     @FXML
@@ -26,10 +27,10 @@ public class ManageTeachersController {
     @FXML
     private TableColumn<Uczniowie, String> surnameC;
 
-    public ManageTeachersController() {
-        thisStage = new Stage();
-    }
+    @Override
+    public void passArguments(Map params) {
 
+    }
 
     @FXML
     public void initialize()
@@ -48,26 +49,28 @@ public class ManageTeachersController {
 
     public void addTeacherButton(ActionEvent event) throws IOException
     {
-       /* try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("addOrUpdateTeacherForm.fxml"));
-            loader.setController(this);
-            thisStage.setScene(new Scene(loader.load()));
-            thisStage.setTitle("testowe okno");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-       Main.setRoot("addOrUpdateTeacherForm");
+        Map params = new HashMap<String, String>();
+        params.put("mode","add");
+       Main.setRoot("addOrUpdateTeacherForm",params);
     }
 
     public void updateTeacherButton(ActionEvent event) throws IOException
     {
-       Main.setRoot("addOrUpdateTeacherForm");
+        Map params = new HashMap<String, String>();
+
+        params.put("teacher", tableTeachers.getSelectionModel().getSelectedItem());
+        params.put("mode","update");
+       Main.setRoot("addOrUpdateTeacherForm",params);
     }
 
     public void deleteTeacherButton(ActionEvent event) throws IOException
     {
         System.out.println("Usuwanie nauczyciela");
         Main.setRoot("deleteUserConfirmationForm");
+    }
+    public void cancelButton(ActionEvent event) throws IOException
+    {
+        Main.setRoot("menu/adminMenuForm");
+
     }
 }
