@@ -3,11 +3,12 @@ package pl.polsl.model;
 import javax.persistence.*;
 
 import pl.polsl.MyManager;
+import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 
 import java.util.List;
 
-public class Student {
+public class Student implements ManageDataBase {
     /**
      * Entity manager
      */
@@ -31,39 +32,6 @@ public class Student {
 //                .setParameter("Adres", u.getAdres());
 //    }
 
-    /**
-     * Modifies existing student in database
-     *
-     * @param object new object
-     */
-    public void update(Object object) {
-        em = MyManager.getEntityManager();
-        try {
-            em.getTransaction().begin();
 
-            em.merge(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-    }
-
-
-    /**
-     * Insert new object to database
-     *
-     * @param object new object
-     */
-    public void persist(Object object) {
-        em = MyManager.getEntityManager();
-        try {
-            em.getTransaction().begin();
-
-            em.persist(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-    }
 
 }
