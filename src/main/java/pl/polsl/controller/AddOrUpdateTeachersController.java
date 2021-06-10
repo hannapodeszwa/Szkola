@@ -28,14 +28,6 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
     public TextField surname;
     public TextField phone;
 
-    public ListView subjectsList;
-    @FXML
-    private TableView<Przedmioty> subjectsTable;
-    @FXML
-    private TableColumn<Przedmioty, String> subjectName;
-    @FXML
-    private TableColumn<Przedmioty, Boolean> choose;
-
     private Nauczyciele toUpdate;
 
     public enum md {Add, Update}
@@ -44,30 +36,7 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
     public void initialize(md mode1) {
         mode = mode1;
     }
-    @FXML
-    public void initialize() {
 
-       // ListView<Przedmioty> subjectsList = new ListView<>();
-        Subject s= new Subject();
-        List l=s.displaySubjects();
-
-        subjectName.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
-       // choose.setCellValueFactory(new PropertyValueFactory<TableData,Boolean>("active"));
-
-        for (Object p: l) {
-
-            //subjectsList.getItems().add((Przedmioty)p);
-            subjectsTable.getItems().add((Przedmioty) p);
-        }
-
-
-      /*  subjectsList.setCellFactory(CheckBoxListCell.forListView(new Callback<Przedmioty, ObservableValue<Boolean>>() {
-            @Override
-            public ObservableValue<Boolean> call(Przedmioty item) {
-                return item.onProperty();
-            }
-        }));*/
-        }
 
     @Override
     public void passArguments(Map params) {

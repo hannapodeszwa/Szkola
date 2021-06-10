@@ -33,7 +33,7 @@ public class ManageClassController implements ParametrizedController {
         List l=c.displayClass();
 
 
-        nameC.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
+        nameC.setCellValueFactory(new PropertyValueFactory<>("numer"));
 
         for (Object k: l) {
             tableClass.getItems().add((Klasy) k);

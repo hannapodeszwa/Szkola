@@ -22,52 +22,5 @@ public class Subject implements ManageDataBase {
         List<Przedmioty> results = query.getResultList();
         return results;
     }
-    /**
-     * Modifies existing student in database
-     *
-     * @param object new object
-     */
-    /*public void update(Object object) {
-        em = MyManager.getEntityManager();
-        try {
-            em.getTransaction().begin();
-
-            em.merge(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-    }
-
-
-    /**
-     * Insert new object to database
-     *
-     * @param object new object
-     */
-   /* public void persist(Object object) {
-        em = MyManager.getEntityManager();
-        try {
-            em.getTransaction().begin();
-
-            em.persist(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-    }
-
-    public void delete(Object object) {
-        em = MyManager.getEntityManager();
-        try {
-            em.getTransaction().begin();
-
-            em.remove(object);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-        }
-    }
-*/
 
 }
