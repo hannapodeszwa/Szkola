@@ -16,15 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageSubjectsController implements ParametrizedController {
+public class ManageSubjectsController {
 
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
     private TableColumn<Przedmioty, String> nameC;
 
-    @Override
-    public void passArguments(Map params) {    }
 
     @FXML
     public void initialize()

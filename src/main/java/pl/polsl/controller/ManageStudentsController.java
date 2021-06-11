@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageStudentsController implements ParametrizedController {
+public class ManageStudentsController {
     @FXML
     private TableView<Uczniowie> tableStudents;
     @FXML
@@ -24,11 +24,6 @@ public class ManageStudentsController implements ParametrizedController {
     private TableColumn<Uczniowie, String> classC;
 
 
-
-    @Override
-    public void passArguments(Map params) {
-
-    }
 
 
     @FXML
@@ -52,21 +47,21 @@ public class ManageStudentsController implements ParametrizedController {
 
     public void addStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Logowanie ucznia");
+        System.out.println("Dodawanie ucznia");
         Map params = new HashMap<String, String>();
 
-        params.put("tryb","dodawanie");
+        params.put("mode","add");
         Main.setRoot("addOrUpdateStudentForm",params);
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Logowanie ucznia");
+        System.out.println("Modyfikowanie ucznia");
 
         Map params = new HashMap<String, String>();
 
-        params.put("uczen", tableStudents.getSelectionModel().getSelectedItem());
-        params.put("tryb","modyfikowanie");
+        params.put("student", tableStudents.getSelectionModel().getSelectedItem());
+        params.put("mode","update");
         //AddOrUpdateStudentsController
         Main.setRoot("addOrUpdateStudentForm",params);
     }
@@ -81,6 +76,6 @@ public class ManageStudentsController implements ParametrizedController {
 
     public void goBackButtonClick(ActionEvent event) throws IOException {
         System.out.println("Powrot");
-        Main.setRoot("adminMenuForm");
+        Main.setRoot("menu/adminMenuForm");
     }
 }

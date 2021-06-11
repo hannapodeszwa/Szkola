@@ -7,29 +7,23 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Klasy_;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.model.Class1;
-import pl.polsl.model.Subject;
+import pl.polsl.model.SchoolClass;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageClassController implements ParametrizedController {
+public class ManageClassController {
     @FXML
     private TableView<Klasy> tableClass;
     @FXML
     private TableColumn<Klasy, String> nameC;
 
-    @Override
-    public void passArguments(Map params) {    }
-
     @FXML
     public void initialize()
     {
-        Class1 c= new Class1();
+        SchoolClass c= new SchoolClass();
         List l=c.displayClass();
 
 

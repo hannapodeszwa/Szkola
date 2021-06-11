@@ -7,13 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.controller.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-import java.util.logging.Logger;
 
 public class Main extends Application {
     private static Scene scene;
@@ -48,7 +44,7 @@ public class Main extends Application {
         Parent ret = fxmlLoader.load();
         Object ob = fxmlLoader.getController();
         if (ob != null && ob instanceof ParametrizedController)
-            ((ParametrizedController)ob).passArguments(params);
+            ((ParametrizedController)ob).receiveArguments(params);
         return ret;
     }
 
