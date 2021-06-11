@@ -4,9 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.model.Class1;
-import pl.polsl.model.Subject;
+import pl.polsl.model.SchoolClass;
 
 import java.io.IOException;
 import java.util.Map;
@@ -45,10 +43,10 @@ public class AddOrUpdateClassController implements ParametrizedController{
             k.setIdPrzewodniczacego(1); //DO ZMIANY
             k.setIdWychowawcy(1); //DO ZMIANY
 
-            (new Class1()).persist(k);
+            (new SchoolClass()).persist(k);
         } else if (mode == md.Update) {
             toUpdate.setNumer(name.getText());
-            (new Class1()).update(toUpdate);
+            (new SchoolClass()).update(toUpdate);
         }
         Main.setRoot("manageClassForm");
 

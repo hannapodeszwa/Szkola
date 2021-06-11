@@ -47,21 +47,21 @@ public class ManageStudentsController {
 
     public void addStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Logowanie ucznia");
+        System.out.println("Dodawanie ucznia");
         Map params = new HashMap<String, String>();
 
-        params.put("tryb","dodawanie");
+        params.put("mode","add");
         Main.setRoot("addOrUpdateStudentForm",params);
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Logowanie ucznia");
+        System.out.println("Modyfikowanie ucznia");
 
         Map params = new HashMap<String, String>();
 
-        params.put("uczen", tableStudents.getSelectionModel().getSelectedItem());
-        params.put("tryb","modyfikowanie");
+        params.put("student", tableStudents.getSelectionModel().getSelectedItem());
+        params.put("mode","update");
         //AddOrUpdateStudentsController
         Main.setRoot("addOrUpdateStudentForm",params);
     }
