@@ -22,13 +22,13 @@
         </entry>
       </map>
     </option>
+    <option name="removeEntityPrefix" value="t_Uzytkownicy" />
     <option name="useLombok" value="false" />
   </component>
   <component name="DatabaseSettingsState">
     <option name="database" value="szkola" />
     <option name="driverClass" value="com.mysql.cj.jdbc.Driver" />
-    <option name="driverPath" value="C:\Users\hanna\.m2\repository\db\mysql-connector-java-8.0.25.jar" />
-    <option name="language" value="pl-PL" />
+    <option name="driverPath" value="D:\Git_projects\Szkola\mysql-connector-java-8.0.25.jar" />
     <option name="url" value="jdbc:mysql://localhost/szkola" />
   </component>
 </project>

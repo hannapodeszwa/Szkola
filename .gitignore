@@ -1,4 +1,13 @@
-target/classes/META-INF/persistence.xml
-src/main/resources/META-INF/persistence.xml
-/target/classes/
+#Maven
+target/
+log/
+
+#Intellij
+.idea/
+*.iml
+*.iws
+
+#META-INF
+src/main/resources/META-INF/
+
 /IdeaProjects

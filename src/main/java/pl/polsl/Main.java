@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        scene = new Scene(loadFXML("signIn"), 600, 600);
+        scene = new Scene(loadFXML("common/signIn"), 600, 600);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
@@ -43,7 +43,7 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml, Map params) throws IOException {
-        URL url = Main.class.getResource("/view/" + fxml + ".fxml");
+        URL url = Main.class.getResource(fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent ret = fxmlLoader.load();
         Object ob = fxmlLoader.getController();

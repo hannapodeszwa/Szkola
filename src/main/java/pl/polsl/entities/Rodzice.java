@@ -15,6 +15,9 @@ public class Rodzice implements Serializable {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer ID;
+    @Id
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "nrKontaktowy")
     private Integer nrKontaktowy;
@@ -89,5 +92,13 @@ public class Rodzice implements Serializable {
                 "nazwisko=" + nazwisko + '\'' +
                 "adres=" + adres + '\'' +
                 '}';
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
