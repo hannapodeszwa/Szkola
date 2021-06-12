@@ -5,6 +5,9 @@ import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static pl.polsl.model.Queries.*;
 
 public class UserModel {
@@ -19,6 +22,7 @@ public class UserModel {
                     .setParameter("PASSWORD", password)
                     .getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get value", e);
             return null;
         }
     }
@@ -30,6 +34,7 @@ public class UserModel {
                     .setParameter("LOGIN", login)
                     .getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get value", e);
             return null;
         }
     }

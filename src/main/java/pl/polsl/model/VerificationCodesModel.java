@@ -27,7 +27,7 @@ public class VerificationCodesModel {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            Logger.getLogger(MailSenderModel.class.getName()).log(Level.WARNING, "Could not insert value", e);
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not insert value", e);
         }
     }
 
@@ -38,7 +38,7 @@ public class VerificationCodesModel {
                     .setParameter("CODE", code)
                     .getSingleResult();
         } catch (NoResultException e) {
-            Logger.getLogger(MailSenderModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not get value", e);
             return null;
         }
     }

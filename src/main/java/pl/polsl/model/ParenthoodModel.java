@@ -21,7 +21,7 @@ public class ParenthoodModel {
                     .setParameter(1, id)
                     .getResultList();
         } catch (Exception e) {
-            Logger.getLogger(MailSenderModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(ParenthoodModel.class.getName()).log(Level.WARNING, "Could not get value", e);
             return null;
         }
     }
