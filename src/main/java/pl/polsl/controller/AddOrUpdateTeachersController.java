@@ -3,10 +3,7 @@ package pl.polsl.controller;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
@@ -27,6 +24,7 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
     public TextField name2;
     public TextField surname;
     public TextField phone;
+    public Label title;
 
     private Nauczyciele toUpdate;
 
@@ -40,11 +38,14 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add")
+        if (params.get("mode") == "add") {
             mode = md.Add;
+            title.setText("Dodawanie nauczyciela:");
+        }
         else {
             mode = md.Update;
            toUpdate = (Nauczyciele) params.get("teacher");
+            title.setText("Modyfikacja nauczyciela:");
         }
 
         if (toUpdate != null) {
@@ -61,7 +62,6 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
         if (mode == md.Add) {
-            System.out.println("Dodawanie nowego nauczyciela");
             Nauczyciele n = new Nauczyciele();
             n.setImie(name.getText());
             n.setDrugieImie(name2.getText());
@@ -70,13 +70,11 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
 
             (new Teacher()).persist(n);
         } else if (mode == md.Update) {
-            System.out.println("Modyfikowanie profilu nauczyciela");
             toUpdate.setImie(name.getText());
             toUpdate.setDrugieImie(name2.getText());
             toUpdate.setNazwisko(surname.getText());
             (new Teacher()).update(toUpdate);
         }
-        System.out.println("Modyfikowanie profilu nauczyciela");
         Main.setRoot("manageTeachersForm");
 
     }

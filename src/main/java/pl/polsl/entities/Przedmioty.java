@@ -12,6 +12,7 @@ public class Przedmioty implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
 

@@ -8,22 +8,25 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "klasy.findAll", query = "SELECT k FROM Klasy k"),
         @NamedQuery(name = "klasy.findByNumber", query = "SELECT k FROM Klasy k WHERE k.numer = :number"),
-        @NamedQuery(name = "klasy.findById", query = "SELECT k FROM Klasy k WHERE k.ID = :id")})
+        @NamedQuery(name = "klasy.findById", query = "SELECT k FROM Klasy k WHERE k.ID = :id"),
+        @NamedQuery(name = "klasy.findByTutor", query = "SELECT k FROM Klasy k WHERE k.idWychowawcy = :idWychowawcy"),
+        @NamedQuery(name = "klasy.findByLeader", query = "SELECT k FROM Klasy k WHERE k.idPrzewodniczacego = :idPrzewodniczacego")})
 public class Klasy implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
     @Column(name = "numer", nullable = false)
     private String numer;
 
-    @Column(name = "idWychowawcy", nullable = false)
+    @Column(name = "idWychowawcy")
     private Integer idWychowawcy;
 
-    @Column(name = "idPrzewodniczacego", nullable = false)
+    @Column(name = "idPrzewodniczacego")
     private Integer idPrzewodniczacego;
 
     public void setID(Integer ID) {

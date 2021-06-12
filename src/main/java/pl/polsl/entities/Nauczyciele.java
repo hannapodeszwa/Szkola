@@ -6,7 +6,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "nauczyciele")
 @NamedQueries({
-        @NamedQuery(name = "nauczyciele.findAll", query = "SELECT n FROM Nauczyciele n")})
+        @NamedQuery(name = "nauczyciele.findAll", query = "SELECT n FROM Nauczyciele n"),
+        @NamedQuery(name = "nauczyciele.findById", query = "SELECT n FROM Nauczyciele n WHERE n.ID = :id"),
+        @NamedQuery(name = "nauczyciele.findByName",
+                query = "SELECT n FROM Nauczyciele n WHERE n.imie = :name AND n.nazwisko = :surname")})
 public class Nauczyciele implements Serializable {
 
     private static final long serialVersionUID = 1L;

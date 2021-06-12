@@ -13,10 +13,13 @@ import java.util.Map;
 
 public class Main extends Application {
     private static Scene scene;
+    private static Stage stage;
+    private static double defaultWidth = 600;
+    private static double defaultHeight =600;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
+        stage=primaryStage;
         scene = new Scene(loadFXML("signIn"), 600, 600);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
@@ -24,12 +27,29 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void setRoot(String fxml) throws IOException {
+   /* public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
-    }
+    }*/
 
-    public static void setRoot(String fxml, Map params) throws IOException {
+   /* public static void setRoot(String fxml, Map params) throws IOException {
         scene.setRoot(loadFXML(fxml, params));
+    }*/
+    public static void setRoot(String fxml, Map params, double... size) throws IOException {
+        scene.setRoot(loadFXML(fxml, params));
+        resizeScene(size);
+    }
+    public static void setRoot(String fxml,double... size) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+        resizeScene(size);
+    }
+    public static void resizeScene(double[] size) {
+        if (size.length >= 2) {
+            stage.setWidth(size[0]);
+            stage.setHeight(size[1]);
+        } else {
+            stage.setWidth(defaultWidth);
+            stage.setHeight(defaultHeight);
+         }
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -50,8 +70,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         MyManager m = MyManager.getInstance();
-
-
         launch(args);
     }
 }
