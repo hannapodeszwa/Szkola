@@ -32,7 +32,7 @@ public class MenuAdministratorController extends Window {
     }
     public void pressManageClassButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("administratorActions/class/manageClassForm");
+        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
     }
     public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {

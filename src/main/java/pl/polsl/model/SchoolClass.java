@@ -32,6 +32,7 @@ public class SchoolClass implements ManageDataBase {
         return results.getID();
     }
 
+
     public String getClassNumber(Integer id)
     {
         em = MyManager.getEntityManager();

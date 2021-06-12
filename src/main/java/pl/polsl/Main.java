@@ -20,8 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage=primaryStage;
-        scene = new Scene(loadFXML("signIn"), stage.getWidth(),stage.getHeight());
-        //scene = new Scene(loadFXML("signIn"), 600, 600);
+        scene = new Scene(loadFXML("signIn"), defaultWidth, defaultHeight);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
