@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 public abstract class Window {
     private double defaultSize=600;
     //class
-    public double manageClassFormWidth = 370;
+    public double manageClassFormWidth = 350;
     public double manageClassFormHeight = 450;
     public double addOrUpdateClassFormWidth = 450;
     public double addOrUpdateClassFormHeight = 300;
