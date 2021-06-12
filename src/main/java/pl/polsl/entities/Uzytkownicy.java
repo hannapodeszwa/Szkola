@@ -13,36 +13,21 @@ public class Uzytkownicy implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "ID", nullable = false)
-    private Integer ID;
-
-    @Id
-    @Column(name = "email", nullable = false)
-    private String email;
-
     @Column(name = "login", nullable = false)
     private String login;
 
+    @Id
+    @Column(name = "ID", nullable = false)
+    private Integer ID;
+
     @Column(name = "haslo", nullable = false)
     private String haslo;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "dostep", nullable = false)
     private String dostep;
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
-
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public void setLogin(String login) {
         this.login = login;
@@ -50,6 +35,14 @@ public class Uzytkownicy implements Serializable {
 
     public String getLogin() {
         return login;
+    }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public Integer getID() {
+        return ID;
     }
 
     public void setHaslo(String haslo) {
@@ -60,14 +53,12 @@ public class Uzytkownicy implements Serializable {
         return haslo;
     }
 
-    @Override
-    public String toString() {
-        return "Uzytkownicy{" +
-                "ID=" + ID + '\'' +
-                "email=" + email + '\'' +
-                "login=" + login + '\'' +
-                "haslo=" + haslo + '\'' +
-                '}';
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setDostep(String dostep) {
@@ -76,5 +67,16 @@ public class Uzytkownicy implements Serializable {
 
     public String getDostep() {
         return dostep;
+    }
+
+    @Override
+    public String toString() {
+        return "Uzytkownicy{" +
+                "login=" + login + '\'' +
+                "ID=" + ID + '\'' +
+                "haslo=" + haslo + '\'' +
+                "email=" + email + '\'' +
+                "dostep=" + dostep + '\'' +
+                '}';
     }
 }

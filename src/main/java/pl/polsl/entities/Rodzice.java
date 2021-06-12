@@ -15,7 +15,7 @@ public class Rodzice implements Serializable {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer ID;
-    @Id
+
     @Column(name = "email", nullable = false)
     private String email;
 

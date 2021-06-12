@@ -16,10 +16,12 @@
             <TextField fx:id="loginTextField" accessibleRole="TEXT" onInputMethodTextChanged="#textChanged" promptText="Login" />
             <PasswordField fx:id="passwordTextField" accessibleRole="PASSWORD_FIELD" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
             <Label fx:id="errorLabel" />
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#signInClick" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Sign In">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#signInAction" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Sign In">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
+            <Label text="Forgot your password?" />
+            <Button fx:id="forgotPasswordButton" mnemonicParsing="false" onAction="#resetPasswordAction" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Reset password" />
          </children>
          <padding>
             <Insets left="100.0" right="100.0" />
