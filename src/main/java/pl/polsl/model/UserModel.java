@@ -4,11 +4,8 @@ import pl.polsl.MyManager;
 import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static pl.polsl.model.Queries.*;
 
 public class UserModel {
 
@@ -17,7 +14,7 @@ public class UserModel {
     public Uzytkownicy getUserByLoginAndPassword(String login, String password) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createQuery(GET_USER_BY_LOGIN_AND_PASSWORD, Uzytkownicy.class)
+            return entityManager.createNamedQuery("Uzytkownicy.getUserByLoginAndPassword", Uzytkownicy.class)
                     .setParameter("LOGIN", login)
                     .setParameter("PASSWORD", password)
                     .getSingleResult();
@@ -30,7 +27,7 @@ public class UserModel {
     public Uzytkownicy getUserByLogin(String login) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createQuery(GET_USER_BY_LOGIN, Uzytkownicy.class)
+            return entityManager.createNamedQuery("Uzytkownicy.getUserByLogin", Uzytkownicy.class)
                     .setParameter("LOGIN", login)
                     .getSingleResult();
         } catch (Exception e) {

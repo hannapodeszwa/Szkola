@@ -1,12 +1,13 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Rodzice.getParentEmailById",
+        query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID")
+})
 @Table(name = "rodzice")
 public class Rodzice implements Serializable {
 

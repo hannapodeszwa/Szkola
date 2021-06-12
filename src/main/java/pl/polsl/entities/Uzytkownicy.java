@@ -1,12 +1,16 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name="Uzytkownicy.getUserByLoginAndPassword",
+        query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN AND U.haslo = :PASSWORD"),
+
+        @NamedQuery(name="Uzytkownicy.getUserByLogin",
+        query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN")
+})
 @Table(name = "uzytkownicy")
 public class Uzytkownicy implements Serializable {
 

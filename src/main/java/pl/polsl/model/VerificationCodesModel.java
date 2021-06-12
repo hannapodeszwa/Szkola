@@ -2,15 +2,11 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.entities.Kodyweryfikacyjne;
-import pl.polsl.model.email.MailSenderModel;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static pl.polsl.model.Queries.*;
 
 public class VerificationCodesModel {
     EntityManager entityManager;
@@ -34,7 +30,7 @@ public class VerificationCodesModel {
     public Kodyweryfikacyjne getVerificationCode(String code) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createQuery(GET_VERIFICATION_CODE_DATA_BY_CODE, Kodyweryfikacyjne.class)
+            return entityManager.createNamedQuery("Kodyweryfikacyjne.getVerificationCodeByCode", Kodyweryfikacyjne.class)
                     .setParameter("CODE", code)
                     .getSingleResult();
         } catch (NoResultException e) {

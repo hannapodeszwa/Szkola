@@ -1,12 +1,13 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Kodyweryfikacyjne.getVerificationCodeByCode",
+        query = "SELECT K FROM Kodyweryfikacyjne K WHERE K.kod = :CODE")
+})
 @Table(name = "kodyweryfikacyjne")
 public class Kodyweryfikacyjne implements Serializable {
 
