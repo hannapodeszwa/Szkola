@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="358.0" prefWidth="301.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.MenuAdministratorController">
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.MenuAdministratorController">
    <children>
       <Button fx:id="buttonManageStudents" layoutX="79.0" layoutY="82.0" mnemonicParsing="false" onAction="#pressManageStudentsButton" prefHeight="25.0" prefWidth="143.0" text="Zarządzaj uczniami" />
       <Button layoutX="78.0" layoutY="247.0" mnemonicParsing="false" onAction="#pressCreateScheduleButton" prefHeight="25.0" prefWidth="143.0" text="Utworz plan" />

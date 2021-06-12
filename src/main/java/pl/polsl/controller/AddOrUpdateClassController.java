@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
@@ -17,7 +20,12 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class AddOrUpdateClassController implements ParametrizedController{
+public class AddOrUpdateClassController extends Window implements ParametrizedController{
+    double width = 450;
+    double height = 300;
+
+    @FXML
+    private AnchorPane window;
     public TextField name;
     public Label title;
     public ComboBox<String> tutor;
@@ -92,7 +100,7 @@ public class AddOrUpdateClassController implements ParametrizedController{
             setNewValues(toUpdate);
             (new SchoolClass()).update(toUpdate);
         }
-        Main.setRoot("manageClassForm");
+        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
     }
     private void setNewValues(Klasy k)
     {
@@ -105,7 +113,7 @@ public class AddOrUpdateClassController implements ParametrizedController{
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("manageClassForm");
+        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
     }
 
 

@@ -20,20 +20,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage=primaryStage;
-        scene = new Scene(loadFXML("signIn"), 600, 600);
+        scene = new Scene(loadFXML("signIn"), stage.getWidth(),stage.getHeight());
+        //scene = new Scene(loadFXML("signIn"), 600, 600);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-   /* public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }*/
-
-   /* public static void setRoot(String fxml, Map params) throws IOException {
-        scene.setRoot(loadFXML(fxml, params));
-    }*/
     public static void setRoot(String fxml, Map params, double... size) throws IOException {
         scene.setRoot(loadFXML(fxml, params));
         resizeScene(size);

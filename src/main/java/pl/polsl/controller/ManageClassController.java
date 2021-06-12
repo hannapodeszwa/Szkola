@@ -7,13 +7,12 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.SchoolClass;
-import pl.polsl.model.Subject;
-import pl.polsl.model.Teacher;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -21,11 +20,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageClassController {
+public class ManageClassController extends Window  {
+    double width = 600; //DO ZMIANY
+    double height = 600;
+    @FXML
+    private AnchorPane window;
     @FXML
     private TableView<Klasy> tableClass;
     @FXML
     private TableColumn<Klasy, String> nameC;
+
 
     @FXML
     public void initialize()
@@ -50,7 +54,8 @@ public class ManageClassController {
         Map params = new HashMap<String, String>();
 
         params.put("mode","add");
-        Main.setRoot("addOrUpdateClassForm",params, 450, 300);
+        Main.setRoot("administratorActions/class/addOrUpdateClassForm",params,
+                addOrUpdateClassFormWidth, addOrUpdateClassFormHeight);
     }
     public void updateClassButton(ActionEvent event) throws IOException
     {
@@ -67,7 +72,8 @@ public class ManageClassController {
             Map params = new HashMap<String, String>();
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
             params.put("mode","update");
-            Main.setRoot("addOrUpdateClassForm",params, 450, 300);
+            Main.setRoot("administratorActions/class/addOrUpdateClassForm",params,
+                    addOrUpdateClassFormWidth, addOrUpdateClassFormHeight);
         }
     }
 
@@ -99,4 +105,6 @@ public class ManageClassController {
     {
         Main.setRoot("menu/adminMenuForm");
     }
+
+
 }

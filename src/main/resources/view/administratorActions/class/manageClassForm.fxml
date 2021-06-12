@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="pl.polsl.controller.ManageClassController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane fx:id="window" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.ManageClassController">
     <children>
         <TableView fx:id="tableClass" layoutX="47.0" layoutY="36.0" prefHeight="299.0" prefWidth="250.0">
             <columns>
@@ -20,6 +14,9 @@
         <Button fx:id="buttonUpdateSubject" layoutX="366.0" layoutY="100.0" mnemonicParsing="false" onAction="#updateClassButton" text="Modyfikuj klase" />
         <Button layoutX="366.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteClassButton" text="Usuń klase" />
         <Button layoutX="477.0" layoutY="323.0" mnemonicParsing="false" onAction="#cancelButton" text="Wróć" />
-
+        <Label layoutX="365.0" layoutY="194.0" text="Wychowawca:" />
+        <Label layoutX="367.0" layoutY="212.0" text="wychowawca" />
+        <Label layoutX="358.0" layoutY="243.0" text="Przewodniczący:" />
+        <Label layoutX="359.0" layoutY="269.0" text="przewodniczący" />
     </children>
 </AnchorPane>

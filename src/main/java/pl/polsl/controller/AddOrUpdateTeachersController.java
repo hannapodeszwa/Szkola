@@ -1,25 +1,25 @@
 package pl.polsl.controller;
 
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxListCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.util.Callback;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
+import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.Student;
-import pl.polsl.model.Subject;
 import pl.polsl.model.Teacher;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-public class AddOrUpdateTeachersController implements ParametrizedController  {
+public class AddOrUpdateTeachersController extends Window implements ParametrizedController  {
+    double width = 470;
+    double height = 320;
+    @FXML
+    private AnchorPane window;
     public TextField name;
     public TextField name2;
     public TextField surname;
@@ -27,14 +27,8 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
     public Label title;
 
     private Nauczyciele toUpdate;
-
     public enum md {Add, Update}
-
     private md mode = md.Update;
-    public void initialize(md mode1) {
-        mode = mode1;
-    }
-
 
     @Override
     public void receiveArguments(Map params) {
@@ -55,35 +49,32 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
         }
     }
 
-
-
-
-
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
         if (mode == md.Add) {
             Nauczyciele n = new Nauczyciele();
-            n.setImie(name.getText());
-            n.setDrugieImie(name2.getText());
-            n.setNazwisko(surname.getText());
-            n.setNrKontaktowy(phone.getText());
-
+           setNewValues(n);
             (new Teacher()).persist(n);
         } else if (mode == md.Update) {
-            toUpdate.setImie(name.getText());
-            toUpdate.setDrugieImie(name2.getText());
-            toUpdate.setNazwisko(surname.getText());
+           setNewValues(toUpdate);
             (new Teacher()).update(toUpdate);
         }
-        Main.setRoot("manageTeachersForm");
+        Main.setRoot("administratorActions/teacher/manageTeachersForm",
+                manageTeachersFormWidth, manageTeachersFormHeight);
+    }
 
+    private void setNewValues(Nauczyciele n)
+    {
+        n.setImie(name.getText());
+        n.setDrugieImie(name2.getText());
+        n.setNazwisko(surname.getText());
+        n.setNrKontaktowy(phone.getText());
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException
     {
-        System.out.println("Zmiany anulowano");
-        Main.setRoot("manageTeachersForm");
-
+        Main.setRoot("administratorActions/teacher/manageTeachersForm",
+                manageTeachersFormWidth, manageTeachersFormHeight);
     }
 
 }
