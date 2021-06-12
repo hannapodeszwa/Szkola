@@ -1,4 +1,4 @@
-package pl.polsl.model;
+package pl.polsl.model.email;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -57,13 +57,11 @@ public class MailSenderModel {
             }
         });
 
-        CompletableFuture.runAsync(() -> {
-            Message message = prepareMessage(session, email, recipient);
-            try {
-                Transport.send(message);
-            } catch (Exception e) {
-                Logger.getLogger(MailSenderModel.class.getName()).log(Level.SEVERE, "Could not send message", e);
-            }
-        });
+        Message message = prepareMessage(session, email, recipient);
+        try {
+            Transport.send(message);
+        } catch (Exception e) {
+            Logger.getLogger(MailSenderModel.class.getName()).log(Level.SEVERE, "Could not send message", e);
+        }
     }
 }

@@ -1,10 +1,10 @@
-package pl.polsl.model;
+package pl.polsl.model.email;
 
 public abstract class EmailMessages {
 
     //Topics
-    static final String PASSWORD_RESET_CODE_TOPIC = "Password reset code.";
+    public static final String PASSWORD_RESET_CODE_TOPIC = "Password reset code.";
 
     //Messages
-    static final String PASSWORD_RESET_CODE_MESSAGE = "Use this code to reset your password.";
+    public static final String PASSWORD_RESET_CODE_MESSAGE = "Use this code to reset your password: ";
 }

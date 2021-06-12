@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
-public class VerificationCodesModel {
+public class VerificationCodesGenerator {
 
     public static final String upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -20,7 +20,7 @@ public class VerificationCodesModel {
 
     private final char[] buf;
 
-    private VerificationCodesModel(int length, Random random, String symbols) {
+    private VerificationCodesGenerator(int length, Random random, String symbols) {
         if (length < 1) throw new IllegalArgumentException();
         if (symbols.length() < 2) throw new IllegalArgumentException();
         this.random = Objects.requireNonNull(random);
@@ -31,7 +31,7 @@ public class VerificationCodesModel {
     /**
      * Create an alphanumeric string generator.
      */
-    public VerificationCodesModel(int length, Random random) {
+    public VerificationCodesGenerator(int length, Random random) {
         this(length, random, alphanum);
     }
 
