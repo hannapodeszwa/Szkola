@@ -21,6 +21,7 @@ public class StudentMenuController implements ParametrizedController {
 
     public enum md {Parent, Student}
     private md mode;
+    private String a;
 
     @FXML
     public Label labelTitle;
@@ -31,13 +32,17 @@ public class StudentMenuController implements ParametrizedController {
     @Override
     public void receiveArguments(Map params) {
 
-        String a = (String)params.get("mode");
+        a = (String)params.get("mode");
         if (a == "Parent") {
             mode = md.Parent;
+            a="rodzic";
         }
         else {
             mode = md.Student;
+            a="student";
         }
+
+
 
     }
 

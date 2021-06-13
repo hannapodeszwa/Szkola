@@ -1,14 +1,16 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javafx.scene.control.CheckBox;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "nieobecnosci")
+@NamedQueries({
+        @NamedQuery(name = "nieobecnosci.findAll", query = "SELECT n FROM Nieobecnosci n")
+})
 public class Nieobecnosci implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -17,10 +19,10 @@ public class Nieobecnosci implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
-    @Column(name = "Uczniowie_ID", nullable = false)
+    @Column(name = "idUcznia", nullable = false)
     private Integer uczniowieId;
 
-    @Column(name = "Przedmioty_ID", nullable = false)
+    @Column(name = "idPrzedmiotu", nullable = false)
     private Integer przedmiotyId;
 
     @Column(name = "data", nullable = false)
@@ -28,6 +30,7 @@ public class Nieobecnosci implements Serializable {
 
     @Column(name = "czyUsprawiedliwiona", nullable = false)
     private Integer czyUsprawiedliwiona;
+
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -68,7 +71,7 @@ public class Nieobecnosci implements Serializable {
     public Integer getCzyUsprawiedliwiona() {
         return czyUsprawiedliwiona;
     }
-
+    
     @Override
     public String toString() {
         return "Nieobecnosci{" +
