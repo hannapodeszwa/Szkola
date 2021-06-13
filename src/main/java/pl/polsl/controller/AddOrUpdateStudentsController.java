@@ -1,10 +1,13 @@
 package pl.polsl.controller;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
@@ -22,9 +25,17 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
     public TextField poleAdres;
     public TextField poleNazwisko;
     public ComboBox<String> poleKlasa;
+    public Button buttonAccept;
 
 
     private Uczniowie modyfikowany;
+
+    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
+        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty())// && !buttonAccept.isDisabled())
+            buttonAccept.setDisable(true);
+        else
+            buttonAccept.setDisable(false);
+    };
 
     @FXML
     public void initialize()
@@ -34,6 +45,14 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
         for (Klasy el : l) {
             poleKlasa.getItems().add(el.getNumer());
         }
+
+        poleImie.textProperty().addListener(TextListener);
+        poleNazwisko.textProperty().addListener(TextListener);
+
+        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty())// && !buttonAccept.isDisabled())
+            buttonAccept.setDisable(true);
+        else
+            buttonAccept.setDisable(false);
 
     }
 
