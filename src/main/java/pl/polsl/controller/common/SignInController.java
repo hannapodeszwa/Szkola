@@ -30,6 +30,7 @@ public class SignInController {
 
     private Parent parent;
     private Scene scene;
+    private Map params;
 
     @FXML
     public void initialize() {
@@ -52,7 +53,7 @@ public class SignInController {
            if(user != null){
                switch(user.getDostep()){
                    case "uczen":
-                       Map params = new HashMap<String, String>();
+                       params = new HashMap<String, String>();
                        params.put("mode", "Student");
                        params.put("id", user.getID());
                        Main.setRoot("menu/studentMenuForm");
@@ -61,9 +62,10 @@ public class SignInController {
                        Main.setRoot("menu/teacherMenuForm");
                        break;
                    case "rodzic":
-                       Map params = new HashMap<String, String>();
+                       params = new HashMap<String, String>();
                        params.put("mode", "Parent");
                        params.put("id", user.getID());
+                       Main.setRoot("menu/studentMenuForm");
                        break;
                    case "admin":
                        Main.setRoot("menu/adminMenuForm");
