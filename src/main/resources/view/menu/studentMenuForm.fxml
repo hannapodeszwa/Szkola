@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.StudentMenuController">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.StudentMenuController">
    <children>
       <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Konto ucznia" />
+            <Label fx:id="labelTitle" />
             <Button fx:id="buttonGrades" mnemonicParsing="false" text="Grades" />
-            <Button mnemonicParsing="false" text="Presence" />
-            <Button mnemonicParsing="false" text="Messages" />
+            <Button fx:id="buttonPresence" mnemonicParsing="false" text="Presence" />
+            <Button fx:id="buttonMessages" mnemonicParsing="false" text="Messages" />
             <Button mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
          </children>
       </VBox>

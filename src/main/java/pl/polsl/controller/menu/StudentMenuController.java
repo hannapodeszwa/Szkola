@@ -18,26 +18,40 @@ import java.util.Map;
 public class StudentMenuController implements ParametrizedController {
 
     private int id;
+
     public enum md {Parent, Student}
     private md mode;
 
     @FXML
     public Label labelTitle;
     public Button buttonGrades;
-    public Button buttonAttendance;
-    public Button buttonMessage;
+    public Button buttonPresence;
+    public Button buttonMessages;
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "Parent") {
+
+        String a = (String)params.get("mode");
+        if (a == "Parent") {
             mode = md.Parent;
-            labelTitle.setText("Konto rodzica");
         }
         else {
             mode = md.Student;
+        }
+
+    }
+
+    @FXML
+    public void initialize()
+    {
+        if(md.Parent == mode){
+            labelTitle.setText("Konto rodzica");
+        }
+        else{
             labelTitle.setText("Konto ucznia");
         }
     }
+
 
     public void clickButtonAttendance(ActionEvent event) throws IOException
     {
