@@ -7,7 +7,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
@@ -17,21 +20,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageSubjectsController {
-
+public class ManageSubjectsController extends Window {
+    double width = 500;
+    double height = 450;
+    @FXML
+    private AnchorPane window;
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
     private TableColumn<Przedmioty, String> nameC;
 
-
     @FXML
     public void initialize()
     {
-       displayTableSubjects();
+        displayTableSubjects();
     }
 
-    public void displayTableSubjects()
+    private void displayTableSubjects()
     {
         tableSubjects.getItems().clear();
         Subject s= new Subject();
@@ -46,7 +51,8 @@ public class ManageSubjectsController {
     {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
-        Main.setRoot("addOrUpdateSubjectForm",params, 400, 280);
+        Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
+                addOrUpdateSubjectFormWidth, addOrUpdateSubjectFormHeight);
     }
 
     public void updateSubjectButton(ActionEvent event) throws IOException
@@ -64,7 +70,8 @@ public class ManageSubjectsController {
             Map params = new HashMap<String, String>();
             params.put("subject", toUpdate);
             params.put("mode", "update");
-            Main.setRoot("addOrUpdateSubjectForm",params, 400, 280);
+            Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
+                    addOrUpdateSubjectFormWidth, addOrUpdateSubjectFormHeight);
         }
     }
 

@@ -2,12 +2,16 @@ package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
@@ -19,7 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageTeachersController {
+public class ManageTeachersController extends Window  {
+    double width = 600; //DO ZMIANY
+    double height = 600;
+    @FXML
+    private AnchorPane window;
     @FXML
     private TableView<Nauczyciele> tableTeachers;
     @FXML
@@ -33,6 +41,7 @@ public class ManageTeachersController {
     {
         displayTableTeachers();
     }
+
     public void displayTableTeachers()
     {
         tableTeachers.getItems().clear();
@@ -51,7 +60,8 @@ public class ManageTeachersController {
     {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
-       Main.setRoot("addOrUpdateTeacherForm",params, 470, 320);
+       Main.setRoot("administratorActions/teacher/addOrUpdateTeacherForm",params,
+               addOrUpdateTeacherFormWidth, addOrUpdateTeacherFormHeight);
     }
 
     public void updateTeacherButton(ActionEvent event) throws IOException
@@ -69,7 +79,8 @@ public class ManageTeachersController {
             Map params = new HashMap<String, String>();
             params.put("teacher", tableTeachers.getSelectionModel().getSelectedItem());
             params.put("mode", "update");
-            Main.setRoot("addOrUpdateTeacherForm", params, 470, 320);
+            Main.setRoot("administratorActions/teacher/addOrUpdateTeacherForm", params,
+                    addOrUpdateTeacherFormWidth, addOrUpdateTeacherFormHeight);
         }
     }
 
@@ -118,4 +129,6 @@ public class ManageTeachersController {
     {
         Main.setRoot("menu/adminMenuForm");
     }
+
+
 }

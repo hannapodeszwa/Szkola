@@ -1,16 +1,23 @@
 package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
+import pl.polsl.Window;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateSubjectController implements ParametrizedController {
+public class AddOrUpdateSubjectController extends Window implements ParametrizedController {
+    double width = 400;
+    double height = 280;
+    @FXML
+    private AnchorPane window;
     public TextField name;
     public Label title;
 
@@ -18,9 +25,6 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     public enum md {Add, Update}
     private md mode = md.Update;
 
-    public void initialize(md mode1) {
-        mode = mode1;
-    }
     @Override
     public void receiveArguments(Map params) {
         if (params.get("mode") == "add") {
@@ -49,11 +53,13 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
             toUpdate.setNazwa(name.getText());
             (new Subject()).update(toUpdate);
         }
-        Main.setRoot("manageSubjectsForm");
+        Main.setRoot("administratorActions/subject/manageSubjectsForm",
+                manageSubjectsFormWidth, manageSubjectsFormHeight);
 
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("manageSubjectsForm");
+        Main.setRoot("administratorActions/subject/manageSubjectsForm",
+                manageSubjectsFormWidth, manageSubjectsFormHeight);
     }
 }

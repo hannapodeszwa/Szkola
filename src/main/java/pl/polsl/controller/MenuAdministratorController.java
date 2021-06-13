@@ -5,10 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.Window;
 
 import java.io.IOException;
 
-public class MenuAdministratorController {
+public class MenuAdministratorController extends Window {
     private final Stage thisStage;
 
     public MenuAdministratorController() {
@@ -23,15 +24,15 @@ public class MenuAdministratorController {
     }
     public void pressManageTeacherButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageTeachersForm");
+        Main.setRoot("administratorActions/teacher/manageTeachersForm", manageTeachersFormWidth, manageTeachersFormHeight );
     }
     public void pressManageSubjectButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageSubjectsForm");
+        Main.setRoot("administratorActions/subject/manageSubjectsForm", manageSubjectsFormWidth, manageSubjectsFormHeight);
     }
     public void pressManageClassButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageClassForm");
+        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
     }
     public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {

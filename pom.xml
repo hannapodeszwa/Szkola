@@ -13,16 +13,6 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-<!--    <build>-->
-<!--    <resources>-->
-<!--        <resource>-->
-<!--            <directory>src</directory>-->
-<!--            <includes>-->
-<!--                <include>META-INF/persistence.xml</include>-->
-<!--            </includes>-->
-<!--        </resource>-->
-<!--    </resources>-->
-<!--    </build>-->
 
     <dependencies>
         <dependency>
