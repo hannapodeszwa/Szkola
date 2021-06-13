@@ -53,7 +53,7 @@ public class SignInController {
     }
 
     public void signInClick() throws IOException {
-       if(!loginTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()){
+       if(true/*!loginTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()*/){//łatwe logowanie
            login = loginTextField.getText();
            password = passwordTextField.getText();
 
