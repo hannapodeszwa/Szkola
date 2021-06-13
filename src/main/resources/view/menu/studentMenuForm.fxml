@@ -8,11 +8,12 @@
    <children>
       <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="labelTitle" />
-            <Button fx:id="buttonGrades" mnemonicParsing="false" text="Grades" />
-            <Button fx:id="buttonPresence" mnemonicParsing="false" text="Presence" />
+            <Label fx:id="labelTitle" text="Titles" />
+            <Button fx:id="buttonGrades" mnemonicParsing="false" text="Oceny" />
+            <Button fx:id="buttonPresence" mnemonicParsing="false" onAction="#clickButtonPresence" text="Obecności" />
+            <Button mnemonicParsing="false" text="Plan lekcji" />
             <Button fx:id="buttonMessages" mnemonicParsing="false" text="Messages" />
-            <Button mnemonicParsing="false" onAction="#logOutAction" text="Log out" />
+            <Button mnemonicParsing="false" onAction="#logOutAction" text="Wyloguj" />
          </children>
       </VBox>
    </children>

@@ -7,7 +7,4 @@ log/
 *.iml
 *.iws
 
-#META-INF
-src/main/resources/META-INF/
-
 /IdeaProjects

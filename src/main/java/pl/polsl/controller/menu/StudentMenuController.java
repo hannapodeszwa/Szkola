@@ -53,9 +53,9 @@ public class StudentMenuController implements ParametrizedController {
     }
 
 
-    public void clickButtonAttendance(ActionEvent event) throws IOException
+    public void clickButtonPresence(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageTeachers");
+        Main.setRoot("studentActions/studentPresence");
     }
 
 
