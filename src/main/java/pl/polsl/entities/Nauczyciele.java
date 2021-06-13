@@ -18,6 +18,9 @@ public class Nauczyciele implements Serializable {
     @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
+    @Id
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "imie", nullable = false)
     private String imie;
@@ -30,6 +33,8 @@ public class Nauczyciele implements Serializable {
 
     @Column(name = "nrKontaktowy")
     private String nrKontaktowy;
+    @Column(name = "adres")
+    private String adres;
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -80,5 +85,21 @@ public class Nauczyciele implements Serializable {
                 "nazwisko=" + nazwisko + '\'' +
                 "nrKontaktowy=" + nrKontaktowy + '\'' +
                 '}';
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setAdres(String adres) {
+        this.adres = adres;
+    }
+
+    public String getAdres() {
+        return adres;
     }
 }

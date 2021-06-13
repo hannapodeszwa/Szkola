@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.controller.*;
+import pl.polsl.controller.common.ChangePasswordController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage=primaryStage;
-        scene = new Scene(loadFXML("signIn"), defaultWidth, defaultHeight);
+        scene = new Scene(loadFXML("common/signIn"), defaultWidth, defaultHeight);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);

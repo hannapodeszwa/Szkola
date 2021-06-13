@@ -9,38 +9,40 @@ import pl.polsl.entities.Uczniowie;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Teacher implements ManageDataBase {
 
     /**
      * Entity manager
      */
-    EntityManager em;
+    EntityManager entityManager;
 
 
     public List displayTeachers()
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
 
         TypedQuery query =
-                em.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
+                entityManager.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
         List<Nauczyciele> results = query.getResultList();
         return results;
     }
 
     public List checkTutor(Nauczyciele teacher)
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         TypedQuery query =
-                em.createNamedQuery("klasy.findByTutor", Klasy.class);
+                entityManager.createNamedQuery("klasy.findByTutor", Klasy.class);
         List<Klasy> results = query.setParameter("idWychowawcy", teacher.getID()).getResultList();
 
         return results;
     }
     public Nauczyciele getTeacherById(Integer id)
     {
-        em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("nauczyciele.findById", Nauczyciele.class);
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("nauczyciele.findById", Nauczyciele.class);
         query.setParameter("id", id);
         Nauczyciele results = (Nauczyciele) query.getSingleResult();
         return results;

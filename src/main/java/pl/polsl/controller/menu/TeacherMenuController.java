@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.menu;
 
 import javafx.event.ActionEvent;
 import pl.polsl.Main;
@@ -7,23 +7,28 @@ import java.io.IOException;
 
 public class TeacherMenuController {
 
-    public void pressManageStudentsButton(ActionEvent event) throws IOException
+    public void viewGradesAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageStudents");
     }
-    public void pressManageTeacherButton(ActionEvent event) throws IOException
+    public void viewPresencesAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("manageTeachers");
     }
 
-    public void createScheduleButton(ActionEvent event) throws IOException
+    public void writeGradesAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("createSchedule");
+    }
+
+    public void writePresenceAction(ActionEvent event) throws IOException
+    {
+    }
+
+    public void messagesAction(ActionEvent event) throws IOException
+    {
     }
 
     public void logOutAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("signIn");
+        Main.setRoot("common/signIn");
     }
 
 }

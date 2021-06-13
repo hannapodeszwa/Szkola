@@ -7,10 +7,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/annotations" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="project" />
+    <orderEntry type="library" name="Maven: javax.mail:mail:1.5.0-b01" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: mysql:mysql-connector-java:8.0.25" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.projectlombok:lombok:1.18.10" level="project" />
@@ -32,6 +36,5 @@
     <orderEntry type="library" name="Maven: org.openjfx:javafx-base:win:11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:11" level="project" />
     <orderEntry type="library" name="Maven: org.openjfx:javafx-fxml:win:11" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.25" level="project" />
   </component>
 </module>
