@@ -3,10 +3,12 @@ package pl.polsl.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Table(name = "przedmioty")
 @NamedQueries({
-        @NamedQuery(name = "przedmioty.findAll", query = "SELECT p FROM Przedmioty p")})
+        @NamedQuery(name = "przedmioty.findByTutorId", query = "SELECT DISTINCT p.nazwa FROM Przedmioty p INNER JOIN Rozklady r ON p.ID = r.idPrzedmiotu WHERE r.idNauczyciela = :idNauczyciela"),
+       @NamedQuery(name = "przedmioty.findAll", query = "SELECT p FROM Przedmioty p")})
 public class Przedmioty implements Serializable {
 
     private static final long serialVersionUID = 1L;

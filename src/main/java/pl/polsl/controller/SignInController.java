@@ -17,6 +17,8 @@ import pl.polsl.Main;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,7 +75,14 @@ public class SignInController {
                    case "Teacher":
                        //check in DB if account is Teacher
                        if(true){
-                           Main.setRoot("menu/teacherMenuForm");
+
+                           Map params = new HashMap<String, Integer>();
+
+                           params.put("teacher", 1); //TODO: change to signed in teacher ID
+
+
+
+                           Main.setRoot("menu/teacherMenuForm", params);
                        } else {
                            errorLabel.setText("Permissions incorrect");
                        }

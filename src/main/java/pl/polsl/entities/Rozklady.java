@@ -1,13 +1,11 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "rozklady")
+
 public class Rozklady implements Serializable {
 
     private static final long serialVersionUID = 1L;
