@@ -46,7 +46,7 @@ public class MailSenderModel {
         return null;
     }
 
-    public void sendMail(String recipient) {
+    public Boolean sendMail(String recipient) {
         String email = "tabulatorysemestr6@gmail.com";
         String password = "4Dup41945";
 
@@ -60,8 +60,10 @@ public class MailSenderModel {
         Message message = prepareMessage(session, email, recipient);
         try {
             Transport.send(message);
+            return true;
         } catch (Exception e) {
             Logger.getLogger(MailSenderModel.class.getName()).log(Level.SEVERE, "Could not send message", e);
+            return false;
         }
     }
 }

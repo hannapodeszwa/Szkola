@@ -1,40 +1,43 @@
 package pl.polsl.model;
 
 import pl.polsl.MyManager;
+import pl.polsl.entities.Kodyweryfikacyjne;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Teacher {
 
     /**
      * Entity manager
      */
-    EntityManager em;
+    EntityManager entityManager;
 
 
     public List displayTeachers()
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
 
         TypedQuery query =
-                em.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
+                entityManager.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
         List<Nauczyciele> results = query.getResultList();
         return results;
     }
 
     public void update(Object object) {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         try {
-            em.getTransaction().begin();
+            entityManager.getTransaction().begin();
 
-            em.merge(object);
-            em.getTransaction().commit();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            entityManager.getTransaction().rollback();
         }
     }
 
@@ -45,14 +48,14 @@ public class Teacher {
      * @param object new object
      */
     public void persist(Object object) {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         try {
-            em.getTransaction().begin();
+            entityManager.getTransaction().begin();
 
-            em.persist(object);
-            em.getTransaction().commit();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            entityManager.getTransaction().rollback();
         }
     }
 }

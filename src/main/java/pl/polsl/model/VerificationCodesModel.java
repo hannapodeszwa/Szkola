@@ -23,7 +23,7 @@ public class VerificationCodesModel {
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             entityManager.getTransaction().rollback();
-            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not insert value", e);
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not insert varification code");
         }
     }
 
@@ -34,8 +34,34 @@ public class VerificationCodesModel {
                     .setParameter("CODE", code)
                     .getSingleResult();
         } catch (NoResultException e) {
-            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not get verification code by code");
             return null;
+        }
+    }
+
+    public Kodyweryfikacyjne getVerificationCodeByLogin(String login){
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("Kodyweryfikacyjne.getVerificationCodeByLogin", Kodyweryfikacyjne.class)
+                    .setParameter("LOGIN", login)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not get verification code by login");
+            return null;
+        }
+    }
+
+    public void removeVerificationCodeByLogin(String login){
+        entityManager = MyManager.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createQuery("DELETE FROM Kodyweryfikacyjne K WHERE K.login = :LOGIN", Kodyweryfikacyjne.class)
+                    .setParameter("LOGIN", login)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (NoResultException e) {
+            Logger.getLogger(VerificationCodesModel.class.getName()).log(Level.WARNING, "Could not delete code by login");
+            entityManager.getTransaction().rollback();
         }
     }
 }

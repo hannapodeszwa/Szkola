@@ -6,7 +6,9 @@ import java.io.Serializable;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Kodyweryfikacyjne.getVerificationCodeByCode",
-        query = "SELECT K FROM Kodyweryfikacyjne K WHERE K.kod = :CODE")
+        query = "SELECT K FROM Kodyweryfikacyjne K WHERE K.kod = :CODE"),
+        @NamedQuery(name = "Kodyweryfikacyjne.getVerificationCodeByLogin",
+        query = "SELECT K FROM Kodyweryfikacyjne K WHERE K.login = :LOGIN")
 })
 @Table(name = "kodyweryfikacyjne")
 public class Kodyweryfikacyjne implements Serializable {

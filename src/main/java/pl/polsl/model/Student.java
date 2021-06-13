@@ -6,18 +6,20 @@ import pl.polsl.MyManager;
 import pl.polsl.entities.*;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Student {
     /**
      * Entity manager
      */
-    EntityManager em;
+    EntityManager entityManager;
 
 
     public List displayStudents()
     {
-        em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("uczniowie.findAll", Uczniowie.class);
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.findAll", Uczniowie.class);
         List<Uczniowie> results = query.getResultList();
         return results;
     }
@@ -37,14 +39,14 @@ public class Student {
      * @param object new object
      */
     public void update(Object object) {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         try {
-            em.getTransaction().begin();
+            entityManager.getTransaction().begin();
 
-            em.merge(object);
-            em.getTransaction().commit();
+            entityManager.merge(object);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            entityManager.getTransaction().rollback();
         }
     }
 
@@ -55,14 +57,14 @@ public class Student {
      * @param object new object
      */
     public void persist(Object object) {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         try {
-            em.getTransaction().begin();
+            entityManager.getTransaction().begin();
 
-            em.persist(object);
-            em.getTransaction().commit();
+            entityManager.persist(object);
+            entityManager.getTransaction().commit();
         } catch (Exception e) {
-            em.getTransaction().rollback();
+            entityManager.getTransaction().rollback();
         }
     }
 

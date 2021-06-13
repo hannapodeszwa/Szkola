@@ -26,7 +26,7 @@ public class ManageStudentsController implements ParametrizedController {
 
 
     @Override
-    public void passArguments(Map params) {
+    public void receiveArguments(Map params) {
 
     }
 

@@ -25,7 +25,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
         mode = mode1;
     }
     @Override
-    public void passArguments(Map params) {
+    public void receiveArguments(Map params) {
         if (params.get("mode") == "add")
             mode = md.Add;
         else {

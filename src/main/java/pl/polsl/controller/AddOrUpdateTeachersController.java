@@ -70,7 +70,7 @@ public class AddOrUpdateTeachersController implements ParametrizedController  {
         }
 
     @Override
-    public void passArguments(Map params) {
+    public void receiveArguments(Map params) {
         if (params.get("mode") == "add")
             mode = md.Add;
         else {

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.controller.*;
+import pl.polsl.controller.common.ChangePasswordController;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -43,18 +44,12 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml, Map params) throws IOException {
-        URL url = Main.class.getResource(fxml + ".fxml");
+        URL url = Main.class.getResource("/view/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent ret = fxmlLoader.load();
         Object ob = fxmlLoader.getController();
-        if (ob != null && ob.getClass() == (new AddOrUpdateStudentsController()).getClass())
-            ((AddOrUpdateStudentsController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateTeachersController()).getClass())
-            ((AddOrUpdateTeachersController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateSubjectController()).getClass())
-            ((AddOrUpdateSubjectController)ob).passArguments(params);
-        else if (ob != null && ob.getClass() == (new AddOrUpdateClassController()).getClass())
-            ((AddOrUpdateClassController)ob).passArguments(params);
+        if (ob != null && ob instanceof ParametrizedController)
+            ((ParametrizedController)ob).receiveArguments(params);
         return ret;
     }
 

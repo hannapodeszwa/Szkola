@@ -4,6 +4,7 @@ import pl.polsl.MyManager;
 import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
+import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,7 @@ public class UserModel {
                     .setParameter("PASSWORD", password)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login and password", e);
             return null;
         }
     }
@@ -31,8 +32,24 @@ public class UserModel {
                     .setParameter("LOGIN", login)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login", e);
             return null;
+        }
+    }
+
+    public void updatePasswordByIdAndRole(String role, Integer id, String password) {
+        entityManager = MyManager.getEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.createNamedQuery("Uzytkownicy.updatePasswordByIdAndRole", Uzytkownicy.class)
+                    .setParameter("PASSWORD", password)
+                    .setParameter("ROLE", role)
+                    .setParameter("ID", id)
+                    .executeUpdate();
+            entityManager.getTransaction().commit();
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not update password");
+            entityManager.getTransaction().rollback();
         }
     }
 }

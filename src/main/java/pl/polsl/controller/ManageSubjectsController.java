@@ -24,7 +24,7 @@ public class ManageSubjectsController implements ParametrizedController {
     private TableColumn<Przedmioty, String> nameC;
 
     @Override
-    public void passArguments(Map params) {    }
+    public void receiveArguments(Map params) {    }
 
     @FXML
     public void initialize()

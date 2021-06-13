@@ -28,7 +28,7 @@ public class ManageTeachersController implements ParametrizedController {
     private TableColumn<Uczniowie, String> surnameC;
 
     @Override
-    public void passArguments(Map params) {
+    public void receiveArguments(Map params) {
 
     }
 
