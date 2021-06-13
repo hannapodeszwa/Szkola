@@ -53,7 +53,7 @@ public class ManageStudentsController {
         buttonDeleteStudent.setDisable(true);
         buttonUpdateStudent.setDisable(true);
 
-        tableStudents.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        tableStudents.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 buttonDeleteStudent.setDisable(false);
                 buttonUpdateStudent.setDisable(false);
