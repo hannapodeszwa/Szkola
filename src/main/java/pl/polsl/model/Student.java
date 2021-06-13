@@ -7,18 +7,20 @@ import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Student implements ManageDataBase {
     /**
      * Entity manager
      */
-    EntityManager em;
+    EntityManager entityManager;
 
 
     public List displayStudents()
     {
-        em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("uczniowie.findAll", Uczniowie.class);
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.findAll", Uczniowie.class);
         List<Uczniowie> results = query.getResultList();
         return results;
     }

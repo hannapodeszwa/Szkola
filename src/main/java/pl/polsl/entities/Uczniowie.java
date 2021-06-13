@@ -17,6 +17,9 @@ public class Uczniowie implements Serializable {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer ID;
+    @Id
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Column(name = "idKlasy", nullable = false)
     private Integer idKlasy;
@@ -91,5 +94,13 @@ public class Uczniowie implements Serializable {
                 "nazwisko=" + nazwisko + '\'' +
                 "adres=" + adres + '\'' +
                 '}';
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

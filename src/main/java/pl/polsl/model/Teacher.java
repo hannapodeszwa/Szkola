@@ -9,21 +9,23 @@ import pl.polsl.entities.Uczniowie;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Teacher implements ManageDataBase {
 
     /**
      * Entity manager
      */
-    EntityManager em;
+    EntityManager entityManager;
 
 
     public List displayTeachers()
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
 
         TypedQuery query =
-                em.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
+                entityManager.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
         List<Nauczyciele> results = query.getResultList();
         return results;
     }

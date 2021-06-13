@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400" minWidth="400" prefHeight="400.0" prefWidth="400.0" scaleShape="false" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.SignInController">
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400" minWidth="400" prefHeight="400.0" prefWidth="400.0" scaleShape="false" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.common.SignInController">
    <children>
       <VBox alignment="CENTER" layoutX="-2.0" layoutY="1.0" maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -17,21 +15,13 @@
       
             <TextField fx:id="loginTextField" accessibleRole="TEXT" onInputMethodTextChanged="#textChanged" promptText="Login" />
             <PasswordField fx:id="passwordTextField" accessibleRole="PASSWORD_FIELD" prefHeight="25.0" prefWidth="149.0" promptText="Password" />
-            <ComboBox fx:id="rolesComboBox" prefWidth="150.0" value="Student">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <String fx:value="Student" />
-                     <String fx:value="Teacher" />
-                     <String fx:value="Parent" />
-                     <String fx:value="Administrator" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
             <Label fx:id="errorLabel" />
-            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#signInClick" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Sign In">
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#signInAction" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Sign In">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
+            <Label text="Forgot your password?" />
+            <Button fx:id="forgotPasswordButton" mnemonicParsing="false" onAction="#resetPasswordAction" prefHeight="25.0" prefWidth="126.0" styleClass="button-confirm" text="Reset password" />
          </children>
          <padding>
             <Insets left="100.0" right="100.0" />

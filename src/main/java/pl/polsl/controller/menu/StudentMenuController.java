@@ -1,4 +1,8 @@
-package pl.polsl.controller;
+package pl.polsl.controller.menu;
+
+import pl.polsl.Main;
+
+import java.io.IOException;
 
 
 import javafx.event.ActionEvent;
@@ -42,4 +46,7 @@ public class StudentMenuController implements ParametrizedController {
 
 
 
+    public void logOutAction() throws IOException {
+        Main.setRoot("common/signIn");
+    }
 }

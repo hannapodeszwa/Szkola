@@ -1,3 +1,13 @@
-src/main/resources/META-INF/persistence.xml
-/target/
-/.idea/
+#Maven
+target/
+log/
+
+#Intellij
+.idea/
+*.iml
+*.iws
+
+#META-INF
+src/main/resources/META-INF/
+
+/IdeaProjects
