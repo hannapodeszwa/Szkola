@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 
 import java.io.IOException;
 import java.util.Map;

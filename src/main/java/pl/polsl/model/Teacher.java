@@ -32,17 +32,17 @@ public class Teacher implements ManageDataBase {
 
     public List checkTutor(Nauczyciele teacher)
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         TypedQuery query =
-                em.createNamedQuery("klasy.findByTutor", Klasy.class);
+                entityManager.createNamedQuery("klasy.findByTutor", Klasy.class);
         List<Klasy> results = query.setParameter("idWychowawcy", teacher.getID()).getResultList();
 
         return results;
     }
     public Nauczyciele getTeacherById(Integer id)
     {
-        em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("nauczyciele.findById", Nauczyciele.class);
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("nauczyciele.findById", Nauczyciele.class);
         query.setParameter("id", id);
         Nauczyciele results = (Nauczyciele) query.getSingleResult();
         return results;
