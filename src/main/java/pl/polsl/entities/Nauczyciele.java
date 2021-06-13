@@ -33,8 +33,7 @@ public class Nauczyciele implements Serializable {
 
     @Column(name = "nrKontaktowy")
     private String nrKontaktowy;
-    @Column(name = "adres")
-    private String adres;
+
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -95,11 +94,4 @@ public class Nauczyciele implements Serializable {
         return email;
     }
 
-    public void setAdres(String adres) {
-        this.adres = adres;
-    }
-
-    public String getAdres() {
-        return adres;
-    }
 }

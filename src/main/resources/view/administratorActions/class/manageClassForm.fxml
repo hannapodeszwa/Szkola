@@ -14,7 +14,7 @@
         <Button fx:id="buttonAddNewSubject" layoutX="156.0" layoutY="60.0" mnemonicParsing="false" onAction="#addClassButton" prefHeight="26.0" prefWidth="137.0" text="Dodaj nową klasę" AnchorPane.rightAnchor="20.0" />
         <Button fx:id="buttonUpdateSubject" layoutX="174.0" layoutY="96.0" mnemonicParsing="false" onAction="#updateClassButton" prefHeight="26.0" prefWidth="138.0" text="Modyfikuj klasę" AnchorPane.rightAnchor="20.0" />
         <Button layoutX="174.0" layoutY="131.0" mnemonicParsing="false" onAction="#deleteClassButton" prefHeight="26.0" prefWidth="138.0" text="Usuń klasę" AnchorPane.rightAnchor="20.0" />
-        <Button layoutX="246.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelButton" text="Powrót" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+        <Button layoutX="246.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelButton" prefWidth="69.0" text="Powrót" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
         <Label layoutX="186.0" layoutY="180.0" text="Wychowawca:" AnchorPane.leftAnchor="186.0" />
         <Label fx:id="tutor" layoutX="188.0" layoutY="200.0" AnchorPane.leftAnchor="186.0" />
         <Label layoutX="191.0" layoutY="229.0" text="Przewodniczący:" AnchorPane.leftAnchor="186.0" />
