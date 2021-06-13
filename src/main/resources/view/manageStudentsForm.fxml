@@ -14,7 +14,7 @@
       </TableView>
       <Button fx:id="buttonAddNewStudent" layoutX="366.0" layoutY="44.0" mnemonicParsing="false" onAction="#addStudentsButton" text="Dodaj nowego ucznia" />
       <Button fx:id="buttonUpdateStudent" layoutX="366.0" layoutY="100.0" mnemonicParsing="false" onAction="#updateStudentsButton" text="Modyfikuj dane ucznia" />
-      <Button layoutX="366.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteStudentsButton" text="Usuń ucznia" />
+      <Button fx:id="buttonDeleteStudent" layoutX="366.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteStudentsButton" text="Usuń ucznia" />
       <Button layoutX="366.0" layoutY="200.0" mnemonicParsing="false" onAction="#goBackButtonClick" text="Powrót" />
    </children>
 </AnchorPane>

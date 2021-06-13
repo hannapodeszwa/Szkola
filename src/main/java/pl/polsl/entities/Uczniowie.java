@@ -1,5 +1,7 @@
 package pl.polsl.entities;
 
+import pl.polsl.model.SchoolClass;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
