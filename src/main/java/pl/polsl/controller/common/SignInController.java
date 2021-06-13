@@ -57,6 +57,9 @@ public class SignInController {
                    case "rodzic":
                        //Main.setRoot("/view/menu/studentMenuForm");
                        break;
+                   case "admin":
+                       Main.setRoot("menu/adminMenuForm");
+                       break;
                }
            } else errorLabel.setText("Wrong login or password");
 
