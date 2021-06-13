@@ -7,10 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import pl.polsl.Main;
+import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.UserModel;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignInController {
 
@@ -49,13 +52,18 @@ public class SignInController {
            if(user != null){
                switch(user.getDostep()){
                    case "uczen":
+                       Map params = new HashMap<String, String>();
+                       params.put("mode", "Student");
+                       params.put("id", user.getID());
                        Main.setRoot("menu/studentMenuForm");
                        break;
                    case  "nauczyciel":
                        Main.setRoot("menu/teacherMenuForm");
                        break;
                    case "rodzic":
-                       //Main.setRoot("/view/menu/studentMenuForm");
+                       Map params = new HashMap<String, String>();
+                       params.put("mode", "Parent");
+                       params.put("id", user.getID());
                        break;
                    case "admin":
                        Main.setRoot("menu/adminMenuForm");
