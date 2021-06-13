@@ -16,7 +16,7 @@ public class ParentModel {
                     .setParameter("ID", id)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(ParentModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(ParentModel.class.getName()).log(Level.WARNING, "Could not get parent's email by id", e);
             return null;
         }
     }

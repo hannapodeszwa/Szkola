@@ -20,7 +20,7 @@ public class ParenthoodModel {
                     .setParameter("ID", id)
                     .getResultList();
         } catch (Exception e) {
-            Logger.getLogger(ParenthoodModel.class.getName()).log(Level.WARNING, "Could not get value", e);
+            Logger.getLogger(ParenthoodModel.class.getName()).log(Level.WARNING, "Could not get parents by child", e);
             return null;
         }
     }
