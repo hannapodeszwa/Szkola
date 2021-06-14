@@ -1,11 +1,13 @@
 package pl.polsl.entities;
 
 import javafx.scene.control.CheckBox;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
+@Data
 @Entity
 @Table(name = "nieobecnosci")
 @NamedQueries({
@@ -19,14 +21,17 @@ public class Nieobecnosci implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
-    @Column(name = "idUcznia", nullable = false)
-    private Integer uczniowieId;
-
     @Column(name = "idPrzedmiotu", nullable = false)
-    private Integer przedmiotyId;
+    private Integer idPrzedmiotu;
+
+    @Column(name = "idUcznia", nullable = false)
+    private Integer idUcznia;
 
     @Column(name = "data", nullable = false)
     private Date data;
+
+    @Column(name = "godzina", nullable = false)
+    private Integer godzina;
 
     @Column(name = "czyUsprawiedliwiona", nullable = false)
     private Integer czyUsprawiedliwiona;
@@ -41,19 +46,19 @@ public class Nieobecnosci implements Serializable {
     }
 
     public void setUczniowieId(Integer uczniowieId) {
-        this.uczniowieId = uczniowieId;
+        this.idUcznia = uczniowieId;
     }
 
     public Integer getUczniowieId() {
-        return uczniowieId;
+        return idUcznia;
     }
 
     public void setPrzedmiotyId(Integer przedmiotyId) {
-        this.przedmiotyId = przedmiotyId;
+        this.idPrzedmiotu = przedmiotyId;
     }
 
     public Integer getPrzedmiotyId() {
-        return przedmiotyId;
+        return idPrzedmiotu;
     }
 
     public void setData(Date data) {
@@ -64,20 +69,36 @@ public class Nieobecnosci implements Serializable {
         return data;
     }
 
-    public void setCzyUsprawiedliwiona(Integer czyUsprawiedliwiona) {
-        this.czyUsprawiedliwiona = czyUsprawiedliwiona;
+    public void setGodzina(Integer data) {
+        this.godzina = data;
     }
 
-    public Integer getCzyUsprawiedliwiona() {
-        return czyUsprawiedliwiona;
+    public Integer getGodzina(){ return godzina; }
+
+    public void setCzyUsprawiedliwiona(CheckBox czyUsprawiedliwiona) {//trzeba coś takiego zrobić żeby był checkbox w tablicy
+        if (czyUsprawiedliwiona.isSelected()) {
+            this.czyUsprawiedliwiona = 1;
+        } else {
+            this.czyUsprawiedliwiona = 0;
+        }
     }
-    
+
+    public CheckBox getCzyUsprawiedliwiona() {
+        CheckBox a = new CheckBox();
+        if (czyUsprawiedliwiona == 0) {
+            a.setSelected(false);
+        } else {
+            a.setSelected(true);
+        }
+        return a;
+    }
+
     @Override
     public String toString() {
         return "Nieobecnosci{" +
                 "ID=" + ID + '\'' +
-                "uczniowieId=" + uczniowieId + '\'' +
-                "przedmiotyId=" + przedmiotyId + '\'' +
+                "uczniowieId=" + idUcznia + '\'' +
+                "przedmiotyId=" + idPrzedmiotu + '\'' +
                 "data=" + data + '\'' +
                 "czyUsprawiedliwiona=" + czyUsprawiedliwiona + '\'' +
                 '}';

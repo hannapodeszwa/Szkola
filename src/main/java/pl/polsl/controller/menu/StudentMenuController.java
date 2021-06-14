@@ -13,6 +13,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StudentMenuController implements ParametrizedController {
@@ -22,6 +23,7 @@ public class StudentMenuController implements ParametrizedController {
     public enum md {Parent, Student}
     private md mode;
     private String a;
+    private Map params;
 
     @FXML
     public Label labelTitle;
@@ -32,16 +34,8 @@ public class StudentMenuController implements ParametrizedController {
     @Override
     public void receiveArguments(Map params) {
 
-        a = (String)params.get("mode");
-        if (a == "Parent") {
-            mode = md.Parent;
-            a="rodzic";
-        }
-        else {
-            mode = md.Student;
-            a="student";
-        }
-
+        mode = md.valueOf((String)params.get("mode"));
+        id = (Integer) params.get("id");
 
 
     }
@@ -60,7 +54,10 @@ public class StudentMenuController implements ParametrizedController {
 
     public void clickButtonPresence(ActionEvent event) throws IOException
     {
-        Main.setRoot("studentActions/studentPresence");
+        params = new HashMap<String, String>();
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentPresence",params);
     }
 
 

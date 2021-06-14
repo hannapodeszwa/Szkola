@@ -6,15 +6,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentPresenceController">
    <children>
       <TableView fx:id="table" layoutX="42.0" layoutY="50.0" prefHeight="257.0" prefWidth="495.0">
          <columns>
+            <TableColumn fx:id="columnSubject" prefWidth="75.0" text="Przedmiot" />
             <TableColumn fx:id="columnDate" prefWidth="75.0" text="Data" />
-            <TableColumn fx:id="columnHour" prefWidth="75.0" text="Godzina" />
-            <TableColumn fx:id="columnCheck" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="columnHour" onEditCommit="#onEditChange" prefWidth="75.0" text="Godzina" />
+            <TableColumn fx:id="columnCheck" onEditCancel="#CheckCancel" onEditCommit="#CheckCommit" onEditStart="#CheckStart" prefWidth="75.0" text="Usprawiedliwienie" />
          </columns>
       </TableView>
+      <Button fx:id="buttonBack" layoutX="468.0" layoutY="341.0" mnemonicParsing="false" onAction="#clickButtonBack" text="Powrót" />
    </children>
 </AnchorPane>

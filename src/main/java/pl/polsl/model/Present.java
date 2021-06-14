@@ -2,7 +2,9 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
+import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nieobecnosci;
+import pl.polsl.entities.Przedmioty;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -21,5 +23,14 @@ public class Present implements ManageDataBase {
         return results;
     }
 
+
+    public String getSubjectName(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("przedmioty.findById", Przedmioty.class);
+        query.setParameter("id", id);
+        Przedmioty results = (Przedmioty) query.getSingleResult();
+        return results.getNazwa();
+    }
 
 }
