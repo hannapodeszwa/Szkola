@@ -30,9 +30,6 @@ public class Uzytkownicy implements Serializable {
     @Column(name = "haslo", nullable = false)
     private String haslo;
 
-    @Column(name = "email")
-    private String email;
-
     @Column(name = "dostep", nullable = false)
     private String dostep;
 
@@ -60,14 +57,6 @@ public class Uzytkownicy implements Serializable {
         return haslo;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
     public void setDostep(String dostep) {
         this.dostep = dostep;
     }
@@ -82,7 +71,6 @@ public class Uzytkownicy implements Serializable {
                 "login=" + login + '\'' +
                 "ID=" + ID + '\'' +
                 "haslo=" + haslo + '\'' +
-                "email=" + email + '\'' +
                 "dostep=" + dostep + '\'' +
                 '}';
     }

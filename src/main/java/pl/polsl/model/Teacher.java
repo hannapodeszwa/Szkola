@@ -47,6 +47,18 @@ public class Teacher implements ManageDataBase {
         Nauczyciele results = (Nauczyciele) query.getSingleResult();
         return results;
     }
+
+    public String getTeacherEmailByID(Integer Id){
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("nauczyciele.getTeacherEmailByID", String.class)
+                    .setParameter("ID", Id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get email by id", e);
+            return null;
+        }
+    }
    /* public Nauczyciele getTeacherByName(String s)
     {
         em = MyManager.getEntityManager();

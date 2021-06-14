@@ -8,11 +8,8 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.entities.Rodzicielstwo;
-import pl.polsl.entities.Uzytkownicy;
-import pl.polsl.model.ParentModel;
-import pl.polsl.model.ParenthoodModel;
-import pl.polsl.model.UserModel;
-import pl.polsl.model.VerificationCodesModel;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.model.email.VerificationCodesGenerator;
 
@@ -34,6 +31,8 @@ public class ResetPasswordController {
     private UserModel userModel;
     private ParenthoodModel parenthoodModel;
     private ParentModel parentModel;
+    private Student studentModel;
+    private Teacher teacherModel;
 
     @FXML
     private TextField loginTextField;
@@ -60,6 +59,8 @@ public class ResetPasswordController {
         userModel = new UserModel();
         parenthoodModel = new ParenthoodModel();
         parentModel = new ParentModel();
+        studentModel = new Student();
+        teacherModel = new Teacher();
         emailValidator = new EmailAddressController();
         loginTextField.textProperty().addListener((observable, oldVal, newVal) -> {
             loginSet = !newVal.isEmpty();
@@ -77,11 +78,11 @@ public class ResetPasswordController {
     public void sendVerificationEmailAction() {
         Uzytkownicy user = userModel.getUserByLogin(loginTextField.getText());
         if (user != null) {
-            if (user.getEmail() != null && emailTextField.getText().equals(user.getEmail())) {
+            String email = getUserEmailByIdAndRole(user.getID(), user.getDostep());
+            if (email != null && emailTextField.getText().equals(email)) {
                 prepareVerification(user);
             } else {
                 List<Rodzicielstwo> ids = parenthoodModel.getParentsByChildID(user.getID());
-                System.out.println(ids.get(0));
                 for (Rodzicielstwo id : ids) {
                     String code = parentModel.getParentEmailByID(id.getIdRodzica());
                     if (code.equals(emailTextField.getText())) {
@@ -149,5 +150,17 @@ public class ResetPasswordController {
         mailSenderModel.setTopic(PASSWORD_RESET_CODE_TOPIC);
         mailSenderModel.setMessageText(PASSWORD_RESET_CODE_MESSAGE + code);
         return mailSenderModel.sendMail(emailTextField.getText());
+    }
+
+    private String getUserEmailByIdAndRole(Integer id, String role) {
+        switch (role) {
+            case "uczen":
+                return studentModel.getStudentEmailById(id);
+            case "rodzic":
+                return parentModel.getParentEmailByID(id);
+            case "nauczyciel":
+                return teacherModel.getTeacherEmailByID(id);
+        }
+        return null;
     }
 }

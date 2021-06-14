@@ -8,8 +8,9 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "nauczyciele.findAll", query = "SELECT n FROM Nauczyciele n"),
         @NamedQuery(name = "nauczyciele.findById", query = "SELECT n FROM Nauczyciele n WHERE n.ID = :id"),
-        @NamedQuery(name = "nauczyciele.findByName",
-                query = "SELECT n FROM Nauczyciele n WHERE n.imie = :name AND n.nazwisko = :surname")})
+        @NamedQuery(name = "nauczyciele.findByName", query = "SELECT n FROM Nauczyciele n WHERE n.imie = :name AND n.nazwisko = :surname"),
+        @NamedQuery(name = "nauczyciele.getTeacherEmailByID", query = "SELECT n.email FROM Nauczyciele n WHERE n.ID = :ID")
+})
 public class Nauczyciele implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -33,6 +33,18 @@ public class Student implements ManageDataBase {
         Uczniowie results = (Uczniowie) query.getSingleResult();
         return results;
     }
+
+    public String getStudentEmailById(Integer Id){
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("uczniowie.getStudentEmailById", String.class)
+                    .setParameter("ID", Id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get email by id", e);
+            return null;
+        }
+    }
     /*public Nauczyciele getStudentByName(String s)
     {
         em = MyManager.getEntityManager();

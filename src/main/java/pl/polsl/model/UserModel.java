@@ -4,7 +4,6 @@ import pl.polsl.MyManager;
 import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
-import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

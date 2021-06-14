@@ -9,6 +9,8 @@
     <class>pl.polsl.entities.Kodyweryfikacyjne</class>
     <class>pl.polsl.entities.Uzytkownicy</class>
     <class>pl.polsl.entities.Nieobecnosci</class>
+    <class>pl.polsl.entities.Rodzice</class>
+    <class>pl.polsl.entities.Rodzicielstwo</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11418837"/>
       <property name="javax.persistence.jdbc.user" value="sql11418837"/>

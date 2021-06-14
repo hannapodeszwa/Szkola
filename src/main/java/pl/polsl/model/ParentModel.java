@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 public class ParentModel {
     EntityManager entityManager;
 
-    public String getParentEmailByID(int id) {
+    public String getParentEmailByID(Integer id) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createNamedQuery("Rodzice.getParentEmailById", String.class)
+            return entityManager.createNamedQuery("rodzice.getParentEmailById", String.class)
                     .setParameter("ID", id)
                     .getSingleResult();
         } catch (Exception e) {

@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "Rodzice.getParentEmailById",
+        @NamedQuery(name = "rodzice.getParentEmailById",
         query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID")
 })
 @Table(name = "rodzice")

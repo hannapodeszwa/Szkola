@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import pl.polsl.Main;
-import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.UserModel;
 
