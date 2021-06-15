@@ -17,7 +17,6 @@ public class Rodzicielstwo implements Serializable {
     @Column(name = "idUcznia", nullable = false)
     private Integer idUcznia;
 
-    @Id
     @Column(name = "idRodzica", nullable = false)
     private Integer idRodzica;
 

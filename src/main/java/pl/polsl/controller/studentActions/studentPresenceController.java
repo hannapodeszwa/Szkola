@@ -51,7 +51,7 @@ public class studentPresenceController implements ParametrizedController {
 
     @Override
     public void receiveArguments(Map params) {
-        mode = StudentMenuController.md.valueOf((String)params.get("mode"));
+        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
         id = (Integer) params.get("id");
 
     }
@@ -63,15 +63,13 @@ public class studentPresenceController implements ParametrizedController {
         Present s = new Present();
         list = s.displayPresent();
 
-        for(Nieobecnosci a : list){
+        for (Nieobecnosci a : list) {
             data.add(new Presentv2(a));
         }
 
         columnDate.setCellValueFactory(new PropertyValueFactory<Presentv2, Date>("data"));
         columnHour.setCellValueFactory(new PropertyValueFactory<Presentv2, Integer>("godzina"));
         columnCheck.setCellValueFactory(new PropertyValueFactory<Presentv2, CheckBox>("czyUsp"));
-
-
 
 
         columnSubject.setCellValueFactory(CellData -> {
@@ -85,26 +83,26 @@ public class studentPresenceController implements ParametrizedController {
 
     }
 
-    public void clickButtonBack(ActionEvent event) throws IOException
-    {
+    public void clickButtonBack(ActionEvent event) throws IOException {
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm",params);
+        Main.setRoot("menu/studentMenuForm", params);
 
 
-        for(Presentv2 a : data){
-            if(a.Usp.isSelected() != (a.czyUsprawiedliwiona!=0)){
-                for(Nieobecnosci find : list){
-                    if(a.ID == find.ID){
-                        (new Present()).persist(find);
-                    }
+        Integer index = 0;
+        for (Presentv2 a : data) {
+
+            if (a.Usp.isSelected() != (a.czyUsprawiedliwiona != 0)) {
+                Nieobecnosci find = list.get(index);
+                if (a.Usp.isSelected() == true) {
+                    find.setCzyUsprawiedliwiona(1);
+                } else {
+                    find.setCzyUsprawiedliwiona(0);
                 }
-
-
-
-
+                (new Present()).update(find);
             }
+            index++;
         }
 
     }
@@ -114,20 +112,6 @@ public class studentPresenceController implements ParametrizedController {
         nieb.setGodzina(nieobecnosciDateCellEditEvent.getNewValue());
 
     }
-
-    public void CheckCancel(TableColumn.CellEditEvent<Nieobecnosci, CheckBox> nieobecnosciCheckBoxCellEditEvent) {
-        Integer a = 2;
-    }
-
-    public void CheckCommit(TableColumn.CellEditEvent<Nieobecnosci, CheckBox> nieobecnosciCheckBoxCellEditEvent) {
-        Integer a = 2;
-    }
-
-    public void CheckStart(TableColumn.CellEditEvent<Nieobecnosci, CheckBox> nieobecnosciCheckBoxCellEditEvent) {
-        Integer a = 2;
-    }
-
-
 
 
 }

@@ -7,13 +7,13 @@ public class Presentv2 extends Nieobecnosci {
     public CheckBox Usp = new CheckBox();
 
 
-    public Presentv2(Nieobecnosci akt){
-        this.czyUsprawiedliwiona = akt.czyUsprawiedliwiona;
-        this.ID = akt.ID;
-        this.data = akt.data;
-        this.godzina = akt.godzina;
-        this.idPrzedmiotu = akt.idPrzedmiotu;
-        this.idUcznia =akt.idUcznia;
+    public Presentv2(Nieobecnosci act){
+        this.czyUsprawiedliwiona = act.czyUsprawiedliwiona;
+        this.ID = act.ID;
+        this.data = act.data;
+        this.godzina = act.godzina;
+        this.idPrzedmiotu = act.idPrzedmiotu;
+        this.idUcznia =act.idUcznia;
         if (czyUsprawiedliwiona == 0) {
             Usp.setSelected(false);
         } else {

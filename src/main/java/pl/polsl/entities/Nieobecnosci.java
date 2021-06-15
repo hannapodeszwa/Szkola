@@ -76,23 +76,6 @@ public class Nieobecnosci implements Serializable {
 
     public Integer getGodzina(){ return godzina; }
 
-    //public void setCzyUsprawiedliwiona(CheckBox czyUsprawiedliwiona) {//trzeba coś takiego zrobić żeby był checkbox w tablicy
-    //    if (czyUsprawiedliwiona.isSelected()) {
-    //        this.czyUsprawiedliwiona = 1;
-    //    } else {
-    //        this.czyUsprawiedliwiona = 0;
-    //    }
-    //}
-
-    //public CheckBox getCzyUsprawiedliwiona() {
-    //    CheckBox a = new CheckBox();
-    //    if (czyUsprawiedliwiona == 0) {
-    //        a.setSelected(false);
-    //    } else {
-    //        a.setSelected(true);
-     //   }
-     //   return a;
-   // }
     public void setCzyUsprawiedliwiona(Integer czyUsprawiedliwiona){
         this.czyUsprawiedliwiona = czyUsprawiedliwiona;
     }

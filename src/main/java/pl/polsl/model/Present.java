@@ -21,16 +21,7 @@ public class Present implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
         List<Nieobecnosci> results = query.getResultList();
-
-        List<Presentv2> result3 = new ArrayList();
-
-
-        List<Presentv2> result2 = (List<Presentv2>)(List<?>) results;
-
-
-
-
-        return result3;
+        return results;
     }
 
 
