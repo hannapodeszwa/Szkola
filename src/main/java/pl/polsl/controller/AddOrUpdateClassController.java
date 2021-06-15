@@ -16,15 +16,12 @@ import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 public class AddOrUpdateClassController extends Window2 implements ParametrizedController{
-    double width = 450;
-    double height = 300;
 
-    @FXML
-    private AnchorPane window;
     public TextField name;
     public Label title;
     public ComboBox<String> tutor;
@@ -49,6 +46,7 @@ public class AddOrUpdateClassController extends Window2 implements ParametrizedC
         leader.getItems().add(null);
         Student student = new Student();
         students = student.displayStudents();
+       // students.sort(Comparator.comparing(Object::toString));
         for (Uczniowie u : students) {
             leader.getItems().add(u.getImie() + " " + u.getNazwisko());
         }

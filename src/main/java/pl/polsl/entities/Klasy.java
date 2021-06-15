@@ -9,6 +9,8 @@ import java.io.Serializable;
         @NamedQuery(name = "klasy.findAll", query = "SELECT k FROM Klasy k"),
         @NamedQuery(name = "klasy.findByNumber", query = "SELECT k FROM Klasy k WHERE k.numer = :number"),
         @NamedQuery(name = "klasy.findById", query = "SELECT k FROM Klasy k WHERE k.ID = :id"),
+        @NamedQuery(name = "klasy.findStudentsById", query = "SELECT u FROM Klasy k, Uczniowie u WHERE k.ID = :id" +
+                " AND u.idKlasy = k.ID"),
         @NamedQuery(name = "klasy.findByTutor", query = "SELECT k FROM Klasy k WHERE k.idWychowawcy = :idWychowawcy"),
         @NamedQuery(name = "klasy.findByLeader", query = "SELECT k FROM Klasy k WHERE k.idPrzewodniczacego = :idPrzewodniczacego")})
 public class Klasy implements Serializable {

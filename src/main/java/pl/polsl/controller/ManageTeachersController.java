@@ -14,7 +14,9 @@ import pl.polsl.WindowSize;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.Teacher;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -89,11 +91,7 @@ public class ManageTeachersController extends Window2 {
 
         if(toDelete==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Usuwanie nauczyciela");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz nauczyciela do usunięcia.");
-            alert.showAndWait();
+          chooseTeacherAlert();
         }
         else {
             List<Klasy> classTutorList = (new Teacher()).checkTutor(toDelete); //find class where this teacher is tutor
@@ -114,16 +112,45 @@ public class ManageTeachersController extends Window2 {
             alert.setContentText(toDelete.getImie() + " " + toDelete.getNazwisko());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                if(!(classTutorList.isEmpty())) {
-                    for (Klasy k: classTutorList) {
-                        k.setIdWychowawcy(null); //delete this teacher from class
-                    }
-                }
-                (new Teacher()).delete(toDelete);
+
+                deleteTeacher(toDelete, classTutorList);
                 displayTableTeachers();
             }
         }
     }
+
+   private void deleteTeacher(Nauczyciele toDelete, List <Klasy> classTutorList)
+   {
+       if(!(classTutorList.isEmpty())) {
+           for (Klasy k: classTutorList) {
+               k.setIdWychowawcy(null); //delete this teacher from class
+           }
+       }
+
+       //USUWANIE UZYTKOWNIKA
+       Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "nauczyciel");
+       if(userToDelete !=null)
+       {
+           (new UserModel()).delete(userToDelete);
+       }
+
+       //UsUwANIE WIADOMOSCI
+
+
+       //do rozkladu zmienic na nulle
+
+       (new Teacher()).delete(toDelete);
+   }
+
+    private void chooseTeacherAlert()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Usuwanie nauczyciela");
+        alert.setHeaderText(null);
+        alert.setContentText("Wybierz nauczyciela do usunięcia.");
+        alert.showAndWait();
+    }
+
     public void cancelButton(ActionEvent event) throws IOException
     {
         Main.setRoot("menu/adminMenuForm");

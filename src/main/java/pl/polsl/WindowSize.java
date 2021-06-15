@@ -2,6 +2,7 @@ package pl.polsl;
 
 public enum WindowSize {
     //ADMINISTRATOR
+    adminMenuForm (0,0),
     //class
     manageClassForm (350,450),
     addOrUpdateClassForm(450,300),

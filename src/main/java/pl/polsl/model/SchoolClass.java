@@ -42,6 +42,14 @@ public class SchoolClass implements ManageDataBase {
         return results.getNumer();
     }
 
+public List getStudentsByClass(Klasy k)
+{
+    em = MyManager.getEntityManager();
+    TypedQuery query =
+            em.createNamedQuery("klasy.findStudentsById", Klasy.class);
+    List<Klasy> results = query.setParameter("id", k.getID()).getResultList();
 
+    return results;
+}
 
 }

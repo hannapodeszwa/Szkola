@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.WindowSize;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
@@ -19,11 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageSubjectsController extends Window2 {
-    double width = 500;
-    double height = 450;
-    @FXML
-    private AnchorPane window;
+public class ManageSubjectsController{
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
@@ -51,7 +48,7 @@ public class ManageSubjectsController extends Window2 {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
         Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
-                addOrUpdateSubjectFormWidth, addOrUpdateSubjectFormHeight);
+                WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
     }
 
     public void updateSubjectButton(ActionEvent event) throws IOException
@@ -70,7 +67,7 @@ public class ManageSubjectsController extends Window2 {
             params.put("subject", toUpdate);
             params.put("mode", "update");
             Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
-                    addOrUpdateSubjectFormWidth, addOrUpdateSubjectFormHeight);
+                    WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
         }
     }
 
@@ -79,11 +76,7 @@ public class ManageSubjectsController extends Window2 {
         Przedmioty toDelete = tableSubjects.getSelectionModel().getSelectedItem();
         if(toDelete==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Usuwanie przedmiotu");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz przedmiot do usunięcia.");
-            alert.showAndWait();
+           chooseSubjectAlert();
         }
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -92,13 +85,27 @@ public class ManageSubjectsController extends Window2 {
             alert.setContentText(toDelete.getNazwa());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
+                //USUWANIE Z ROZKLADU
+                //USUWANIE OCEN I NIEOBECNOSCI
+
                 (new Subject()).delete(toDelete);
                 displayTableSubjects();
             }
         }
     }
+
+    private void chooseSubjectAlert()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Usuwanie przedmiotu");
+        alert.setHeaderText(null);
+        alert.setContentText("Wybierz przedmiot do usunięcia.");
+        alert.showAndWait();
+    }
+
     public void cancelButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm",
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getWidth());
     }
 }
