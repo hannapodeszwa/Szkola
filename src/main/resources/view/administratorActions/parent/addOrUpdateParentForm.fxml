@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.AddOrUpdateParentController">
+    <children>
+        <Button layoutX="207.0" layoutY="237.0" mnemonicParsing="false" onAction="#confirmChangesButton" styleClass="button-confirm" text="Zatwierdź" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="97.0" />
+        <Button layoutX="290.0" layoutY="238.0" mnemonicParsing="false" onAction="#discardChangesButton" text="Anuluj" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+        <TextField fx:id="name" layoutX="169.0" layoutY="58.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+        <TextField fx:id="surname" layoutX="167.0" layoutY="109.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
+        <TextField fx:id="name2" layoutX="167.0" layoutY="81.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="85.0" />
+        <TextField fx:id="phone" layoutX="167.0" layoutY="196.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="190.0" />
+        <Label layoutX="30.0" layoutY="53.0" prefHeight="18.0" prefWidth="64.0" text="Imie:" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="53.0" />
+        <Label layoutX="30.0" layoutY="124.0" text="Nazwisko:" AnchorPane.leftAnchor="30.0" />
+        <Label layoutX="31.0" layoutY="194.0" text="Numer kontaktowy:" AnchorPane.leftAnchor="30.0" />
+        <Label layoutX="29.0" layoutY="89.0" text="Drugie imie:" AnchorPane.leftAnchor="30.0" />
+        <Label fx:id="title" layoutX="35.0" layoutY="22.0" prefHeight="27.0" prefWidth="208.0" text="Title" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="30.0" layoutY="159.0" text="Email:" AnchorPane.leftAnchor="30.0" />
+        <TextField fx:id="email" layoutX="167.0" layoutY="142.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
+        <TextField fx:id="login" layoutX="168.0" layoutY="241.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" />
+        <TextField fx:id="password" layoutX="168.0" layoutY="276.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" />
+        <Label layoutX="30.0" layoutY="245.0" text="Login:" AnchorPane.leftAnchor="30.0" />
+        <Label layoutX="30.0" layoutY="280.0" text="Hasło:" AnchorPane.leftAnchor="30.0" />
+    </children>
+</AnchorPane>

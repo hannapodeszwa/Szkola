@@ -7,9 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.Window;
+import pl.polsl.Window2;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageClassController extends Window {
+public class ManageClassController extends Window2 {
     double width = 600; //DO ZMIANY
     double height = 600;
     @FXML

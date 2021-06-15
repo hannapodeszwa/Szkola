@@ -8,9 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.Window;
+import pl.polsl.Window2;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageSubjectsController extends Window {
+public class ManageSubjectsController extends Window2 {
     double width = 500;
     double height = 450;
     @FXML
