@@ -36,20 +36,15 @@ public class StudentMenuController implements ParametrizedController {
 
         mode = md.valueOf((String)params.get("mode"));
         id = (Integer) params.get("id");
-
-
-    }
-
-    @FXML
-    public void initialize()
-    {
         if(md.Parent == mode){
             labelTitle.setText("Konto rodzica");
         }
         else{
             labelTitle.setText("Konto ucznia");
         }
+
     }
+
 
 
     public void clickButtonPresence(ActionEvent event) throws IOException

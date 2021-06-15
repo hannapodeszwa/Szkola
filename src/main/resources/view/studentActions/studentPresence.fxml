@@ -6,16 +6,17 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentPresenceController">
+<AnchorPane prefHeight="400.0" prefWidth="502.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentPresenceController">
    <children>
-      <TableView fx:id="table" layoutX="42.0" layoutY="50.0" prefHeight="257.0" prefWidth="495.0">
+      <TableView fx:id="table" layoutX="27.0" layoutY="46.0" prefHeight="257.0" prefWidth="416.0">
          <columns>
-            <TableColumn fx:id="columnSubject" prefWidth="75.0" text="Przedmiot" />
-            <TableColumn fx:id="columnDate" prefWidth="75.0" text="Data" />
-            <TableColumn fx:id="columnHour" onEditCommit="#onEditChange" prefWidth="75.0" text="Godzina" />
-            <TableColumn fx:id="columnCheck" prefWidth="75.0" text="Usprawiedliwienie" />
+            <TableColumn fx:id="columnSubject" prefWidth="150.0" resizable="false" text="Przedmiot" />
+            <TableColumn fx:id="columnDate" resizable="false" style="-fx-alignment: CENTER;" text="Data" />
+            <TableColumn fx:id="columnHour" minWidth="0.0" onEditCommit="#onEditChange" prefWidth="60.0" resizable="false" style="-fx-alignment: CENTER;" text="Godzina" />
+            <TableColumn fx:id="columnCheck" prefWidth="110.0" resizable="false" style="-fx-alignment: CENTER;" text="Usprawiedliwienie" />
          </columns>
       </TableView>
-      <Button fx:id="buttonBack" layoutX="468.0" layoutY="341.0" mnemonicParsing="false" onAction="#clickButtonBack" text="Powrót" />
+      <Button fx:id="buttonBack" layoutX="389.0" layoutY="342.0" mnemonicParsing="false" onAction="#clickButtonBack" text="Powrót" />
+      <ComboBox fx:id="comboboxChildren" layoutX="27.0" layoutY="330.0" onAction="#changeComboboxChildren" prefHeight="25.0" prefWidth="197.0" />
    </children>
 </AnchorPane>

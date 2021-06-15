@@ -12,7 +12,7 @@ import java.sql.Date;
 @Entity
 @Table(name = "nieobecnosci")
 @NamedQueries({
-        @NamedQuery(name = "nieobecnosci.findAll", query = "SELECT n FROM Nieobecnosci n")
+        @NamedQuery(name = "nieobecnosci.findAll", query = "SELECT n FROM Nieobecnosci n WHERE n.idUcznia = :id")
 })
 public class Nieobecnosci implements Serializable {
 

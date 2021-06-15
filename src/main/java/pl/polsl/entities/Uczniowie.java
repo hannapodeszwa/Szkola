@@ -11,7 +11,9 @@ import java.io.Serializable;
         @NamedQuery(name = "uczniowie.getHighestID", query = "SELECT u.ID FROM Uczniowie u ORDER BY u.ID DESC"),
         @NamedQuery(name = "uczniowie.findAll", query = "SELECT u FROM Uczniowie u"),
         @NamedQuery(name = "uczniowie.findById", query = "SELECT u FROM Uczniowie u WHERE u.ID = :id"),
-        @NamedQuery(name = "uczniowie.getStudentEmailById", query = "SELECT u.email FROM Uczniowie u WHERE u.ID = :ID")})
+        @NamedQuery(name = "uczniowie.getStudentEmailById", query = "SELECT u.email FROM Uczniowie u WHERE u.ID = :ID"),
+        @NamedQuery(name = "uczniowie.findByParentsId", query = "SELECT u FROM Uczniowie u JOIN Rodzicielstwo r ON r.idUcznia=u.ID WHERE r.idRodzica= :id")
+})
 public class Uczniowie implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,9 +49,7 @@ public class Uczniowie implements Serializable {
         return ID;
     }
 
-    public void setIdKlasy(Integer idKlasy) {
-        this.idKlasy = idKlasy;
-    }
+    public void setIdKlasy(Integer idKlasy) { this.idKlasy = idKlasy; }
 
     public Integer getIdKlasy() {
         return idKlasy;
