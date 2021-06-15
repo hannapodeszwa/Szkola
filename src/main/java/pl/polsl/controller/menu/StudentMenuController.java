@@ -9,10 +9,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,7 +59,13 @@ public class StudentMenuController implements ParametrizedController {
     }
 
 
-
+    public void buttonMessagesAction() throws IOException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("previousLocation", "menu/studentMenuForm");
+        parameters.put("role", "uczen");
+        parameters.put("id", id);
+        Main.setRoot("common/messageForm", parameters);
+    }
 
     public void logOutAction() throws IOException {
         Main.setRoot("common/signIn");
