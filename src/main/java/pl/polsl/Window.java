@@ -19,7 +19,7 @@ public abstract class Window {
     public double manageTeachersFormWidth = defaultSize;
     public double manageTeachersFormHeight = defaultSize;
     public double addOrUpdateTeacherFormWidth = 470;
-    public double addOrUpdateTeacherFormHeight = 320;
+    public double addOrUpdateTeacherFormHeight = 410;
 
 
 

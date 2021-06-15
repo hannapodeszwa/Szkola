@@ -10,7 +10,9 @@ import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.Teacher;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.Map;
@@ -23,7 +25,10 @@ public class AddOrUpdateTeachersController extends Window implements Parametrize
     public TextField name;
     public TextField name2;
     public TextField surname;
+    public TextField email;
     public TextField phone;
+    public TextField login;
+    public TextField password;
     public Label title;
 
     private Nauczyciele toUpdate;
@@ -52,9 +57,14 @@ public class AddOrUpdateTeachersController extends Window implements Parametrize
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
         if (mode == md.Add) {
+            Uzytkownicy u = new Uzytkownicy();
             Nauczyciele n = new Nauczyciele();
-           setNewValues(n);
+            setNewValues(n);
+
             (new Teacher()).persist(n);
+            setNewValues(u, n.getID());
+            (new UserModel()).persist(u);
+
         } else if (mode == md.Update) {
            setNewValues(toUpdate);
             (new Teacher()).update(toUpdate);
@@ -69,6 +79,15 @@ public class AddOrUpdateTeachersController extends Window implements Parametrize
         n.setDrugieImie(name2.getText());
         n.setNazwisko(surname.getText());
         n.setNrKontaktowy(phone.getText());
+        n.setEmail(email.getText());
+    }
+
+    private void setNewValues(Uzytkownicy u, Integer id)
+    {
+       u.setLogin(login.getText());
+       u.setHaslo(password.getText());
+       u.setDostep("nauczyciel");
+       u.setID(id);
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException

@@ -1,13 +1,14 @@
 package pl.polsl.model;
 
 import pl.polsl.MyManager;
+import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class UserModel {
+public class UserModel implements ManageDataBase {
 
     EntityManager entityManager;
 
