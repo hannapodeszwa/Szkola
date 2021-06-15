@@ -5,17 +5,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.scene.input.MouseEvent;
-import javafx.util.converter.DateStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
@@ -23,7 +14,7 @@ import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.Present;
 import pl.polsl.model.Presentv2;
-import pl.polsl.model.SchoolClass;
+import pl.polsl.model.Student;
 
 import java.io.IOException;
 import java.util.Date;
@@ -41,27 +32,19 @@ public class studentPresenceController implements ParametrizedController {
     public TableColumn<Presentv2, CheckBox> columnCheck;
     public TableColumn<Presentv2, String> columnSubject;
     public Button buttonBack;
+    public ComboBox comboboxChildren;
 
     private StudentMenuController.md mode;
     private Integer id;
+    private Integer id_child;
     private Map params;
     private List<Nieobecnosci> list;
     private ObservableList<Presentv2> data = FXCollections.observableArrayList();
+    private ObservableList<Uczniowie> children;
 
 
-    @Override
-    public void receiveArguments(Map params) {
-        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
-        id = (Integer) params.get("id");
-
-    }
-
-
-    public void initialize() {
-
-        table.setEditable(true);
-        Present s = new Present();
-        list = s.displayPresent();
+    private void setTable() {
+        list = (new Present()).displayPresent(id_child);
 
         for (Nieobecnosci a : list) {
             data.add(new Presentv2(a));
@@ -81,7 +64,55 @@ public class studentPresenceController implements ParametrizedController {
         table.setItems(data);
 
 
+
     }
+
+    private void saveData() {
+
+        for (Presentv2 a : data) {
+            if (a.Usp.isSelected() != (a.czyUsprawiedliwiona != 0)) {
+                for (Nieobecnosci find : list) {
+                    if (a.ID == find.ID) {
+                        if (a.Usp.isSelected() == true) {
+                            find.setCzyUsprawiedliwiona(1);
+                        } else {
+                            find.setCzyUsprawiedliwiona(0);
+                        }
+                        (new Present()).update(find);
+                        break;
+                    }
+                }
+
+            }
+        }
+    }
+
+    @Override
+    public void receiveArguments(Map params) {
+        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
+        id = (Integer) params.get("id");
+
+        if (mode == StudentMenuController.md.Parent) {
+            children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
+            for (Uczniowie act : children) {
+                comboboxChildren.getItems().add(act.getImie() + " " + act.getNazwisko());
+            }
+            comboboxChildren.getSelectionModel().select(0);
+            id_child = children.get(0).getID();
+        } else {
+            comboboxChildren.setVisible(false);
+
+            id_child = id;
+        }
+
+        setTable();
+
+        if (mode == StudentMenuController.md.Student) {
+            for(Presentv2 a : data)
+                a.Usp.setDisable(true);
+        }
+    }
+
 
     public void clickButtonBack(ActionEvent event) throws IOException {
         params = new HashMap<String, String>();
@@ -89,21 +120,8 @@ public class studentPresenceController implements ParametrizedController {
         params.put("id", id);
         Main.setRoot("menu/studentMenuForm", params);
 
-
-        Integer index = 0;
-        for (Presentv2 a : data) {
-
-            if (a.Usp.isSelected() != (a.czyUsprawiedliwiona != 0)) {
-                Nieobecnosci find = list.get(index);
-                if (a.Usp.isSelected() == true) {
-                    find.setCzyUsprawiedliwiona(1);
-                } else {
-                    find.setCzyUsprawiedliwiona(0);
-                }
-                (new Present()).update(find);
-            }
-            index++;
-        }
+        if (mode == StudentMenuController.md.Parent)
+            saveData();
 
     }
 
@@ -114,4 +132,11 @@ public class studentPresenceController implements ParametrizedController {
     }
 
 
+    public void changeComboboxChildren(ActionEvent actionEvent) {
+        id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
+        saveData();
+        list.clear();
+        data.clear();
+        setTable();
+    }
 }

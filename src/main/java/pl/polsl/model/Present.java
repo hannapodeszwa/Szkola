@@ -16,10 +16,11 @@ public class Present implements ManageDataBase {
 
     EntityManager entityManager;
 
-    public List displayPresent()
+    public List displayPresent(Integer id)
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
+        query.setParameter("id", id);
         List<Nieobecnosci> results = query.getResultList();
         return results;
     }

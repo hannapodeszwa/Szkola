@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.*;
@@ -92,7 +93,7 @@ public class ManageStudentsController {
         //AddOrUpdateStudentsController
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params);
     }
-    //wyswietlanie wszystkich studentow
+
     public void deleteStudentsButton(ActionEvent event) throws IOException
     {
 
@@ -102,14 +103,23 @@ public class ManageStudentsController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            List toDelete = new ArrayList<Object>();
 
-            Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(),"uczen");
+            List<Object> toUpdate = new ArrayList<Object>();
+            List<Object> toDelete = new ArrayList<Object>();
+
             toDelete.add(u);
+            Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(),"uczen");
             toDelete.add(usr);
-            //(new Student()).delete(toDelete);
-            (new Student()).delete(u);
-            (new Student()).delete(usr);
+
+            //(new ParenthoodModel()).getParentsByChildID(u.getID());
+            //toDelete.addAll()
+
+            Klasy k = (new SchoolClass()).getClassByLeader(u.getID());
+            k.setIdPrzewodniczacego(null);
+            toUpdate.add(k);
+
+            (new Student()).applyChanges(toUpdate,null,toDelete);
+
             tableStudents.getItems().remove(tableStudents.getSelectionModel().getSelectedItem());
         }
 

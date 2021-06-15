@@ -6,6 +6,7 @@ import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,6 +53,17 @@ public class Student implements ManageDataBase {
             return null;
         }
     }
+
+    public List getParentsChildren(Integer Id){
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.findByParentsId", Uczniowie.class);
+        query.setParameter("id", Id);
+        List<Uczniowie> result = query.getResultList();
+        return result;
+
+
+    }
+
     /*public Nauczyciele getStudentByName(String s)
     {
         em = MyManager.getEntityManager();
