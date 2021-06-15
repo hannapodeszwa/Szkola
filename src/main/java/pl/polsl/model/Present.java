@@ -8,6 +8,7 @@ import pl.polsl.entities.Przedmioty;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Present implements ManageDataBase {
@@ -20,7 +21,16 @@ public class Present implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
         List<Nieobecnosci> results = query.getResultList();
-        return results;
+
+        List<Presentv2> result3 = new ArrayList();
+
+
+        List<Presentv2> result2 = (List<Presentv2>)(List<?>) results;
+
+
+
+
+        return result3;
     }
 
 

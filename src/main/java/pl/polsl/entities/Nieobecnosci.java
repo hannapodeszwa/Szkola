@@ -2,6 +2,7 @@ package pl.polsl.entities;
 
 import javafx.scene.control.CheckBox;
 import lombok.Data;
+import pl.polsl.model.Presentv2;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -19,22 +20,22 @@ public class Nieobecnosci implements Serializable {
 
     @Id
     @Column(name = "ID", nullable = false)
-    private Integer ID;
+    public Integer ID;
 
     @Column(name = "idPrzedmiotu", nullable = false)
-    private Integer idPrzedmiotu;
+    public Integer idPrzedmiotu;
 
     @Column(name = "idUcznia", nullable = false)
-    private Integer idUcznia;
+    public Integer idUcznia;
 
     @Column(name = "data", nullable = false)
-    private Date data;
+    public Date data;
 
     @Column(name = "godzina", nullable = false)
-    private Integer godzina;
+    public Integer godzina;
 
     @Column(name = "czyUsprawiedliwiona", nullable = false)
-    private Integer czyUsprawiedliwiona;
+    public Integer czyUsprawiedliwiona;
 
 
     public void setID(Integer ID) {
@@ -75,23 +76,30 @@ public class Nieobecnosci implements Serializable {
 
     public Integer getGodzina(){ return godzina; }
 
-    public void setCzyUsprawiedliwiona(CheckBox czyUsprawiedliwiona) {//trzeba coś takiego zrobić żeby był checkbox w tablicy
-        if (czyUsprawiedliwiona.isSelected()) {
-            this.czyUsprawiedliwiona = 1;
-        } else {
-            this.czyUsprawiedliwiona = 0;
-        }
+    //public void setCzyUsprawiedliwiona(CheckBox czyUsprawiedliwiona) {//trzeba coś takiego zrobić żeby był checkbox w tablicy
+    //    if (czyUsprawiedliwiona.isSelected()) {
+    //        this.czyUsprawiedliwiona = 1;
+    //    } else {
+    //        this.czyUsprawiedliwiona = 0;
+    //    }
+    //}
+
+    //public CheckBox getCzyUsprawiedliwiona() {
+    //    CheckBox a = new CheckBox();
+    //    if (czyUsprawiedliwiona == 0) {
+    //        a.setSelected(false);
+    //    } else {
+    //        a.setSelected(true);
+     //   }
+     //   return a;
+   // }
+    public void setCzyUsprawiedliwiona(Integer czyUsprawiedliwiona){
+        this.czyUsprawiedliwiona = czyUsprawiedliwiona;
+    }
+    public Integer getCzyUsprawiedliwiona() {
+        return czyUsprawiedliwiona;
     }
 
-    public CheckBox getCzyUsprawiedliwiona() {
-        CheckBox a = new CheckBox();
-        if (czyUsprawiedliwiona == 0) {
-            a.setSelected(false);
-        } else {
-            a.setSelected(true);
-        }
-        return a;
-    }
 
     @Override
     public String toString() {

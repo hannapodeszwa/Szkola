@@ -22,6 +22,7 @@ import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.Present;
+import pl.polsl.model.Presentv2;
 import pl.polsl.model.SchoolClass;
 
 import java.io.IOException;
@@ -34,18 +35,18 @@ import java.util.Map;
 public class studentPresenceController implements ParametrizedController {
 
     @FXML
-    public TableView<Nieobecnosci> table;
-    public TableColumn<Nieobecnosci, Date> columnDate;
-    public TableColumn<Nieobecnosci, Integer> columnHour;
-    public TableColumn<Nieobecnosci, CheckBox> columnCheck;
-    public TableColumn<Nieobecnosci, String> columnSubject;
+    public TableView<Presentv2> table;
+    public TableColumn<Presentv2, Date> columnDate;
+    public TableColumn<Presentv2, Integer> columnHour;
+    public TableColumn<Presentv2, CheckBox> columnCheck;
+    public TableColumn<Presentv2, String> columnSubject;
     public Button buttonBack;
 
     private StudentMenuController.md mode;
     private Integer id;
     private Map params;
     private List<Nieobecnosci> list;
-    private ObservableList<Nieobecnosci> data = FXCollections.observableArrayList();
+    private ObservableList<Presentv2> data = FXCollections.observableArrayList();
 
 
     @Override
@@ -61,12 +62,14 @@ public class studentPresenceController implements ParametrizedController {
         table.setEditable(true);
         Present s = new Present();
         list = s.displayPresent();
-        data = FXCollections.observableArrayList((list));
 
-        columnDate.setCellValueFactory(new PropertyValueFactory<Nieobecnosci, Date>("data"));
-        columnHour.setCellValueFactory(new PropertyValueFactory<Nieobecnosci, Integer>("godzina"));
-        columnHour.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        columnCheck.setCellValueFactory(new PropertyValueFactory<Nieobecnosci, CheckBox>("czyUsprawiedliwiona"));
+        for(Nieobecnosci a : list){
+            data.add(new Presentv2(a));
+        }
+
+        columnDate.setCellValueFactory(new PropertyValueFactory<Presentv2, Date>("data"));
+        columnHour.setCellValueFactory(new PropertyValueFactory<Presentv2, Integer>("godzina"));
+        columnCheck.setCellValueFactory(new PropertyValueFactory<Presentv2, CheckBox>("czyUsp"));
 
 
 
@@ -88,14 +91,22 @@ public class studentPresenceController implements ParametrizedController {
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("menu/studentMenuForm",params);
-        Integer pos = 0;
-        for (Nieobecnosci a: table.getItems()){
-            Integer ida = a.getID();
 
-            data.set(pos,a);
-            pos++;
+
+        for(Presentv2 a : data){
+            if(a.Usp.isSelected() != (a.czyUsprawiedliwiona!=0)){
+                for(Nieobecnosci find : list){
+                    if(a.ID == find.ID){
+                        (new Present()).persist(find);
+                    }
+                }
+
+
+
+
+            }
         }
-        Integer b =0 ;
+
     }
 
     public void onEditChange(TableColumn.CellEditEvent<Nieobecnosci, Integer> nieobecnosciDateCellEditEvent) {
@@ -116,11 +127,7 @@ public class studentPresenceController implements ParametrizedController {
         Integer a = 2;
     }
 
-    // public void clickColumnCheck (){
-   //     if(event.getClickCount() == 2){
-   //         buttonBack.setText("2");
-   //     }
-   // }
+
 
 
 }

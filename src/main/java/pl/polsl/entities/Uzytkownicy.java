@@ -5,14 +5,14 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
-        @NamedQuery(name="Uzytkownicy.getUserByLoginAndPassword",
-        query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN AND U.haslo = :PASSWORD"),
+        @NamedQuery(name = "Uzytkownicy.getUserByLoginAndPassword",
+                query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN AND U.haslo = :PASSWORD"),
 
-        @NamedQuery(name="Uzytkownicy.getUserByLogin",
-        query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN"),
+        @NamedQuery(name = "Uzytkownicy.getUserByLogin",
+                query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN"),
 
         @NamedQuery(name = "Uzytkownicy.updatePasswordByIdAndRole",
-        query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE")
+                query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE")
 })
 @Table(name = "uzytkownicy")
 public class Uzytkownicy implements Serializable {
