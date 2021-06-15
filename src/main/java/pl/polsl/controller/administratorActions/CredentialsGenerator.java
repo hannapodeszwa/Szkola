@@ -1,11 +1,15 @@
 package pl.polsl.controller.administratorActions;
+import javafx.application.Platform;
 import pl.polsl.model.UserModel;
+import pl.polsl.model.email.MailSenderModel;
 
+import java.util.Locale;
 import java.util.Random;
 
 public interface CredentialsGenerator {
     default String GenerateLogin(String imie, String nazwisko) {
         String generatedLogin = (imie.length() >= 4 ? imie.substring(0,4) : imie) + (nazwisko.length() >= 3 ? nazwisko.substring(0,3) : nazwisko);
+        generatedLogin = generatedLogin.toLowerCase();
         Random rand = new Random();
         while (true) {
         Integer num = rand.nextInt(900) + 100;
@@ -23,7 +27,12 @@ public interface CredentialsGenerator {
         }
         return generatedLogin;
     }
-    default void SendCredentialsByEmail(String login, String password) {
-        //todo()
+    default void SendCredentialsByEmail(String login, String password, String emailAddress) {
+        new Thread(() -> {
+            MailSenderModel mailSenderModel = new MailSenderModel();
+            mailSenderModel.setTopic("Twoje konto do aplikacji Szkoła jest już gotowe!");
+            mailSenderModel.setMessageText("Twój login: " + login + "\nTwoje hasło: " + password);
+            mailSenderModel.sendMail(emailAddress);
+        }).start();
     }
 }
