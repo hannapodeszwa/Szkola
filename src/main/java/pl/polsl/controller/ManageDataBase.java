@@ -8,6 +8,27 @@ import java.util.List;
 public interface ManageDataBase {
 
 
+
+
+
+    public default void applyChanges(List<Object> toUpdate, List<Object> toPersist, List<Object> toDelete) {
+        EntityManager em = MyManager.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            for (Object o : toUpdate)
+                em.merge(o);
+            for (Object o : toPersist)
+                em.persist(o);
+            for (Object o : toDelete)
+                em.remove(o);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
+    }
+
     /**
      * Modifies existing student in database
      *
@@ -24,7 +45,6 @@ public interface ManageDataBase {
             em.getTransaction().rollback();
         }
     }
-
 
     /**
      * Insert new object to database

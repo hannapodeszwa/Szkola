@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table(name = "klasy")
 @NamedQueries({
         @NamedQuery(name = "klasy.findAll", query = "SELECT k FROM Klasy k"),
+        @NamedQuery(name = "klasy.findByCriteria", query = "SELECT k FROM Klasy WHERE :criteria = :value"),
         @NamedQuery(name = "klasy.findByNumber", query = "SELECT k FROM Klasy k WHERE k.numer = :number"),
         @NamedQuery(name = "klasy.findById", query = "SELECT k FROM Klasy k WHERE k.ID = :id"),
         @NamedQuery(name = "klasy.findByTutor", query = "SELECT k FROM Klasy k WHERE k.idWychowawcy = :idWychowawcy"),
