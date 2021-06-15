@@ -1,15 +1,13 @@
 package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.Window;
+import pl.polsl.Window2;
 
 import java.io.IOException;
 
-public class MenuAdministratorController extends Window {
+public class MenuAdministratorController extends Window2 {
     private final Stage thisStage;
 
     public MenuAdministratorController() {

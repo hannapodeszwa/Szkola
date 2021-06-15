@@ -3,7 +3,7 @@ package pl.polsl;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public abstract class Window {
+public abstract class Window2 {
     private double defaultSize=600;
     //class
     public double manageClassFormWidth = 350;
@@ -19,7 +19,7 @@ public abstract class Window {
     public double manageTeachersFormWidth = defaultSize;
     public double manageTeachersFormHeight = defaultSize;
     public double addOrUpdateTeacherFormWidth = 470;
-    public double addOrUpdateTeacherFormHeight = 320;
+    public double addOrUpdateTeacherFormHeight = 410;
 
 
 

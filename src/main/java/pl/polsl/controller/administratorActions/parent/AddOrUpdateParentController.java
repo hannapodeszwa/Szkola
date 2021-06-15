@@ -1,11 +1,13 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions.parent;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.WindowSize;
+import pl.polsl.controller.AddOrUpdateTeachersController;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.Teacher;
@@ -14,11 +16,7 @@ import pl.polsl.model.UserModel;
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateTeachersController extends Window2 implements ParametrizedController  {
-    double width = 470;
-    double height = 320;
-    @FXML
-    private AnchorPane window;
+public class AddOrUpdateParentController extends Window2 implements ParametrizedController {
     public TextField name;
     public TextField name2;
     public TextField surname;
@@ -30,17 +28,17 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
 
     private Nauczyciele toUpdate;
     public enum md {Add, Update}
-    private md mode = md.Update;
+    private AddOrUpdateTeachersController.md mode = AddOrUpdateTeachersController.md.Update;
 
     @Override
     public void receiveArguments(Map params) {
         if (params.get("mode") == "add") {
-            mode = md.Add;
+            mode = AddOrUpdateTeachersController.md.Add;
             title.setText("Dodawanie nauczyciela:");
         }
         else {
-            mode = md.Update;
-           toUpdate = (Nauczyciele) params.get("teacher");
+            mode = AddOrUpdateTeachersController.md.Update;
+            toUpdate = (Nauczyciele) params.get("teacher");
             title.setText("Modyfikacja nauczyciela:");
         }
 
@@ -53,7 +51,7 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == md.Add) {
+        if (mode == AddOrUpdateTeachersController.md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Nauczyciele n = new Nauczyciele();
             setNewValues(n);
@@ -62,12 +60,12 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
             setNewValues(u, n.getID());
             (new UserModel()).persist(u);
 
-        } else if (mode == md.Update) {
-           setNewValues(toUpdate);
+        } else if (mode == AddOrUpdateTeachersController.md.Update) {
+            setNewValues(toUpdate);
             (new Teacher()).update(toUpdate);
         }
         Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                manageTeachersFormWidth, manageTeachersFormHeight);
+                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
     }
 
     private void setNewValues(Nauczyciele n)
@@ -81,10 +79,10 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
 
     private void setNewValues(Uzytkownicy u, Integer id)
     {
-       u.setLogin(login.getText());
-       u.setHaslo(password.getText());
-       u.setDostep("nauczyciel");
-       u.setID(id);
+        u.setLogin(login.getText());
+        u.setHaslo(password.getText());
+        u.setDostep("nauczyciel");
+        u.setID(id);
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException

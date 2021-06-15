@@ -6,14 +6,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.Window;
+import pl.polsl.Window2;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateSubjectController extends Window implements ParametrizedController {
+public class AddOrUpdateSubjectController extends Window2 implements ParametrizedController {
     double width = 400;
     double height = 280;
     @FXML

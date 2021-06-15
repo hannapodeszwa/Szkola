@@ -2,16 +2,15 @@ package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.Window;
+import pl.polsl.Window2;
+import pl.polsl.WindowSize;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
@@ -23,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageTeachersController extends Window  {
+public class ManageTeachersController extends Window2 {
     double width = 600; //DO ZMIANY
     double height = 600;
     @FXML
@@ -61,7 +60,7 @@ public class ManageTeachersController extends Window  {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
        Main.setRoot("administratorActions/teacher/addOrUpdateTeacherForm",params,
-               addOrUpdateTeacherFormWidth, addOrUpdateTeacherFormHeight);
+               WindowSize.addOrUpdateTeacherForm.getWidth(),  WindowSize.addOrUpdateTeacherForm.getHeight());
     }
 
     public void updateTeacherButton(ActionEvent event) throws IOException
