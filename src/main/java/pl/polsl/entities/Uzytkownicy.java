@@ -11,6 +11,9 @@ import java.io.Serializable;
         @NamedQuery(name="Uzytkownicy.getUserByLogin",
         query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN"),
 
+        @NamedQuery(name="Uzytkownicy.getUserByIdAndRole",
+                query = "SELECT U FROM Uzytkownicy U WHERE U.ID = :ID AND U.dostep = :ROLE"),
+
         @NamedQuery(name = "Uzytkownicy.updatePasswordByIdAndRole",
         query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE")
 })
