@@ -1,6 +1,8 @@
 package pl.polsl.controller.administratorActions.parent;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,7 +14,9 @@ import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
+import javax.management.remote.rmi._RMIConnection_Stub;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,13 +30,13 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     public Label title;
 
     @FXML
-    private TableView<Uczniowie> tableStudents;
+    private TableView<ParentChoice> tableStudents;
     @FXML
-    private TableColumn<Uczniowie, String> nameC;
+    private TableColumn<ParentChoice, String> nameC;
     @FXML
-    private TableColumn<Uczniowie, String> surnameC;
+    private TableColumn<ParentChoice, String> surnameC;
     @FXML
-    private TableColumn<Uczniowie, String> classC;
+    private TableColumn<ParentChoice, String> classC;
     @FXML
     private TableColumn<ParentChoice, CheckBox> chooseC;
 
@@ -40,6 +44,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     private Rodzice toUpdate;
     public enum md {Add, Update}
     private AddOrUpdateParentController.md mode = AddOrUpdateParentController.md.Update;
+    private   ObservableList<ParentChoice> parentchoodList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
@@ -52,7 +57,13 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         tableStudents.setEditable(true);
         tableStudents.getItems().clear();
         Student s = new Student();
-        List l=s.displayStudents();
+        List <Uczniowie> l=s.displayStudents();
+       // List <ParentChoice>parentchoodList = new ArrayList<>();
+
+
+        for (Uczniowie u : l) {
+            parentchoodList.add(new ParentChoice(u));
+        }
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
@@ -63,21 +74,18 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         });
         chooseC.setCellValueFactory(new PropertyValueFactory<ParentChoice, CheckBox>("choose"));
 
-
-        for (Object u: l) {
-            tableStudents.getItems().add((Uczniowie) u);
-        }
+       tableStudents.setItems(parentchoodList);
     }
 
 
     @Override
     public void receiveArguments(Map params) {
         if (params.get("mode") == "add") {
-            mode = AddOrUpdateParentController.md.Add;
+            mode = md.Add;
             title.setText("Dodawanie rodzica:");
         }
         else {
-            mode = AddOrUpdateParentController.md.Update;
+            mode = md.Update;
             toUpdate = (Rodzice) params.get("parent");
             title.setText("Modyfikacja rodzica:");
         }
@@ -102,13 +110,47 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             (new ParentModel()).persist(r);
             setNewValues(u, r.getImie(), r.getNazwisko(), r.getID());
             (new UserModel()).persist(u);
+            addChildren(r);
 
-        } else if (mode == AddOrUpdateParentController.md.Update) {
+        } else if (mode == md.Update) {
             setNewValues(toUpdate);
             (new ParentModel()).update(toUpdate);
+            addChildren(toUpdate);
         }
         Main.setRoot("administratorActions/parent/manageParentsForm",
                 WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
+    }
+
+    private void deleteChildren()
+    {
+        ParentChoice p = new ParentChoice((new Uczniowie()));
+        List<Rodzicielstwo> l = p.findByParent(toUpdate);
+
+        for(Rodzicielstwo r: l)
+        {
+            p.delete(r);
+        }
+    }
+
+    private void addChildren(Rodzice parent)
+    {
+        if(mode == md.Update)
+        {
+            deleteChildren();
+        }
+
+        for(ParentChoice pc : parentchoodList )
+        {
+            if(pc.choose.isSelected()==true)
+            {
+                Rodzicielstwo r = new Rodzicielstwo();
+                r.setIdRodzica(parent.getID());
+                r.setIdUcznia(pc.ID);
+                pc.persist(r);
+            }
+        }
+
+
     }
 
     private void setNewValues(Rodzice r)

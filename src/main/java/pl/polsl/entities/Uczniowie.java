@@ -19,25 +19,25 @@ public class Uczniowie implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "ID", nullable = false)
-    private Integer ID;
+    public Integer ID;
 
     @Column(name = "email", nullable = false)
-    private String email;
+    public String email;
 
     @Column(name = "idKlasy", nullable = false)
-    private Integer idKlasy;
+    public Integer idKlasy;
 
     @Column(name = "imie", nullable = false)
-    private String imie;
+    public String imie;
 
     @Column(name = "drugieImie")
-    private String drugieImie;
+    public String drugieImie;
 
     @Column(name = "nazwisko", nullable = false)
-    private String nazwisko;
+    public String nazwisko;
 
     @Column(name = "adres")
-    private String adres;
+    public String adres;
 
     public void setID(Integer ID) {
         this.ID = ID;
