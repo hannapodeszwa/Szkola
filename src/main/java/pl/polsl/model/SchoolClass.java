@@ -26,7 +26,7 @@ public class SchoolClass implements ManageDataBase {
     public Klasy getClassByLeader(Integer Id)
     {
         em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("klasy.findByCriteria", Klasy.class);
+        TypedQuery query = em.createNamedQuery("klasy.findByLeader", Klasy.class);
         query.setParameter("k.idPrzewodniczacego", Id);
         Klasy result = (Klasy) query.getSingleResult();
         return result;
