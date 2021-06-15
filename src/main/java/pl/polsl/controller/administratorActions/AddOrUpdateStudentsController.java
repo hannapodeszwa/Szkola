@@ -103,24 +103,18 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             String classNumber = poleKlasa.getSelectionModel().getSelectedItem();
             u.setIdKlasy((new SchoolClass()).getClassId(classNumber));
 
-
-            Integer newItemId = (new Student()).getHighestId() + 1;
-
-            u.setID(newItemId);
+            (new Student()).persist(u);
 
             Uzytkownicy usr = new Uzytkownicy();
-            usr.setID(newItemId);
-            usr.setHaslo(this.generatePassword());
-            usr.setLogin(this.generateLogin(u.getImie(),u.getNazwisko()));
-            //this.SendCredentialsByEmail();
+            usr.setID(u.getID());
+            usr.setHaslo(GeneratePassword());
+            usr.setLogin(GenerateLogin(u.getImie(),u.getNazwisko()));
             usr.setDostep("uczen");
+            (new UserModel()).persist(usr);
 
-            List toAdd = new ArrayList<Object>();
-            toAdd.add(u);
-            toAdd.add(usr);
+            SendCredentialsByEmail(usr.getLogin(), usr.getHaslo(), u.getEmail());
 
-            //(new Student()).persist(u);
-            (new Student()).persist(toAdd);
+
         } else if (mode == md.Update) {
             System.out.println("Modyfikowanie profilu ucznia");
             modyfikowany.setImie(poleImie.getText());
