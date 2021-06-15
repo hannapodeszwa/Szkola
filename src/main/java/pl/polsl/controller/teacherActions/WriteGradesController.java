@@ -8,13 +8,22 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.util.converter.IntegerStringConverter;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Oceny;
+import pl.polsl.model.Grade;
+import pl.polsl.model.Subject;
 import pl.polsl.model.Teacher;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.Map;
+import java.util.function.UnaryOperator;
 
 public class WriteGradesController implements ParametrizedController {
     Integer loggedTeacherId;
@@ -49,10 +58,23 @@ public class WriteGradesController implements ParametrizedController {
     private TextField surnameTextField;
 
     @FXML
+    private TextField descriptionTextField;
+
+    @FXML
     private Label errorLabel;
 
     @FXML
     public void initialize(){
+        UnaryOperator<TextFormatter.Change> idFilter = change -> {
+            String typedText = change.getControlNewText();
+            if(!typedText.matches("-?([1-9][0-9]*)?")){
+                return null;
+            } else {
+                return change;
+            }
+        };
+        idTextField.setTextFormatter((new TextFormatter<Integer>(new IntegerStringConverter(), 0, idFilter)));
+
         surnameTextField.textProperty().addListener((observable -> {
             errorLabel.setText("");
         }));
@@ -62,6 +84,10 @@ public class WriteGradesController implements ParametrizedController {
         }));
 
         idTextField.textProperty().addListener((observable -> {
+            errorLabel.setText("");
+        }));
+
+        descriptionTextField.textProperty().addListener((observable -> {
             errorLabel.setText("");
         }));
     }
@@ -74,7 +100,27 @@ public class WriteGradesController implements ParametrizedController {
     public void submitAction(ActionEvent event) throws IOException
     {
        //validate fields
+        if(idTextField.getText().isEmpty() ||
+                nameTextField.getText().isEmpty() ||
+                surnameTextField.getText().isEmpty() ||
+                descriptionTextField.getText().isEmpty()){
+            errorLabel.setText("Fill all text fields!");
+        } else {
+            Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
+           // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
+            Oceny o = new Oceny();
+            /* To be moved to separate method */
+            o.setData(new Date(System.currentTimeMillis()));
+            o.setIdPrzedmiotu(subjectID);
+            o.setIdUcznia(Integer.parseInt(idTextField.getText().toString()));
+            o.setOcena((Float) gradeComboBox.getValue());
+            o.setOpis(descriptionTextField.getText());
+            o.setWaga((Float) valueComboBox.getValue());
+            (new Grade()).persist(o);
 
-        //throw error if sth wrong
+        }
+
+
+
     }
 }
