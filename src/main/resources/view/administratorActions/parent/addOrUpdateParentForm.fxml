@@ -2,8 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="339.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.AddOrUpdateParentController">
+<AnchorPane prefHeight="544.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.AddOrUpdateParentController">
     <children>
         <Button layoutX="207.0" layoutY="237.0" mnemonicParsing="false" onAction="#confirmChangesButton" styleClass="button-confirm" text="Zatwierdź" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="97.0" />
         <Button layoutX="290.0" layoutY="238.0" mnemonicParsing="false" onAction="#discardChangesButton" text="Anuluj" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
@@ -16,15 +17,19 @@
         <Label layoutX="31.0" layoutY="194.0" text="Numer kontaktowy:" AnchorPane.leftAnchor="30.0" />
         <Label layoutX="29.0" layoutY="89.0" text="Drugie imie:" AnchorPane.leftAnchor="30.0" />
         <Label fx:id="title" layoutX="35.0" layoutY="22.0" prefHeight="27.0" prefWidth="208.0" text="Title" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
-            <font>
-                <Font size="18.0" />
-            </font>
-        </Label>
+         <font>
+            <Font size="18.0" />
+         </font></Label>
         <Label layoutX="30.0" layoutY="159.0" text="Email:" AnchorPane.leftAnchor="30.0" />
         <TextField fx:id="email" layoutX="167.0" layoutY="142.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
-        <TextField fx:id="login" layoutX="168.0" layoutY="241.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" />
-        <TextField fx:id="password" layoutX="168.0" layoutY="276.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" />
-        <Label layoutX="30.0" layoutY="245.0" text="Login:" AnchorPane.leftAnchor="30.0" />
-        <Label layoutX="30.0" layoutY="280.0" text="Hasło:" AnchorPane.leftAnchor="30.0" />
+        <Label layoutX="29.0" layoutY="228.0" text="Adres:" AnchorPane.leftAnchor="30.0" />
+      <TextField fx:id="adress" layoutX="170.0" layoutY="224.0" AnchorPane.rightAnchor="20.0" />
+      <TableView layoutX="25.0" layoutY="281.0" prefHeight="200.0" prefWidth="297.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0">
+        <columns>
+          <TableColumn prefWidth="136.00000381469727" text="Imię" />
+          <TableColumn prefWidth="136.7999725341797" text="Nazwisko" />
+        </columns>
+      </TableView>
+      <Label layoutX="29.0" layoutY="263.0" text="Dzieci:" AnchorPane.leftAnchor="30.0" />
     </children>
 </AnchorPane>

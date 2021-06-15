@@ -4,7 +4,7 @@ import pl.polsl.model.UserModel;
 import java.util.Random;
 
 public interface CredentialsGenerator {
-    default String GenerateLogin(String imie, String nazwisko) {
+    default String generateLogin(String imie, String nazwisko) {
         String generatedLogin = (imie.length() >= 4 ? imie.substring(0,4) : imie) + (nazwisko.length() >= 3 ? nazwisko.substring(0,3) : nazwisko);
         Random rand = new Random();
         while (true) {
@@ -13,7 +13,7 @@ public interface CredentialsGenerator {
             return generatedLogin + num;
         }
     }
-    default String GeneratePassword() {
+    default String generatePassword() {
         String generatedLogin = "";
         String letters = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         Random rand = new Random();
@@ -23,7 +23,7 @@ public interface CredentialsGenerator {
         }
         return generatedLogin;
     }
-    default void SendCredentialsByEmail(String login, String password) {
+    default void sendCredentialsByEmail(String login, String password) {
         //todo()
     }
 }

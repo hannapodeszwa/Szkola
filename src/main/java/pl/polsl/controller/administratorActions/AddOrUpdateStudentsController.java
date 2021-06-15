@@ -110,8 +110,8 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
             Uzytkownicy usr = new Uzytkownicy();
             usr.setID(newItemId);
-            usr.setHaslo(this.GeneratePassword());
-            usr.setLogin(this.GenerateLogin(u.getImie(),u.getNazwisko()));
+            usr.setHaslo(this.generatePassword());
+            usr.setLogin(this.generateLogin(u.getImie(),u.getNazwisko()));
             //this.SendCredentialsByEmail();
             usr.setDostep("uczen");
 

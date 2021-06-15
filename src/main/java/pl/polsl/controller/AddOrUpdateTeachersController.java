@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.Teacher;
@@ -14,7 +15,7 @@ import pl.polsl.model.UserModel;
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateTeachersController extends Window2 implements ParametrizedController  {
+public class AddOrUpdateTeachersController extends Window2 implements ParametrizedController, CredentialsGenerator {
     double width = 470;
     double height = 320;
     @FXML
@@ -24,8 +25,6 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
     public TextField surname;
     public TextField email;
     public TextField phone;
-    public TextField login;
-    public TextField password;
     public Label title;
 
     private Nauczyciele toUpdate;
@@ -59,7 +58,7 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
             setNewValues(n);
 
             (new Teacher()).persist(n);
-            setNewValues(u, n.getID());
+            setNewValues(u, n.getImie(), n.getNazwisko(), n.getID());
             (new UserModel()).persist(u);
 
         } else if (mode == md.Update) {
@@ -79,10 +78,10 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
         n.setEmail(email.getText());
     }
 
-    private void setNewValues(Uzytkownicy u, Integer id)
+    private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
     {
-       u.setLogin(login.getText());
-       u.setHaslo(password.getText());
+       u.setLogin(generateLogin(name,surname));
+       u.setHaslo(generatePassword());
        u.setDostep("nauczyciel");
        u.setID(id);
     }

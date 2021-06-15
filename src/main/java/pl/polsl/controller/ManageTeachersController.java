@@ -30,9 +30,9 @@ public class ManageTeachersController extends Window2 {
     @FXML
     private TableView<Nauczyciele> tableTeachers;
     @FXML
-    private TableColumn<Uczniowie, String> nameC;
+    private TableColumn<Nauczyciele, String> nameC;
     @FXML
-    private TableColumn<Uczniowie, String> surnameC;
+    private TableColumn<Nauczyciele, String> surnameC;
 
 
     @FXML

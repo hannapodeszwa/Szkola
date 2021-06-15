@@ -4,19 +4,20 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.Window2;
 import pl.polsl.WindowSize;
-import pl.polsl.controller.AddOrUpdateTeachersController;
 import pl.polsl.controller.ParametrizedController;
+import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Rodzice;
 import pl.polsl.entities.Uzytkownicy;
+import pl.polsl.model.ParentModel;
 import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateParentController extends Window2 implements ParametrizedController {
+public class AddOrUpdateParentController implements ParametrizedController, CredentialsGenerator {
     public TextField name;
     public TextField name2;
     public TextField surname;
@@ -26,69 +27,71 @@ public class AddOrUpdateParentController extends Window2 implements Parametrized
     public TextField password;
     public Label title;
 
-    private Nauczyciele toUpdate;
+    private Rodzice toUpdate;
     public enum md {Add, Update}
-    private AddOrUpdateTeachersController.md mode = AddOrUpdateTeachersController.md.Update;
+    private AddOrUpdateParentController.md mode = AddOrUpdateParentController.md.Update;
 
     @Override
     public void receiveArguments(Map params) {
         if (params.get("mode") == "add") {
-            mode = AddOrUpdateTeachersController.md.Add;
-            title.setText("Dodawanie nauczyciela:");
+            mode = AddOrUpdateParentController.md.Add;
+            title.setText("Dodawanie rodzica:");
         }
         else {
-            mode = AddOrUpdateTeachersController.md.Update;
-            toUpdate = (Nauczyciele) params.get("teacher");
-            title.setText("Modyfikacja nauczyciela:");
+            mode = AddOrUpdateParentController.md.Update;
+            toUpdate = (Rodzice) params.get("parent");
+            title.setText("Modyfikacja rodzica:");
         }
 
         if (toUpdate != null) {
             name.setText(toUpdate.getImie());
             name2.setText(toUpdate.getDrugieImie());
             surname.setText(toUpdate.getNazwisko());
+            email.setText(toUpdate.getEmail());
+            phone.setText(toUpdate.getNrKontaktowy().toString());
         }
     }
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == AddOrUpdateTeachersController.md.Add) {
+        if (mode == AddOrUpdateParentController.md.Add) {
             Uzytkownicy u = new Uzytkownicy();
-            Nauczyciele n = new Nauczyciele();
-            setNewValues(n);
+            Rodzice r = new Rodzice();
+            setNewValues(r);
 
-            (new Teacher()).persist(n);
-            setNewValues(u, n.getID());
+            (new ParentModel()).persist(r);
+            setNewValues(u, r.getImie(), r.getNazwisko(), r.getID());
             (new UserModel()).persist(u);
 
-        } else if (mode == AddOrUpdateTeachersController.md.Update) {
+        } else if (mode == AddOrUpdateParentController.md.Update) {
             setNewValues(toUpdate);
-            (new Teacher()).update(toUpdate);
+            (new ParentModel()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
+        Main.setRoot("administratorActions/parent/manageParentsForm",
+                WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
     }
 
-    private void setNewValues(Nauczyciele n)
+    private void setNewValues(Rodzice n)
     {
         n.setImie(name.getText());
         n.setDrugieImie(name2.getText());
         n.setNazwisko(surname.getText());
-        n.setNrKontaktowy(phone.getText());
+       // n.setNrKontaktowy(phone.getText());
         n.setEmail(email.getText());
     }
 
-    private void setNewValues(Uzytkownicy u, Integer id)
+    private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
     {
-        u.setLogin(login.getText());
-        u.setHaslo(password.getText());
-        u.setDostep("nauczyciel");
+        u.setLogin(generateLogin(name,surname));
+        u.setHaslo(generatePassword());
+        u.setDostep("rodzic");
         u.setID(id);
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                manageTeachersFormWidth, manageTeachersFormHeight);
+        Main.setRoot("administratorActions/parent/manageParentsForm",
+                WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
     }
 
 }
