@@ -1,4 +1,4 @@
-package pl.polsl.controller.administratorActions;
+package pl.polsl.controller;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.SchoolClass;
@@ -22,7 +21,6 @@ import java.util.Map;
 public class AddOrUpdateStudentsController implements ParametrizedController {
 
     public TextField poleImie;
-    public TextField poleMail;
     public TextField poleDrugieImie;
     public TextField poleAdres;
     public TextField poleNazwisko;
@@ -50,9 +48,8 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
 
         poleImie.textProperty().addListener(TextListener);
         poleNazwisko.textProperty().addListener(TextListener);
-        poleMail.textProperty().addListener(TextListener);
 
-        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty())
+        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty())// && !buttonAccept.isDisabled())
             buttonAccept.setDisable(true);
         else
             buttonAccept.setDisable(false);
@@ -73,7 +70,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
             poleDrugieImie.setText(modyfikowany.getDrugieImie());
             poleNazwisko.setText(modyfikowany.getNazwisko());
             poleAdres.setText(modyfikowany.getAdres());
-            poleMail.setText(modyfikowany.getEmail());
             String classNumber = (new SchoolClass()).getClassNumber(modyfikowany.getIdKlasy());
             poleKlasa.getSelectionModel().select(classNumber);
         }
@@ -91,11 +87,11 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
         if (mode == md.Add) {
             System.out.println("Dodawanie nowego ucznia");
             Uczniowie u = new Uczniowie();
+            //u.setID(44);
             u.setImie(poleImie.getText());
             u.setDrugieImie(poleDrugieImie.getText());
             u.setNazwisko(poleNazwisko.getText());
             u.setAdres(poleAdres.getText());
-            u.setEmail(poleMail.getText());
             String classNumber = poleKlasa.getSelectionModel().getSelectedItem();
             u.setIdKlasy((new SchoolClass()).getClassId(classNumber));
             (new Student()).persist(u);
@@ -105,17 +101,16 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
             modyfikowany.setDrugieImie(poleDrugieImie.getText());
             modyfikowany.setNazwisko(poleNazwisko.getText());
             modyfikowany.setAdres(poleAdres.getText());
-            modyfikowany.setEmail(poleMail.getText());
             String classNumber = poleKlasa.getSelectionModel().getSelectedItem();
             modyfikowany.setIdKlasy((new SchoolClass()).getClassId(classNumber));
             (new Student()).update(modyfikowany);
         }
-        Main.setRoot("administratorActions/student/manageStudentsForm");
+        Main.setRoot("manageStudentsForm");
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
         System.out.println("Zmiany anulowano");
-        Main.setRoot("administratorActions/student/manageStudentsForm");
+        Main.setRoot("manageStudentsForm");
     }
 
 }

@@ -36,19 +36,6 @@ public class UserModel {
         }
     }
 
-    public Uzytkownicy getUserByIdAndRole(Integer ID, String role) {
-        entityManager = MyManager.getEntityManager();
-        try {
-            return entityManager.createNamedQuery("Uzytkownicy.getUserByIdAndRole", Uzytkownicy.class)
-                    .setParameter("ROLE", role)
-                    .setParameter("ID", ID)
-                    .getSingleResult();
-        } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by id and role", e);
-            return null;
-        }
-    }
-
     public void updatePasswordByIdAndRole(String role, Integer id, String password) {
         entityManager = MyManager.getEntityManager();
         try {

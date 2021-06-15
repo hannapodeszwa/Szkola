@@ -7,11 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +76,7 @@ public class ManageStudentsController {
         Map params = new HashMap<String, String>();
 
         params.put("mode","add");
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params);
+        Main.setRoot("addOrUpdateStudentForm",params);
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
@@ -90,7 +88,7 @@ public class ManageStudentsController {
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
         params.put("mode","update");
         //AddOrUpdateStudentsController
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params);
+        Main.setRoot("addOrUpdateStudentForm",params);
     }
     //wyswietlanie wszystkich studentow
     public void deleteStudentsButton(ActionEvent event) throws IOException
@@ -102,14 +100,7 @@ public class ManageStudentsController {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            List toDelete = new ArrayList<Object>();
-
-            Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(),"uczen");
-            toDelete.add(u);
-            toDelete.add(usr);
-            //(new Student()).delete(toDelete);
             (new Student()).delete(u);
-            (new Student()).delete(usr);
             tableStudents.getItems().remove(tableStudents.getSelectionModel().getSelectedItem());
         }
 

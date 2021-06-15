@@ -19,7 +19,7 @@ public class MenuAdministratorController extends Window {
 
     public void pressManageStudentsButton(ActionEvent event) throws IOException
     {
-       Main.setRoot("administratorActions/student/manageStudentsForm");
+       Main.setRoot("manageStudentsForm");
 
     }
     public void pressManageTeacherButton(ActionEvent event) throws IOException
@@ -41,7 +41,7 @@ public class MenuAdministratorController extends Window {
 
     public void pressLogOutButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("common/signIn");
+        Main.setRoot("signIn");
     }
 
 }
