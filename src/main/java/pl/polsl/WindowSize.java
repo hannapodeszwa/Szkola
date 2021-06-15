@@ -12,8 +12,8 @@ public enum WindowSize {
     manageTeachersForm (0, 0),
     addOrUpdateTeacherForm(470,410),
     //parent
-    manageParentsForm (0, 0),
-    addOrUpdateParentForm(470,410);
+    manageParentsForm (500, 450),
+    addOrUpdateParentForm(450,600);
 
     private static final int defaultSize = 600;
     private final int width;

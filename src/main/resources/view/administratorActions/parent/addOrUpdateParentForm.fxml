@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="544.0" prefWidth="343.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.AddOrUpdateParentController">
+<AnchorPane prefHeight="544.0" prefWidth="429.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.AddOrUpdateParentController">
     <children>
         <Button layoutX="207.0" layoutY="237.0" mnemonicParsing="false" onAction="#confirmChangesButton" styleClass="button-confirm" text="Zatwierdź" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="97.0" />
         <Button layoutX="290.0" layoutY="238.0" mnemonicParsing="false" onAction="#discardChangesButton" text="Anuluj" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
@@ -24,10 +24,12 @@
         <TextField fx:id="email" layoutX="167.0" layoutY="142.0" promptText="wymagane" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="155.0" />
         <Label layoutX="29.0" layoutY="228.0" text="Adres:" AnchorPane.leftAnchor="30.0" />
       <TextField fx:id="adress" layoutX="170.0" layoutY="224.0" AnchorPane.rightAnchor="20.0" />
-      <TableView layoutX="25.0" layoutY="281.0" prefHeight="200.0" prefWidth="297.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0">
+      <TableView fx:id="tableStudents" layoutX="25.0" layoutY="281.0" prefHeight="200.0" prefWidth="297.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0">
         <columns>
-          <TableColumn prefWidth="136.00000381469727" text="Imię" />
-          <TableColumn prefWidth="136.7999725341797" text="Nazwisko" />
+          <TableColumn fx:id="nameC" prefWidth="97.0000057220459" text="Imię" />
+          <TableColumn fx:id="surnameC" prefWidth="137.00001525878906" text="Nazwisko" />
+            <TableColumn fx:id="classC" minWidth="4.000030517578125" prefWidth="63.79998779296875" text="Klasa" />
+            <TableColumn fx:id="chooseC" prefWidth="71.60003662109375" text="Wybierz" />
         </columns>
       </TableView>
       <Label layoutX="29.0" layoutY="263.0" text="Dzieci:" AnchorPane.leftAnchor="30.0" />

@@ -1,20 +1,19 @@
 package pl.polsl.controller.administratorActions.parent;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Rodzice;
-import pl.polsl.entities.Uzytkownicy;
-import pl.polsl.model.ParentModel;
-import pl.polsl.model.Teacher;
-import pl.polsl.model.UserModel;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class AddOrUpdateParentController implements ParametrizedController, CredentialsGenerator {
@@ -23,13 +22,53 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     public TextField surname;
     public TextField email;
     public TextField phone;
-    public TextField login;
-    public TextField password;
+    public TextField adress;
     public Label title;
+
+    @FXML
+    private TableView<Uczniowie> tableStudents;
+    @FXML
+    private TableColumn<Uczniowie, String> nameC;
+    @FXML
+    private TableColumn<Uczniowie, String> surnameC;
+    @FXML
+    private TableColumn<Uczniowie, String> classC;
+    @FXML
+    private TableColumn<ParentChoice, CheckBox> chooseC;
+
 
     private Rodzice toUpdate;
     public enum md {Add, Update}
     private AddOrUpdateParentController.md mode = AddOrUpdateParentController.md.Update;
+
+    @FXML
+    public void initialize()
+    {
+        displayStudents();
+    }
+
+    private void displayStudents()
+    {
+        tableStudents.setEditable(true);
+        tableStudents.getItems().clear();
+        Student s = new Student();
+        List l=s.displayStudents();
+
+        nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
+        surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
+        classC.setCellValueFactory(CellData -> {
+            Integer idKlasy = CellData.getValue().getIdKlasy();
+            String numerKlasy = (new SchoolClass()).getClassNumber(idKlasy);
+            return new ReadOnlyStringWrapper(numerKlasy);
+        });
+        chooseC.setCellValueFactory(new PropertyValueFactory<ParentChoice, CheckBox>("choose"));
+
+
+        for (Object u: l) {
+            tableStudents.getItems().add((Uczniowie) u);
+        }
+    }
+
 
     @Override
     public void receiveArguments(Map params) {
@@ -49,6 +88,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             surname.setText(toUpdate.getNazwisko());
             email.setText(toUpdate.getEmail());
             phone.setText(toUpdate.getNrKontaktowy().toString());
+            adress.setText(toUpdate.getAdres());
         }
     }
 
@@ -71,13 +111,14 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
                 WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
     }
 
-    private void setNewValues(Rodzice n)
+    private void setNewValues(Rodzice r)
     {
-        n.setImie(name.getText());
-        n.setDrugieImie(name2.getText());
-        n.setNazwisko(surname.getText());
-       // n.setNrKontaktowy(phone.getText());
-        n.setEmail(email.getText());
+        r.setImie(name.getText());
+        r.setDrugieImie(name2.getText());
+        r.setNazwisko(surname.getText());
+       // r.setNrKontaktowy(phone.getText());
+        r.setEmail(email.getText());
+        r.setAdres(adress.getText());
     }
 
     private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
