@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "uczniowie")
 @NamedQueries({
+        @NamedQuery(name = "uczniowie.getHighestID", query = "SELECT u.ID FROM Uczniowie u ORDER BY u.ID DESC"),
         @NamedQuery(name = "uczniowie.findAll", query = "SELECT u FROM Uczniowie u"),
         @NamedQuery(name = "uczniowie.findById", query = "SELECT u FROM Uczniowie u WHERE u.ID = :id"),
         @NamedQuery(name = "uczniowie.getStudentEmailById", query = "SELECT u.email FROM Uczniowie u WHERE u.ID = :ID")})
@@ -16,10 +17,9 @@ public class Uczniowie implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
-    @Id
+
     @Column(name = "email", nullable = false)
     private String email;
 

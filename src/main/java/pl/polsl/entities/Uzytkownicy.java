@@ -26,7 +26,6 @@ public class Uzytkownicy implements Serializable {
     @Column(name = "login", nullable = false)
     private String login;
 
-    @Id
     @Column(name = "ID", nullable = false)
     private Integer ID;
 

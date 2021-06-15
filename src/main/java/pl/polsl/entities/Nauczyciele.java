@@ -19,7 +19,7 @@ public class Nauczyciele implements Serializable {
     @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
-    @Id
+
     @Column(name = "email", nullable = false)
     private String email;
 

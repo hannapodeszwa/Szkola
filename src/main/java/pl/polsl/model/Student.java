@@ -25,13 +25,20 @@ public class Student implements ManageDataBase {
         return results;
     }
 
+    public Integer getHighestId(){
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.getHighestID", Uczniowie.class);
+        Integer result = (Integer) query.getResultList().get(0);
+        return result;
+    }
+
     public Uczniowie getStudentById(Integer id)
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.findById", Uczniowie.class);
         query.setParameter("id", id);
-        Uczniowie results = (Uczniowie) query.getSingleResult();
-        return results;
+        Uczniowie result = (Uczniowie) query.getSingleResult();
+        return result;
     }
 
     public String getStudentEmailById(Integer Id){

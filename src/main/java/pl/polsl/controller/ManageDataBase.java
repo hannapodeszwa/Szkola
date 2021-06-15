@@ -43,6 +43,20 @@ public interface ManageDataBase {
         }
     }
 
+    public default void persist(List<Object> objects) {
+        EntityManager  em = MyManager.getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            for (Object o : objects)
+                em.persist(o);
+
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+        }
+    }
+
     public default void delete(Object object) {
         EntityManager   em = MyManager.getEntityManager();
         try {

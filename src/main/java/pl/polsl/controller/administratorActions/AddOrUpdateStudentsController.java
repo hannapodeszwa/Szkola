@@ -12,14 +12,18 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
-public class AddOrUpdateStudentsController implements ParametrizedController {
+public class AddOrUpdateStudentsController implements ParametrizedController, CredentialsGenerator {
 
     public TextField poleImie;
     public TextField poleMail;
@@ -33,7 +37,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
     private Uczniowie modyfikowany;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
-        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty())// && !buttonAccept.isDisabled())
+        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty())// && !buttonAccept.isDisabled())
             buttonAccept.setDisable(true);
         else
             buttonAccept.setDisable(false);
@@ -98,7 +102,25 @@ public class AddOrUpdateStudentsController implements ParametrizedController {
             u.setEmail(poleMail.getText());
             String classNumber = poleKlasa.getSelectionModel().getSelectedItem();
             u.setIdKlasy((new SchoolClass()).getClassId(classNumber));
-            (new Student()).persist(u);
+
+
+            Integer newItemId = (new Student()).getHighestId() + 1;
+
+            u.setID(newItemId);
+
+            Uzytkownicy usr = new Uzytkownicy();
+            usr.setID(newItemId);
+            usr.setHaslo(this.GeneratePassword());
+            usr.setLogin(this.GenerateLogin(u.getImie(),u.getNazwisko()));
+            //this.SendCredentialsByEmail();
+            usr.setDostep("uczen");
+
+            List toAdd = new ArrayList<Object>();
+            toAdd.add(u);
+            toAdd.add(usr);
+
+            //(new Student()).persist(u);
+            (new Student()).persist(toAdd);
         } else if (mode == md.Update) {
             System.out.println("Modyfikowanie profilu ucznia");
             modyfikowany.setImie(poleImie.getText());
