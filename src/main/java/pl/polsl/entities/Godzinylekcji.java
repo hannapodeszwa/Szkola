@@ -9,6 +9,9 @@ import java.sql.Time;
 @Data
 @Entity
 @Table(name = "sql11418837.godzinylekcji")
+@NamedQueries({
+        @NamedQuery(name = "klasy.getAll", query = "SELECT k FROM Klasy k")
+})
 public class Godzinylekcji implements Serializable {
 
     private static final long serialVersionUID = 1L;
