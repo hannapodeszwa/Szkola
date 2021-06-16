@@ -7,6 +7,7 @@ import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +20,14 @@ public class Teacher implements ManageDataBase {
      */
     EntityManager entityManager;
 
+
+    public List getUnusedTeachers()
+    {
+        entityManager = MyManager.getEntityManager();
+        Query query = entityManager.createNamedQuery("nauczyciele.getUnusedTeachers");
+        List results = query.getResultList();
+        return results;
+    }
 
     public List displayTeachers()
     {

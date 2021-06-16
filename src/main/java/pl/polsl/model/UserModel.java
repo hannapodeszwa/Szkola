@@ -5,12 +5,23 @@ import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class UserModel implements ManageDataBase {
 
     EntityManager entityManager;
+
+    public List getUnusedAccounts()
+    {
+        entityManager = MyManager.getEntityManager();
+        List results = entityManager.createNamedQuery("Uzytkownicy.getUnusedStudentAccounts").getResultList();
+        results.addAll(entityManager.createNamedQuery("Uzytkownicy.getUnusedTeacherAccounts").getResultList());
+        results.addAll(entityManager.createNamedQuery("Uzytkownicy.getUnusedParentAccounts").getResultList());
+        return results;
+    }
 
     public Uzytkownicy getUserByLoginAndPassword(String login, String password) {
         entityManager = MyManager.getEntityManager();

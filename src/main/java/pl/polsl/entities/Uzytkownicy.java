@@ -5,6 +5,21 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
+        @NamedQuery(name = "Uzytkownicy.getUnusedStudentAccounts",
+                query = "SELECT usr FROM Uzytkownicy usr " +
+                        "LEFT JOIN Uczniowie u ON u.ID = usr.ID " +
+                        "WHERE usr.dostep = \"uczen\" AND u.ID IS NULL"),
+
+        @NamedQuery(name = "Uzytkownicy.getUnusedTeacherAccounts",
+                query = "SELECT usr FROM Uzytkownicy usr " +
+                        "LEFT JOIN Nauczyciele n ON n.ID = usr.ID " +
+                        "WHERE usr.dostep = \"nauczyciel\" AND n.ID IS NULL"),
+
+        @NamedQuery(name = "Uzytkownicy.getUnusedParentAccounts",
+                query = "SELECT usr FROM Uzytkownicy usr " +
+                        "LEFT JOIN Rodzice r ON r.ID = usr.ID " +
+                        "WHERE usr.dostep = \"rodzic\" AND r.ID IS NULL"),
+
         @NamedQuery(name = "Uzytkownicy.getUserByLoginAndPassword",
                 query = "SELECT U FROM Uzytkownicy U WHERE U.login = :LOGIN AND U.haslo = :PASSWORD"),
 

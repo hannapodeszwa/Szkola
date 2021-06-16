@@ -8,6 +8,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "uczniowie")
 @NamedQueries({
+        @NamedQuery(name = "uczniowie.getUnusedStudents",
+                query = "SELECT u FROM Uczniowie u " +
+                        "LEFT JOIN Uzytkownicy usr ON u.ID = usr.ID " +
+                        "WHERE usr.ID IS NULL"),
         @NamedQuery(name = "uczniowie.getHighestID", query = "SELECT u.ID FROM Uczniowie u ORDER BY u.ID DESC"),
         @NamedQuery(name = "uczniowie.findAll", query = "SELECT u FROM Uczniowie u"),
         @NamedQuery(name = "uczniowie.findById", query = "SELECT u FROM Uczniowie u WHERE u.ID = :id"),

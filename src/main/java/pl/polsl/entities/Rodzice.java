@@ -4,12 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "rodzice")
 @NamedQueries({
+        @NamedQuery(name = "rodzice.getUnusedParents",
+                query = "SELECT r FROM Rodzice r " +
+                        "LEFT JOIN Uzytkownicy usr ON r.ID = usr.ID " +
+                        "WHERE usr.ID IS NULL "),
         @NamedQuery(name = "rodzice.findAll", query = "SELECT r FROM Rodzice r"),
         @NamedQuery(name = "rodzice.getParentEmailById",
         query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID")
 })
-@Table(name = "rodzice")
 public class Rodzice implements Serializable {
 
     private static final long serialVersionUID = 1L;

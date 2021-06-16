@@ -6,6 +6,7 @@ import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Rodzice;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,6 +14,15 @@ import java.util.logging.Logger;
 
 public class ParentModel implements ManageDataBase {
     EntityManager entityManager;
+
+
+    public List getUnusedParents()
+    {
+        entityManager = MyManager.getEntityManager();
+        Query query = entityManager.createNamedQuery("rodzice.getUnusedParents");
+        List results = query.getResultList();
+        return results;
+    }
 
     public String getParentEmailByID(Integer id) {
         entityManager = MyManager.getEntityManager();

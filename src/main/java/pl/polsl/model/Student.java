@@ -18,6 +18,14 @@ public class Student implements ManageDataBase {
     EntityManager entityManager;
 
 
+    public List getUnusedStudents()
+    {
+        entityManager = MyManager.getEntityManager();
+        Query query = entityManager.createNamedQuery("uczniowie.getUnusedStudents");
+        List results = query.getResultList();
+        return results;
+    }
+
     public List displayStudents()
     {
         entityManager = MyManager.getEntityManager();

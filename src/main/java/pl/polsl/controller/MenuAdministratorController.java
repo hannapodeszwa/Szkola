@@ -1,12 +1,20 @@
 package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import pl.polsl.Main;
 import pl.polsl.Window2;
 import pl.polsl.WindowSize;
+import pl.polsl.model.ParentModel;
+import pl.polsl.model.Student;
+import pl.polsl.model.Teacher;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuAdministratorController extends Window2 {
     private final Stage thisStage;
@@ -51,4 +59,30 @@ public class MenuAdministratorController extends Window2 {
         Main.setRoot("common/signIn");
     }
 
+    public void pressDeleteUnused(ActionEvent actionEvent) {
+        List toDelete = new ArrayList<>();
+        toDelete.addAll((new Student()).getUnusedStudents());
+        toDelete.addAll((new Teacher()).getUnusedTeachers());
+        toDelete.addAll((new ParentModel()).getUnusedParents());
+        toDelete.addAll((new UserModel()).getUnusedAccounts());
+        if(toDelete.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Brak kont do usunięcia.", ButtonType.OK);
+            alert.setHeaderText("");
+            alert.setTitle("Czyszczenie kont");
+            alert.showAndWait();
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Znaleziono " + toDelete.size() + " nieużywanych kont. Czy na pewno chcesz je usunąć?", ButtonType.OK, ButtonType.CANCEL);
+            alert.setHeaderText("");
+            alert.setTitle("Czyszczenie kont");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK){
+                (new Student()).delete(toDelete);
+                Alert done = new Alert(Alert.AlertType.INFORMATION, "Nieużywane konta zostały usunięte.", ButtonType.OK);
+                done.setHeaderText("");
+                done.setTitle("Czyszczenie kont");
+                done.showAndWait();
+            }
+        }
+    }
 }

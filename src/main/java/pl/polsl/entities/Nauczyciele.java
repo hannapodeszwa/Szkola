@@ -6,6 +6,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "nauczyciele")
 @NamedQueries({
+        @NamedQuery(name = "nauczyciele.getUnusedTeachers",
+                query = "SELECT n FROM Nauczyciele n " +
+                        "LEFT JOIN Uzytkownicy usr ON n.ID = usr.ID " +
+                        "WHERE usr.ID IS NULL "),
         @NamedQuery(name = "nauczyciele.findAll", query = "SELECT n FROM Nauczyciele n"),
         @NamedQuery(name = "nauczyciele.findById", query = "SELECT n FROM Nauczyciele n WHERE n.ID = :id"),
         @NamedQuery(name = "nauczyciele.findByName", query = "SELECT n FROM Nauczyciele n WHERE n.imie = :name AND n.nazwisko = :surname"),

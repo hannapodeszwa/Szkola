@@ -99,13 +99,13 @@ public class ManageStudentsController {
 
         Uczniowie u = tableStudents.getSelectionModel().getSelectedItem();
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz usunąć z listy uczniów " + u.getImie() + " " + (u.getDrugieImie() != null ? u.getDrugieImie() + " " : "") + u.getNazwisko() + "?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz usunąć z listy uczniów " + u.getImie() + " " + (u.getDrugieImie() != null ? u.getDrugieImie() + " " : "") + u.getNazwisko() + "?", ButtonType.OK, ButtonType.CANCEL);
         alert.showAndWait();
 
-        if (alert.getResult() == ButtonType.YES) {
+        if (alert.getResult() == ButtonType.OK) {
 
-            List<Object> toUpdate = new ArrayList<Object>();
-            List<Object> toDelete = new ArrayList<Object>();
+            List<Object> toUpdate = new ArrayList<>();
+            List<Object> toDelete = new ArrayList<>();
 
             toDelete.add(u);
             Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(),"uczen");
