@@ -11,10 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
 import pl.polsl.WindowSize;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Uzytkownicy;
+import pl.polsl.entities.*;
+import pl.polsl.model.ScheduleModel;
+import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
 
@@ -121,13 +120,15 @@ public class ManageTeachersController extends Window2 {
 
    private void deleteTeacher(Nauczyciele toDelete, List <Klasy> classTutorList)
    {
+       //delete from class
        if(!(classTutorList.isEmpty())) {
            for (Klasy k: classTutorList) {
                k.setIdWychowawcy(null); //delete this teacher from class
+               (new SchoolClass()).update(k);
            }
        }
 
-       //USUWANIE UZYTKOWNIKA
+       //delete user
        Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "nauczyciel");
        if(userToDelete !=null)
        {
@@ -138,6 +139,16 @@ public class ManageTeachersController extends Window2 {
 
 
        //do rozkladu zmienic na nulle
+       List<Rozklady> teacherScheduleList = (new ScheduleModel()).findByTeacher(toDelete);
+       if(!(teacherScheduleList.isEmpty())) {
+           for (Rozklady r: teacherScheduleList) {
+               r.setIdNauczyciela(null);
+               (new ScheduleModel()).update(r);
+           }
+       }
+
+       //usuwanie z kola
+       //usuwanie z udzialu w konkursie
 
        (new Teacher()).delete(toDelete);
    }

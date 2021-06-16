@@ -30,21 +30,21 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     public Label title;
 
     @FXML
-    private TableView<ParentChoice> tableStudents;
+    private TableView<ParenthoodModel> tableStudents;
     @FXML
-    private TableColumn<ParentChoice, String> nameC;
+    private TableColumn<ParenthoodModel, String> nameC;
     @FXML
-    private TableColumn<ParentChoice, String> surnameC;
+    private TableColumn<ParenthoodModel, String> surnameC;
     @FXML
-    private TableColumn<ParentChoice, String> classC;
+    private TableColumn<ParenthoodModel, String> classC;
     @FXML
-    private TableColumn<ParentChoice, CheckBox> chooseC;
+    private TableColumn<ParenthoodModel, CheckBox> chooseC;
 
 
     private Rodzice toUpdate;
     public enum md {Add, Update}
     private AddOrUpdateParentController.md mode = AddOrUpdateParentController.md.Update;
-    private   ObservableList<ParentChoice> parentchoodList = FXCollections.observableArrayList();
+    private   ObservableList<ParenthoodModel> parentchoodList = FXCollections.observableArrayList();
 
     @FXML
     public void initialize()
@@ -62,7 +62,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
 
         for (Uczniowie u : l) {
-            parentchoodList.add(new ParentChoice(u));
+            parentchoodList.add(new ParenthoodModel(u));
         }
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
@@ -72,7 +72,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             String numerKlasy = (new SchoolClass()).getClassNumber(idKlasy);
             return new ReadOnlyStringWrapper(numerKlasy);
         });
-        chooseC.setCellValueFactory(new PropertyValueFactory<ParentChoice, CheckBox>("choose"));
+        chooseC.setCellValueFactory(new PropertyValueFactory<ParenthoodModel, CheckBox>("choose"));
 
        tableStudents.setItems(parentchoodList);
     }
@@ -123,7 +123,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     private void deleteChildren()
     {
-        ParentChoice p = new ParentChoice((new Uczniowie()));
+        ParenthoodModel p = new ParenthoodModel((new Uczniowie()));
         List<Rodzicielstwo> l = p.findByParent(toUpdate);
 
         for(Rodzicielstwo r: l)
@@ -139,14 +139,14 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             deleteChildren();
         }
 
-        for(ParentChoice pc : parentchoodList )
+        for(ParenthoodModel ph : parentchoodList )
         {
-            if(pc.choose.isSelected()==true)
+            if(ph.choose.isSelected()==true)
             {
                 Rodzicielstwo r = new Rodzicielstwo();
                 r.setIdRodzica(parent.getID());
-                r.setIdUcznia(pc.ID);
-                pc.persist(r);
+                r.setIdUcznia(ph.ID);
+                ph.persist(r);
             }
         }
 

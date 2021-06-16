@@ -56,11 +56,7 @@ public class ManageSubjectsController{
         Przedmioty toUpdate = tableSubjects.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Modyfikacja przedmiotu");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz przedmiot do modyfikacji.");
-            alert.showAndWait();
+            chooseSubjectAlert(true);
         }
         else {
             Map params = new HashMap<String, String>();
@@ -76,7 +72,7 @@ public class ManageSubjectsController{
         Przedmioty toDelete = tableSubjects.getSelectionModel().getSelectedItem();
         if(toDelete==null)
         {
-           chooseSubjectAlert();
+           chooseSubjectAlert(false);
         }
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -94,12 +90,20 @@ public class ManageSubjectsController{
         }
     }
 
-    private void chooseSubjectAlert()
+    private void chooseSubjectAlert(boolean update)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Usuwanie przedmiotu");
+        if(update)
+        {
+            alert.setTitle("Modyfikacja przedmiotu");
+            alert.setContentText("Wybierz przedmiot do modyfikacji.");
+        }
+        else
+        {
+            alert.setTitle("Usuwanie przedmiotu");
+            alert.setContentText("Wybierz przedmiot do usunięcia.");
+        }
         alert.setHeaderText(null);
-        alert.setContentText("Wybierz przedmiot do usunięcia.");
         alert.showAndWait();
     }
 

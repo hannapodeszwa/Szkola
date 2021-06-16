@@ -11,7 +11,9 @@ import pl.polsl.Main;
 import pl.polsl.Window2;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Rozklady;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.model.ScheduleModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
@@ -90,11 +92,7 @@ public class ManageClassController extends Window2 {
     public void updateClassButton(ActionEvent event) throws IOException {
         Klasy toUpdate = tableClass.getSelectionModel().getSelectedItem();
         if (toUpdate == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Modyfikacja klasy");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz klase do modyfikacji.");
-            alert.showAndWait();
+            chooseClassAlert(true);
         } else {
             Map params = new HashMap<String, String>();
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
@@ -107,21 +105,28 @@ public class ManageClassController extends Window2 {
     public void deleteClassButton(ActionEvent event) throws IOException {
         Klasy toDelete = tableClass.getSelectionModel().getSelectedItem();
         if (toDelete == null) {
-           chooseClassAlert();
+           chooseClassAlert(false);
         } else {
             List<Klasy> classStudents = (new SchoolClass()).getStudentsByClass(toDelete);
             if (!(classStudents.isEmpty())) {
                classWithStudentsAlert();
             } else {
+                List<Rozklady> classScheduleList = (new ScheduleModel()).findByClass(toDelete);
+
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Usuwanie klasy");
-                alert.setHeaderText("Czy na pewno chcesz usunąć tą klase?");
-                alert.setContentText(toDelete.getNumer());
+                alert.setHeaderText("Czy na pewno chcesz usunąć tą klasę?");
+                alert.setContentText(toDelete.getNumer() +
+                        "\nSpowoduje to też usunięcie wszystkich rozkładów z tą klasą.");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    /*
-                    USUWANIE KLASY Z ROZKLADU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                     */
+
+                    //delete schedule with class
+                    if(!(classScheduleList.isEmpty())) {
+                        for (Rozklady r: classScheduleList) {
+                            (new ScheduleModel()).delete(r);
+                        }
+                    }
 
                     (new SchoolClass()).delete(toDelete);
                     displayTableClass();
@@ -140,12 +145,18 @@ public class ManageClassController extends Window2 {
         alert.showAndWait();
     }
 
-    private void chooseClassAlert()
+    private void chooseClassAlert(boolean update)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Usuwanie klasy");
+        if(update) {
+            alert.setTitle("Modyfikacja klasy");
+            alert.setContentText("Wybierz klasę do modyfikacji.");
+        }
+        else {
+            alert.setTitle("Usuwanie klasy");
+            alert.setContentText("Wybierz klasę do usunięcia.");
+        }
         alert.setHeaderText(null);
-        alert.setContentText("Wybierz klase do usunięcia.");
         alert.showAndWait();
     }
 
