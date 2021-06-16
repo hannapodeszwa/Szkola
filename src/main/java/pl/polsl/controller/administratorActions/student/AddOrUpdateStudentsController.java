@@ -34,7 +34,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     public ComboBox comboBoxTeacher;
     public ComboBox comboBoxClassroom;
 
-
     private Uczniowie modyfikowany;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
