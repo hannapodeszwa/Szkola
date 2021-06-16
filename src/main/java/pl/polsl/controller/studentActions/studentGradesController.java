@@ -12,7 +12,6 @@ import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Oceny;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.*;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,8 +29,8 @@ public class studentGradesController implements ParametrizedController {
 
     private Integer id;
     private StudentMenuController.md mode;
-    private ObservableList<Uczniowie> children;
     private Integer id_child;
+    private ObservableList<Uczniowie> children;
     private ObservableList<Oceny> list;
 
     void setTable(){
@@ -42,7 +41,6 @@ public class studentGradesController implements ParametrizedController {
         columnWeight.setCellValueFactory(new PropertyValueFactory<>("waga"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
         columnDescription.setCellValueFactory(new PropertyValueFactory<>("opis"));
-
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getIdPrzedmiotu();
             String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
@@ -50,7 +48,6 @@ public class studentGradesController implements ParametrizedController {
         });
 
         table.setItems(list);
-        
     }
 
     @Override
@@ -61,7 +58,6 @@ public class studentGradesController implements ParametrizedController {
         if (mode == StudentMenuController.md.Parent) {
             children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
 
-
             if (!children.isEmpty()) {
                 for (Uczniowie act : children) {
                     comboboxChildren.getItems().add(act.getImie() + " " + act.getNazwisko());
@@ -70,13 +66,12 @@ public class studentGradesController implements ParametrizedController {
                 id_child = children.get(0).getID();
                 setTable();
             }
-        } else {
+        }
+        else {
             comboboxChildren.setVisible(false);
-
             id_child = id;
             setTable();
         }
-
     }
 
 

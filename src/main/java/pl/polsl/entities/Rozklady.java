@@ -21,7 +21,6 @@ public class Rozklady implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
-    @Id
     @Column(name = "idKlasy", nullable = false)
     private Integer idKlasy;
 

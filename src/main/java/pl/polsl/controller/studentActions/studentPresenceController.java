@@ -16,7 +16,6 @@ import pl.polsl.model.Present;
 import pl.polsl.model.Presentv2;
 import pl.polsl.model.Student;
 import pl.polsl.model.Subject;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,8 +53,6 @@ public class studentPresenceController implements ParametrizedController {
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
         columnHour.setCellValueFactory(new PropertyValueFactory<>("godzina"));
         columnCheck.setCellValueFactory(new PropertyValueFactory<>("czyUsp"));
-
-
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();
             String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
@@ -82,7 +79,6 @@ public class studentPresenceController implements ParametrizedController {
                         break;
                     }
                 }
-
             }
         }
     }
@@ -104,13 +100,13 @@ public class studentPresenceController implements ParametrizedController {
                 id_child = children.get(0).getID();
                 setTable();
             }
-        } else {
+        }
+        else {
             comboboxChildren.setVisible(false);
 
             id_child = id;
             setTable();
         }
-
 
         if (mode == StudentMenuController.md.Student) {
             for (Presentv2 a : data)
@@ -129,7 +125,6 @@ public class studentPresenceController implements ParametrizedController {
             saveData();
 
     }
-
 
 
     public void changeComboboxChildren() {

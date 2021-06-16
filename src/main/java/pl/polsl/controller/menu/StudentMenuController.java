@@ -9,23 +9,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class StudentMenuController implements ParametrizedController{
 
     private int id;
-
-
-
     public enum md {Parent, Student}
     private md mode;
-    private String a;
     private Map params;
 
     @FXML
@@ -48,7 +42,7 @@ public class StudentMenuController implements ParametrizedController{
 
     }
 
-    public void clickButtonGrades(ActionEvent actionEvent) throws IOException {
+    public void clickButtonGrades() throws IOException {
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
@@ -56,7 +50,7 @@ public class StudentMenuController implements ParametrizedController{
                 WindowSize.studentGradesForm.getWidth(), WindowSize.studentGradesForm.getHeight());
     }
 
-    public void clickButtonPresence(ActionEvent event) throws IOException
+    public void clickButtonPresence() throws IOException
     {
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
@@ -71,4 +65,13 @@ public class StudentMenuController implements ParametrizedController{
     public void logOutAction() throws IOException {
         Main.setRoot("common/signIn");
     }
+
+
+    public void clickButtonSchedule() throws IOException {
+        params = new HashMap<String, String>();
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentScheduleForm");
+    }
+
 }
