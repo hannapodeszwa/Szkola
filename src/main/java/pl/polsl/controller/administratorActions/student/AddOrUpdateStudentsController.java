@@ -65,7 +65,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             comboBoxClassroom.getItems().add(decoratedSubject);
         }
 
-        List<Nauczyciele> teachers = (new Teacher()).displayTeachers();
+        List<Nauczyciele> teachers = (new Teacher()).getAllTeachers();
         for (Nauczyciele tea : teachers){
             Nauczyciele decoratedTea = new Nauczyciele(){
                 @Override
