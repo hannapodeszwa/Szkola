@@ -20,6 +20,8 @@ public class StudentMenuController implements ParametrizedController {
 
     private int id;
 
+
+
     public enum md {Parent, Student}
     private md mode;
     private String a;
@@ -45,7 +47,13 @@ public class StudentMenuController implements ParametrizedController {
 
     }
 
+    public void clickButtonGrades(ActionEvent actionEvent) throws IOException {
+        params = new HashMap<String, String>();
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentGrades",params);
 
+    }
 
     public void clickButtonPresence(ActionEvent event) throws IOException
     {

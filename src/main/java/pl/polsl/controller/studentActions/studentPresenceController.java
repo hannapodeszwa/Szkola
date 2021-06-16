@@ -94,18 +94,23 @@ public class studentPresenceController implements ParametrizedController {
 
         if (mode == StudentMenuController.md.Parent) {
             children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
-            for (Uczniowie act : children) {
-                comboboxChildren.getItems().add(act.getImie() + " " + act.getNazwisko());
             }
-            comboboxChildren.getSelectionModel().select(0);
-            id_child = children.get(0).getID();
+
+            if(!children.isEmpty()) {
+                for (Uczniowie act : children) {
+                    comboboxChildren.getItems().add(act.getImie() + " " + act.getNazwisko());
+                comboboxChildren.getSelectionModel().select(0);
+                id_child = children.get(0).getID();
+                setTable();
+            }
         } else {
             comboboxChildren.setVisible(false);
 
             id_child = id;
+            setTable();
         }
 
-        setTable();
+
 
         if (mode == StudentMenuController.md.Student) {
             for(Presentv2 a : data)
