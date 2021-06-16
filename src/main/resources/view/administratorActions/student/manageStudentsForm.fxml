@@ -3,18 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.ManageStudentsController">
+<AnchorPane prefHeight="350.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.student.ManageStudentsController">
    <children>
-      <TableView fx:id="tableStudents" layoutX="47.0" layoutY="36.0" prefHeight="299.0" prefWidth="294.0">
+      <TableView fx:id="tableStudents" layoutX="27.0" layoutY="25.0" prefHeight="299.0" prefWidth="294.0">
         <columns>
             <TableColumn id="nameC" fx:id="nameC" prefWidth="96.0" text="Imię" />
             <TableColumn id="surnameC" fx:id="surnameC" prefWidth="116.0" text="Nazwisko" />
             <TableColumn id="classC" fx:id="classC" prefWidth="64.0" text="Klasa" />
         </columns>
       </TableView>
-      <Button fx:id="buttonAddNewStudent" layoutX="366.0" layoutY="44.0" mnemonicParsing="false" onAction="#addStudentsButton" text="Dodaj nowego ucznia" />
-      <Button fx:id="buttonUpdateStudent" layoutX="366.0" layoutY="100.0" mnemonicParsing="false" onAction="#updateStudentsButton" text="Modyfikuj dane ucznia" />
-      <Button fx:id="buttonDeleteStudent" layoutX="366.0" layoutY="149.0" mnemonicParsing="false" onAction="#deleteStudentsButton" text="Usuń ucznia" />
-      <Button layoutX="366.0" layoutY="200.0" mnemonicParsing="false" onAction="#goBackButtonClick" text="Powrót" />
+      <Button fx:id="buttonAddNewStudent" layoutX="351.0" layoutY="25.0" mnemonicParsing="false" onAction="#addStudentsButton" prefHeight="26.0" prefWidth="188.0" text="Dodaj nowego ucznia" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="buttonUpdateStudent" layoutX="351.0" layoutY="65.0" mnemonicParsing="false" onAction="#updateStudentsButton" prefHeight="26.0" prefWidth="188.0" text="Modyfikuj dane ucznia" AnchorPane.rightAnchor="40.0" />
+      <Button fx:id="buttonDeleteStudent" layoutX="351.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteStudentsButton" prefHeight="26.0" prefWidth="188.0" text="Usuń ucznia" AnchorPane.rightAnchor="40.0" />
+      <Button layoutX="351.0" layoutY="145.0" mnemonicParsing="false" onAction="#goBackButtonClick" prefHeight="26.0" prefWidth="188.0" text="Powrót" AnchorPane.rightAnchor="40.0"/>
    </children>
 </AnchorPane>

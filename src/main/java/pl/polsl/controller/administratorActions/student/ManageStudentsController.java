@@ -1,4 +1,4 @@
-package pl.polsl.controller.administratorActions;
+package pl.polsl.controller.administratorActions.student;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.event.ActionEvent;
@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.WindowSize;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
@@ -79,7 +80,7 @@ public class ManageStudentsController {
         Map params = new HashMap<String, String>();
 
         params.put("mode","add");
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params);
+        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm.getWidth(), WindowSize.addOrUpdateStudentForm.getHeight());
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
@@ -91,7 +92,7 @@ public class ManageStudentsController {
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
         params.put("mode","update");
         //AddOrUpdateStudentsController
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params);
+        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm.getWidth(), WindowSize.addOrUpdateStudentForm.getHeight());
     }
 
     public void deleteStudentsButton(ActionEvent event) throws IOException
@@ -129,6 +130,6 @@ public class ManageStudentsController {
 
     public void goBackButtonClick(ActionEvent event) throws IOException {
         System.out.println("Powrot");
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }

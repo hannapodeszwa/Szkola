@@ -1,4 +1,4 @@
-package pl.polsl.controller.administratorActions;
+package pl.polsl.controller.administratorActions.student;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
@@ -9,13 +9,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
+import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Uzytkownicy;
-import pl.polsl.model.SchoolClass;
-import pl.polsl.model.Student;
-import pl.polsl.model.UserModel;
+import pl.polsl.controller.administratorActions.CredentialsGenerator;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +30,9 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     public TextField poleNazwisko;
     public ComboBox<String> poleKlasa;
     public Button buttonAccept;
+    public ComboBox<Przedmioty> comboBoxSubject;
+    public ComboBox comboBoxTeacher;
+    public ComboBox comboBoxClassroom;
 
 
     private Uczniowie modyfikowany;
@@ -49,6 +50,39 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         for (Klasy el : l) {
             poleKlasa.getItems().add(el.getNumer());
         }
+
+        //List<Sale> classrooms = ()
+        List<Przedmioty> subjects = (new Subject()).displaySubjects();
+        for (Przedmioty subject : subjects){
+            Przedmioty decoratedSubject = new Przedmioty(){
+                @Override
+                public String toString() {
+                    return this.getNazwa();
+                }
+            };
+            decoratedSubject.setID(subject.getID());
+            decoratedSubject.setNazwa(subject.getNazwa());
+            comboBoxClassroom.getItems().add(decoratedSubject);
+        }
+
+        List<Nauczyciele> teachers = (new Teacher()).displayTeachers();
+        for (Nauczyciele tea : teachers){
+            Nauczyciele decoratedTea = new Nauczyciele(){
+                @Override
+                public String toString() {
+                    return this.getImie() + " " + this.getNazwisko();
+                }
+            };
+            decoratedTea.setImie(tea.getImie());
+            decoratedTea.setDrugieImie(tea.getDrugieImie());
+            decoratedTea.setNazwisko(tea.getNazwisko());
+            decoratedTea.setEmail(tea.getEmail());
+            decoratedTea.setNrKontaktowy(tea.getNrKontaktowy());
+            decoratedTea.setID(tea.getID());
+            comboBoxTeacher.getItems().add(decoratedTea);
+        }
+
+
 
         poleImie.textProperty().addListener(TextListener);
         poleNazwisko.textProperty().addListener(TextListener);
@@ -121,12 +155,12 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             modyfikowany.setIdKlasy((new SchoolClass()).getClassId(classNumber));
             (new Student()).update(modyfikowany);
         }
-        Main.setRoot("administratorActions/student/manageStudentsForm");
+        Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
         System.out.println("Zmiany anulowano");
-        Main.setRoot("administratorActions/student/manageStudentsForm");
+        Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
     }
 
 }

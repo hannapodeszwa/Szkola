@@ -25,7 +25,8 @@ public class MenuAdministratorController {
 
     public void pressManageStudentsButton(ActionEvent event) throws IOException
     {
-       Main.setRoot("administratorActions/student/manageStudentsForm");
+       Main.setRoot("administratorActions/student/manageStudentsForm",
+               WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
 
     }
     public void pressManageTeacherButton(ActionEvent event) throws IOException
