@@ -2,7 +2,6 @@ package pl.polsl.controller.menu;
 
 import javafx.event.ActionEvent;
 import pl.polsl.Main;
-import pl.polsl.controller.AddOrUpdateSubjectController;
 import pl.polsl.controller.ParametrizedController;
 
 import java.util.HashMap;
@@ -18,24 +17,7 @@ public class TeacherMenuController implements ParametrizedController {
         System.out.println("Logged as: " + loggedTeacherId);
     }
 
-    public void viewGradesAction(ActionEvent event) throws IOException
-    {
-    }
-    public void viewPresencesAction(ActionEvent event) throws IOException
-    {
-    }
 
-    public void writeGradesAction(ActionEvent event) throws IOException
-    {
-    }
-
-    public void writePresenceAction(ActionEvent event) throws IOException
-    {
-    }
-
-    public void messagesAction(ActionEvent event) throws IOException
-    {
-    }
 
     public void viewGradesAction(ActionEvent event) throws IOException
     {

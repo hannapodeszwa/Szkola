@@ -53,9 +53,9 @@ public class Teacher implements ManageDataBase {
 
     public List checkTeacherSubjects(Integer id)
     {
-        em = MyManager.getEntityManager();
+        entityManager = MyManager.getEntityManager();
         TypedQuery query =
-                em.createNamedQuery("przedmioty.findByTutorId", String.class);
+                entityManager.createNamedQuery("przedmioty.findByTutorId", String.class);
         List<String> results = query.setParameter("idNauczyciela", id).getResultList();
 
         return results;

@@ -8,8 +8,7 @@ import java.io.Serializable;
 @Table(name = "przedmioty")
 @NamedQueries({
         @NamedQuery(name = "przedmioty.findAll", query = "SELECT p FROM Przedmioty p"),
-        @NamedQuery(name = "przedmioty.findById", query = "SELECT p FROM Przedmioty p WHERE p.ID = :id")
-})
+        @NamedQuery(name = "przedmioty.findById", query = "SELECT p FROM Przedmioty p WHERE p.ID = :id"),
         @NamedQuery(name = "przedmioty.findByTutorId", query = "SELECT DISTINCT p.nazwa FROM Przedmioty p INNER JOIN Rozklady r ON p.ID = r.idPrzedmiotu WHERE r.idNauczyciela = :idNauczyciela"),
         @NamedQuery(name = "przedmioty.getSubjectByName", query = "SELECT p FROM Przedmioty p WHERE p.nazwa = :nazwa"),
        @NamedQuery(name = "przedmioty.findAll", query = "SELECT p FROM Przedmioty p")})
