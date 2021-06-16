@@ -51,7 +51,7 @@ public class studentPresenceController implements ParametrizedController {
         }
 
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
-        columnHour.setCellValueFactory(new PropertyValueFactory<>("godzina"));
+        columnHour.setCellValueFactory(new PropertyValueFactory<>("godzina"));//TODO poprawić na numer, nie id
         columnCheck.setCellValueFactory(new PropertyValueFactory<>("czyUsp"));
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();

@@ -79,7 +79,7 @@ public class StudentMenuController implements ParametrizedController{
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentScheduleForm");
+        Main.setRoot("studentActions/studentScheduleForm", params);
     }
 
 }

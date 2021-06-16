@@ -8,11 +8,11 @@ import java.sql.Time;
 
 @Data
 @Entity
-@Table(name = "sql11418837.godzinylekcji")
+@Table(name = "sql11418837.godzinyLekcji")
 @NamedQueries({
-        @NamedQuery(name = "klasy.getAll", query = "SELECT k FROM Klasy k")
+        @NamedQuery(name = "godzinyLekcji.getAll", query = "SELECT g FROM GodzinyLekcji g ORDER BY g.numer")
 })
-public class Godzinylekcji implements Serializable {
+public class GodzinyLekcji implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,5 +26,9 @@ public class Godzinylekcji implements Serializable {
 
     @Column(name = "koniec", nullable = false)
     private Time koniec;
+    @Column(name = "numer", nullable = false)
+    private Integer numer;
 
+    public GodzinyLekcji() {
+    }
 }
