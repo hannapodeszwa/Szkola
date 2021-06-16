@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import pl.polsl.Main;
+import pl.polsl.WindowSize;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.UserModel;
 
@@ -67,7 +68,8 @@ public class SignInController {
                        Main.setRoot("menu/studentMenuForm",params);
                        break;
                    case "admin":
-                       Main.setRoot("menu/adminMenuForm");
+                       Main.setRoot("menu/adminMenuForm",
+                               WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
                        break;
                }
            } else errorLabel.setText("Wrong login or password");

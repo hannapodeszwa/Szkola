@@ -2,20 +2,19 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Nieobecnosci;
+import pl.polsl.entities.Oceny;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class Present implements ManageDataBase {
-
+public class Grade implements ManageDataBase {
 
     EntityManager entityManager;
 
-    public List<Nieobecnosci> displayPresent(Integer id)
+    public List<Oceny> getGradeByStudent(Integer id)
     {
         entityManager = MyManager.getEntityManager();
-        TypedQuery<Nieobecnosci> query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
+        TypedQuery<Oceny> query = entityManager.createNamedQuery("oceny.getGradeByIdStudent", Oceny.class);
         query.setParameter("id", id);
         return query.getResultList();
     }

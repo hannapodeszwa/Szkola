@@ -11,10 +11,11 @@ import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
 import pl.polsl.WindowSize;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.*;
+import pl.polsl.model.ScheduleModel;
+import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Teacher;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -89,11 +90,7 @@ public class ManageTeachersController extends Window2 {
 
         if(toDelete==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Usuwanie nauczyciela");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz nauczyciela do usunięcia.");
-            alert.showAndWait();
+          chooseTeacherAlert();
         }
         else {
             List<Klasy> classTutorList = (new Teacher()).checkTutor(toDelete); //find class where this teacher is tutor
@@ -114,19 +111,61 @@ public class ManageTeachersController extends Window2 {
             alert.setContentText(toDelete.getImie() + " " + toDelete.getNazwisko());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                if(!(classTutorList.isEmpty())) {
-                    for (Klasy k: classTutorList) {
-                        k.setIdWychowawcy(null); //delete this teacher from class
-                    }
-                }
-                (new Teacher()).delete(toDelete);
+
+                deleteTeacher(toDelete, classTutorList);
                 displayTableTeachers();
             }
         }
     }
+
+   private void deleteTeacher(Nauczyciele toDelete, List <Klasy> classTutorList)
+   {
+       //delete from class
+       if(!(classTutorList.isEmpty())) {
+           for (Klasy k: classTutorList) {
+               k.setIdWychowawcy(null); //delete this teacher from class
+               (new SchoolClass()).update(k);
+           }
+       }
+
+       //delete user
+       Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "nauczyciel");
+       if(userToDelete !=null)
+       {
+           (new UserModel()).delete(userToDelete);
+       }
+
+       //UsUwANIE WIADOMOSCI
+
+
+       //do rozkladu zmienic na nulle
+       List<Rozklady> teacherScheduleList = (new ScheduleModel()).findByTeacher(toDelete);
+       if(!(teacherScheduleList.isEmpty())) {
+           for (Rozklady r: teacherScheduleList) {
+               r.setIdNauczyciela(null);
+               (new ScheduleModel()).update(r);
+           }
+       }
+
+       //usuwanie z kola
+       //usuwanie z udzialu w konkursie
+
+       (new Teacher()).delete(toDelete);
+   }
+
+    private void chooseTeacherAlert()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Usuwanie nauczyciela");
+        alert.setHeaderText(null);
+        alert.setContentText("Wybierz nauczyciela do usunięcia.");
+        alert.showAndWait();
+    }
+
     public void cancelButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm",
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 
 

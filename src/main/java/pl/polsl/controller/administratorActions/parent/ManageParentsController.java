@@ -11,12 +11,10 @@ import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Rodzice;
-import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.*;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Teacher;
+import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -66,11 +64,7 @@ public class ManageParentsController implements ManageDataBase {
         Rodzice toUpdate = tableParents.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Modyfikacja rodzica");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz rodzica do modyfikacji.");
-            alert.showAndWait();
+            chooseParentAlert(true);
         }
         else {
             Map params = new HashMap<String, String>();
@@ -87,11 +81,7 @@ public class ManageParentsController implements ManageDataBase {
 
         if(toDelete==null)
         {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Usuwanie rodzica");
-            alert.setHeaderText(null);
-            alert.setContentText("Wybierz rodzica do usunięcia.");
-            alert.showAndWait();
+           chooseParentAlert(false);
         }
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -102,18 +92,39 @@ public class ManageParentsController implements ManageDataBase {
             alert.setContentText(toDelete.getImie() + " " + toDelete.getNazwisko());
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-               /* if(!(classTutorList.isEmpty())) {
-                    for (Klasy k: classTutorList) {
-                        k.setIdWychowawcy(null); //delete this teacher from class
-                    }
-                }*/
+
+                //delete user
+                Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "rodzic");
+                if(userToDelete !=null)
+                {
+                    (new UserModel()).delete(userToDelete);
+                }
+
+
                 (new ParentModel()).delete(toDelete);
                 displayTableParents();
             }
         }
     }
+
+    private void chooseParentAlert(boolean update)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if(update) {
+            alert.setTitle("Modyfikacja rodzica");
+            alert.setContentText("Wybierz rodzica do modyfikacji.");
+        }
+        else {
+            alert.setTitle("Usuwanie rodzica");
+            alert.setContentText("Wybierz rodzica do usunięcia.");
+        }
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
     public void cancelButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm",
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }

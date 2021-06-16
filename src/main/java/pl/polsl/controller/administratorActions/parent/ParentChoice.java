@@ -9,8 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class ParentChoice extends Uczniowie implements ManageDataBase {
-    public CheckBox choose = new CheckBox();
+// CHYBA DO USUNIECIA
+
+public class ParentChoice  {
+   /* public CheckBox choose = new CheckBox();
     private EntityManager entityManager;
     public ParentChoice(Uczniowie u) {
         this.ID=u.ID;
@@ -35,7 +37,7 @@ public class ParentChoice extends Uczniowie implements ManageDataBase {
 this.choose=choose;
     }*/
 
-    public CheckBox getChoose() {
+    /*public CheckBox getChoose() {
         return choose;
-    }
+    }*/
 }

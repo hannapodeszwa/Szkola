@@ -23,6 +23,13 @@ public class Subject implements ManageDataBase {
         return results;
     }
 
-
+    public String getSubjectName(Integer id)
+    {
+        em = MyManager.getEntityManager();
+        TypedQuery query = em.createNamedQuery("przedmioty.findById", Przedmioty.class);
+        query.setParameter("id", id);
+        Przedmioty results = (Przedmioty) query.getSingleResult();
+        return results.getNazwa();
+    }
 
 }
