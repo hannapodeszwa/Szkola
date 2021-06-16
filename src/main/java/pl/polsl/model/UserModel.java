@@ -76,4 +76,17 @@ public class UserModel implements ManageDataBase {
             entityManager.getTransaction().rollback();
         }
     }
+
+    public String getLoginByIdAndRole(Integer ID, String role) {
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("Uzytkownicy.getLoginByIdAndRole", String.class)
+                    .setParameter("ID", ID)
+                    .setParameter("ROLE", role)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get login by id and role", e.getMessage());
+            return "";
+        }
+    }
 }

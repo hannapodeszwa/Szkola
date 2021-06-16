@@ -9,6 +9,7 @@ import pl.polsl.entities.Uczniowie;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,14 +30,17 @@ public class Teacher implements ManageDataBase {
         return results;
     }
 
-    public List displayTeachers()
+
+    public List<Nauczyciele> getAllTeachers()
     {
         entityManager = MyManager.getEntityManager();
-
-        TypedQuery query =
-                entityManager.createNamedQuery("nauczyciele.findAll", Nauczyciele.class);
-        List<Nauczyciele> results = query.getResultList();
-        return results;
+        try {
+            return entityManager.createNamedQuery("nauczyciele.findAll", Nauczyciele.class)
+                    .getResultList();
+        } catch (Exception e){
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not teachers list", e);
+            return Collections.emptyList();
+        }
     }
 
     public List checkTutor(Nauczyciele teacher)

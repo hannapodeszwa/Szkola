@@ -50,8 +50,7 @@ public class AddOrUpdateClassController  implements ParametrizedController {
     {
         leader.getItems().add(null);
         Student student = new Student();
-        students = student.displayStudents();
-       // students.sort(Comparator.comparing(Object::toString));
+        students = student.getAllStudents();
         for (Uczniowie u : students) {
             leader.getItems().add(u.getImie() + " " + u.getNazwisko());
         }
@@ -60,7 +59,7 @@ public class AddOrUpdateClassController  implements ParametrizedController {
     {
         tutor.getItems().add(null);
         Teacher teacher = new Teacher();
-        teachers = teacher.displayTeachers();
+        teachers = teacher.getAllTeachers();
         for (Nauczyciele n : teachers) {
             tutor.getItems().add(n.getImie() + " " + n.getNazwisko());
         }

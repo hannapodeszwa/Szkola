@@ -18,6 +18,7 @@ public class Student implements ManageDataBase {
     EntityManager entityManager;
 
 
+
     public List getUnusedStudents()
     {
         entityManager = MyManager.getEntityManager();
@@ -26,7 +27,7 @@ public class Student implements ManageDataBase {
         return results;
     }
 
-    public List displayStudents()
+    public List<Uczniowie> getAllStudents()
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.findAll", Uczniowie.class);

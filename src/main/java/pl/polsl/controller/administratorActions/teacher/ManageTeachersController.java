@@ -42,7 +42,7 @@ public class ManageTeachersController {
     {
         tableTeachers.getItems().clear();
         Teacher t = new Teacher();
-        List l=t.displayTeachers();
+        List l=t.getAllTeachers();
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));

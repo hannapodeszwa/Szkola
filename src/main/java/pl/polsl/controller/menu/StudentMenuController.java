@@ -1,5 +1,7 @@
 package pl.polsl.controller.menu;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import pl.polsl.Main;
 
 import java.io.IOException;
@@ -60,7 +62,13 @@ public class StudentMenuController implements ParametrizedController{
     }
 
 
-
+    public void buttonMessagesAction() throws IOException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("previousLocation", "menu/studentMenuForm");
+        parameters.put("role", "uczen");
+        parameters.put("id", id);
+        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+    }
 
     public void logOutAction() throws IOException {
         Main.setRoot("common/signIn");

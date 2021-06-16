@@ -41,7 +41,7 @@ public class ManageParentsController implements ManageDataBase {
     {
         tableParents.getItems().clear();
         ParentModel p = new ParentModel();
-        List l=p.displayParents();
+        List l=p.getAllParents();
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
