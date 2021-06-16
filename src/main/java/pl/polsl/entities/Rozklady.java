@@ -15,6 +15,7 @@ import java.io.Serializable;
                 query = "SELECT r FROM Rozklady r WHERE r.idPrzedmiotu = :id")
 })
 @Table(name = "rozklady")
+
 public class Rozklady implements Serializable {
 
     private static final long serialVersionUID = 1L;

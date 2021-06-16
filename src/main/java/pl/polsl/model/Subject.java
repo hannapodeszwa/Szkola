@@ -32,4 +32,14 @@ public class Subject implements ManageDataBase {
         return results.getNazwa();
     }
 
+    public Przedmioty getSubjectByName(String name){
+        em = MyManager.getEntityManager();
+        System.out.println(name);
+        TypedQuery query = em.createNamedQuery("przedmioty.getSubjectByName", Przedmioty.class);
+        query.setParameter("nazwa", name);
+        Przedmioty result = (Przedmioty) query.getSingleResult();
+
+        return result;
+    }
+
 }

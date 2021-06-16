@@ -3,9 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.Float?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.WriteGradesController">
    <children>
-      <VBox alignment="CENTER" layoutX="55.0" layoutY="58.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
+      <VBox alignment="CENTER" layoutX="55.0" layoutY="17.0" prefHeight="276.0" prefWidth="195.0" spacing="25.0">
          <children>
             <Label text="Student details" />
             <TextField fx:id="idTextField" promptText="ID" />
@@ -17,9 +20,30 @@
       <VBox alignment="CENTER" layoutX="318.0" layoutY="70.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
          <children>
             <Label text="Grade details" />
-            <ComboBox fx:id="gradeComboBox" prefWidth="150.0" />
-            <ComboBox fx:id="valueComboBox" prefWidth="150.0" />
+            <ComboBox fx:id="subjectComboBox" prefWidth="150.0"/>
+            <ComboBox fx:id="gradeComboBox" prefWidth="150.0" value="1.00">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <Float fx:value="1.00" />
+                     <Float fx:value="2.00" />
+                     <Float fx:value="3.00" />
+                     <Float fx:value="4.00" />
+                     <Float fx:value="5.00" />
+                     <Float fx:value="6.00" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+            <ComboBox fx:id="valueComboBox" prefWidth="150.0" value="1.00">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <Float fx:value="1.00" />
+                     <Float fx:value="2.00" />
+                     <Float fx:value="3.00" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
             <TextField fx:id="descriptionTextField" prefHeight="58.0" prefWidth="195.0" promptText="Description" />
+            <Label fx:id="errorLabel" />
          </children>
       </VBox>
       <Button layoutX="255.0" layoutY="323.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="80.0" styleClass="button-confirm" text="Submit" />
