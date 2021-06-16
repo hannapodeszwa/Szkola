@@ -19,10 +19,7 @@ import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Rodzice;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
-import pl.polsl.model.ParentModel;
-import pl.polsl.model.Student;
-import pl.polsl.model.Teacher;
-import pl.polsl.model.UserModel;
+import pl.polsl.model.*;
 import pl.polsl.view.NotificationsInterface;
 
 import java.io.IOException;
@@ -30,13 +27,18 @@ import java.util.*;
 
 public class MessageController implements ParametrizedController, NotificationsInterface {
 
-    private enum roles {
-        teacher("nauczyciel"),
-        student("uczen"),
-        parent("rodzic");
+    private final String teacherRole = "nauczyciel";
+    private final String studentRole = "uczen";
+    private final String parentRole = "rodzic";
 
-        private final String value;
-        roles(String value) {
+    private enum messageTypes {
+        studentTeacher(0),
+        teacherStudent(1),
+        parentTeacher(2),
+        teacherParent(3);
+        private final Integer value;
+
+        messageTypes(Integer value) {
             this.value = value;
         }
     }
@@ -48,9 +50,9 @@ public class MessageController implements ParametrizedController, NotificationsI
     private ParentModel parentModel;
     private Teacher teacherModel;
     private UserModel userModel;
+    private MessageModel messageModel;
     private AutoCompletionBinding<String> autoCompletionBinding;
     private Boolean receiverSet;
-    private Boolean changeReceiver;
 
     private Set<String> suggestionsSet;
 
@@ -69,12 +71,12 @@ public class MessageController implements ParametrizedController, NotificationsI
     @FXML
     public void initialize() {
         receiverSet = false;
-        changeReceiver = true;
         suggestionsSet = new HashSet<>();
         studentModel = new Student();
         parentModel = new ParentModel();
         teacherModel = new Teacher();
         userModel = new UserModel();
+        messageModel = new MessageModel();
         receiverTextField.textProperty().addListener(observable -> {
             errorLabel.setText("");
             receiverSet = false;
@@ -90,25 +92,25 @@ public class MessageController implements ParametrizedController, NotificationsI
         id = (Integer) params.get("id");
 
         switch (role) {
-            case "nauczyciel": {
+            case teacherRole: {
                 List<Uczniowie> students = studentModel.getAllStudents();
                 List<Rodzice> parents = parentModel.getAllParents();
                 for (Uczniowie student : students) {
                     suggestionsSet.add(student.getImie() + " " + student.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(student.getID(), roles.student.value) + "]");
+                            " [" + userModel.getLoginByIdAndRole(student.getID(), studentRole) + "]");
                 }
                 for (Rodzice parent : parents) {
                     suggestionsSet.add(parent.getImie() + " " + parent.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(parent.getID(), roles.parent.value) + "]");
+                            " [" + userModel.getLoginByIdAndRole(parent.getID(), parentRole) + "]");
                 }
                 break;
             }
-            case "uczen":
-            case "rodzic": {
+            case studentRole:
+            case parentRole: {
                 List<Nauczyciele> teachers = teacherModel.getAllTeachers();
                 for (Nauczyciele teacher : teachers) {
                     suggestionsSet.add(teacher.getImie() + " " + teacher.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(teacher.getID(), roles.teacher.value) + "]");
+                            " [" + userModel.getLoginByIdAndRole(teacher.getID(), teacherRole) + "]");
                 }
                 break;
             }
@@ -131,13 +133,39 @@ public class MessageController implements ParametrizedController, NotificationsI
         else if (messageTextArea.getText().isEmpty())
             errorLabel.setText("Uzupełnij pole wiadomości");
         else {
-            if(receiverSet){
+            if (receiverSet) {
                 String[] receiver = receiverTextField.getText().split(" ");
                 receiver[2] = receiver[2].replace("[", "");
                 String login = receiver[2].replace("]", "");
                 Uzytkownicy user = userModel.getUserByLogin(login);
-            } else {
-                errorLabel.setText("Wybierz kontakt z listy");
+                if (user != null) {
+                    if(sendMessage(user.getDostep(), user.getID())){
+                        showNotification("Potwierdzenie", "Wiadomość wysłana.", 2);
+                        returnFromMessageWriter();
+                    } else errorLabel.setText("Nie można wysłać wiadomości");
+                } else errorLabel.setText("Podany użytkownik nie istnieje.");
+            } else errorLabel.setText("Wybierz kontakt z listy.");
+        }
+    }
+
+    private Boolean sendMessage(String receiverRole, Integer receiverId) {
+        switch (role) {
+            case studentRole:
+                return messageModel.insertMessage(
+                        messageTypes.studentTeacher.value,
+                        topicTextField.getText(),
+                        messageTextArea.getText(),
+                        new Date(),
+                        receiverId,
+                        id
+                );
+            case teacherRole:
+                return true;
+            case parentRole: {
+                return true;
+            }
+            default:{
+                return false;
             }
         }
     }

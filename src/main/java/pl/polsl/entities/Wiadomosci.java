@@ -79,7 +79,7 @@ public class Wiadomosci implements Serializable {
         return data;
     }
 
-    public void setOdbiorca(Integer idRodzica) {
+    public void setOdbiorca(Integer odbiorca) {
         this.odbiorca = odbiorca;
     }
 
@@ -87,7 +87,7 @@ public class Wiadomosci implements Serializable {
         return odbiorca;
     }
 
-    public void setNadawca(Integer idUcznia) {
+    public void setNadawca(Integer nadawca) {
         this.nadawca = nadawca;
     }
 

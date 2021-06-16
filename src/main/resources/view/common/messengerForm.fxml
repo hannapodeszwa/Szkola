@@ -13,9 +13,9 @@
                      <children>
                         <TableView fx:id="receivedTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn fx:id="senderRColumn" prefWidth="161.0" text="Nadawca" />
-                            <TableColumn fx:id="topicRColumn" prefWidth="462.0" text="Temat" />
-                              <TableColumn fx:id="dateRColumn" minWidth="0.0" prefWidth="176.0" text="Data" />
+                            <TableColumn fx:id="senderRColumn" maxWidth="200.0" prefWidth="161.0" text="Nadawca" />
+                            <TableColumn fx:id="topicRColumn" maxWidth="500.0" prefWidth="431.0" text="Temat" />
+                              <TableColumn fx:id="dateRColumn" maxWidth="210.0" minWidth="0.0" prefWidth="210.0" text="Data" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -27,9 +27,9 @@
                      <children>
                         <TableView fx:id="sentTable" prefHeight="308.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="156.0" text="Odbiorca" />
-                            <TableColumn prefWidth="345.0" text="Temat" />
-                              <TableColumn prefWidth="98.0" text="Data" />
+                            <TableColumn fx:id="receiverSColumn" maxWidth="200.0" prefWidth="156.0" text="Odbiorca" />
+                            <TableColumn fx:id="topicSColumn" maxWidth="500.0" prefWidth="430.0" text="Temat" />
+                              <TableColumn fx:id="dateSColumn" maxWidth="210.0" prefWidth="210.0" text="Data" />
                           </columns>
                         </TableView>
                      </children></AnchorPane>
@@ -40,7 +40,7 @@
       <HBox alignment="CENTER" layoutX="145.0" layoutY="341.0" prefHeight="59.0" prefWidth="600.0" spacing="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="341.0">
          <children>
             <Button fx:id="backButton" mnemonicParsing="false" onAction="#backButtonAction" text="Wstecz" />
-            <Button fx:id="showMessagesButton" mnemonicParsing="false" onAction="#showMessagesButtonAction" text="Wyświetl" />
+            <Button fx:id="refreshMessagesButton" mnemonicParsing="false" onAction="#refreshMessagesButtonAction" text="Odśwież" />
             <Button fx:id="newMessageButton" mnemonicParsing="false" onAction="#newMessageButtonAction" text="Nowa..." />
          </children></HBox>
    </children>

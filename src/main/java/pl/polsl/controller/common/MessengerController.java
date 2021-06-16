@@ -3,10 +3,7 @@ package pl.polsl.controller.common;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.MapValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
@@ -32,6 +29,10 @@ Types:
  */
 
 public class MessengerController implements ParametrizedController {
+
+    private final String teacherRole = "nauczyciel";
+    private final String studentRole = "uczen";
+    private final String parentRole = "rodzic";
 
     private enum messageTypes {
         studentTeacher(0),
@@ -64,10 +65,22 @@ public class MessengerController implements ParametrizedController {
     private TableColumn<Map, Date> dateRColumn;
 
     @FXML
+    private TableColumn<Map, String> receiverSColumn;
+
+    @FXML
+    private TableColumn<Map, String> topicSColumn;
+
+    @FXML
+    private TableColumn<Map, Date> dateSColumn;
+
+    @FXML
     private TabPane messagesTabPane;
 
     @FXML
     private TableView<Map<String, Object>> receivedTable;
+
+    @FXML
+    private TableView<Map<String, Object>> sentTable;
 
 
     @FXML
@@ -75,31 +88,56 @@ public class MessengerController implements ParametrizedController {
         firstTabSelected = true;
         teacherModel = new Teacher();
         messageModel = new MessageModel();
-        senderRColumn.setCellValueFactory(new MapValueFactory<>("senderRColumn"));
-        topicRColumn.setCellValueFactory(new MapValueFactory<>("topicRColumn"));
-        dateRColumn.setCellValueFactory(new MapValueFactory<>("dateRColumn"));
-        messagesTabPane.getSelectionModel().selectedItemProperty().addListener(
-                (observableValue, oldTab, newTab) -> {
-                    firstTabSelected = newTab.getId().equals("receivedTab");
+        receivedTable.setRowFactory(table -> {
+            TableRow<Map<String, Object>> row = new TableRow<>();
+            row.setOnMouseClicked(event->{
+                if(event.getClickCount() == 2 && !row.isEmpty()){
+                    Map<String, Object> item = row.getItem();
+
                 }
-        );
+            });
+            return row;
+        });
+
+        sentTable.setRowFactory(table -> {
+            TableRow<Map<String, Object>> row = new TableRow<>();
+            row.setOnMouseClicked(event->{
+                if(event.getClickCount() == 2 && !row.isEmpty()){
+                    Map<String, Object> item = row.getItem();
+
+                }
+            });
+            return row;
+        });
     }
 
     @Override
     public void receiveArguments(Map params) {
+        senderRColumn.setCellValueFactory(new MapValueFactory<>("senderRColumn"));
+        topicRColumn.setCellValueFactory(new MapValueFactory<>("topicRColumn"));
+        dateRColumn.setCellValueFactory(new MapValueFactory<>("dateRColumn"));
+        receiverSColumn.setCellValueFactory(new MapValueFactory<>("receiverSColumn"));
+        topicSColumn.setCellValueFactory(new MapValueFactory<>("topicSColumn"));
+        dateSColumn.setCellValueFactory(new MapValueFactory<>("dateSColumn"));
+        messagesTabPane.getSelectionModel().selectedItemProperty().addListener(
+                (observableValue, oldTab, newTab) -> {
+                    firstTabSelected = newTab.getId().equals("receivedTab");
+                    if (firstTabSelected) displayReceivedMessages();
+                    else displaySentMessages();
+                });
         previousLocation = (String) params.get("previousLocation");
         role = (String) params.get("role");
         id = (Integer) params.get("id");
         switch (role) {
-            case "uczen":
+            case studentRole:
                 receivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.teacherStudent.value);
                 sentList = messageModel.getSentMessagesByTypeAndId(id, messageTypes.studentTeacher.value);
                 break;
-            case "rodzic":
+            case parentRole:
                 receivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.teacherParent.value);
                 sentList = messageModel.getSentMessagesByTypeAndId(id, messageTypes.parentTeacher.value);
                 break;
-            case "nauczyciel":
+            case teacherRole:
                 List<Wiadomosci> tmpReceivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.studentTeacher.value);
                 receivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.parentTeacher.value);
                 receivedList.addAll(tmpReceivedList);
@@ -108,6 +146,7 @@ public class MessengerController implements ParametrizedController {
                 sentList = messageModel.getSentMessagesByTypeAndId(id, messageTypes.teacherParent.value);
                 sentList.addAll(tmpSentList);
         }
+        displayReceivedMessages();
     }
 
     public void backButtonAction() throws IOException {
@@ -122,7 +161,7 @@ public class MessengerController implements ParametrizedController {
         Main.setRoot("common/messageForm", parameters, 800.0, 450.0);
     }
 
-    public void showMessagesButtonAction() {
+    public void refreshMessagesButtonAction() {
         if (firstTabSelected)
             displayReceivedMessages();
         else
@@ -130,14 +169,15 @@ public class MessengerController implements ParametrizedController {
     }
 
     private void displayReceivedMessages() {
+        receivedTable.getItems().clear();
         ObservableList<Map<String, Object>> items =
                 FXCollections.observableArrayList();
         String fullName;
 
         if (!receivedList.isEmpty()) {
             switch (role) {
-                case "uczen":
-                case "rodzic": {
+                case studentRole:
+                case parentRole: {
                     for (Wiadomosci message : receivedList) {
                         Nauczyciele nauczyciele = teacherModel.getTeacherById(message.getNadawca());
                         fullName = nauczyciele.getImie() + " " + nauczyciele.getNazwisko();
@@ -150,26 +190,38 @@ public class MessengerController implements ParametrizedController {
                     receivedTable.getItems().addAll(items);
                     break;
                 }
-                case "nauczyciel": {
-                    /*for (Wiadomosci message : receivedList) {
-                        Nauczyciele nauczyciele = teacherModel.getTeacherById(message.getNadawca());
-                        fullName = nauczyciele.getImie() + " " + nauczyciele.getNazwisko();
-                        Map<String, Object> item = new HashMap<>();
-                        item.put("senderRColumn", fullName);
-                        item.put("topicRColumn", message.getTemat());
-                        item.put("dateRColumn", message.getData());
-                        items.add(item);
-                    }
-                    receivedTable.getItems().addAll(items);
-                    break;*/
+                case teacherRole: {
+                    break;
                 }
             }
         }
     }
 
     void displaySentMessages() {
+        sentTable.getItems().clear();
         ObservableList<Map<String, Object>> items =
                 FXCollections.observableArrayList();
         String fullName;
+        if (!sentList.isEmpty()) {
+            switch (role) {
+                case parentRole:
+                case studentRole: {
+                    for (Wiadomosci message : sentList) {
+                        Nauczyciele nauczyciele = teacherModel.getTeacherById(message.getOdbiorca());
+                        fullName = nauczyciele.getImie() + " " + nauczyciele.getNazwisko();
+                        Map<String, Object> item = new HashMap<>();
+                        item.put("receiverSColumn", fullName);
+                        item.put("topicSColumn", message.getTemat());
+                        item.put("dateSColumn", message.getData());
+                        items.add(item);
+                    }
+                    sentTable.getItems().addAll(items);
+                    break;
+                }
+                case teacherRole: {
+                    break;
+                }
+            }
+        }
     }
 }
