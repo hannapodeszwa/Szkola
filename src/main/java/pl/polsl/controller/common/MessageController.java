@@ -1,86 +1,86 @@
 package pl.polsl.controller.common;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Wiadomosci;
-import pl.polsl.model.MessageModel;
+import pl.polsl.entities.Rodzice;
+import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Uzytkownicy;
+import pl.polsl.model.ParentModel;
+import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
-
+import pl.polsl.model.UserModel;
+import pl.polsl.view.NotificationsInterface;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-/*
-Types:
-0 - from student to teacher
-1 - from teacher to student
-2 - from parent to teacher
-3 - from teacher to parent
- */
+public class MessageController implements ParametrizedController, NotificationsInterface {
 
-public class MessageController implements ParametrizedController {
+    private enum roles {
+        teacher("nauczyciel"),
+        student("uczen"),
+        parent("rodzic");
 
-    private enum messageTypes {
-        studentTeacher(0),
-        teacherStudent(1),
-        parentTeacher(2),
-        teacherParent(3);
-        private final Integer value;
-
-        messageTypes(Integer value) {
+        private final String value;
+        roles(String value) {
             this.value = value;
         }
     }
 
-    private Teacher teacherModel;
     private String previousLocation;
     private String role;
     private Integer id;
-    private MessageModel messageModel;
-    private List<Wiadomosci> receivedList;
-    private List sentList;
-    private Boolean firstTabSelected;
+    private Student studentModel;
+    private ParentModel parentModel;
+    private Teacher teacherModel;
+    private UserModel userModel;
+    private AutoCompletionBinding<String> autoCompletionBinding;
+    private Boolean receiverSet;
+    private Boolean changeReceiver;
+
+    private Set<String> suggestionsSet;
 
     @FXML
-    private TableColumn<Map, String> senderRColumn;
+    private Label errorLabel;
 
     @FXML
-    private TableColumn<Map, String> topicRColumn;
+    private TextField receiverTextField;
 
     @FXML
-    private TableColumn<Map, Date> dateRColumn;
+    private TextField topicTextField;
 
     @FXML
-    private TabPane messagesTabPane;
-
-    @FXML
-    private TableView<Map<String, Object>> receivedTable;
-
+    private TextArea messageTextArea;
 
     @FXML
     public void initialize() {
+        receiverSet = false;
+        changeReceiver = true;
+        suggestionsSet = new HashSet<>();
+        studentModel = new Student();
+        parentModel = new ParentModel();
         teacherModel = new Teacher();
-        messageModel = new MessageModel();
-        senderRColumn.setCellValueFactory(new MapValueFactory<>("senderRColumn"));
-        topicRColumn.setCellValueFactory(new MapValueFactory<>("topicRColumn"));
-        dateRColumn.setCellValueFactory(new MapValueFactory<>("dateRColumn"));
-        messagesTabPane.getSelectionModel().selectedItemProperty().addListener(
-                (observableValue, oldTab, newTab) -> {
-                    firstTabSelected = newTab.getId().equals("receivedTab");
-                }
-        );
+        userModel = new UserModel();
+        receiverTextField.textProperty().addListener(observable -> {
+            errorLabel.setText("");
+            receiverSet = false;
+        });
+        topicTextField.textProperty().addListener(observable -> errorLabel.setText(""));
+        messageTextArea.textProperty().addListener(observable -> errorLabel.setText(""));
     }
 
     @Override
@@ -88,74 +88,66 @@ public class MessageController implements ParametrizedController {
         previousLocation = (String) params.get("previousLocation");
         role = (String) params.get("role");
         id = (Integer) params.get("id");
+
         switch (role) {
+            case "nauczyciel": {
+                List<Uczniowie> students = studentModel.getAllStudents();
+                List<Rodzice> parents = parentModel.getAllParents();
+                for (Uczniowie student : students) {
+                    suggestionsSet.add(student.getImie() + " " + student.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(student.getID(), roles.student.value) + "]");
+                }
+                for (Rodzice parent : parents) {
+                    suggestionsSet.add(parent.getImie() + " " + parent.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(parent.getID(), roles.parent.value) + "]");
+                }
+                break;
+            }
             case "uczen":
-                receivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.teacherStudent.value);
-                sentList = messageModel.getSentMessagesByTypeAndId(id, messageTypes.studentTeacher.value);
+            case "rodzic": {
+                List<Nauczyciele> teachers = teacherModel.getAllTeachers();
+                for (Nauczyciele teacher : teachers) {
+                    suggestionsSet.add(teacher.getImie() + " " + teacher.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(teacher.getID(), roles.teacher.value) + "]");
+                }
                 break;
-            case "rodzic":
-                receivedList = messageModel.getReceivedMessagesByTypeAndId(id, messageTypes.teacherParent.value);
-                sentList = messageModel.getSentMessagesByTypeAndId(id, messageTypes.parentTeacher.value);
-                break;
+            }
         }
+        autoCompletionBinding = TextFields.bindAutoCompletion(receiverTextField, suggestionsSet);
+        autoCompletionBinding.setOnAutoCompleted(event -> {
+            receiverSet = true;
+        });
     }
 
-    public void backButtonAction() throws IOException {
-        Main.setRoot(previousLocation);
+    public void cancelButtonAction() throws IOException {
+        returnFromMessageWriter();
     }
 
-    public void newMessageButtonAction() {
-
-    }
-
-    public void showMessagesButtonAction() {
-        if(firstTabSelected)
-            displayReceivedMessages();
-        else
-            displaySentMessages();
-    }
-
-    private void displayReceivedMessages() {
-        ObservableList<Map<String, Object>> items =
-                FXCollections.observableArrayList();
-        String fullName;
-
-        if (!receivedList.isEmpty()) {
-            switch (role) {
-                case "uczen":
-                case "rodzic": {
-                    for (Wiadomosci message : receivedList) {
-                        Nauczyciele nauczyciele = teacherModel.getTeacherById(message.getNadawca());
-                        fullName = nauczyciele.getImie() + " " + nauczyciele.getNazwisko();
-                        Map<String, Object> item = new HashMap<>();
-                        item.put("senderRColumn", fullName);
-                        item.put("topicRColumn", message.getTemat());
-                        item.put("dateRColumn", message.getData());
-                        items.add(item);
-                    }
-                    receivedTable.getItems().addAll(items);
-                    break;
-                }
-                case "nauczyciel": {
-                    /*for (Wiadomosci message : receivedList) {
-                        Nauczyciele nauczyciele = teacherModel.getTeacherById(message.getNadawca());
-                        fullName = nauczyciele.getImie() + " " + nauczyciele.getNazwisko();
-                        Map<String, Object> item = new HashMap<>();
-                        item.put("senderRColumn", fullName);
-                        item.put("topicRColumn", message.getTemat());
-                        item.put("dateRColumn", message.getData());
-                        items.add(item);
-                    }
-                    receivedTable.getItems().addAll(items);
-                    break;*/
-                }
+    public void sendButtonAction() throws IOException {
+        if (receiverTextField.getText().isEmpty())
+            errorLabel.setText("Wprowadź odbiorcę");
+        else if (topicTextField.getText().isEmpty())
+            errorLabel.setText("Uzupełnij temat");
+        else if (messageTextArea.getText().isEmpty())
+            errorLabel.setText("Uzupełnij pole wiadomości");
+        else {
+            if(receiverSet){
+                String[] receiver = receiverTextField.getText().split(" ");
+                receiver[2] = receiver[2].replace("[", "");
+                String login = receiver[2].replace("]", "");
+                Uzytkownicy user = userModel.getUserByLogin(login);
+            } else {
+                errorLabel.setText("Wybierz kontakt z listy");
             }
         }
     }
 
-    void displaySentMessages(){
-        ObservableList<Map<String, Object>> items =
-                FXCollections.observableArrayList();
-        String fullName;
+    private void returnFromMessageWriter() throws IOException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("previousLocation", previousLocation);
+        parameters.put("role", role);
+        parameters.put("id", id);
+        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
+
 }

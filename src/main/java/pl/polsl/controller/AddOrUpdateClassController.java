@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pl.polsl.Main;
 import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
@@ -49,7 +48,7 @@ public class AddOrUpdateClassController extends Window implements ParametrizedCo
     {
         leader.getItems().add(null);
         Student student = new Student();
-        students = student.displayStudents();
+        students = student.getAllStudents();
         for (Uczniowie u : students) {
             leader.getItems().add(u.getImie() + " " + u.getNazwisko());
         }
@@ -58,7 +57,7 @@ public class AddOrUpdateClassController extends Window implements ParametrizedCo
     {
         tutor.getItems().add(null);
         Teacher teacher = new Teacher();
-        teachers = teacher.displayTeachers();
+        teachers = teacher.getAllTeachers();
         for (Nauczyciele n : teachers) {
             tutor.getItems().add(n.getImie() + " " + n.getNazwisko());
         }

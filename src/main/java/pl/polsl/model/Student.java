@@ -17,7 +17,7 @@ public class Student implements ManageDataBase {
     EntityManager entityManager;
 
 
-    public List displayStudents()
+    public List<Uczniowie> getAllStudents()
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.findAll", Uczniowie.class);

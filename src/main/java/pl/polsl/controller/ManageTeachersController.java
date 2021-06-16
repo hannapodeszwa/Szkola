@@ -2,14 +2,12 @@ package pl.polsl.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import pl.polsl.Main;
 import pl.polsl.Window;
 import pl.polsl.entities.Klasy;
@@ -46,7 +44,7 @@ public class ManageTeachersController extends Window  {
     {
         tableTeachers.getItems().clear();
         Teacher t = new Teacher();
-        List l=t.displayTeachers();
+        List l=t.getAllTeachers();
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));

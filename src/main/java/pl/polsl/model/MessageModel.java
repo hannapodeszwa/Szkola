@@ -4,6 +4,7 @@ import pl.polsl.MyManager;
 import pl.polsl.entities.Wiadomosci;
 
 import javax.persistence.EntityManager;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,11 +22,11 @@ public class MessageModel {
                     .getResultList();
         } catch (Exception e) {
             Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get messages", e);
-            return null;
+            return Collections.emptyList();
         }
     }
 
-    public List getSentMessagesByTypeAndId(Integer id, Integer type){
+    public List<Wiadomosci> getSentMessagesByTypeAndId(Integer id, Integer type){
         entityManager = MyManager.getEntityManager();
         try {
             return entityManager.createNamedQuery("Wiadomosci.getSentMessagesByTypeAndId", Wiadomosci.class)
@@ -34,7 +35,7 @@ public class MessageModel {
                     .getResultList();
         } catch (Exception e) {
             Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get messages", e);
-            return null;
+            return Collections.emptyList();
         }
     }
 

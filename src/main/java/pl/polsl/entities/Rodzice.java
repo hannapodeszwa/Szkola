@@ -6,7 +6,9 @@ import java.io.Serializable;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "rodzice.getParentEmailById",
-        query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID")
+        query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID"),
+        @NamedQuery(name = "rodzice.getAllParents",
+        query = "SELECT R FROM Rodzice R")
 })
 @Table(name = "rodzice")
 public class Rodzice implements Serializable {
