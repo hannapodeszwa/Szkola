@@ -52,8 +52,8 @@ public class StudentMenuController implements ParametrizedController{
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentGradesForm",params);
-
+        Main.setRoot("studentActions/studentGradesForm",params,
+                WindowSize.studentGradesForm.getWidth(), WindowSize.studentGradesForm.getHeight());
     }
 
     public void clickButtonPresence(ActionEvent event) throws IOException

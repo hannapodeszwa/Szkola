@@ -16,6 +16,7 @@ import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.Present;
 import pl.polsl.model.Presentv2;
 import pl.polsl.model.Student;
+import pl.polsl.model.Subject;
 
 import java.io.IOException;
 import java.util.Date;
@@ -59,7 +60,7 @@ public class studentPresenceController implements ParametrizedController {
 
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();
-            String nazwaPrzedmiotu = (new Present()).getSubjectName(idPrzedmiotu);
+            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
             return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
         });
 
@@ -95,11 +96,12 @@ public class studentPresenceController implements ParametrizedController {
 
         if (mode == StudentMenuController.md.Parent) {
             children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
-            }
 
-            if(!children.isEmpty()) {
+
+            if (!children.isEmpty()) {
                 for (Uczniowie act : children) {
                     comboboxChildren.getItems().add(act.getImie() + " " + act.getNazwisko());
+                }
                 comboboxChildren.getSelectionModel().select(0);
                 id_child = children.get(0).getID();
                 setTable();
@@ -112,9 +114,8 @@ public class studentPresenceController implements ParametrizedController {
         }
 
 
-
         if (mode == StudentMenuController.md.Student) {
-            for(Presentv2 a : data)
+            for (Presentv2 a : data)
                 a.Usp.setDisable(true);
         }
     }
@@ -131,11 +132,6 @@ public class studentPresenceController implements ParametrizedController {
 
     }
 
-    public void onEditChange(TableColumn.CellEditEvent<Nieobecnosci, Integer> nieobecnosciDateCellEditEvent) {
-        Nieobecnosci nieb = table.getSelectionModel().getSelectedItem();
-        nieb.setGodzina(nieobecnosciDateCellEditEvent.getNewValue());
-
-    }
 
 
     public void changeComboboxChildren(ActionEvent actionEvent) {

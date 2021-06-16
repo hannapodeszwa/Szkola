@@ -26,13 +26,4 @@ public class Present implements ManageDataBase {
     }
 
 
-    public String getSubjectName(Integer id)
-    {
-        entityManager = MyManager.getEntityManager();
-        TypedQuery query = entityManager.createNamedQuery("przedmioty.findById", Przedmioty.class);
-        query.setParameter("id", id);
-        Przedmioty results = (Przedmioty) query.getSingleResult();
-        return results.getNazwa();
-    }
-
 }

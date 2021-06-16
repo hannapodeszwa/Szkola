@@ -10,7 +10,7 @@
          <columns>
             <TableColumn fx:id="columnSubject" prefWidth="150.0" resizable="false" text="Przedmiot" />
             <TableColumn fx:id="columnDate" resizable="false" style="-fx-alignment: CENTER;" text="Data" />
-            <TableColumn fx:id="columnHour" minWidth="0.0" onEditCommit="#onEditChange" prefWidth="60.0" resizable="false" style="-fx-alignment: CENTER;" text="Godzina" />
+            <TableColumn fx:id="columnHour" minWidth="0.0" prefWidth="60.0" resizable="false" style="-fx-alignment: CENTER;" text="Godzina" />
             <TableColumn fx:id="columnCheck" prefWidth="110.0" resizable="false" style="-fx-alignment: CENTER;" text="Usprawiedliwienie" />
          </columns>
       </TableView>
