@@ -10,7 +10,13 @@ import java.util.Date;
         @NamedQuery(name = "Wiadomosci.getReceivedMessagesByTypeAndId",
                 query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.odbiorca = :ID"),
         @NamedQuery(name = "Wiadomosci.getSentMessagesByTypeAndId",
-                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.nadawca = :ID")
+                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.nadawca = :ID"),
+        @NamedQuery(name = "wiadomosci.findByTeacher",
+                query = "SELECT w FROM Wiadomosci w WHERE " +
+                        "((w.typ = 0 OR w.typ = 2) AND w.odbiorca = :ID) OR" +
+                        " ((w.typ = 1 OR w.typ = 3) AND w.nadawca = :ID)"),
+        @NamedQuery(name = "wiadomosci.findByParent",
+                query = "SELECT w FROM Wiadomosci w WHERE (w.typ = 3 AND w.odbiorca = :ID) OR (w.typ = 2 AND w.nadawca = :ID)")
 })
 public class Wiadomosci implements Serializable {
 
@@ -33,10 +39,10 @@ public class Wiadomosci implements Serializable {
     @Column(name = "data")
     private Date data;
 
-    @Column(name = "odbiorca", nullable = false)
+    @Column(name = "odbiorca")
     private Integer odbiorca;
 
-    @Column(name = "nadawca", nullable = false)
+    @Column(name = "nadawca")
     private Integer nadawca;
 
     public void setID(Integer ID) {

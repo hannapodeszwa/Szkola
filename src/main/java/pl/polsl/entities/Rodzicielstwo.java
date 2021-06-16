@@ -7,7 +7,7 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "Rodzicielstwo.getParentsByChildId",
         query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :ID"),
-        @NamedQuery(name = "Rodzicielstwo.findByParent",
+        @NamedQuery(name = "rodzicielstwo.findByParent",
                 query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :id")
 })
 @Table(name = "rodzicielstwo")

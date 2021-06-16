@@ -1,5 +1,6 @@
 package pl.polsl.controller.administratorActions.parent;
 
+import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,9 +12,7 @@ import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
-import pl.polsl.model.ParentModel;
-import pl.polsl.model.Teacher;
-import pl.polsl.model.UserModel;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -50,7 +49,7 @@ public class ManageParentsController implements ManageDataBase {
         }
     }
 
-    public void addTeacherButton(ActionEvent event) throws IOException
+    public void addParentButton(ActionEvent event) throws IOException
     {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
@@ -58,7 +57,7 @@ public class ManageParentsController implements ManageDataBase {
                 WindowSize.addOrUpdateParentForm.getWidth(),  WindowSize.addOrUpdateParentForm.getHeight());
     }
 
-    public void updateTeacherButton(ActionEvent event) throws IOException
+    public void updateParentButton(ActionEvent event) throws IOException
     {
         Rodzice toUpdate = tableParents.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
@@ -74,7 +73,7 @@ public class ManageParentsController implements ManageDataBase {
         }
     }
 
-    public void deleteTeacherButton(ActionEvent event) throws IOException
+    public void deleteParentButton(ActionEvent event) throws IOException
     {
         Rodzice toDelete = tableParents.getSelectionModel().getSelectedItem();
 
@@ -92,16 +91,50 @@ public class ManageParentsController implements ManageDataBase {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
 
-                //delete user
-                Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "rodzic");
-                if(userToDelete !=null)
-                {
-                    (new UserModel()).delete(userToDelete);
-                }
-
+               deleteUser(toDelete);
+               deleteMessages(toDelete);
+               deleteParenthood(toDelete);
 
                 (new ParentModel()).delete(toDelete);
                 displayTableParents();
+            }
+        }
+    }
+
+    private void deleteUser(Rodzice toDelete)
+    {
+        Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "rodzic");
+        if(userToDelete !=null)
+        {
+            (new UserModel()).delete(userToDelete);
+        }
+    }
+
+    private void deleteMessages(Rodzice toDelete)
+    {
+        List<Wiadomosci> messagesList = (new MessageModel()).findByParent(toDelete);
+        if(!(messagesList.isEmpty())) {
+            for (Wiadomosci w: messagesList) {
+                switch (w.getTyp()) {
+                    case (2):
+                        w.setNadawca(null);
+                        (new MessageModel()).update(w);
+                        break;
+                    case (3):
+                        w.setOdbiorca(null);
+                        (new MessageModel()).update(w);
+                        break;
+                }
+            }
+        }
+    }
+
+    private void deleteParenthood(Rodzice toDelete)
+    {
+        List<Rodzicielstwo> parenthoodList = (new ParenthoodModel()).findByParent(toDelete);
+        if(!(parenthoodList.isEmpty())) {
+            for (Rodzicielstwo r: parenthoodList) {
+                (new ParenthoodModel()).delete(r);
             }
         }
     }

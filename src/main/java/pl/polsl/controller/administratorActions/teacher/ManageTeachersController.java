@@ -11,10 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.entities.*;
-import pl.polsl.model.ScheduleModel;
-import pl.polsl.model.SchoolClass;
-import pl.polsl.model.Teacher;
-import pl.polsl.model.UserModel;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -131,23 +128,49 @@ public class ManageTeachersController {
            (new UserModel()).delete(userToDelete);
        }
 
-       //UsUwANIE WIADOMOSCI
 
-
-       //do rozkladu zmienic na nulle
-       List<Rozklady> teacherScheduleList = (new ScheduleModel()).findByTeacher(toDelete);
-       if(!(teacherScheduleList.isEmpty())) {
-           for (Rozklady r: teacherScheduleList) {
-               r.setIdNauczyciela(null);
-               (new ScheduleModel()).update(r);
-           }
-       }
+       deleteMessages(toDelete);
+      deleteSchedule(toDelete);
 
        //usuwanie z kola
        //usuwanie z udzialu w konkursie
 
        (new Teacher()).delete(toDelete);
    }
+
+    private void deleteMessages(Nauczyciele toDelete)
+    {
+        List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(toDelete);
+        if(!(messagesList.isEmpty())) {
+            for (Wiadomosci w: messagesList) {
+                switch (w.getTyp())
+                {
+                    case (0):
+                    case(2):
+                        w.setOdbiorca(null);
+                        (new MessageModel()).update(w);
+                        break;
+                    case(1):
+                    case(3):
+                        w.setNadawca(null);
+                        (new MessageModel()).update(w);
+                        break;
+                }
+            }
+        }
+    }
+
+    private void deleteSchedule(Nauczyciele toDelete)
+    {
+        List<Rozklady> teacherScheduleList = (new ScheduleModel()).findByTeacher(toDelete);
+        if(!(teacherScheduleList.isEmpty())) {
+            for (Rozklady r: teacherScheduleList) {
+                r.setIdNauczyciela(null);
+                (new ScheduleModel()).update(r);
+            }
+        }
+    }
+
 
     private void chooseTeacherAlert()
     {

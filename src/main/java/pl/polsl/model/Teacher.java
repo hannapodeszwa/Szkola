@@ -72,15 +72,4 @@ public class Teacher implements ManageDataBase {
             return null;
         }
     }
-   /* public Nauczyciele getTeacherByName(String s)
-    {
-        em = MyManager.getEntityManager();
-        String[] splited = s.split("\\s+");
-        TypedQuery query = em.createNamedQuery("nauczyciele.findByName", Nauczyciele.class);
-        query.setParameter("name", splited[0]);
-        query.setParameter("surname", splited[1]);
-        Nauczyciele results = (Nauczyciele) query.getSingleResult();
-        return results;
-    }*/
-
 }
