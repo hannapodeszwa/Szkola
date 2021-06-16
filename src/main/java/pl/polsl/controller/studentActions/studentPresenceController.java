@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
@@ -33,6 +34,7 @@ public class studentPresenceController implements ParametrizedController {
     public TableColumn<Presentv2, String> columnSubject;
     public Button buttonBack;
     public ComboBox comboboxChildren;
+    public AnchorPane window;
 
     private StudentMenuController.md mode;
     private Integer id;
@@ -62,7 +64,6 @@ public class studentPresenceController implements ParametrizedController {
         });
 
         table.setItems(data);
-
 
 
     }

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentGradesController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentGradesController">
    <children>
       <TableView fx:id="table" layoutX="37.0" layoutY="32.0" prefHeight="270.0" prefWidth="439.0">
         <columns>
@@ -15,5 +15,7 @@
           <TableColumn fx:id="columnGrades" prefWidth="75.0" text="Ocena" />
         </columns>
       </TableView>
+       <Button layoutX="424.0" layoutY="330.0" mnemonicParsing="false" text="Button" />
+       <ComboBox layoutX="37.0" layoutY="330.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

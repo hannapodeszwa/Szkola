@@ -10,13 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import pl.polsl.Main;
+import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentMenuController implements ParametrizedController {
+public class StudentMenuController implements ParametrizedController{
 
     private int id;
 
@@ -51,7 +52,7 @@ public class StudentMenuController implements ParametrizedController {
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentGrades",params);
+        Main.setRoot("studentActions/studentGradesForm",params);
 
     }
 
@@ -60,7 +61,8 @@ public class StudentMenuController implements ParametrizedController {
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentPresence",params);
+        Main.setRoot("studentActions/studentPresenceForm",params,
+                WindowSize.studentPresenceForm.getWidth(), WindowSize.studentPresenceForm.getHeight());
     }
 
 
