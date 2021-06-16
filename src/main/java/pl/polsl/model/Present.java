@@ -2,13 +2,9 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nieobecnosci;
-import pl.polsl.entities.Przedmioty;
-
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Present implements ManageDataBase {
@@ -16,13 +12,12 @@ public class Present implements ManageDataBase {
 
     EntityManager entityManager;
 
-    public List displayPresent(Integer id)
+    public List<Nieobecnosci> displayPresent(Integer id)
     {
         entityManager = MyManager.getEntityManager();
-        TypedQuery query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
+        TypedQuery<Nieobecnosci> query = entityManager.createNamedQuery("nieobecnosci.findAll", Nieobecnosci.class);
         query.setParameter("id", id);
-        List<Nieobecnosci> results = query.getResultList();
-        return results;
+        return query.getResultList();
     }
 
 

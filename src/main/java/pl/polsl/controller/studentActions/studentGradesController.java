@@ -9,7 +9,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
-import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Oceny;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.*;
@@ -17,7 +16,6 @@ import pl.polsl.model.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class studentGradesController implements ParametrizedController {
@@ -28,11 +26,10 @@ public class studentGradesController implements ParametrizedController {
     public TableColumn<Oceny, String> columnDescription;
     public TableColumn<Oceny, Integer> columnWeight;
     public Button buttonBack;
-    public ComboBox comboboxChildren;
+    public ComboBox<String> comboboxChildren;
 
     private Integer id;
     private StudentMenuController.md mode;
-    private Map params;
     private ObservableList<Uczniowie> children;
     private Integer id_child;
     private ObservableList<Oceny> list;
@@ -41,10 +38,10 @@ public class studentGradesController implements ParametrizedController {
         
         list = FXCollections.observableArrayList((new Grade()).getGradeByStudent(id_child));
 
-        columnGrade.setCellValueFactory(new PropertyValueFactory<Oceny, Integer>("ocena"));
-        columnWeight.setCellValueFactory(new PropertyValueFactory<Oceny, Integer>("waga"));
-        columnDate.setCellValueFactory(new PropertyValueFactory<Oceny, Date>("data"));
-        columnDescription.setCellValueFactory(new PropertyValueFactory<Oceny, String>("opis"));
+        columnGrade.setCellValueFactory(new PropertyValueFactory<>("ocena"));
+        columnWeight.setCellValueFactory(new PropertyValueFactory<>("waga"));
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
+        columnDescription.setCellValueFactory(new PropertyValueFactory<>("opis"));
 
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getIdPrzedmiotu();
@@ -84,7 +81,7 @@ public class studentGradesController implements ParametrizedController {
 
 
     public void clickButtonBack(ActionEvent actionEvent) throws IOException {
-        params = new HashMap<String, String>();
+        Map params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("menu/studentMenuForm", params);
