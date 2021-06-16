@@ -6,18 +6,18 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.MenuAdministratorController">
    <children>
-      <Button fx:id="buttonManageStudents" layoutX="79.0" layoutY="82.0" mnemonicParsing="false" onAction="#pressManageStudentsButton" prefHeight="25.0" prefWidth="180.0" text="Zarządzaj uczniami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="78.0" layoutY="287.0" mnemonicParsing="false" onAction="#pressCreateScheduleButton" prefHeight="25.0" prefWidth="180.0" text="Utworz plan" AnchorPane.leftAnchor="40.0" />
       <Label layoutX="46.0" layoutY="26.0" text="Konto administratora" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="20.0">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Button layoutX="79.0" layoutY="124.0" mnemonicParsing="false" onAction="#pressManageTeacherButton" prefWidth="180.0" text="Zarządzaj nauczycielami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="165.0" mnemonicParsing="false" onAction="#pressManageSubjectButton" prefWidth="180.0" text="Zarządzaj przedmiotami" AnchorPane.leftAnchor="40.0" />
+      <Button fx:id="buttonManageStudents" layoutX="79.0" layoutY="82.0" mnemonicParsing="false" onAction="#pressManageStudentsButton" prefHeight="25.0" prefWidth="180.0" text="Zarządzaj uczniami" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="79.0" layoutY="127.0" mnemonicParsing="false" onAction="#pressManageTeacherButton" prefWidth="180.0" text="Zarządzaj nauczycielami" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="79.0" layoutY="167.0" mnemonicParsing="false" onAction="#pressManageSubjectButton" prefWidth="180.0" text="Zarządzaj przedmiotami" AnchorPane.leftAnchor="40.0" />
       <Button layoutX="79.0" layoutY="207.0" mnemonicParsing="false" onAction="#pressManageClassButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj klasami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="323.0" mnemonicParsing="false" onAction="#pressLogOutButton" prefHeight="26.0" prefWidth="180.0" text="Wyloguj się" AnchorPane.leftAnchor="40.0" />
       <Button layoutX="79.0" layoutY="247.0" mnemonicParsing="false" onAction="#pressManageParentButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj rodzicami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="363.0" mnemonicParsing="false" onAction="#pressDeleteUnused" prefHeight="26.0" prefWidth="180.0" text="Usuń nieużywane konta" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="79.0" layoutY="287.0" mnemonicParsing="false" onAction="#pressCreateScheduleButton" prefHeight="25.0" prefWidth="180.0" text="Utworz plan" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="79.0" layoutY="327.0" mnemonicParsing="false" onAction="#pressDeleteUnused" prefHeight="26.0" prefWidth="180.0" text="Usuń nieużywane konta" AnchorPane.leftAnchor="40.0" />
+      <Button layoutX="79.0" layoutY="367.0" mnemonicParsing="false" onAction="#pressLogOutButton" prefHeight="26.0" prefWidth="180.0" text="Wyloguj się" AnchorPane.leftAnchor="40.0" />
 
    </children>
 </AnchorPane>
