@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions.subject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

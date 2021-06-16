@@ -1,13 +1,13 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions.schoolClass;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
@@ -16,11 +16,10 @@ import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-public class AddOrUpdateClassController extends Window2 implements ParametrizedController{
+public class AddOrUpdateClassController extends Window2 implements ParametrizedController {
 
     public TextField name;
     public Label title;
