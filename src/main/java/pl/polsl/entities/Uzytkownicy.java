@@ -30,6 +30,9 @@ import java.io.Serializable;
                 query = "SELECT U FROM Uzytkownicy U WHERE U.ID = :ID AND U.dostep = :ROLE"),
 
         @NamedQuery(name = "Uzytkownicy.updatePasswordByIdAndRole",
+        query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE"),
+
+        @NamedQuery(name = "Uzytkownicy.getLoginByIdAndRole",
                 query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE")
 })
 @Table(name = "uzytkownicy")

@@ -36,13 +36,14 @@ public class ParentModel implements ManageDataBase {
         }
     }
 
-    public List displayParents()
-    {
+    public List<Rodzice> getAllParents() {
         entityManager = MyManager.getEntityManager();
-
-        TypedQuery query =
-                entityManager.createNamedQuery("rodzice.findAll", Rodzice.class);
-        List<Rodzice> results = query.getResultList();
-        return results;
+        try {
+            return entityManager.createNamedQuery("rodzice.getAllParents", Rodzice.class)
+                    .getResultList();
+        } catch (Exception e) {
+            Logger.getLogger(ParentModel.class.getName()).log(Level.WARNING, "Could not get parents list", e);
+            return null;
+        }
     }
 }

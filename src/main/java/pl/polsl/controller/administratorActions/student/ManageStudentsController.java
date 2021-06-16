@@ -40,7 +40,7 @@ public class ManageStudentsController {
     public void initialize()
     {
         Student s= new Student();
-        List<Uczniowie> l=s.displayStudents();
+        List<Uczniowie> l=s.getAllStudents();
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));

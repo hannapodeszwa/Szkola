@@ -1,6 +1,7 @@
 package pl.polsl.controller.studentActions;
 
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,11 +9,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
+import pl.polsl.entities.GodzinyLekcji;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.model.ScheduleModel;
+import pl.polsl.model.ScheduleTable;
 import pl.polsl.model.Student;
+import pl.polsl.model.Subject;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,12 +40,27 @@ public class studentScheduleController implements ParametrizedController {
     private StudentMenuController.md mode;
     private Integer id_child;
     private ObservableList<Uczniowie> children;
+    private ObservableList<GodzinyLekcji> hour;
+    private ObservableList<ScheduleTable> schedule;
 
     void setTable(){
+        hour = FXCollections.observableArrayList((new ScheduleTable()).getTime());
+        schedule = (new ScheduleTable()).getSchedule((new Student()).getStudentById(id_child).getIdKlasy(),hour);
 
+        columnNum.setCellValueFactory(new PropertyValueFactory<>("number"));
+        columnHours.setCellValueFactory(new PropertyValueFactory<>("hours"));
+        columnMon.setCellValueFactory(new PropertyValueFactory<>("mon"));
+        columnTue.setCellValueFactory(new PropertyValueFactory<>("tue"));
+        columnWen.setCellValueFactory(new PropertyValueFactory<>("wen"));
+        columnThu.setCellValueFactory(new PropertyValueFactory<>("thu"));
+        columnFri.setCellValueFactory(new PropertyValueFactory<>("fri"));
+
+
+        table.setItems(schedule);
 
 
     }
+
 
     @Override
     public void receiveArguments(Map params) {

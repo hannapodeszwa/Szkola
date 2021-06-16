@@ -74,7 +74,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         tableStudents.setEditable(true);
         tableStudents.getItems().clear();
         Student s = new Student();
-        List <Uczniowie> l=s.displayStudents();
+        List <Uczniowie> l=s.getAllStudents();
        // List <ParentChoice>parentchoodList = new ArrayList<>();
 
 
@@ -114,7 +114,13 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             email.setText(toUpdate.getEmail());
             phone.setText(toUpdate.getNrKontaktowy().toString());
             adress.setText(toUpdate.getAdres());
+            checkChildren();
         }
+    }
+
+    private void checkChildren()
+    {
+
     }
 
     public void confirmChangesButton(ActionEvent event) throws IOException
@@ -166,8 +172,6 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
                 ph.persist(r);
             }
         }
-
-
     }
 
     private void setNewValues(Rodzice r)

@@ -7,7 +7,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ManageDataBase;
@@ -41,7 +40,7 @@ public class ManageParentsController implements ManageDataBase {
     {
         tableParents.getItems().clear();
         ParentModel p = new ParentModel();
-        List l=p.displayParents();
+        List l=p.getAllParents();
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));

@@ -1,35 +1,43 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "wiadomosci")
+@NamedQueries({
+        @NamedQuery(name = "Wiadomosci.getReceivedMessagesByTypeAndId",
+                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.odbiorca = :ID"),
+        @NamedQuery(name = "Wiadomosci.getSentMessagesByTypeAndId",
+                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.nadawca = :ID")
+})
 public class Wiadomosci implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "ID", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
     @Column(name = "typ", nullable = false)
     private Integer typ;
 
-    @Column(name = "tresc")
+    @Column(name = "temat", nullable = false)
+    private String temat;
+
+    @Column(name = "tresc", nullable = false)
     private String tresc;
 
-    @Column(name = "idRodzica", nullable = false)
-    private Integer idRodzica;
+    @Column(name = "data")
+    private Date data;
 
-    @Column(name = "idUcznia", nullable = false)
-    private Integer idUcznia;
+    @Column(name = "odbiorca", nullable = false)
+    private Integer odbiorca;
 
-    @Column(name = "idNauczyciela", nullable = false)
-    private Integer idNauczyciela;
+    @Column(name = "nadawca", nullable = false)
+    private Integer nadawca;
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -47,6 +55,14 @@ public class Wiadomosci implements Serializable {
         return typ;
     }
 
+    public void setTemat(String temat) {
+        this.temat = temat;
+    }
+
+    public String getTemat() {
+        return temat;
+    }
+
     public void setTresc(String tresc) {
         this.tresc = tresc;
     }
@@ -55,39 +71,41 @@ public class Wiadomosci implements Serializable {
         return tresc;
     }
 
-    public void setIdRodzica(Integer idRodzica) {
-        this.idRodzica = idRodzica;
+    public void setData(Date data) {
+        this.data = data;
     }
 
-    public Integer getIdRodzica() {
-        return idRodzica;
+    public Date getData() {
+        return data;
     }
 
-    public void setIdUcznia(Integer idUcznia) {
-        this.idUcznia = idUcznia;
+    public void setOdbiorca(Integer idRodzica) {
+        this.odbiorca = odbiorca;
     }
 
-    public Integer getIdUcznia() {
-        return idUcznia;
+    public Integer getOdbiorca() {
+        return odbiorca;
     }
 
-    public void setIdNauczyciela(Integer idNauczyciela) {
-        this.idNauczyciela = idNauczyciela;
+    public void setNadawca(Integer idUcznia) {
+        this.nadawca = nadawca;
     }
 
-    public Integer getIdNauczyciela() {
-        return idNauczyciela;
+    public Integer getNadawca() {
+        return nadawca;
     }
+
 
     @Override
     public String toString() {
         return "Wiadomosci{" +
                 "ID=" + ID + '\'' +
                 "typ=" + typ + '\'' +
+                "temat" + temat + '\'' +
                 "tresc=" + tresc + '\'' +
-                "idRodzica=" + idRodzica + '\'' +
-                "idUcznia=" + idUcznia + '\'' +
-                "idNauczyciela=" + idNauczyciela + '\'' +
+                "data=" + data + '\'' +
+                "odbiorca=" + odbiorca + '\'' +
+                "nadawca=" + nadawca + '\'' +
                 '}';
     }
 }
