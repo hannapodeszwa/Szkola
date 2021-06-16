@@ -110,6 +110,6 @@ public class ManageSubjectsController{
     public void cancelButton(ActionEvent event) throws IOException
     {
         Main.setRoot("menu/adminMenuForm",
-                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getWidth());
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }

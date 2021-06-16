@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.WindowSize;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Rozklady;
@@ -161,6 +162,7 @@ public class ManageClassController extends Window2 {
     }
 
     public void cancelButton(ActionEvent event) throws IOException {
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm",
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }

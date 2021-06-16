@@ -124,6 +124,7 @@ public class ManageParentsController implements ManageDataBase {
 
     public void cancelButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/adminMenuForm");
+        Main.setRoot("menu/adminMenuForm",
+                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }
