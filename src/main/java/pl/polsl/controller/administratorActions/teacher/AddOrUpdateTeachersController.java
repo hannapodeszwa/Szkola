@@ -1,11 +1,12 @@
 package pl.polsl.controller.administratorActions.teacher;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.Window2;
+import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
@@ -16,21 +17,39 @@ import pl.polsl.model.UserModel;
 import java.io.IOException;
 import java.util.Map;
 
-public class AddOrUpdateTeachersController extends Window2 implements ParametrizedController, CredentialsGenerator {
-    double width = 470;
-    double height = 320;
-    @FXML
-    private AnchorPane window;
+public class AddOrUpdateTeachersController  implements ParametrizedController, CredentialsGenerator {
+
     public TextField name;
     public TextField name2;
     public TextField surname;
     public TextField email;
     public TextField phone;
     public Label title;
+    public Button confirm;
 
     private Nauczyciele toUpdate;
     public enum md {Add, Update}
     private md mode = md.Update;
+
+    @FXML
+    public void initialize()
+    {
+        name.textProperty().addListener(TextListener);
+        surname.textProperty().addListener(TextListener);
+        email.textProperty().addListener(TextListener);
+        disableButton();
+    }
+
+    private void disableButton()
+    {
+        if (name.getText().isEmpty() || surname.getText().isEmpty() || email.getText().isEmpty())
+            confirm.setDisable(true);
+        else
+            confirm.setDisable(false);
+    }
+    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
+        disableButton();
+    };
 
     @Override
     public void receiveArguments(Map params) {
@@ -67,16 +86,16 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
             (new Teacher()).update(toUpdate);
         }
         Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                manageTeachersFormWidth, manageTeachersFormHeight);
+                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
     }
 
     private void setNewValues(Nauczyciele n)
     {
-        n.setImie(name.getText());
-        n.setDrugieImie(name2.getText());
-        n.setNazwisko(surname.getText());
-        n.setNrKontaktowy(phone.getText());
-        n.setEmail(email.getText());
+        n.setImie((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
+        n.setDrugieImie((name2.getText().length() >= 45 ? name2.getText().substring(0,45) : name2.getText()));
+        n.setNazwisko((surname.getText().length() >= 45 ? surname.getText().substring(0,45) : surname.getText()));
+        n.setNrKontaktowy((phone.getText().length() >= 45 ? phone.getText().substring(0,45) : phone.getText()));
+        n.setEmail((email.getText().length() >= 45 ? email.getText().substring(0,45) : email.getText()));
     }
 
     private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
@@ -90,7 +109,7 @@ public class AddOrUpdateTeachersController extends Window2 implements Parametriz
     public void discardChangesButton(ActionEvent event) throws IOException
     {
         Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                manageTeachersFormWidth, manageTeachersFormHeight);
+                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
     }
 
 }

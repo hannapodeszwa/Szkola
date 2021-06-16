@@ -7,12 +7,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.Window2;
 import pl.polsl.WindowSize;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.model.Subject;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -78,14 +76,47 @@ public class ManageSubjectsController{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Usuwanie przedmiotu");
             alert.setHeaderText("Czy na pewno chcesz usunąć ten przedmiot?");
-            alert.setContentText(toDelete.getNazwa());
+            alert.setContentText(toDelete.getNazwa() +
+                    "\nSpowoduje to też usunięcie wszystkich ocen, nieobecności i rozkładów z tym przedmiotem.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                //USUWANIE Z ROZKLADU
-                //USUWANIE OCEN I NIEOBECNOSCI
+
+                deleteSchedule(toDelete);
+                deleteGrades(toDelete);
+                deleteAbsence(toDelete);
 
                 (new Subject()).delete(toDelete);
                 displayTableSubjects();
+            }
+        }
+    }
+
+    private void deleteSchedule(Przedmioty toDelete)
+    {
+        List<Rozklady> classScheduleList = (new ScheduleModel()).findBySubject(toDelete);
+        if(!(classScheduleList.isEmpty())) {
+            for (Rozklady r: classScheduleList) {
+                (new ScheduleModel()).delete(r);
+            }
+        }
+    }
+
+    private void deleteGrades(Przedmioty toDelete)
+    {
+        List<Oceny> gradesList = (new Grade()).findBySubject(toDelete);
+        if(!(gradesList.isEmpty())) {
+            for (Oceny o: gradesList) {
+                (new Grade()).delete(o);
+            }
+        }
+    }
+
+    private void deleteAbsence(Przedmioty toDelete)
+    {
+        List<Nieobecnosci> absenceList = (new Present()).findBySubject(toDelete);
+        if(!(absenceList.isEmpty())) {
+            for (Nieobecnosci n: absenceList) {
+                (new Present()).delete(n);
             }
         }
     }

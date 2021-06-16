@@ -27,7 +27,7 @@ public class Rodzice implements Serializable {
     private String email;
 
     @Column(name = "nrKontaktowy")
-    private Integer nrKontaktowy;
+    private String nrKontaktowy;
 
     @Column(name = "imie", nullable = false)
     private String imie;
@@ -49,11 +49,11 @@ public class Rodzice implements Serializable {
         return ID;
     }
 
-    public void setNrKontaktowy(Integer nrKontaktowy) {
+    public void setNrKontaktowy(String nrKontaktowy) {
         this.nrKontaktowy = nrKontaktowy;
     }
 
-    public Integer getNrKontaktowy() {
+    public String getNrKontaktowy() {
         return nrKontaktowy;
     }
 

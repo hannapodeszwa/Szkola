@@ -12,7 +12,8 @@ import java.sql.Date;
 @Entity
 @Table(name = "nieobecnosci")
 @NamedQueries({
-        @NamedQuery(name = "nieobecnosci.findAll", query = "SELECT n FROM Nieobecnosci n WHERE n.idUcznia = :id")
+        @NamedQuery(name = "nieobecnosci.findAll", query = "SELECT n FROM Nieobecnosci n WHERE n.idUcznia = :id"),
+        @NamedQuery(name = "nieobecnosci.findBySubject", query = "SELECT n FROM Nieobecnosci n WHERE n.idPrzedmiotu = :id")
 })
 public class Nieobecnosci implements Serializable {
 

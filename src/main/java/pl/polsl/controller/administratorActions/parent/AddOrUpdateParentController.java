@@ -1,6 +1,7 @@
 package pl.polsl.controller.administratorActions.parent;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,6 +29,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     public TextField phone;
     public TextField adress;
     public Label title;
+    public Button confirm;
 
     @FXML
     private TableView<ParenthoodModel> tableStudents;
@@ -50,7 +52,22 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     public void initialize()
     {
         displayStudents();
+        name.textProperty().addListener(TextListener);
+        surname.textProperty().addListener(TextListener);
+        email.textProperty().addListener(TextListener);
+        disableButton();
     }
+
+    private void disableButton()
+    {
+        if (name.getText().isEmpty() || surname.getText().isEmpty() || email.getText().isEmpty())
+            confirm.setDisable(true);
+        else
+            confirm.setDisable(false);
+    }
+    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
+        disableButton();
+    };
 
     private void displayStudents()
     {
@@ -155,12 +172,12 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     private void setNewValues(Rodzice r)
     {
-        r.setImie(name.getText());
-        r.setDrugieImie(name2.getText());
-        r.setNazwisko(surname.getText());
-       // r.setNrKontaktowy(phone.getText());
-        r.setEmail(email.getText());
-        r.setAdres(adress.getText());
+        r.setImie((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
+        r.setDrugieImie((name2.getText().length() >= 45 ? name2.getText().substring(0,45) : name2.getText()));
+        r.setNazwisko((surname.getText().length() >= 45 ? surname.getText().substring(0,45) : surname.getText()));
+        r.setNrKontaktowy((phone.getText().length() >= 20 ? phone.getText().substring(0,20) : phone.getText()));
+        r.setEmail((email.getText().length() >= 45 ? email.getText().substring(0,45) : email.getText()));
+        r.setAdres((adress.getText().length() >= 45 ? adress.getText().substring(0,45) : adress.getText()));
     }
 
     private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)

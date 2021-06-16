@@ -1,12 +1,14 @@
 package pl.polsl.controller.administratorActions.schoolClass;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.Window2;
+import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
@@ -19,12 +21,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class AddOrUpdateClassController extends Window2 implements ParametrizedController {
+public class AddOrUpdateClassController  implements ParametrizedController {
 
     public TextField name;
     public Label title;
     public ComboBox<String> tutor;
     public ComboBox<String> leader;
+    public Button confirm;
 
     private Klasy toUpdate;
     public enum md {Add, Update}
@@ -38,6 +41,9 @@ public class AddOrUpdateClassController extends Window2 implements ParametrizedC
     {
         displayStudents();
         displayTeachers();
+        name.textProperty().addListener(TextListener);
+
+        disableButton();
     }
 
     private void displayStudents()
@@ -59,6 +65,16 @@ public class AddOrUpdateClassController extends Window2 implements ParametrizedC
             tutor.getItems().add(n.getImie() + " " + n.getNazwisko());
         }
     }
+private void disableButton()
+{
+    if (name.getText().isEmpty())
+        confirm.setDisable(true);
+    else
+        confirm.setDisable(false);
+}
+    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
+      disableButton();
+    };
 
     @Override
     public void receiveArguments(Map params) {
@@ -96,20 +112,37 @@ public class AddOrUpdateClassController extends Window2 implements ParametrizedC
             setNewValues(toUpdate);
             (new SchoolClass()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
+        Main.setRoot("administratorActions/class/manageClassForm",
+                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
     }
     private void setNewValues(Klasy k)
     {
-        k.setNumer(name.getText());
-        Nauczyciele selectedTutor = teachers.get(tutor.getSelectionModel().getSelectedIndex()-1);
-        k.setIdWychowawcy(selectedTutor.getID());
+        k.setNumer((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
 
-        Uczniowie selectedLeader = students.get(leader.getSelectionModel().getSelectedIndex()-1);
-        k.setIdPrzewodniczacego(selectedLeader.getID());
+        int tutorIndex = tutor.getSelectionModel().getSelectedIndex()-1;
+        Nauczyciele selectedTutor = null;
+        if(tutorIndex>=0)
+        {
+           selectedTutor = teachers.get(tutorIndex);
+            k.setIdWychowawcy(selectedTutor.getID());
+        }
+        else
+            k.setIdWychowawcy(null);
+
+
+        int leaderIndex = leader.getSelectionModel().getSelectedIndex()-1;
+        Uczniowie selectedLeader  = null;
+        if(tutorIndex>=0)
+        {
+            selectedLeader = students.get(leaderIndex);
+            k.setIdPrzewodniczacego(selectedLeader.getID());
+        }
+        k.setIdPrzewodniczacego(null);
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("administratorActions/class/manageClassForm", manageClassFormWidth, manageClassFormHeight);
+        Main.setRoot("administratorActions/class/manageClassForm",
+                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
     }
 
 

@@ -7,7 +7,8 @@ import java.sql.Date;
 @Entity
 @Table(name = "oceny")
 @NamedQueries({
-        @NamedQuery(name = "oceny.getGradeByIdStudent", query = "SELECT o FROM Oceny o WHERE o.idUcznia = :id")
+        @NamedQuery(name = "oceny.getGradeByIdStudent", query = "SELECT o FROM Oceny o WHERE o.idUcznia = :id"),
+        @NamedQuery(name = "oceny.findBySubject", query = "SELECT o FROM Oceny o WHERE o.idPrzedmiotu = :id")
 })
 public class Oceny implements Serializable {
 

@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.Window2;
 import pl.polsl.WindowSize;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
@@ -16,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuAdministratorController extends Window2 {
+public class MenuAdministratorController {
     private final Stage thisStage;
 
     public MenuAdministratorController() {

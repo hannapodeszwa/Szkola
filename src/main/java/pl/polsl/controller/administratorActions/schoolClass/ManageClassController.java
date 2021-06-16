@@ -8,16 +8,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.Window2;
 import pl.polsl.WindowSize;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Rozklady;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.ScheduleModel;
-import pl.polsl.model.SchoolClass;
-import pl.polsl.model.Student;
-import pl.polsl.model.Teacher;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,11 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageClassController extends Window2 {
-    double width = 600; //DO ZMIANY
-    double height = 600;
-    @FXML
-    private AnchorPane window;
+public class ManageClassController {
+
     @FXML
     private TableView<Klasy> tableClass;
     @FXML
@@ -87,7 +77,7 @@ public class ManageClassController extends Window2 {
 
         params.put("mode", "add");
         Main.setRoot("administratorActions/class/addOrUpdateClassForm", params,
-                addOrUpdateClassFormWidth, addOrUpdateClassFormHeight);
+                WindowSize.addOrUpdateClassForm.getWidth(), WindowSize.addOrUpdateClassForm.getHeight());
     }
 
     public void updateClassButton(ActionEvent event) throws IOException {
@@ -99,7 +89,7 @@ public class ManageClassController extends Window2 {
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
             params.put("mode", "update");
             Main.setRoot("administratorActions/class/addOrUpdateClassForm", params,
-                    addOrUpdateClassFormWidth, addOrUpdateClassFormHeight);
+                    WindowSize.addOrUpdateClassForm.getWidth(), WindowSize.addOrUpdateClassForm.getHeight());
         }
     }
 
@@ -112,7 +102,7 @@ public class ManageClassController extends Window2 {
             if (!(classStudents.isEmpty())) {
                classWithStudentsAlert();
             } else {
-                List<Rozklady> classScheduleList = (new ScheduleModel()).findByClass(toDelete);
+
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Usuwanie klasy");
@@ -123,17 +113,23 @@ public class ManageClassController extends Window2 {
                 if (result.get() == ButtonType.OK) {
 
                     //delete schedule with class
-                    if(!(classScheduleList.isEmpty())) {
-                        for (Rozklady r: classScheduleList) {
-                            (new ScheduleModel()).delete(r);
-                        }
-                    }
+                  deleteSchedule(toDelete);
 
                     (new SchoolClass()).delete(toDelete);
                     displayTableClass();
                 }
             }
 
+        }
+    }
+
+    private void deleteSchedule(Klasy toDelete)
+    {
+        List<Rozklady> classScheduleList = (new ScheduleModel()).findByClass(toDelete);
+        if(!(classScheduleList.isEmpty())) {
+            for (Rozklady r: classScheduleList) {
+                (new ScheduleModel()).delete(r);
+            }
         }
     }
 

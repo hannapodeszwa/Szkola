@@ -4,6 +4,7 @@ import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Rozklady;
 
 import javax.persistence.EntityManager;
@@ -28,6 +29,15 @@ public class ScheduleModel implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("rozklady.findByClass", Rozklady.class);
         query.setParameter("id", k.getID());
+        List<Rozklady> results = query.getResultList();
+        return results;
+    }
+
+    public List<Rozklady> findBySubject(Przedmioty p)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("rozklady.findBySubject", Rozklady.class);
+        query.setParameter("id", p.getID());
         List<Rozklady> results = query.getResultList();
         return results;
     }

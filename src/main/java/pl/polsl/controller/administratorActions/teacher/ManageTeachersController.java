@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.Window2;
 import pl.polsl.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.ScheduleModel;
@@ -23,11 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageTeachersController extends Window2 {
-    double width = 600; //DO ZMIANY
-    double height = 600;
-    @FXML
-    private AnchorPane window;
+public class ManageTeachersController {
+
     @FXML
     private TableView<Nauczyciele> tableTeachers;
     @FXML
@@ -80,7 +76,7 @@ public class ManageTeachersController extends Window2 {
             params.put("teacher", tableTeachers.getSelectionModel().getSelectedItem());
             params.put("mode", "update");
             Main.setRoot("administratorActions/teacher/addOrUpdateTeacherForm", params,
-                    addOrUpdateTeacherFormWidth, addOrUpdateTeacherFormHeight);
+                    WindowSize.addOrUpdateTeacherForm.getWidth(),  WindowSize.addOrUpdateTeacherForm.getHeight());
         }
     }
 

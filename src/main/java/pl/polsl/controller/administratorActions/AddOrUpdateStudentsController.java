@@ -37,10 +37,8 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     private Uczniowie modyfikowany;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
-        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty())// && !buttonAccept.isDisabled())
-            buttonAccept.setDisable(true);
-        else
-            buttonAccept.setDisable(false);
+
+        buttonAccept.setDisable(poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty());
     };
 
     @FXML
@@ -56,10 +54,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         poleNazwisko.textProperty().addListener(TextListener);
         poleMail.textProperty().addListener(TextListener);
 
-        if (poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty())
-            buttonAccept.setDisable(true);
-        else
-            buttonAccept.setDisable(false);
+        buttonAccept.setDisable(poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty() || poleMail.getText().isEmpty());
 
     }
 
