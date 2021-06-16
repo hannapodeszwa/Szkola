@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.menu;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;

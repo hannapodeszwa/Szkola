@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions.teacher;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uzytkownicy;

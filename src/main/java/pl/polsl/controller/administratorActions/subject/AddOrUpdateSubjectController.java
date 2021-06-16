@@ -1,4 +1,4 @@
-package pl.polsl.controller;
+package pl.polsl.controller.administratorActions.subject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.Window2;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
