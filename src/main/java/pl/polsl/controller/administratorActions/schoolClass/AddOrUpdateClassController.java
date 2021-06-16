@@ -66,10 +66,7 @@ public class AddOrUpdateClassController  implements ParametrizedController {
     }
 private void disableButton()
 {
-    if (name.getText().isEmpty())
-        confirm.setDisable(true);
-    else
-        confirm.setDisable(false);
+    confirm.setDisable(name.getText().isEmpty());
 }
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
       disableButton();
