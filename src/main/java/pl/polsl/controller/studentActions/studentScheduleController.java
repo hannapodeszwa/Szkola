@@ -10,6 +10,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
@@ -98,4 +99,6 @@ public class studentScheduleController implements ParametrizedController {
 
     public void changeComboboxChildren(ActionEvent actionEvent) {
     }
+
+
 }

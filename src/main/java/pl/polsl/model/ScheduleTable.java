@@ -79,15 +79,8 @@ public class ScheduleTable implements ManageDataBase {
         this.fri = fri;
     }
 
-    public ScheduleTable(){
 
-    }
 
-    public ScheduleTable(Integer number){
-        entityManager = MyManager.getEntityManager();
-        TypedQuery<GodzinyLekcji> query = entityManager.createNamedQuery("rozklady.findByHourAndClass", GodzinyLekcji.class);
-        List<GodzinyLekcji> list = query.getResultList();
-    }
 
     public ObservableList<ScheduleTable> getSchedule(Integer IdClass, ObservableList<GodzinyLekcji> lessonTime){
 

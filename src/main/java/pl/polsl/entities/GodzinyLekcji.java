@@ -26,6 +26,7 @@ public class GodzinyLekcji implements Serializable {
 
     @Column(name = "koniec", nullable = false)
     private Time koniec;
+
     @Column(name = "numer", nullable = false)
     private Integer numer;
 

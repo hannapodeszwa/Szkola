@@ -70,10 +70,6 @@ public class StudentMenuController implements ParametrizedController{
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 
-    public void logOutAction() throws IOException {
-        Main.setRoot("common/signIn");
-    }
-
 
     public void clickButtonSchedule() throws IOException {
         params = new HashMap<String, String>();
@@ -82,4 +78,8 @@ public class StudentMenuController implements ParametrizedController{
         Main.setRoot("studentActions/studentScheduleForm", params);
     }
 
+
+    public void logOutAction() throws IOException {
+        Main.setRoot("common/signIn");
+    }
 }
