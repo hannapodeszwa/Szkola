@@ -26,9 +26,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     public TextField poleNazwisko;
     public ComboBox<String> poleKlasa;
     public Button buttonAccept;
-    public ComboBox<Przedmioty> comboBoxSubject;
-    public ComboBox comboBoxTeacher;
-    public ComboBox comboBoxClassroom;
 
 
     private Uczniowie modyfikowany;
@@ -46,53 +43,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         for (Klasy el : l) {
             poleKlasa.getItems().add(el.getNumer());
         }
-
-        List<Sale> classrooms = (new Classroom()).getAllClassrooms();
-        for (Sale classroom : classrooms) {
-            Sale decoratedClassroom = new Sale() {
-                @Override
-                public String toString() {
-                    return this.getNazwa();
-                }
-            };
-            decoratedClassroom.setNazwa(classroom.getNazwa());
-            decoratedClassroom.setID(classroom.getID());
-            decoratedClassroom.setCzyJestRzutnik(classroom.getCzyJestRzutnik());
-            decoratedClassroom.setLiczbaMiejsc(classroom.getLiczbaMiejsc());
-            comboBoxClassroom.getItems().add(decoratedClassroom);
-        }
-
-        List<Przedmioty> subjects = (new Subject()).displaySubjects();
-        for (Przedmioty subject : subjects) {
-            Przedmioty decoratedSubject = new Przedmioty(){
-                @Override
-                public String toString() {
-                    return this.getNazwa();
-                }
-            };
-            decoratedSubject.setID(subject.getID());
-            decoratedSubject.setNazwa(subject.getNazwa());
-            comboBoxSubject.getItems().add(decoratedSubject);
-        }
-
-        List<Nauczyciele> teachers = (new Teacher()).getAllTeachers();
-        for (Nauczyciele tea : teachers) {
-            Nauczyciele decoratedTea = new Nauczyciele(){
-                @Override
-                public String toString() {
-                    return this.getImie() + " " + this.getNazwisko();
-                }
-            };
-            decoratedTea.setImie(tea.getImie());
-            decoratedTea.setDrugieImie(tea.getDrugieImie());
-            decoratedTea.setNazwisko(tea.getNazwisko());
-            decoratedTea.setEmail(tea.getEmail());
-            decoratedTea.setNrKontaktowy(tea.getNrKontaktowy());
-            decoratedTea.setID(tea.getID());
-            comboBoxTeacher.getItems().add(decoratedTea);
-        }
-
-
 
         poleImie.textProperty().addListener(TextListener);
         poleNazwisko.textProperty().addListener(TextListener);

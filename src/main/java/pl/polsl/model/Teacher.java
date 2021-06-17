@@ -57,7 +57,7 @@ public class Teacher implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("nauczyciele.findById", Nauczyciele.class);
         query.setParameter("id", id);
-        Nauczyciele results = (Nauczyciele) query.getSingleResult();
+        Nauczyciele results = (Nauczyciele) query.getResultList().get(0);
         return results;
     }
 

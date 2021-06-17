@@ -20,7 +20,7 @@ import java.util.Map;
 public class StudentMenuController implements ParametrizedController{
 
     private int id;
-    public enum md {Parent, Student}
+    public enum md {Parent, Student, Admin}
     private md mode;
     private Map params;
 

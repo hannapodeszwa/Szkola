@@ -13,7 +13,9 @@ import pl.polsl.model.UserModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MenuAdministratorController {
     private final Stage thisStage;
@@ -46,7 +48,10 @@ public class MenuAdministratorController {
     }
     public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("createScheduleForm");
+        Map params = new HashMap<String, String>();
+        params.put("mode", "Admin");
+        //params.put("id", id);
+        Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
     public void pressManageParentButton(ActionEvent event) throws IOException
     {

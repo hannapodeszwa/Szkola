@@ -102,6 +102,22 @@ public class Rozklady implements Serializable {
 
     @Override
     public String toString() {
-        return (new Subject()).getSubjectName(idPrzedmiotu) + "\n" + (new Classroom()).getNameById(idSali);
+        String subjectName = (new Subject()).getSubjectName(idPrzedmiotu);
+        if (subjectName.length() >= 30) {
+            String shortenedName = "";
+            for (String word : subjectName.split(" ")) {
+                shortenedName += word.charAt(0);
+            }
+            subjectName = shortenedName;
+        }
+        else if (subjectName.length() >= 20) {
+            String shortenedName = "";
+            for (String word : subjectName.split(" ")) {
+                shortenedName += word.charAt(0);
+                shortenedName += ". ";
+            }
+            subjectName = shortenedName;
+        }
+        return subjectName + "\ns. " + (new Classroom()).getNameById(idSali);
     }
 }

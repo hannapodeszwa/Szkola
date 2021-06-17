@@ -7,7 +7,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     manageClassForm (350,450),
     addOrUpdateClassForm(450,300),
     //schedule
-    manageScheduleForm(1025,409),
+    manageScheduleForm(1025,510),
     //subject
     manageSubjectsForm(500,450),
     addOrUpdateSubjectForm(400,280),
