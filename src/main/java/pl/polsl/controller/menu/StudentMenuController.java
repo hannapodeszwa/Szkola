@@ -49,7 +49,7 @@ public class StudentMenuController implements ParametrizedController{
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("studentActions/studentGradesForm",params,
-                WindowSize.studentGradesForm.getWidth(), WindowSize.studentGradesForm.getHeight());
+                WindowSize.studentGradesForm);
     }
 
     public void clickButtonPresence() throws IOException
@@ -57,8 +57,7 @@ public class StudentMenuController implements ParametrizedController{
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentPresenceForm",params,
-                WindowSize.studentPresenceForm.getWidth(), WindowSize.studentPresenceForm.getHeight());
+        Main.setRoot("studentActions/studentPresenceForm",params, WindowSize.studentPresenceForm);
     }
 
 
@@ -75,7 +74,7 @@ public class StudentMenuController implements ParametrizedController{
         params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentScheduleForm", params);
+        Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
     }
 
 

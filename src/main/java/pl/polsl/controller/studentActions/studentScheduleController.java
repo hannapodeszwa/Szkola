@@ -54,7 +54,6 @@ public class studentScheduleController implements ParametrizedController {
 
         table.setItems(schedule);
 
-
     }
 
 
@@ -82,7 +81,6 @@ public class studentScheduleController implements ParametrizedController {
             hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
             setTable();
         }
-
 
     }
 
