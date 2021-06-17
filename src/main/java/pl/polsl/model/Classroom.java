@@ -15,11 +15,10 @@ public class Classroom implements ManageDataBase {
 
     EntityManager entityManager;
 
-    public List<Sale> showAllClassrooms(Integer id)
+    public List<Sale> getAllClassrooms()
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery<Sale> query = entityManager.createNamedQuery("sale.findAll", Sale.class);
-        query.setParameter("id", id);
         return query.getResultList();
     }
 
