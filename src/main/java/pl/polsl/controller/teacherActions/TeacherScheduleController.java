@@ -1,10 +1,13 @@
 package pl.polsl.controller.teacherActions;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 
 public class TeacherScheduleController {
+
+    @FXML
     public TableColumn columnNum;
     public TableColumn columnHours;
     public TableColumn columnMon;

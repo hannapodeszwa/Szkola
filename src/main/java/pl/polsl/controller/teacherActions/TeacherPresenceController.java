@@ -1,3 +1,3 @@
 package pl.polsl.controller.teacherActions;
-public class WritePresenceController {
+public class TeacherPresenceController {
 }

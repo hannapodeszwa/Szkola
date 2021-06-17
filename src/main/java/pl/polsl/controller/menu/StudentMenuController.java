@@ -22,13 +22,15 @@ public class StudentMenuController implements ParametrizedController{
     private int id;
     public enum md {Parent, Student, Admin}
     private md mode;
-    private Map params;
+    private Map params = new HashMap<String, String>();;
 
     @FXML
     public Label labelTitle;
     public Button buttonGrades;
     public Button buttonPresence;
     public Button buttonMessages;
+    public Button buttonSchedule;
+    public Button buttonLogout;
 
     @Override
     public void receiveArguments(Map params) {
@@ -45,7 +47,6 @@ public class StudentMenuController implements ParametrizedController{
     }
 
     public void clickButtonGrades() throws IOException {
-        params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("studentActions/studentGradesForm",params,
@@ -54,31 +55,29 @@ public class StudentMenuController implements ParametrizedController{
 
     public void clickButtonPresence() throws IOException
     {
-        params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("studentActions/studentPresenceForm",params, WindowSize.studentPresenceForm);
     }
 
 
-    public void buttonMessagesAction() throws IOException {
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("previousLocation", "menu/studentMenuForm");
-        parameters.put("role", "uczen");
-        parameters.put("id", id);
-        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+    public void clickButtonMessages() throws IOException {
+        params.put("previousLocation", "menu/studentMenuForm");
+        params.put("role", "uczen");
+        params.put("id", id);
+        Main.setRoot("common/messengerForm", params, 800.0, 450.0);
     }
 
 
     public void clickButtonSchedule() throws IOException {
-        params = new HashMap<String, String>();
+
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
     }
 
 
-    public void logOutAction() throws IOException {
+    public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");
     }
 }
