@@ -49,7 +49,7 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
     public void clickButtonSchedule() throws IOException {
-        params.put("teacher", id);
+        params.put("id", id);
         Main.setRoot("teacherActions/teacherScheduleForm", params);
     }
 

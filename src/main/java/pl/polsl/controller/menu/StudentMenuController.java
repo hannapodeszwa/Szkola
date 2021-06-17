@@ -1,19 +1,12 @@
 package pl.polsl.controller.menu;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import pl.polsl.Main;
-
 import java.io.IOException;
-
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import pl.polsl.WindowSize;
 import pl.polsl.controller.ParametrizedController;
-
 import java.util.HashMap;
 import java.util.Map;
 

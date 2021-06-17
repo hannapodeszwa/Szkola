@@ -59,7 +59,7 @@ public class SignInController {
                        break;
                    case  "nauczyciel":
                        params.put("id", user.getID());
-                       Main.setRoot("menu/teacherMenuForm");
+                       Main.setRoot("menu/teacherMenuForm", params);
                        break;
                    case "rodzic":
                        params.put("mode", "Parent");
