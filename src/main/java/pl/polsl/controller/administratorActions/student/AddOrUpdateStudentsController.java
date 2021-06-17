@@ -1,8 +1,6 @@
 package pl.polsl.controller.administratorActions.student;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,10 +14,8 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class AddOrUpdateStudentsController implements ParametrizedController, CredentialsGenerator {
 
@@ -51,9 +47,23 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             poleKlasa.getItems().add(el.getNumer());
         }
 
-        //List<Sale> classrooms = ()
+        List<Sale> classrooms = (new Classroom()).getAllClassrooms();
+        for (Sale classroom : classrooms) {
+            Sale decoratedClassroom = new Sale() {
+                @Override
+                public String toString() {
+                    return this.getNazwa();
+                }
+            };
+            decoratedClassroom.setNazwa(classroom.getNazwa());
+            decoratedClassroom.setID(classroom.getID());
+            decoratedClassroom.setCzyJestRzutnik(classroom.getCzyJestRzutnik());
+            decoratedClassroom.setLiczbaMiejsc(classroom.getLiczbaMiejsc());
+            comboBoxClassroom.getItems().add(decoratedClassroom);
+        }
+
         List<Przedmioty> subjects = (new Subject()).displaySubjects();
-        for (Przedmioty subject : subjects){
+        for (Przedmioty subject : subjects) {
             Przedmioty decoratedSubject = new Przedmioty(){
                 @Override
                 public String toString() {
@@ -62,11 +72,11 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             };
             decoratedSubject.setID(subject.getID());
             decoratedSubject.setNazwa(subject.getNazwa());
-            comboBoxClassroom.getItems().add(decoratedSubject);
+            comboBoxSubject.getItems().add(decoratedSubject);
         }
 
         List<Nauczyciele> teachers = (new Teacher()).getAllTeachers();
-        for (Nauczyciele tea : teachers){
+        for (Nauczyciele tea : teachers) {
             Nauczyciele decoratedTea = new Nauczyciele(){
                 @Override
                 public String toString() {

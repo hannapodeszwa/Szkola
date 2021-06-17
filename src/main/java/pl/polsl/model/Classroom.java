@@ -22,4 +22,13 @@ public class Classroom implements ManageDataBase {
         return query.getResultList();
     }
 
+    public String getNameById(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("sale.getNameById", Sale.class);
+        query.setParameter("id", id);
+        String results = (String)query.getSingleResult();
+        return results;
+    }
+
 }

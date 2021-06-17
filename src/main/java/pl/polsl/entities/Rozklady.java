@@ -1,6 +1,6 @@
 package pl.polsl.entities;
 
-import pl.polsl.model.RoomModel;
+import pl.polsl.model.Classroom;
 import pl.polsl.model.Subject;
 
 import javax.persistence.*;
@@ -102,6 +102,6 @@ public class Rozklady implements Serializable {
 
     @Override
     public String toString() {
-        return (new Subject()).getSubjectName(idPrzedmiotu) + "\n" + (new RoomModel()).getNameById(idSali);
+        return (new Subject()).getSubjectName(idPrzedmiotu) + "\n" + (new Classroom()).getNameById(idSali);
     }
 }
