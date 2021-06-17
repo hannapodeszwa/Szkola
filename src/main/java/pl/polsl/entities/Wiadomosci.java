@@ -7,6 +7,13 @@ import java.util.Date;
 @Entity
 @Table(name = "wiadomosci")
 @NamedQueries({
+                query = "SELECT w FROM Wiadomosci w WHERE (w.typ = 3 AND w.odbiorca = :ID) OR (w.typ = 2 AND w.nadawca = :ID)"),
+        @NamedQuery(name = "Wiadomosci.getReceivedMessagesByUserLogin",
+                query = "SELECT w FROM Wiadomosci w WHERE w.odbiorca = :LOGIN"),
+        @NamedQuery(name = "Wiadomosci.getSentMessagesByUserLogin",
+                query = "SELECT w FROM Wiadomosci w WHERE w.nadawca = :LOGIN"),
+        @NamedQuery(name = "Wiadomosci.getMessageByReceiverSenderAndDate",
+                query = "SELECT w.tresc FROM Wiadomosci w WHERE w.nadawca = :SENDER AND w.odbiorca = :RECEIVER AND w.data = :DATE"),
         @NamedQuery(name = "Wiadomosci.getReceivedMessagesByTypeAndId",
                 query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.odbiorca = :ID"),
         @NamedQuery(name = "Wiadomosci.getSentMessagesByTypeAndId",
@@ -27,9 +34,6 @@ public class Wiadomosci implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
 
-    @Column(name = "typ", nullable = false)
-    private Integer typ;
-
     @Column(name = "temat", nullable = false)
     private String temat;
 
@@ -39,11 +43,11 @@ public class Wiadomosci implements Serializable {
     @Column(name = "data")
     private Date data;
 
-    @Column(name = "odbiorca")
-    private Integer odbiorca;
+    @Column(name = "odbiorca", nullable = false)
+    private String odbiorca;
 
-    @Column(name = "nadawca")
-    private Integer nadawca;
+    @Column(name = "nadawca", nullable = false)
+    private String nadawca;
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -53,13 +57,6 @@ public class Wiadomosci implements Serializable {
         return ID;
     }
 
-    public void setTyp(Integer typ) {
-        this.typ = typ;
-    }
-
-    public Integer getTyp() {
-        return typ;
-    }
 
     public void setTemat(String temat) {
         this.temat = temat;
@@ -85,19 +82,19 @@ public class Wiadomosci implements Serializable {
         return data;
     }
 
-    public void setOdbiorca(Integer idRodzica) {
+    public void setOdbiorca(String odbiorca) {
         this.odbiorca = odbiorca;
     }
 
-    public Integer getOdbiorca() {
+    public String getOdbiorca() {
         return odbiorca;
     }
 
-    public void setNadawca(Integer idUcznia) {
+    public void setNadawca(String nadawca) {
         this.nadawca = nadawca;
     }
 
-    public Integer getNadawca() {
+    public String getNadawca() {
         return nadawca;
     }
 
@@ -106,7 +103,6 @@ public class Wiadomosci implements Serializable {
     public String toString() {
         return "Wiadomosci{" +
                 "ID=" + ID + '\'' +
-                "typ=" + typ + '\'' +
                 "temat" + temat + '\'' +
                 "tresc=" + tresc + '\'' +
                 "data=" + data + '\'' +

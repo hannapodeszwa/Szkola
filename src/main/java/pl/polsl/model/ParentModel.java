@@ -46,4 +46,16 @@ public class ParentModel implements ManageDataBase {
             return null;
         }
     }
+
+    public Rodzice getParentById(Integer id) {
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("rodzice.getParentById", Rodzice.class)
+                    .setParameter("ID", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(ParentModel.class.getName()).log(Level.WARNING, "Could not get parent by id", e);
+            return null;
+        }
+    }
 }

@@ -9,23 +9,31 @@ import pl.polsl.controller.ParametrizedController;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TeacherMenuController implements ParametrizedController {
+
 
     @FXML
     public Button buttonGrades;
     public Button buttonPresence;
     public Button messagesButton;
-    public Button buttonSchedule;
     public Button buttonLogout;
-
+    public Button buttonSchedule;
     Map params = new HashMap<String, Integer>();
-    Integer id;
+    
+    private Integer id;
+    private String login;
 
     @Override
-    public void receiveArguments(Map params){
+    public void receiveArguments(Map params) {
         id = (Integer) params.get("id");
-        System.out.println("Logged as: " + id);
+        login = (String) params.get("login");
+    }
+
+    public void viewGradesAction(ActionEvent event) throws IOException
+    {
     }
 
 
@@ -48,6 +56,15 @@ public class TeacherMenuController implements ParametrizedController {
         Main.setRoot("common/messengerForm", params, 800.0, 450.0);
     }
 
+    public void messagesAction(ActionEvent event) throws IOException
+    {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("previousLocation", "menu/teacherMenuForm");
+        parameters.put("role", "nauczyciel");
+        parameters.put("id", id);
+        parameters.put("login", login);
+        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+    }
     public void clickButtonSchedule() throws IOException {
         params.put("id", id);
         Main.setRoot("teacherActions/teacherScheduleForm", params);

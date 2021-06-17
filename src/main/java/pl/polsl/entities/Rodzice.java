@@ -12,9 +12,11 @@ import java.io.Serializable;
                         "WHERE usr.ID IS NULL "),
         @NamedQuery(name = "rodzice.findAll", query = "SELECT r FROM Rodzice r"),
         @NamedQuery(name = "rodzice.getParentEmailById",
-        query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID"),
+                query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID"),
         @NamedQuery(name = "rodzice.getAllParents",
-        query = "SELECT R FROM Rodzice R")
+                query = "SELECT R FROM Rodzice R"),
+        @NamedQuery(name = "rodzice.getParentById",
+                query = "SELECT R FROM Rodzice R WHERE R.ID = :ID"),
 })
 public class Rodzice implements Serializable {
 

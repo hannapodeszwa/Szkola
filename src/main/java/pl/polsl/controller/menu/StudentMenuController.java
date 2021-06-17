@@ -15,7 +15,9 @@ public class StudentMenuController implements ParametrizedController{
     private int id;
     public enum md {Parent, Student, Admin}
     private md mode;
-    private Map params = new HashMap<String, String>();;
+    private String a;
+    private Map params;
+    private String login;
 
     @FXML
     public Label labelTitle;
@@ -30,6 +32,12 @@ public class StudentMenuController implements ParametrizedController{
 
         mode = md.valueOf((String)params.get("mode"));
         id = (Integer) params.get("id");
+        login = (String) params.get("login");
+    }
+
+    @FXML
+    public void initialize()
+    {
         if(md.Parent == mode){
             labelTitle.setText("Konto rodzica");
         }
@@ -54,11 +62,13 @@ public class StudentMenuController implements ParametrizedController{
     }
 
 
-    public void clickButtonMessages() throws IOException {
-        params.put("previousLocation", "menu/studentMenuForm");
-        params.put("role", "uczen");
-        params.put("id", id);
-        Main.setRoot("common/messengerForm", params, 800.0, 450.0);
+    public void buttonMessagesAction() throws IOException {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("previousLocation", "menu/studentMenuForm");
+        parameters.put("role", "uczen");
+        parameters.put("id", id);
+        parameters.put("login", login);
+        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 
 

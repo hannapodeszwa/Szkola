@@ -31,4 +31,5 @@ public final class MyManager {
         if (em.isOpen())
             em.close();
     }
+
 }

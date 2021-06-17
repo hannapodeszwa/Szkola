@@ -45,42 +45,49 @@ public class SignInController {
     }
 
     public void signInAction() throws IOException {
-       if(!loginTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()){
-           String login = loginTextField.getText();
-           String password = passwordTextField.getText();
-           Uzytkownicy user = userModel.getUserByLoginAndPassword(login, password);
+        if (!loginTextField.getText().isEmpty() && !passwordTextField.getText().isEmpty()) {
+            String login = loginTextField.getText();
+            String password = passwordTextField.getText();
+            Uzytkownicy user = userModel.getUserByLoginAndPassword(login, password);
 
-           if(user != null){
-               switch(user.getDostep()){
-                   case "uczen":
-                       params.put("mode", "Student");
-                       params.put("id", user.getID());
-                       Main.setRoot("menu/studentMenuForm",params);
-                       break;
-                   case  "nauczyciel":
-                       params.put("id", user.getID());
-                       Main.setRoot("menu/teacherMenuForm", params);
-                       break;
-                   case "rodzic":
-                       params.put("mode", "Parent");
-                       params.put("id", user.getID());
-                       Main.setRoot("menu/studentMenuForm",params);
-                       break;
-                   case "admin":
+            if (user != null) {
+                switch (user.getDostep()) {
+                    case "uczen":
+                        params = new HashMap<String, String>();
+                        params.put("mode", "Student");
+                        params.put("id", user.getID());
+                        params.put("login", user.getLogin());
+                        Main.setRoot("menu/studentMenuForm", params);
+                        break;
+                    case "nauczyciel":
+                        params = new HashMap<String, String>();
+                        params.put("id", user.getID());
+                        params.put("login", user.getLogin());
+                        Main.setRoot("menu/teacherMenuForm", params);
+                        break;
+                    case "rodzic":
+                        params = new HashMap<String, String>();
+                        params.put("mode", "Parent");
+                        params.put("id", user.getID());
+                        params.put("login", user.getLogin());
+                        Main.setRoot("menu/studentMenuForm", params);
+                        break;
+                    case "admin":
+                        Main.setRoot("menu/adminMenuForm");
+                        break;
+                }
+            } else errorLabel.setText("Wrong login or password");
                        Main.setRoot("menu/adminMenuForm",
                                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
-                       break;
-               }
-           } else errorLabel.setText("Wrong login or password");
 
-       } else errorLabel.setText("Fill all of the fields");
+        } else errorLabel.setText("Fill all of the fields");
     }
 
     public void resetPasswordAction() throws Exception {
         Main.setRoot("common/resetPasswordForm");
     }
 
-    public void textChanged(){
+    public void textChanged() {
         errorLabel.setText("");
     }
 }
