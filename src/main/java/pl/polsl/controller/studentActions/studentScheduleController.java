@@ -53,7 +53,7 @@ public class studentScheduleController implements ParametrizedController {
         Sale decoratedClassroom = new Sale() {
             @Override
             public String toString() {
-                return this.getNazwa() + " (liczba miejsc: " + this.getLiczbaMiejsc() + (this.getCzyJestRzutnik() == 1 ? ", wyposażona w rzutnik)" : ")");
+                return this.getNazwa() + " (liczba miejsc: " + this.getLiczbaMiejsc() + (this.getCzyJestRzutnik() ? ", wyposażona w rzutnik)" : ")");
             }
         };
         decoratedClassroom.setNazwa(classroom.getNazwa());
