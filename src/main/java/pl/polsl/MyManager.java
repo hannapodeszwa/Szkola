@@ -28,7 +28,7 @@ public final class MyManager {
 
     @Override
     public void finalize() {
-        if(em.isOpen())
-        em.close();
+        if (em.isOpen())
+            em.close();
     }
 }

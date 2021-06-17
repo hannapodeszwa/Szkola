@@ -80,5 +80,6 @@ public class Main extends Application {
     public static void main(String[] args) {
         MyManager m = MyManager.getInstance();
         launch(args);
+        m.finalize();
     }
 }
