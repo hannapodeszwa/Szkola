@@ -15,7 +15,9 @@ import java.io.Serializable;
         @NamedQuery(name = "rozklady.findByClass",
                 query = "SELECT r FROM Rozklady r WHERE r.idKlasy = :id"),
         @NamedQuery(name = "rozklady.findBySubject",
-                query = "SELECT r FROM Rozklady r WHERE r.idPrzedmiotu = :id")
+                query = "SELECT r FROM Rozklady r WHERE r.idPrzedmiotu = :id"),
+        @NamedQuery(name = "rozklady.findByClassroom",
+                query = "SELECT r FROM Rozklady r WHERE r.idSali = :id")
 })
 @Table(name = "rozklady")
 

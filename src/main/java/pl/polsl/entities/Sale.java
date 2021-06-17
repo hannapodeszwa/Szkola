@@ -14,6 +14,7 @@ public class Sale implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
@@ -24,7 +25,7 @@ public class Sale implements Serializable {
     private Integer liczbaMiejsc;
 
     @Column(name = "czyJestRzutnik", nullable = false)
-    private Integer czyJestRzutnik;
+    private Boolean czyJestRzutnik;
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -42,11 +43,11 @@ public class Sale implements Serializable {
         return liczbaMiejsc;
     }
 
-    public void setCzyJestRzutnik(Integer czyJestRzutnik) {
+    public void setCzyJestRzutnik(Boolean czyJestRzutnik) {
         this.czyJestRzutnik = czyJestRzutnik;
     }
 
-    public Integer getCzyJestRzutnik() {
+    public Boolean getCzyJestRzutnik() {
         return czyJestRzutnik;
     }
 

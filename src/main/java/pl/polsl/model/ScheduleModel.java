@@ -2,10 +2,7 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.entities.Rozklady;
+import pl.polsl.entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -29,6 +26,15 @@ public class ScheduleModel implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("rozklady.findByClass", Rozklady.class);
         query.setParameter("id", k.getID());
+        List<Rozklady> results = query.getResultList();
+        return results;
+    }
+
+    public List<Rozklady> findByClassroom(Sale s)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("rozklady.findByClassroom", Rozklady.class);
+        query.setParameter("id", s.getID());
         List<Rozklady> results = query.getResultList();
         return results;
     }
