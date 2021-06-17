@@ -1,13 +1,14 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "sale")
+@NamedQueries({
+        @NamedQuery(name = "sale.findAll", query = "SELECT s FROM Sale s"),
+        @NamedQuery(name = "sale.getNameById", query = "SELECT s.nazwa FROM Sale s WHERE s.ID = :id")
+})
 public class Sale implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -15,6 +16,9 @@ public class Sale implements Serializable {
     @Id
     @Column(name = "ID", nullable = false)
     private Integer ID;
+
+    @Column(name = "nazwa")
+    private String nazwa;
 
     @Column(name = "liczbaMiejsc")
     private Integer liczbaMiejsc;
@@ -53,5 +57,13 @@ public class Sale implements Serializable {
                 "liczbaMiejsc=" + liczbaMiejsc + '\'' +
                 "czyJestRzutnik=" + czyJestRzutnik + '\'' +
                 '}';
+    }
+
+    public String getNazwa() {
+        return nazwa;
+    }
+
+    public void setNazwa(String nazwa) {
+        this.nazwa = nazwa;
     }
 }

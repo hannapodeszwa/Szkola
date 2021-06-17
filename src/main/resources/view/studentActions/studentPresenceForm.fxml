@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="window" prefHeight="362.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/11.0.1"
+<AnchorPane fx:id="window" prefHeight="362.0" prefWidth="456.0" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="pl.polsl.controller.studentActions.studentPresenceController">
    <TableView fx:id="table" layoutX="20.0" layoutY="46.0" prefHeight="257.0" prefWidth="416.0">

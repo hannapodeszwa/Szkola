@@ -36,6 +36,16 @@ public class Main extends Application {
         scene.setRoot(loadFXML(fxml));
         resizeScene(size);
     }
+
+    public static void setRoot(String fxml, Map params, WindowSize size) throws IOException {
+        scene.setRoot(loadFXML(fxml, params));
+        resizeScene(size);
+    }
+    public static void setRoot(String fxml, WindowSize size) throws IOException {
+        scene.setRoot(loadFXML(fxml));
+        resizeScene(size);
+    }
+
     public static void resizeScene(double[] size) {
         if (size.length >= 2) {
             stage.setWidth(size[0]);
@@ -44,6 +54,11 @@ public class Main extends Application {
             stage.setWidth(defaultWidth);
             stage.setHeight(defaultHeight);
          }
+    }
+
+    public static void resizeScene(WindowSize size) {
+        stage.setWidth(size.getWidth());
+        stage.setHeight(size.getHeight());
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

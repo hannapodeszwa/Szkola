@@ -1,14 +1,10 @@
 package pl.polsl.entities;
 
-import javafx.scene.control.CheckBox;
-import lombok.Data;
-import pl.polsl.model.Presentv2;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
-@Data
 @Entity
 @Table(name = "nieobecnosci")
 @NamedQueries({
@@ -75,11 +71,14 @@ public class Nieobecnosci implements Serializable {
         this.godzina = data;
     }
 
-    public Integer getGodzina(){ return godzina; }
+    public Integer getGodzina() {
+        return godzina;
+    }
 
-    public void setCzyUsprawiedliwiona(Integer czyUsprawiedliwiona){
+    public void setCzyUsprawiedliwiona(Integer czyUsprawiedliwiona) {
         this.czyUsprawiedliwiona = czyUsprawiedliwiona;
     }
+
     public Integer getCzyUsprawiedliwiona() {
         return czyUsprawiedliwiona;
     }

@@ -1,16 +1,15 @@
 package pl.polsl.entities;
 
-import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
 
-@Data
 @Entity
-@Table(name = "sql11418837.godzinyLekcji")
+@Table(name = "godzinyLekcji")
 @NamedQueries({
-        @NamedQuery(name = "godzinyLekcji.getAll", query = "SELECT g FROM GodzinyLekcji g ORDER BY g.numer")
+        @NamedQuery(name = "godzinyLekcji.getAll", query = "SELECT g FROM GodzinyLekcji g ORDER BY g.numer"),
+        @NamedQuery(name = "godzinyLekcji.getNumber", query = "SELECT g.numer FROM GodzinyLekcji g WHERE g.ID = :id")
 })
 public class GodzinyLekcji implements Serializable {
 
@@ -26,9 +25,40 @@ public class GodzinyLekcji implements Serializable {
 
     @Column(name = "koniec", nullable = false)
     private Time koniec;
+
     @Column(name = "numer", nullable = false)
     private Integer numer;
 
-    public GodzinyLekcji() {
+    public Integer getID() {
+        return ID;
     }
+
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
+    public Time getPoczatek() {
+        return poczatek;
+    }
+
+    public void setPoczatek(Time poczatek) {
+        this.poczatek = poczatek;
+    }
+
+    public Time getKoniec() {
+        return koniec;
+    }
+
+    public void setKoniec(Time koniec) {
+        this.koniec = koniec;
+    }
+
+    public Integer getNumer() {
+        return numer;
+    }
+
+    public void setNumer(Integer numer) {
+        this.numer = numer;
+    }
+
 }

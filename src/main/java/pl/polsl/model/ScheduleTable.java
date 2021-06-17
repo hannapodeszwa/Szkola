@@ -79,38 +79,25 @@ public class ScheduleTable implements ManageDataBase {
         this.fri = fri;
     }
 
-    public ScheduleTable(){
 
-    }
 
-    public ScheduleTable(Integer number){
-        entityManager = MyManager.getEntityManager();
-        TypedQuery<GodzinyLekcji> query = entityManager.createNamedQuery("rozklady.findByHourAndClass", GodzinyLekcji.class);
-        List<GodzinyLekcji> list = query.getResultList();
-    }
 
     public ObservableList<ScheduleTable> getSchedule(Integer IdClass, ObservableList<GodzinyLekcji> lessonTime){
 
-        entityManager = MyManager.getEntityManager();
-        TypedQuery query = entityManager.createNamedQuery("rozklady.findByClass", Rozklady.class);
-        query.setParameter("id", IdClass);
-        List<Rozklady> results = query.getResultList();
+
+        List<Rozklady> results = (new ScheduleModel()).findByClass(IdClass);
 
         ObservableList<ScheduleTable> list = FXCollections.observableArrayList();
 
         for(Integer i = 0; i<lessonTime.size();i++){
             list.add(new ScheduleTable());
             list.get(i).number= lessonTime.get(i).getNumer();
-            list.get(i).hours = lessonTime.get(i).getPoczatek() +  " - " + lessonTime.get(i).getKoniec();
+            list.get(i).hours = lessonTime.get(i).getPoczatek().getHours() + ":" +lessonTime.get(i).getPoczatek().getMinutes()+  " - " + lessonTime.get(i).getKoniec().getHours() + ":" +lessonTime.get(i).getKoniec().getMinutes();
         }
 
 
         for(Rozklady act : results){
-            Integer num=0;
-            for(GodzinyLekcji tym : lessonTime){
-                if(tym.getID()==act.getGodzina())
-                    num=tym.getNumer();
-            }
+            Integer num= (new LessonTimeModel()).getNumberById(act.getGodzina());
             switch (act.getDzien()){
                 case "pon":
                     list.get(num-1).mon = act;
@@ -133,14 +120,7 @@ public class ScheduleTable implements ManageDataBase {
         return list;
     }
 
-    public List<GodzinyLekcji> getTime(){
 
-        entityManager = MyManager.getEntityManager();
-        TypedQuery<GodzinyLekcji> query = entityManager.createNamedQuery("godzinyLekcji.getAll", GodzinyLekcji.class);
-        List<GodzinyLekcji> list = query.getResultList();
-
-        return list;
-    }
 
 
 

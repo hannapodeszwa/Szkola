@@ -3,7 +3,7 @@
   <persistence-unit name="groupId_Szkola_jar_1.0-SNAPSHOTPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>pl.polsl.entities.Administratorzy</class>
-    <class>pl.polsl.entities.Godzinylekcji</class>
+    <class>pl.polsl.entities.GodzinyLekcji</class>
     <class>pl.polsl.entities.Klasy</class>
     <class>pl.polsl.entities.Kodyweryfikacyjne</class>
     <class>pl.polsl.entities.Kolanaukowe</class>

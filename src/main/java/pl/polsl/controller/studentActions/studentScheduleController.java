@@ -10,15 +10,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
-import pl.polsl.entities.GodzinyLekcji;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.ScheduleModel;
-import pl.polsl.model.ScheduleTable;
-import pl.polsl.model.Student;
-import pl.polsl.model.Subject;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,14 +24,14 @@ import java.util.Map;
 public class studentScheduleController implements ParametrizedController {
 
     public Button buttonBack;
-    public TableView table;
-    public TableColumn columnNum;
-    public TableColumn columnHours;
-    public TableColumn columnTue;
-    public TableColumn columnMon;
-    public TableColumn columnWen;
-    public TableColumn columnThu;
-    public TableColumn columnFri;
+    public TableView<ScheduleTable> table;
+    public TableColumn<ScheduleTable, Integer> columnNum;
+    public TableColumn<ScheduleTable, String> columnHours;
+    public TableColumn<ScheduleTable, Rozklady> columnMon;
+    public TableColumn<ScheduleTable, Rozklady> columnTue;
+    public TableColumn<ScheduleTable, Rozklady> columnWen;
+    public TableColumn<ScheduleTable, Rozklady> columnThu;
+    public TableColumn<ScheduleTable, Rozklady> columnFri;
     public ComboBox comboboxChildren;
     private Integer id;
     private StudentMenuController.md mode;
@@ -44,7 +41,6 @@ public class studentScheduleController implements ParametrizedController {
     private ObservableList<ScheduleTable> schedule;
 
     void setTable(){
-        hour = FXCollections.observableArrayList((new ScheduleTable()).getTime());
         schedule = (new ScheduleTable()).getSchedule((new Student()).getStudentById(id_child).getIdKlasy(),hour);
 
         columnNum.setCellValueFactory(new PropertyValueFactory<>("number"));
@@ -57,7 +53,6 @@ public class studentScheduleController implements ParametrizedController {
 
 
         table.setItems(schedule);
-
 
     }
 
@@ -76,15 +71,16 @@ public class studentScheduleController implements ParametrizedController {
                 }
                 comboboxChildren.getSelectionModel().select(0);
                 id_child = children.get(0).getID();
+                hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
                 setTable();
             }
         }
         else {
             comboboxChildren.setVisible(false);
             id_child = id;
+            hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
             setTable();
         }
-
 
     }
 
@@ -97,5 +93,10 @@ public class studentScheduleController implements ParametrizedController {
     }
 
     public void changeComboboxChildren(ActionEvent actionEvent) {
+        id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
+        schedule.clear();
+        setTable();
     }
+
+
 }
