@@ -27,8 +27,8 @@ public class studentScheduleController implements ParametrizedController {
     public TableView<ScheduleTable> table;
     public TableColumn<ScheduleTable, Integer> columnNum;
     public TableColumn<ScheduleTable, String> columnHours;
-    public TableColumn<ScheduleTable, String> columnTue;
-    public TableColumn<ScheduleTable, String> columnMon;
+    public TableColumn<ScheduleTable, Rozklady> columnMon;
+    public TableColumn<ScheduleTable, Rozklady> columnTue;
     public TableColumn<ScheduleTable, Rozklady> columnWen;
     public TableColumn<ScheduleTable, Rozklady> columnThu;
     public TableColumn<ScheduleTable, Rozklady> columnFri;
@@ -41,38 +41,15 @@ public class studentScheduleController implements ParametrizedController {
     private ObservableList<ScheduleTable> schedule;
 
     void setTable(){
-        hour = FXCollections.observableArrayList((new ScheduleTable()).getTime());
         schedule = (new ScheduleTable()).getSchedule((new Student()).getStudentById(id_child).getIdKlasy(),hour);
 
         columnNum.setCellValueFactory(new PropertyValueFactory<>("number"));
         columnHours.setCellValueFactory(new PropertyValueFactory<>("hours"));
-
-        columnMon.setCellValueFactory(CellData -> {
-            Rozklady lesson = CellData.getValue().getMon();
-            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
-            return new ReadOnlyStringWrapper(result);
-        });
-        columnMon.setCellValueFactory(CellData -> {
-            Rozklady lesson = CellData.getValue().getTue();
-            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
-            return new ReadOnlyStringWrapper(result);
-        });
-        columnMon.setCellValueFactory(CellData -> {
-            Rozklady lesson = CellData.getValue().getWen();
-            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
-            return new ReadOnlyStringWrapper(result);
-        });
-        columnMon.setCellValueFactory(CellData -> {
-            Rozklady lesson = CellData.getValue().getThu();
-            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
-            return new ReadOnlyStringWrapper(result);
-        });
-        columnMon.setCellValueFactory(CellData -> {
-            Rozklady lesson = CellData.getValue().getFri();
-            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
-            return new ReadOnlyStringWrapper(result);
-        });
-
+        columnMon.setCellValueFactory(new PropertyValueFactory<>("mon"));
+        columnTue.setCellValueFactory(new PropertyValueFactory<>("tue"));
+        columnWen.setCellValueFactory(new PropertyValueFactory<>("wen"));
+        columnThu.setCellValueFactory(new PropertyValueFactory<>("thu"));
+        columnFri.setCellValueFactory(new PropertyValueFactory<>("fri"));
 
 
         table.setItems(schedule);
@@ -95,12 +72,14 @@ public class studentScheduleController implements ParametrizedController {
                 }
                 comboboxChildren.getSelectionModel().select(0);
                 id_child = children.get(0).getID();
+                hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
                 setTable();
             }
         }
         else {
             comboboxChildren.setVisible(false);
             id_child = id;
+            hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
             setTable();
         }
 
@@ -116,6 +95,9 @@ public class studentScheduleController implements ParametrizedController {
     }
 
     public void changeComboboxChildren(ActionEvent actionEvent) {
+        id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
+        schedule.clear();
+        setTable();
     }
 
 

@@ -6,20 +6,20 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentScheduleController">
+<AnchorPane prefHeight="409.0" prefWidth="1025.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentScheduleController">
    <children>
-      <Button fx:id="buttonBack" layoutX="520.0" layoutY="337.0" mnemonicParsing="false" onAction="#clickButtonBack" text="Powrót" />
-      <TableView fx:id="table" layoutX="29.0" layoutY="36.0" prefHeight="200.0" prefWidth="543.0">
+      <Button fx:id="buttonBack" layoutX="450.0" layoutY="350.0" mnemonicParsing="false" onAction="#clickButtonBack" text="Powrót" />
+      <TableView fx:id="table" layoutX="29.0" layoutY="36.0" prefHeight="298.0" prefWidth="927.0">
         <columns>
-            <TableColumn fx:id="columnNum" prefWidth="28.0" />
-          <TableColumn fx:id="columnHours" prefWidth="122.0" text="Godziny" />
-          <TableColumn fx:id="columnMon" prefWidth="75.0" text="Poniedziałek" />
-            <TableColumn fx:id="columnTue" prefWidth="75.0" text="Wtorek" />
-            <TableColumn fx:id="columnWen" prefWidth="75.0" text="Środa" />
-            <TableColumn fx:id="columnThu" prefWidth="75.0" text="Czwartek" />
-            <TableColumn fx:id="columnFri" prefWidth="75.0" text="Piątek" />
+            <TableColumn fx:id="columnNum" editable="false" prefWidth="25.0" resizable="false" sortable="false" />
+          <TableColumn fx:id="columnHours" editable="false" resizable="false" sortable="false" text="Godziny" />
+          <TableColumn fx:id="columnMon" editable="false" prefWidth="193.0" resizable="false" sortable="false" style="-fx-text-align: CENTER; -fx-alignment: CENTER;" text="Poniedziałek" />
+            <TableColumn fx:id="columnTue" editable="false" prefWidth="150.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Wtorek" />
+            <TableColumn fx:id="columnWen" editable="false" prefWidth="150.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Środa" />
+            <TableColumn fx:id="columnThu" editable="false" prefWidth="150.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Czwartek" />
+            <TableColumn fx:id="columnFri" editable="false" prefWidth="150.0" resizable="false" sortable="false" style="-fx-alignment: CENTER;" text="Piątek" />
         </columns>
       </TableView>
-      <ComboBox fx:id="comboboxChildren" layoutX="29.0" layoutY="312.0" onAction="#changeComboboxChildren" prefWidth="150.0" />
+      <ComboBox fx:id="comboboxChildren" layoutX="29.0" layoutY="350.0" onAction="#changeComboboxChildren" prefWidth="150.0" />
    </children>
 </AnchorPane>
