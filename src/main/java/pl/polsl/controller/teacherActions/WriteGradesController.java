@@ -18,7 +18,6 @@ import pl.polsl.model.Grade;
 import pl.polsl.model.Subject;
 import pl.polsl.model.Teacher;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.sql.Date;

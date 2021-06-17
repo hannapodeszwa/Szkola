@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="492.0" prefWidth="637.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherScheduleController">
+   <children>
+      <TableView layoutX="30.0" layoutY="75.0" prefHeight="321.0" prefWidth="540.0">
+        <columns>
+          <TableColumn fx:id="columnNum" prefWidth="28.0" />
+          <TableColumn fx:id="columnHours" prefWidth="122.0" text="Godziny" />
+            <TableColumn fx:id="columnMon" prefWidth="75.0" style="-fx-text-alignment: CENTER; -fx-text-align: CENTER; -fx-alignment: CENTER;" text="Poniedziałek" />
+            <TableColumn fx:id="columnTue" prefWidth="75.0" style="-fx-text-alignment: CENTER; -fx-text-align: CENTER; -fx-alignment: CENTER;" text="Wtorek" />
+            <TableColumn fx:id="columnWen" prefWidth="75.0" style="-fx-text-alignment: CENTER; -fx-text-align: CENTER; -fx-alignment: CENTER;" text="Środa" />
+            <TableColumn fx:id="columnThu" prefWidth="75.0" style="-fx-text-alignment: CENTER; -fx-text-align: CENTER; -fx-alignment: CENTER;" text="Czwartek" />
+            <TableColumn fx:id="columnFri" prefWidth="75.0" style="-fx-text-alignment: CENTER; -fx-text-align: CENTER; -fx-alignment: CENTER;" text="Piątek" />
+        </columns>
+      </TableView>
+      <Button fx:id="buttonBack" layoutX="470.0" layoutY="416.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
+   </children>
+</AnchorPane>
