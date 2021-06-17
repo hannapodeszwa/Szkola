@@ -3,6 +3,7 @@ package pl.polsl;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.io.IOException;
 
 public final class MyManager {
 
@@ -25,5 +26,9 @@ public final class MyManager {
         return em;
     }
 
-
+    @Override
+    public void finalize() {
+        if (em.isOpen())
+            em.close();
+    }
 }

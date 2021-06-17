@@ -59,6 +59,12 @@ public class MenuAdministratorController {
                 WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
     }
 
+    public void pressManageClassroomsButton(ActionEvent event) throws IOException
+    {
+        Main.setRoot("administratorActions/classroom/manageClassroomsForm",
+                WindowSize.manageClassroomsForm);
+    }
+
     public void pressLogOutButton(ActionEvent event) throws IOException
     {
         Main.setRoot("common/signIn");

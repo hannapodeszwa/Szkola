@@ -2,9 +2,7 @@ package pl.polsl.model;
 
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -52,6 +50,17 @@ public class Teacher implements ManageDataBase {
 
         return results;
     }
+
+    public List checkTeacherSubjects(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query =
+                entityManager.createNamedQuery("przedmioty.findByTutorId", String.class);
+        List<String> results = query.setParameter("idNauczyciela", id).getResultList();
+
+        return results;
+    }
+
     public Nauczyciele getTeacherById(Integer id)
     {
         entityManager = MyManager.getEntityManager();

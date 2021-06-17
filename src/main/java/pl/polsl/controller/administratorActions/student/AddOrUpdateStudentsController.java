@@ -27,7 +27,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     public ComboBox<String> poleKlasa;
     public Button buttonAccept;
 
-
     private Uczniowie modyfikowany;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
