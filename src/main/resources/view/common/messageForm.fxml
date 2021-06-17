@@ -8,9 +8,9 @@
    <children>
       <VBox alignment="CENTER" fillWidth="false" layoutX="20.0" layoutY="51.0" prefHeight="200.0" prefWidth="780.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField fx:id="receiverTextField" prefHeight="25.0" prefWidth="808.0" promptText="Odbiorca" />
-            <TextField fx:id="topicTextField" prefHeight="25.0" prefWidth="811.0" promptText="Temat" />
-            <TextArea fx:id="messageTextArea" prefHeight="200.0" prefWidth="807.0" promptText="Wiadomość..." />
+            <TextField fx:id="receiverTextField" prefHeight="25.0" prefWidth="810.0" promptText="Odbiorca" />
+            <TextField fx:id="topicTextField" prefHeight="25.0" prefWidth="810.0" promptText="Temat" />
+            <TextArea fx:id="messageTextArea" prefHeight="200.0" prefWidth="810.0" promptText="Wiadomość..." />
             <Label fx:id="errorLabel" textFill="RED">
                <VBox.margin>
                   <Insets bottom="-20.0" />

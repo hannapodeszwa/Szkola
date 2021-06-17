@@ -6,9 +6,11 @@ import java.io.Serializable;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "rodzice.getParentEmailById",
-        query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID"),
+                query = "SELECT R.email FROM Rodzice R WHERE R.ID = :ID"),
         @NamedQuery(name = "rodzice.getAllParents",
-        query = "SELECT R FROM Rodzice R")
+                query = "SELECT R FROM Rodzice R"),
+        @NamedQuery(name = "rodzice.getParentById",
+                query = "SELECT R FROM Rodzice R WHERE R.ID = :ID"),
 })
 @Table(name = "rodzice")
 public class Rodzice implements Serializable {
@@ -23,7 +25,7 @@ public class Rodzice implements Serializable {
     private String email;
 
     @Column(name = "nrKontaktowy")
-    private Integer nrKontaktowy;
+    private String nrKontaktowy;
 
     @Column(name = "imie", nullable = false)
     private String imie;
@@ -45,11 +47,11 @@ public class Rodzice implements Serializable {
         return ID;
     }
 
-    public void setNrKontaktowy(Integer nrKontaktowy) {
+    public void setNrKontaktowy(String nrKontaktowy) {
         this.nrKontaktowy = nrKontaktowy;
     }
 
-    public Integer getNrKontaktowy() {
+    public String getNrKontaktowy() {
         return nrKontaktowy;
     }
 

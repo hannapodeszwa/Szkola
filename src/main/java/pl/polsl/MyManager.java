@@ -25,5 +25,10 @@ public final class MyManager {
         return em;
     }
 
+    @Override
+    public void finalize() {
+        if (em.isOpen())
+            em.close();
+    }
 
 }

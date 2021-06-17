@@ -24,6 +24,7 @@ public class StudentMenuController implements ParametrizedController {
     private md mode;
     private String a;
     private Map params;
+    private String login;
 
     @FXML
     public Label labelTitle;
@@ -36,8 +37,7 @@ public class StudentMenuController implements ParametrizedController {
 
         mode = md.valueOf((String)params.get("mode"));
         id = (Integer) params.get("id");
-
-
+        login = (String) params.get("login");
     }
 
     @FXML
@@ -66,6 +66,7 @@ public class StudentMenuController implements ParametrizedController {
         parameters.put("previousLocation", "menu/studentMenuForm");
         parameters.put("role", "uczen");
         parameters.put("id", id);
+        parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 

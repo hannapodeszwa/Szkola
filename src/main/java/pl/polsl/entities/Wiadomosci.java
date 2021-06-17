@@ -7,10 +7,12 @@ import java.util.Date;
 @Entity
 @Table(name = "wiadomosci")
 @NamedQueries({
-        @NamedQuery(name = "Wiadomosci.getReceivedMessagesByTypeAndId",
-                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.odbiorca = :ID"),
-        @NamedQuery(name = "Wiadomosci.getSentMessagesByTypeAndId",
-                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.nadawca = :ID")
+        @NamedQuery(name = "Wiadomosci.getReceivedMessagesByUserLogin",
+                query = "SELECT w FROM Wiadomosci w WHERE w.odbiorca = :LOGIN"),
+        @NamedQuery(name = "Wiadomosci.getSentMessagesByUserLogin",
+                query = "SELECT w FROM Wiadomosci w WHERE w.nadawca = :LOGIN"),
+        @NamedQuery(name = "Wiadomosci.getMessageByReceiverSenderAndDate",
+                query = "SELECT w.tresc FROM Wiadomosci w WHERE w.nadawca = :SENDER AND w.odbiorca = :RECEIVER AND w.data = :DATE")
 })
 public class Wiadomosci implements Serializable {
 
@@ -20,9 +22,6 @@ public class Wiadomosci implements Serializable {
     @Column(name = "ID", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ID;
-
-    @Column(name = "typ", nullable = false)
-    private Integer typ;
 
     @Column(name = "temat", nullable = false)
     private String temat;
@@ -34,10 +33,10 @@ public class Wiadomosci implements Serializable {
     private Date data;
 
     @Column(name = "odbiorca", nullable = false)
-    private Integer odbiorca;
+    private String odbiorca;
 
     @Column(name = "nadawca", nullable = false)
-    private Integer nadawca;
+    private String nadawca;
 
     public void setID(Integer ID) {
         this.ID = ID;
@@ -47,13 +46,6 @@ public class Wiadomosci implements Serializable {
         return ID;
     }
 
-    public void setTyp(Integer typ) {
-        this.typ = typ;
-    }
-
-    public Integer getTyp() {
-        return typ;
-    }
 
     public void setTemat(String temat) {
         this.temat = temat;
@@ -79,19 +71,19 @@ public class Wiadomosci implements Serializable {
         return data;
     }
 
-    public void setOdbiorca(Integer odbiorca) {
+    public void setOdbiorca(String odbiorca) {
         this.odbiorca = odbiorca;
     }
 
-    public Integer getOdbiorca() {
+    public String getOdbiorca() {
         return odbiorca;
     }
 
-    public void setNadawca(Integer nadawca) {
+    public void setNadawca(String nadawca) {
         this.nadawca = nadawca;
     }
 
-    public Integer getNadawca() {
+    public String getNadawca() {
         return nadawca;
     }
 
@@ -100,7 +92,6 @@ public class Wiadomosci implements Serializable {
     public String toString() {
         return "Wiadomosci{" +
                 "ID=" + ID + '\'' +
-                "typ=" + typ + '\'' +
                 "temat" + temat + '\'' +
                 "tresc=" + tresc + '\'' +
                 "data=" + data + '\'' +

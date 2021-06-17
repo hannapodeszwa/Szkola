@@ -16,12 +16,11 @@ public class MessageModel {
 
     private EntityManager entityManager;
 
-    public List<Wiadomosci> getReceivedMessagesByTypeAndId(Integer id, Integer type) {
+    public List<Wiadomosci> getReceivedMessagesByUserLogin(String login) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createNamedQuery("Wiadomosci.getReceivedMessagesByTypeAndId", Wiadomosci.class)
-                    .setParameter("ID", id)
-                    .setParameter("TYPE", type)
+            return entityManager.createNamedQuery("Wiadomosci.getReceivedMessagesByUserLogin", Wiadomosci.class)
+                    .setParameter("LOGIN", login)
                     .getResultList();
         } catch (Exception e) {
             Logger.getLogger(MessageModel.class.getName()).log(Level.WARNING, "Could not get messages", e);
@@ -29,12 +28,11 @@ public class MessageModel {
         }
     }
 
-    public List<Wiadomosci> getSentMessagesByTypeAndId(Integer id, Integer type) {
+    public List<Wiadomosci> getSentMessagesByUserLogin(String login) {
         entityManager = MyManager.getEntityManager();
         try {
-            return entityManager.createNamedQuery("Wiadomosci.getSentMessagesByTypeAndId", Wiadomosci.class)
-                    .setParameter("ID", id)
-                    .setParameter("TYPE", type)
+            return entityManager.createNamedQuery("Wiadomosci.getSentMessagesByUserLogin", Wiadomosci.class)
+                    .setParameter("LOGIN", login)
                     .getResultList();
         } catch (Exception e) {
             Logger.getLogger(MessageModel.class.getName()).log(Level.WARNING, "Could not get messages", e);
@@ -42,9 +40,8 @@ public class MessageModel {
         }
     }
 
-    public Boolean insertMessage(Integer type, String topic, String message, Date date, Integer receiver, Integer sender) {
+    public Boolean insertMessage(String topic, String message, Date date, String receiver, String sender) {
         Wiadomosci wiadomosci = new Wiadomosci();
-        wiadomosci.setTyp(type);
         wiadomosci.setTemat(topic);
         wiadomosci.setTresc(message);
         wiadomosci.setData(date);
@@ -60,6 +57,20 @@ public class MessageModel {
             entityManager.getTransaction().rollback();
             Logger.getLogger(MessageModel.class.getName()).log(Level.WARNING, "Could not insert message", e);
             return false;
+        }
+    }
+
+    public String getMessageByReceiverSenderAndDat(String receiver, String sender, Date date) {
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("Wiadomosci.getMessageByReceiverSenderAndDate", String.class)
+                    .setParameter("RECEIVER", receiver)
+                    .setParameter("SENDER", sender)
+                    .setParameter("DATE", date)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(MessageModel.class.getName()).log(Level.WARNING, "Could not get message", e);
+            return "";
         }
     }
 
