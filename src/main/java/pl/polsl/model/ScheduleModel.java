@@ -33,6 +33,15 @@ public class ScheduleModel implements ManageDataBase {
         return results;
     }
 
+    public List<Rozklady> findByClass(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("rozklady.findByClass", Rozklady.class);
+        query.setParameter("id", id);
+        List<Rozklady> results = query.getResultList();
+        return results;
+    }
+
     public List<Rozklady> findBySubject(Przedmioty p)
     {
         entityManager = MyManager.getEntityManager();

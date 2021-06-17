@@ -84,10 +84,8 @@ public class ScheduleTable implements ManageDataBase {
 
     public ObservableList<ScheduleTable> getSchedule(Integer IdClass, ObservableList<GodzinyLekcji> lessonTime){
 
-        entityManager = MyManager.getEntityManager();
-        TypedQuery query = entityManager.createNamedQuery("rozklady.findByClass", Rozklady.class);
-        query.setParameter("id", IdClass);
-        List<Rozklady> results = query.getResultList();
+
+        List<Rozklady> results = (new ScheduleModel()).findByClass(IdClass);
 
         ObservableList<ScheduleTable> list = FXCollections.observableArrayList();
 
@@ -103,6 +101,7 @@ public class ScheduleTable implements ManageDataBase {
             for(GodzinyLekcji tym : lessonTime){
                 if(tym.getID()==act.getGodzina())
                     num=tym.getNumer();
+                    break;
             }
             switch (act.getDzien()){
                 case "pon":

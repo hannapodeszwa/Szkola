@@ -14,12 +14,8 @@ import javafx.scene.input.MouseEvent;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
-import pl.polsl.entities.GodzinyLekcji;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.ScheduleModel;
-import pl.polsl.model.ScheduleTable;
-import pl.polsl.model.Student;
-import pl.polsl.model.Subject;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -28,14 +24,14 @@ import java.util.Map;
 public class studentScheduleController implements ParametrizedController {
 
     public Button buttonBack;
-    public TableView table;
-    public TableColumn columnNum;
-    public TableColumn columnHours;
-    public TableColumn columnTue;
-    public TableColumn columnMon;
-    public TableColumn columnWen;
-    public TableColumn columnThu;
-    public TableColumn columnFri;
+    public TableView<ScheduleTable> table;
+    public TableColumn<ScheduleTable, Integer> columnNum;
+    public TableColumn<ScheduleTable, String> columnHours;
+    public TableColumn<ScheduleTable, String> columnTue;
+    public TableColumn<ScheduleTable, String> columnMon;
+    public TableColumn<ScheduleTable, Rozklady> columnWen;
+    public TableColumn<ScheduleTable, Rozklady> columnThu;
+    public TableColumn<ScheduleTable, Rozklady> columnFri;
     public ComboBox comboboxChildren;
     private Integer id;
     private StudentMenuController.md mode;
@@ -50,11 +46,33 @@ public class studentScheduleController implements ParametrizedController {
 
         columnNum.setCellValueFactory(new PropertyValueFactory<>("number"));
         columnHours.setCellValueFactory(new PropertyValueFactory<>("hours"));
-        columnMon.setCellValueFactory(new PropertyValueFactory<>("mon"));
-        columnTue.setCellValueFactory(new PropertyValueFactory<>("tue"));
-        columnWen.setCellValueFactory(new PropertyValueFactory<>("wen"));
-        columnThu.setCellValueFactory(new PropertyValueFactory<>("thu"));
-        columnFri.setCellValueFactory(new PropertyValueFactory<>("fri"));
+
+        columnMon.setCellValueFactory(CellData -> {
+            Rozklady lesson = CellData.getValue().getMon();
+            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
+            return new ReadOnlyStringWrapper(result);
+        });
+        columnMon.setCellValueFactory(CellData -> {
+            Rozklady lesson = CellData.getValue().getTue();
+            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
+            return new ReadOnlyStringWrapper(result);
+        });
+        columnMon.setCellValueFactory(CellData -> {
+            Rozklady lesson = CellData.getValue().getWen();
+            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
+            return new ReadOnlyStringWrapper(result);
+        });
+        columnMon.setCellValueFactory(CellData -> {
+            Rozklady lesson = CellData.getValue().getThu();
+            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
+            return new ReadOnlyStringWrapper(result);
+        });
+        columnMon.setCellValueFactory(CellData -> {
+            Rozklady lesson = CellData.getValue().getFri();
+            String result = (new Subject()).getSubjectName(lesson.getIdPrzedmiotu()) + "\n" + (new RoomModel()).getNameById(lesson.getIdSali());
+            return new ReadOnlyStringWrapper(result);
+        });
+
 
 
         table.setItems(schedule);
