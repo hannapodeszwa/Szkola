@@ -2,8 +2,10 @@ package pl.polsl.controller.teacherActions;
 
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -37,8 +39,20 @@ public class TeacherNoteController implements ParametrizedController {
 
     Integer id;
     List<Klasy> classList;
-    List<Uczniowie> studentList;
-    ObservableList<Uwagi> noteList;
+    List<Uczniowie> studentList = new ArrayList<>();
+    ObservableList<Uwagi> noteList = FXCollections.observableArrayList();
+
+    private ChangeListener addNote = (observable, oldValue, newValue) -> {
+
+        buttonAdd.setDisable(comboboxStudent.getSelectionModel().getSelectedIndex()==-1 || comboboxClass.getSelectionModel().getSelectedIndex()==-1);
+    };
+
+    private ListChangeListener<? extends TablePosition> deleteNote = (
+    javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+        Uwagi tym = (Uwagi)table.getSelectionModel().getSelectedItem();
+        buttonDelete.setDisable(tym==null || tym.getIdNauczyciela()!=id);
+    };
+
 
     @Override
     public void receiveArguments(Map params) {
@@ -66,6 +80,11 @@ public class TeacherNoteController implements ParametrizedController {
 
     public void initialize(){
         labelError.setVisible(false);
+        comboboxClass.valueProperty().addListener(addNote);
+        comboboxStudent.valueProperty().addListener(addNote);
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) deleteNote);
+        buttonAdd.setDisable(true);
+        buttonDelete.setDisable(true);
     }
 
     public void clickButtonDelete() {
@@ -74,30 +93,17 @@ public class TeacherNoteController implements ParametrizedController {
             table.getItems().remove(tym);
             noteList.remove(tym);
             (new NoteModel()).delete(tym);
-            labelError.setVisible(false);
-        }
-        else{
-            labelError.setText("Nie można usunąć uwagi\nwstawionej przez kogoś innego.");
-            labelError.setVisible(true);
         }
     }
 
     public void clickButtonAdd() throws IOException {
-        if (comboboxClass.getSelectionModel().getSelectedIndex() != -1 && comboboxStudent.getSelectionModel().getSelectedIndex() != -1) {
-            Map<String, Object> params = new HashMap<>();
-            params.put("id", id);
-            params.put("idStudent", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID());
-            params.put("classCombobox", comboboxClass.getSelectionModel().getSelectedIndex());
-            params.put("studentCombobox", comboboxStudent.getSelectionModel().getSelectedIndex());
-            Main.setRoot("teacherActions/teacherAddNewNoteForm", params);
-        } else if (comboboxStudent.getSelectionModel().getSelectedIndex() != -1) {
-            labelError.setText("Nie wybrano ucznia.");
-            labelError.setVisible(true);
-        }
-        else{
-            labelError.setText("Nie wybrano klasy.");
-            labelError.setVisible(true);
-        }
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("idStudent", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID());
+        params.put("classCombobox", comboboxClass.getSelectionModel().getSelectedIndex());
+        params.put("studentCombobox", comboboxStudent.getSelectionModel().getSelectedIndex());
+        Main.setRoot("teacherActions/teacherAddNewNoteForm", params);
+
     }
 
     void setStudents(Integer index){
@@ -108,12 +114,22 @@ public class TeacherNoteController implements ParametrizedController {
             }
             comboboxStudent.getSelectionModel().select(0);
         }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public void chengeComboboxClass() {
-        studentList.clear();
-        comboboxStudent.getItems().clear();
-        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        if (!comboboxClass.getSelectionModel().isEmpty()) {
+            studentList.clear();
+            comboboxStudent.getItems().clear();
+            noteList.clear();
+            table.getItems().clear();
+            setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public Integer getWitdh(String text){
@@ -135,7 +151,6 @@ public class TeacherNoteController implements ParametrizedController {
         Integer act = 0;
         Integer i = 0;
         for(Integer size : sizewords) {
-
             if(size + act < width){
                 result += words[i] + " ";
                 act +=size+3;
@@ -168,10 +183,13 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void chengeComboboxStudent() {
-        noteList.clear();
-        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
-        setNote(index);
-
+        if(!comboboxStudent.getSelectionModel().isEmpty()) {
+            Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+            setNote(index);
+        }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public void clickButtonBack() throws IOException {

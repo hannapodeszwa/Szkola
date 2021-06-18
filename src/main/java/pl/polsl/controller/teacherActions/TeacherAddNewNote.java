@@ -1,5 +1,6 @@
 package pl.polsl.controller.teacherActions;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,18 +16,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TeacherAddNewNote implements ParametrizedController {
+
     public TextField textField;
     public Button buttonCancel;
     public Button buttonAdd;
-    public Label labelError;
 
     Integer id;
     Integer idStudent;
     Integer classCombobox;
     Integer studentCombobox;
 
-    public void initialize(){
-        labelError.setVisible(false);
+    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
+
+        buttonAdd.setDisable(textField.getText().isEmpty());
+    };
+
+    public void initialize() {
+        textField.textProperty().addListener(TextListener);
+        buttonAdd.setDisable(true);
     }
 
     @Override
@@ -37,10 +44,9 @@ public class TeacherAddNewNote implements ParametrizedController {
         studentCombobox = (Integer) params.get("studentCombobox");
     }
 
-    Map<String, Object> params (){
+    Map<String, Object> params() {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        params.put("idStudent", idStudent);
         params.put("classCombobox", classCombobox);
         params.put("studentCombobox", studentCombobox);
         return params;
@@ -51,14 +57,9 @@ public class TeacherAddNewNote implements ParametrizedController {
     }
 
     public void clickButtonAdd(ActionEvent actionEvent) throws IOException {
-        if(textField.getText()!="") {
-            (new NoteModel()).persist(new Uwagi(textField.getText(), idStudent, id));
-            Main.setRoot("teacherActions/teacherNoteForm", params());
-        }
-        else{
-            labelError.setText("Nie uzupełniono opisu.");
-            labelError.setVisible(true);
-        }
+        (new NoteModel()).persist(new Uwagi(textField.getText(), idStudent, id));
+        Main.setRoot("teacherActions/teacherNoteForm", params());
+
     }
 
 
