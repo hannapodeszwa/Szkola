@@ -19,6 +19,8 @@ import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
+import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +37,6 @@ public class TeacherNoteController implements ParametrizedController {
     public Button buttonDelete;
     public Button buttonAdd;
     public Button buttonBack;
-    public Label labelError;
 
     Integer id;
     List<Klasy> classList;
@@ -79,7 +80,6 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void initialize(){
-        labelError.setVisible(false);
         comboboxClass.valueProperty().addListener(addNote);
         comboboxStudent.valueProperty().addListener(addNote);
         table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) deleteNote);
@@ -102,7 +102,7 @@ public class TeacherNoteController implements ParametrizedController {
         params.put("idStudent", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID());
         params.put("classCombobox", comboboxClass.getSelectionModel().getSelectedIndex());
         params.put("studentCombobox", comboboxStudent.getSelectionModel().getSelectedIndex());
-        Main.setRoot("teacherActions/teacherAddNewNoteForm", params);
+        Main.setRoot("teacherActions/teacherAddNewNoteForm", params, WindowSize.teacherAddNewNoteForm);
 
     }
 

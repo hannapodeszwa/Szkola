@@ -10,12 +10,13 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherAddNewNote implements ParametrizedController {
+public class TeacherAddNewNoteController implements ParametrizedController {
 
     public TextField textField;
     public Button buttonCancel;
@@ -53,12 +54,12 @@ public class TeacherAddNewNote implements ParametrizedController {
     }
 
     public void clickButtonCancel(ActionEvent actionEvent) throws IOException {
-        Main.setRoot("teacherActions/teacherNoteForm", params());
+        Main.setRoot("teacherActions/teacherNoteForm", params(), WindowSize.teacherNoteForm);
     }
 
     public void clickButtonAdd(ActionEvent actionEvent) throws IOException {
         (new NoteModel()).persist(new Uwagi(textField.getText(), idStudent, id));
-        Main.setRoot("teacherActions/teacherNoteForm", params());
+        Main.setRoot("teacherActions/teacherNoteForm", params(), WindowSize.teacherNoteForm);
 
     }
 
