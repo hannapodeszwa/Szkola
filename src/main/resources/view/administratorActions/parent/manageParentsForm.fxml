@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="402.0" prefWidth="513.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.ManageParentsController">
+<AnchorPane prefHeight="405.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.parent.ManageParentsController">
     <children>
         <TableView fx:id="tableParents" layoutX="30.0" layoutY="57.0" prefHeight="299.0" prefWidth="268.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
             <columns>
@@ -21,5 +21,13 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="331.0" layoutY="166.0" text="Drugie imię:" AnchorPane.leftAnchor="350.0" />
+      <Label fx:id="name2" layoutX="443.0" layoutY="166.0" AnchorPane.leftAnchor="443.0" />
+      <Label layoutX="314.0" layoutY="192.0" text="Email:" AnchorPane.leftAnchor="350.0" />
+      <Label fx:id="email" layoutX="400.0" layoutY="192.0" AnchorPane.leftAnchor="400.0" />
+      <Label layoutX="313.0" layoutY="221.0" text="Adres:" AnchorPane.leftAnchor="350.0" />
+      <Label fx:id="adress" layoutX="313.0" layoutY="239.0" AnchorPane.leftAnchor="350.0" />
+      <Label layoutX="312.0" layoutY="269.0" text="Dzieci:" AnchorPane.leftAnchor="350.0" />
+      <ListView fx:id="children" layoutX="312.0" layoutY="290.0" prefHeight="50.0" prefWidth="170.0" AnchorPane.leftAnchor="350.0" />
     </children>
 </AnchorPane>

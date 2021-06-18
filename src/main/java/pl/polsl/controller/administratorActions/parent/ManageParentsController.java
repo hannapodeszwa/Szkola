@@ -1,12 +1,11 @@
 package pl.polsl.controller.administratorActions.parent;
 
 import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.WindowSize;
@@ -27,12 +26,49 @@ public class ManageParentsController implements ManageDataBase {
     private TableColumn<Rodzice, String> nameC;
     @FXML
     private TableColumn<Rodzice, String> surnameC;
+    @FXML
+    private Label name2;
+    @FXML
+    private Label email;
+    @FXML
+    private Label adress;
+    @FXML
+    private ListView children;
 
 
     @FXML
     public void initialize()
     {
         displayTableParents();
+        changeLabels();
+    }
+
+    private void changeLabels()
+    {
+        ObservableList<Rodzice> selectedParent = tableParents.getSelectionModel().getSelectedItems();
+        selectedParent.addListener(new ListChangeListener<Rodzice>() {
+            @Override
+            public void onChanged(Change<? extends Rodzice> change) {
+                String selectedName2 = selectedParent.get(0).getDrugieImie();
+                String selectedEmail = selectedParent.get(0).getEmail();
+                String selectedAdress = selectedParent.get(0).getAdres();
+
+                name2.setText(selectedName2);
+                email.setText(selectedEmail);
+                adress.setText(selectedAdress);
+
+                children.getItems().clear();
+                ParenthoodModel p = new ParenthoodModel();
+                List <Rodzicielstwo> l=p.findByParent(selectedParent.get(0));
+
+                for( Rodzicielstwo r: l)
+                {
+                    Uczniowie selectedStudent = (new Student()).getStudentById(r.getIdUcznia());
+                    children.getItems().add(selectedStudent.getImie() + " " + selectedStudent.getNazwisko());
+                }
+
+            }
+        });
     }
 
     public void displayTableParents()

@@ -51,7 +51,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     @FXML
     public void initialize()
     {
-        displayStudents();
+       // displayStudents();
         name.textProperty().addListener(TextListener);
         surname.textProperty().addListener(TextListener);
         email.textProperty().addListener(TextListener);
@@ -69,17 +69,36 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         disableButton();
     };
 
+    private List <Integer> checkChildren(List <Uczniowie> students)
+    {
+        List<Rodzicielstwo> parenthoodList = (new ParenthoodModel()).findByParent(toUpdate);
+        List <Integer> studentsId =new ArrayList<>();
+        List children = new ArrayList();
+        for( Rodzicielstwo r: parenthoodList)
+        {
+            studentsId.add(r.getIdUcznia());
+        }
+        return studentsId;
+    }
+
     private void displayStudents()
     {
         tableStudents.setEditable(true);
         tableStudents.getItems().clear();
         Student s = new Student();
         List <Uczniowie> l=s.getAllStudents();
-       // List <ParentChoice>parentchoodList = new ArrayList<>();
 
-
+        List <Integer> childrenId = new ArrayList<>();
+        if(toUpdate!=null) {
+           childrenId = checkChildren(l);
+        }
         for (Uczniowie u : l) {
-            parentchoodList.add(new ParenthoodModel(u));
+            ParenthoodModel p = new ParenthoodModel(u);
+            if(toUpdate!=null && childrenId.contains(u.ID))
+            {
+                p.getChoose().setSelected(true);
+            }
+            parentchoodList.add(p);
         }
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
@@ -114,13 +133,9 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             email.setText(toUpdate.getEmail());
             phone.setText(toUpdate.getNrKontaktowy().toString());
             adress.setText(toUpdate.getAdres());
-            checkChildren();
+            //checkChildren();
         }
-    }
-
-    private void checkChildren()
-    {
-
+        displayStudents();
     }
 
     public void confirmChangesButton(ActionEvent event) throws IOException
