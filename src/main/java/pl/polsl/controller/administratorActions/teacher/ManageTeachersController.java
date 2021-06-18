@@ -1,11 +1,10 @@
 package pl.polsl.controller.administratorActions.teacher;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.utils.Roles;
@@ -28,11 +27,19 @@ public class ManageTeachersController {
     @FXML
     private TableColumn<Nauczyciele, String> surnameC;
 
+    @FXML
+    private Label name2;
+    @FXML
+    private Label email;
+    @FXML
+    private Label phone;
+
     private String login;
     @FXML
     public void initialize()
     {
         displayTableTeachers();
+        changeLabels();
     }
 
     public void displayTableTeachers()
@@ -47,6 +54,23 @@ public class ManageTeachersController {
         for (Object n: l) {
             tableTeachers.getItems().add((Nauczyciele) n);
         }
+    }
+
+    private void changeLabels()
+    {
+        ObservableList<Nauczyciele> selectedTeacher = tableTeachers.getSelectionModel().getSelectedItems();
+        selectedTeacher.addListener(new ListChangeListener<Nauczyciele>() {
+            @Override
+            public void onChanged(Change<? extends Nauczyciele> change) {
+                String selectedName2 = selectedTeacher.get(0).getDrugieImie();
+                String selectedEmail = selectedTeacher.get(0).getEmail();
+                String selectedPhone= selectedTeacher.get(0).getNrKontaktowy();
+
+                name2.setText(selectedName2);
+                email.setText(selectedEmail);
+                phone.setText(selectedPhone);
+                }
+        });
     }
 
     public void addTeacherButton(ActionEvent event) throws IOException
