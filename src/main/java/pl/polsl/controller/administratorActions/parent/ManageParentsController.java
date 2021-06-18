@@ -115,7 +115,7 @@ public class ManageParentsController implements ManageDataBase {
         List<Wiadomosci> messagesList = (new MessageModel()).findByParent(toDelete);
         if(!(messagesList.isEmpty())) {
             for (Wiadomosci w: messagesList) {
-                switch (w.getTyp()) {
+                /*switch (w.getTyp()) {
                     case (2):
                         w.setNadawca(null);
                         (new MessageModel()).update(w);
@@ -124,7 +124,7 @@ public class ManageParentsController implements ManageDataBase {
                         w.setOdbiorca(null);
                         (new MessageModel()).update(w);
                         break;
-                }
+                }*/
             }
         }
     }

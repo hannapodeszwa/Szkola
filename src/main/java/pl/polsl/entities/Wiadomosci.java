@@ -7,23 +7,12 @@ import java.util.Date;
 @Entity
 @Table(name = "wiadomosci")
 @NamedQueries({
-                query = "SELECT w FROM Wiadomosci w WHERE (w.typ = 3 AND w.odbiorca = :ID) OR (w.typ = 2 AND w.nadawca = :ID)"),
         @NamedQuery(name = "Wiadomosci.getReceivedMessagesByUserLogin",
                 query = "SELECT w FROM Wiadomosci w WHERE w.odbiorca = :LOGIN"),
         @NamedQuery(name = "Wiadomosci.getSentMessagesByUserLogin",
                 query = "SELECT w FROM Wiadomosci w WHERE w.nadawca = :LOGIN"),
         @NamedQuery(name = "Wiadomosci.getMessageByReceiverSenderAndDate",
                 query = "SELECT w.tresc FROM Wiadomosci w WHERE w.nadawca = :SENDER AND w.odbiorca = :RECEIVER AND w.data = :DATE"),
-        @NamedQuery(name = "Wiadomosci.getReceivedMessagesByTypeAndId",
-                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.odbiorca = :ID"),
-        @NamedQuery(name = "Wiadomosci.getSentMessagesByTypeAndId",
-                query = "SELECT w FROM Wiadomosci w WHERE w.typ = :TYPE AND w.nadawca = :ID"),
-        @NamedQuery(name = "wiadomosci.findByTeacher",
-                query = "SELECT w FROM Wiadomosci w WHERE " +
-                        "((w.typ = 0 OR w.typ = 2) AND w.odbiorca = :ID) OR" +
-                        " ((w.typ = 1 OR w.typ = 3) AND w.nadawca = :ID)"),
-        @NamedQuery(name = "wiadomosci.findByParent",
-                query = "SELECT w FROM Wiadomosci w WHERE (w.typ = 3 AND w.odbiorca = :ID) OR (w.typ = 2 AND w.nadawca = :ID)")
 })
 public class Wiadomosci implements Serializable {
 

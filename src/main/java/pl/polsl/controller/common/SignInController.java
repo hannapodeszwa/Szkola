@@ -73,12 +73,11 @@ public class SignInController {
                         Main.setRoot("menu/studentMenuForm", params);
                         break;
                     case "admin":
-                        Main.setRoot("menu/adminMenuForm");
+                        Main.setRoot("menu/adminMenuForm",
+                                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
                         break;
                 }
             } else errorLabel.setText("Wrong login or password");
-                       Main.setRoot("menu/adminMenuForm",
-                               WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
 
         } else errorLabel.setText("Fill all of the fields");
     }

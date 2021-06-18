@@ -50,14 +50,6 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
     public void clickButtonMessages() throws IOException {
-        params.put("previousLocation", "menu/TeacherMenuForm");
-        params.put("role", "nauczyciel");
-        params.put("id", id);
-        Main.setRoot("common/messengerForm", params, 800.0, 450.0);
-    }
-
-    public void messagesAction(ActionEvent event) throws IOException
-    {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", "menu/teacherMenuForm");
         parameters.put("role", "nauczyciel");
@@ -65,6 +57,7 @@ public class TeacherMenuController implements ParametrizedController {
         parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
+
     public void clickButtonSchedule() throws IOException {
         params.put("id", id);
         Main.setRoot("teacherActions/teacherScheduleForm", params);

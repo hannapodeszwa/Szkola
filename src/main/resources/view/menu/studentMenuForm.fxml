@@ -15,7 +15,7 @@
                </font></Label>
             <Button fx:id="buttonGrades" mnemonicParsing="false" onAction="#clickButtonGrades" text="Oceny" />
             <Button fx:id="buttonPresence" mnemonicParsing="false" onAction="#clickButtonPresence" text="Obecności" />
-            <Button fx:id="buttonMessages" mnemonicParsing="false" onAction="#clickButtonMessages" text="Wiadomości" />
+            <Button fx:id="buttonMessages" mnemonicParsing="false" onAction="#buttonMessagesAction" text="Wiadomości" />
             <Button fx:id="buttonSchedule" mnemonicParsing="false" onAction="#clickButtonSchedule" text="Plan lekcji" />
             <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#clickButtonLogout" text="Wyloguj" />
          </children>

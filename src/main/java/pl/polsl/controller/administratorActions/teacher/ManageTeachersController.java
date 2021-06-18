@@ -143,7 +143,7 @@ public class ManageTeachersController {
         List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(toDelete);
         if(!(messagesList.isEmpty())) {
             for (Wiadomosci w: messagesList) {
-                switch (w.getTyp())
+                /*switch (w.getTyp())
                 {
                     case (0):
                     case(2):
@@ -155,7 +155,7 @@ public class ManageTeachersController {
                         w.setNadawca(null);
                         (new MessageModel()).update(w);
                         break;
-                }
+                }*/
             }
         }
     }
