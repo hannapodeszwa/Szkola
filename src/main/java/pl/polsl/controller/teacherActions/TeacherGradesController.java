@@ -69,8 +69,26 @@ public class TeacherGradesController implements ParametrizedController {
 
     }
 
-    public void clickButtonAdd() {
-        
+    public void clickButtonAdd() throws IOException{
+        Map params = new HashMap<String, String>();
+        params.put("teacherId", id);
+
+        Integer studentId = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID();
+        params.put("studentId", studentId);
+
+        Integer subjectId = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getID();
+        params.put("subjectId", subjectId);
+
+        String surname = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getNazwisko();
+        params.put("surname", surname);
+
+        String name = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getImie();
+        params.put("name", name);
+
+        String subject = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getNazwa();
+        params.put("subject",subject);
+
+        Main.setRoot("teacherActions/teacherAddNewGradeForm", params);
     }
 
     void setStudents(Integer index){
@@ -89,7 +107,7 @@ public class TeacherGradesController implements ParametrizedController {
         setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
     }
 
-    public void changeComboboxSubject(){
+    public void changeComboboxSubject() {
         gradeList.clear();
         setGrade();
     }
@@ -169,7 +187,7 @@ public class TeacherGradesController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", id);
-        Main.setRoot("menu/TeacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params);
     }
 
 
