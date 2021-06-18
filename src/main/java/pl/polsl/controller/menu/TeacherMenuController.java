@@ -1,6 +1,8 @@
 package pl.polsl.controller.menu;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 
@@ -9,51 +11,49 @@ import java.util.Map;
 import java.io.IOException;
 
 public class TeacherMenuController implements ParametrizedController {
-    Integer loggedTeacherId;
+
+    @FXML
+    public Button buttonGrades;
+    public Button buttonPresence;
+    public Button messagesButton;
+    public Button buttonSchedule;
+    public Button buttonLogout;
+
+    Map params = new HashMap<String, Integer>();
+    Integer id;
 
     @Override
     public void receiveArguments(Map params){
-        loggedTeacherId = (Integer) params.get("teacher");
-        System.out.println("Logged as: " + loggedTeacherId);
+        id = (Integer) params.get("id");
+        System.out.println("Logged as: " + id);
     }
 
 
-
-    public void viewGradesAction(ActionEvent event) throws IOException
+    public void clickButtonGrades() throws IOException
     {
-        Main.setRoot("teacherActions/writeGradesForm");
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherGradesForm", params);
     }
 
-    public void viewPresencesAction(ActionEvent event) throws IOException
-    {
-        Main.setRoot("teacherActions/writePresenceForm");
+
+    public void clickButtonPresence() throws IOException {
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherPresenceForm", params);
     }
 
-    public void writeGradesAction(ActionEvent event) throws IOException
-    {
-        Map params = new HashMap<String, Integer>();
-
-        params.put("teacher", loggedTeacherId);
-
-
-        Main.setRoot("teacherActions/writeGradesForm", params);
-
-
+    public void clickButtonMessages() throws IOException {
+        params.put("previousLocation", "menu/TeacherMenuForm");
+        params.put("role", "nauczyciel");
+        params.put("id", id);
+        Main.setRoot("common/messengerForm", params, 800.0, 450.0);
     }
 
-    public void writePresenceAction(ActionEvent event) throws IOException
-    {
-        Main.setRoot("teacherActions/writePresenceForm");
+    public void clickButtonSchedule() throws IOException {
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherScheduleForm", params);
     }
 
-    public void messagesAction(ActionEvent event) throws IOException
-    {
-        Main.setRoot("teacherActions/writeGradesForm");
-    }
-
-    public void logOutAction(ActionEvent event) throws IOException
-    {
+    public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");
     }
-
 }

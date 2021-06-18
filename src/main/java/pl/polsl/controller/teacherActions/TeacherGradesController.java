@@ -18,19 +18,18 @@ import pl.polsl.model.Grade;
 import pl.polsl.model.Subject;
 import pl.polsl.model.Teacher;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.sql.Date;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-public class WriteGradesController implements ParametrizedController {
+public class TeacherGradesController implements ParametrizedController {
     Integer loggedTeacherId;
 
     @Override
     public void receiveArguments(Map params){
-        loggedTeacherId = (Integer) params.get("teacher");
+        loggedTeacherId = (Integer) params.get("id");
         System.out.println("Logged as: " + loggedTeacherId);
 
 
@@ -44,26 +43,19 @@ public class WriteGradesController implements ParametrizedController {
     private ComboBox subjectComboBox;
     @FXML
     private ComboBox gradeComboBox;
-
     @FXML
-    private  ComboBox valueComboBox;
-
+    private ComboBox valueComboBox;
     @FXML
     private TextField idTextField;
-
     @FXML
     private TextField nameTextField;
-
     @FXML
     private TextField surnameTextField;
-
     @FXML
     private TextField descriptionTextField;
-
     @FXML
     private Label errorLabel;
 
-    @FXML
     public void initialize(){
         UnaryOperator<TextFormatter.Change> idFilter = change -> {
             String typedText = change.getControlNewText();
