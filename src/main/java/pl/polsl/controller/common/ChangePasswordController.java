@@ -10,11 +10,12 @@ import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
 import pl.polsl.model.VerificationCodesModel;
+import pl.polsl.view.NotificationsInterface;
 
 import java.io.IOException;
 import java.util.Map;
 
-public class ChangePasswordController implements ParametrizedController {
+public class ChangePasswordController implements ParametrizedController, NotificationsInterface {
 
     private VerificationCodesModel verificationCodesModel;
     private UserModel user;
@@ -76,6 +77,7 @@ public class ChangePasswordController implements ParametrizedController {
                 if (dbVerificationCode.getKod().equals(confirmationCode)) {
                     user.updatePasswordByIdAndRole(role, id, newPassword);
                     verificationCodesModel.removeVerificationCodeByLogin(login);
+                    showNotification("Zmiana hasła", "Pomyślnie zmieniono hasło", 2);
                     Main.setRoot("common/signIn");
                 } else {
                     errorLabel.setText("Verification code does not match!");
