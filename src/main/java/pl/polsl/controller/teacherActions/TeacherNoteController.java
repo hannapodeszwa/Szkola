@@ -21,6 +21,7 @@ import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void clickButtonAdd() {
+        
     }
 
     void setStudents(Integer index){
@@ -79,22 +81,57 @@ public class TeacherNoteController implements ParametrizedController {
 
     public void chengeComboboxClass() {
         studentList.clear();
+        comboboxStudent.getItems().clear();
         setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+    }
+
+    public Integer getWitdh(String text){
+        return (int)(new Text(text)).getBoundsInLocal().getWidth();
+    }
+
+    public String wrapString(String wraping,Integer wid){
+        Integer width = wid-10;
+        if(getWitdh(wraping) < width) {
+            return wraping;
+        }
+        String result = "";
+        String[] words = wraping.split(" ");
+        List<Integer> sizewords = new ArrayList<Integer>();
+
+        for(String word : words){
+            sizewords.add(getWitdh(word));
+        }
+        Integer act = 0;
+        Integer i = 0;
+        for(Integer size : sizewords) {
+
+            if(size + act < width){
+                result += words[i] + " ";
+                act +=size+3;
+            }
+            else if (size + act >= width) {
+                result += "\n" + words[i]+" ";
+                act=size+3;
+            }
+            else {
+                result += "\n" + words[i] + "\n";
+                act = 0;
+            }
+            i++;
+        }
+
+
+        return result;
     }
 
     void setNote(Integer index){
         noteList = FXCollections.observableArrayList((new NoteModel()).getStudentNote(studentList.get(index).getID()));
 
 
-
         columnDesc.setCellValueFactory(CellData -> {
             String tym = CellData.getValue().getTresc();
-            Text desc = new Text(tym);
-            desc.setWrappingWidth(200);
-
-            return new ReadOnlyStringWrapper(desc.toString());
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDesc.getWidth()));
         });
-        //columnDesc.setCellValueFactory(new PropertyValueFactory<>("tresc"));
 
         table.setItems(noteList);
     }
