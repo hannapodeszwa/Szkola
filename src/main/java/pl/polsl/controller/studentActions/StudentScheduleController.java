@@ -34,6 +34,7 @@ public class StudentScheduleController implements ParametrizedController {
     public TableColumn<ScheduleTable, Rozklady> columnFri;
     public ComboBox comboboxChildren;
     public ComboBox<Klasy> comboboxClasses;
+    public Label warnings;
     private Integer id;
     private StudentMenuController.md mode;
     private Integer id_child;
@@ -48,6 +49,39 @@ public class StudentScheduleController implements ParametrizedController {
     private TablePosition<?,?> selectedCell;
     private Integer idKlasy;
 
+
+    private void checkProblems() {
+        String problems = "";
+        //If the classroom is too small to fit all students in
+        if (comboBoxClassroom.getSelectionModel().getSelectedItem() != null &&
+                comboBoxClassroom.getSelectionModel().getSelectedItem().getLiczbaMiejsc() <
+                (new SchoolClass()).getStudentsByClass(comboboxClasses.getSelectionModel().getSelectedItem()).size()) {
+            problems += "Wybrana sala jest za mała\n";
+        }
+
+        //If the classroom has another lesson at the same time
+        if (comboBoxClassroom.getSelectionModel().getSelectedItem() != null &&
+                (new ScheduleModel()).findByClassroom(comboBoxClassroom.getSelectionModel().getSelectedItem()).stream()
+                        .anyMatch(s ->
+                                s.getGodzina().equals(selected.getGodzina())
+                                        && s.getDzien().equals(selected.getDzien())
+                                        && !s.getIdKlasy().equals(selected.getIdKlasy())
+                        )) {
+            problems += "Wybrana sala jest już zajęta\n";
+        }
+
+        //If the teacher has another lesson at the same time
+        if (comboBoxTeacher.getSelectionModel().getSelectedItem() != null &&
+                (new ScheduleModel()).findByTeacher(comboBoxTeacher.getSelectionModel().getSelectedItem()).stream()
+                        .anyMatch(r ->
+                                r.getGodzina().equals(selected.getGodzina())
+                                        && r.getDzien().equals(selected.getDzien())
+                                        && !r.getIdKlasy().equals(selected.getIdKlasy())
+                        )) {
+            problems += "Wybrany nauczyciel prowadzi w tym czasie inne zajęcia\n";
+        }
+        warnings.setText(problems);
+    }
 
     public void prepareNewSchedule() {
         String weekDay = selectedCell.getTableColumn().getText();
@@ -75,13 +109,19 @@ public class StudentScheduleController implements ParametrizedController {
     @FXML
     public void initialize() {
         table.getSelectionModel().setCellSelectionEnabled(true);
+    }
 
+    public void adminInitialize() {
         comboBoxSubject.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
             if (selectedCell.getColumn() >= 2) {
                 if (newSelection == null) {
                     if (selected != null) {
                         (new ScheduleModel()).delete(selected);
                         refreshTable();
+                        comboBoxTeacher.getSelectionModel().select(null);
+                        comboBoxTeacher.setDisable(true);
+                        comboBoxClassroom.getSelectionModel().select(null);
+                        comboBoxClassroom.setDisable(true);
                     }
                 }
                 else {
@@ -91,14 +131,19 @@ public class StudentScheduleController implements ParametrizedController {
                         prepareNewSchedule();
                         (new ScheduleModel()).persist(selected);
                         refreshTable();
+                        comboBoxTeacher.setDisable(false);
+                        comboBoxClassroom.setDisable(false);
                     }
                     else if (!newSelection.getID().equals(selected.getIdPrzedmiotu())) {
                         selected.setIdPrzedmiotu(newSelection.getID());
                         (new ScheduleModel()).update(selected);
                         refreshTable();
+                        comboBoxTeacher.setDisable(false);
+                        comboBoxClassroom.setDisable(false);
                     }
                 }
             }
+            checkProblems();
         });
 
         comboBoxTeacher.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
@@ -116,6 +161,7 @@ public class StudentScheduleController implements ParametrizedController {
                     refreshTable();
                 }
             }
+            checkProblems();
         });
 
         comboBoxClassroom.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
@@ -133,6 +179,7 @@ public class StudentScheduleController implements ParametrizedController {
                     refreshTable();
                 }
             }
+            checkProblems();
         });
 
 
@@ -240,6 +287,7 @@ public class StudentScheduleController implements ParametrizedController {
             comboBoxClassroom.getSelectionModel().select(null);
             comboBoxClassroom.setDisable(true);
         }
+        checkProblems();
     };
 
 
@@ -301,7 +349,7 @@ public class StudentScheduleController implements ParametrizedController {
         }
         Integer finalRow = row;
         Integer finalColumn = column;
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
             System.out.println("Refreshing table");
             table.getSelectionModel().getSelectedCells().removeListener((ListChangeListener<? super TablePosition>) cellSelectListener);
             table.getItems().clear();
@@ -314,7 +362,7 @@ public class StudentScheduleController implements ParametrizedController {
             }
 
             table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) cellSelectListener);
-        });
+        //});
     }
 
 
@@ -323,6 +371,7 @@ public class StudentScheduleController implements ParametrizedController {
         mode = StudentMenuController.md.valueOf((String) params.get("mode"));
 
         if (mode == StudentMenuController.md.Admin) {
+            adminInitialize();
             hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
             Klasy firstClass = (Klasy) (new SchoolClass()).displayClass().get(0);
             idKlasy = firstClass.getID();
@@ -387,6 +436,12 @@ public class StudentScheduleController implements ParametrizedController {
 
     public void changeComboboxClasses(ActionEvent actionEvent) {
         idKlasy = comboboxClasses.getSelectionModel().getSelectedItem().getID();
+        //comboBoxSubject.getSelectionModel().select(null);
+        comboBoxSubject.setDisable(true);
+        //comboBoxTeacher.getSelectionModel().select(null);
+        comboBoxTeacher.setDisable(true);
+        //comboBoxClassroom.getSelectionModel().select(null);
+        comboBoxClassroom.setDisable(true);
         refreshTable();
     }
 }
