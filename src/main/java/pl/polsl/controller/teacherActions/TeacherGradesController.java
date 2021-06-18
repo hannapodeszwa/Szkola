@@ -22,7 +22,7 @@ import java.util.*;
 public class TeacherGradesController implements ParametrizedController {
 
     @FXML
-    public TableView table;
+    public TableView<Oceny> table;
 //    public TableColumn<Uwagi, Text> columnDesc;
     public TableColumn<Oceny, String> columnDesc;
     public TableColumn<Oceny, String> columnDate;
@@ -66,7 +66,8 @@ public class TeacherGradesController implements ParametrizedController {
     }
 
     public void clickButtonDelete() {
-
+        Oceny o = table.getSelectionModel().getSelectedItem();
+        (new Grade()).delete(o);
     }
 
     public void clickButtonAdd() throws IOException{

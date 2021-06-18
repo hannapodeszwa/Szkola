@@ -19,7 +19,7 @@
       <VBox alignment="CENTER" layoutX="318.0" layoutY="70.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
          <children>
             <Label text="Ocena" />
-            <ComboBox fx:id="gradeComboBox" prefWidth="150.0" value="1.00">
+            <ComboBox fx:id="gradeComboBox" prefWidth="150.0">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <Float fx:value="1.00" />
@@ -32,7 +32,7 @@
                </items>
             </ComboBox>
             <Label text="Waga" />
-            <ComboBox fx:id="valueComboBox" prefWidth="150.0" value="1.00">
+            <ComboBox fx:id="valueComboBox" prefWidth="150.0" >
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <Float fx:value="1.00" />

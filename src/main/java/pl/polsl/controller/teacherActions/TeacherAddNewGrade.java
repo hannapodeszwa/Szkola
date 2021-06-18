@@ -45,6 +45,9 @@ public class TeacherAddNewGrade implements ParametrizedController {
         nameTextField.setText((String) params.get("name"));
         nameTextField.setEditable(false);
 
+        gradeComboBox.getSelectionModel().select(0);
+        valueComboBox.getSelectionModel().select(0);
+
     }
 
 
@@ -92,10 +95,17 @@ public class TeacherAddNewGrade implements ParametrizedController {
         if(descriptionTextField.getText().isEmpty()){
             errorLabel.setText("Fill all text fields!");
         } else {
-        //    Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
-           // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
+            //    Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
+            // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
+            addNewGrade();
+
+        }
+
+    }
+
+        private void addNewGrade() {
             Oceny o = new Oceny();
-            /* To be moved to separate method */
+
             o.setData(new Date(System.currentTimeMillis()));
             o.setIdPrzedmiotu(subjectId);
             o.setIdUcznia(studentId);
@@ -103,10 +113,7 @@ public class TeacherAddNewGrade implements ParametrizedController {
             o.setOpis(descriptionTextField.getText());
             o.setWaga((Float) valueComboBox.getValue());
             (new Grade()).persist(o);
-
         }
 
 
-
-    }
 }
