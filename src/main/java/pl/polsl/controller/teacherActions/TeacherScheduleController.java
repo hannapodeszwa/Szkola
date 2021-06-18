@@ -59,7 +59,7 @@ public class TeacherScheduleController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
+        Main.setRoot("menu/TeacherMenuForm", params);
     }
 
 

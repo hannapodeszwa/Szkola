@@ -87,7 +87,7 @@ public class TeacherGradesController implements ParametrizedController {
 
     public void backAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/teacherMenuForm");
+        Main.setRoot("menu/TeacherMenuForm");
     }
     public void submitAction(ActionEvent event) throws IOException
     {

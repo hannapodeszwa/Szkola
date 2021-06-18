@@ -1,21 +1,25 @@
 package pl.polsl.controller.teacherActions;
 
 
-import javafx.event.ActionEvent;
+import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uwagi;
+import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -24,8 +28,9 @@ import java.util.Map;
 public class TeacherNoteController implements ParametrizedController {
 
     @FXML
-    public AnchorPane table;
-    public TableColumn<Text, Uwagi> columnDesc;
+    public TableView table;
+//    public TableColumn<Uwagi, Text> columnDesc;
+    public TableColumn<Uwagi, String> columnDesc;
     public ComboBox<String> comboboxClass;
     public ComboBox<String> comboboxStudent;
     public Button buttonDelete;
@@ -35,7 +40,7 @@ public class TeacherNoteController implements ParametrizedController {
     Integer id;
     List<Klasy> classList;
     List<Uczniowie> studentList;
-    List<Klasy> noteList;
+    ObservableList<Uwagi> noteList;
 
     @Override
     public void receiveArguments(Map params) {
@@ -49,6 +54,8 @@ public class TeacherNoteController implements ParametrizedController {
                 comboboxClass.getItems().add(cl.getNumer());
             }
             comboboxClass.getSelectionModel().select(0);
+            setStudents(0);
+            setNote(0);
         }
 
     }
@@ -60,12 +67,7 @@ public class TeacherNoteController implements ParametrizedController {
     public void clickButtonAdd() {
     }
 
-    void setStudents(){
-
-    }
-
-    public void chengeComboboxClass() {
-        Integer index = comboboxClass.getSelectionModel().getSelectedIndex();
+    void setStudents(Integer index){
         studentList = (new Student()).getStudentInClass(classList.get(index).getID());
         if(!studentList.isEmpty()){
             for (Uczniowie student : studentList) {
@@ -75,15 +77,39 @@ public class TeacherNoteController implements ParametrizedController {
         }
     }
 
+    public void chengeComboboxClass() {
+        studentList.clear();
+        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+    }
+
+    void setNote(Integer index){
+        noteList = FXCollections.observableArrayList((new NoteModel()).getStudentNote(studentList.get(index).getID()));
+
+
+
+        columnDesc.setCellValueFactory(CellData -> {
+            String tym = CellData.getValue().getTresc();
+            Text desc = new Text(tym);
+            desc.setWrappingWidth(200);
+
+            return new ReadOnlyStringWrapper(desc.toString());
+        });
+        //columnDesc.setCellValueFactory(new PropertyValueFactory<>("tresc"));
+
+        table.setItems(noteList);
+    }
+
     public void chengeComboboxStudent() {
+        noteList.clear();
         Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+        setNote(index);
 
     }
 
     public void clickButtonBack() throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
+        Main.setRoot("menu/TeacherMenuForm", params);
     }
 
 
