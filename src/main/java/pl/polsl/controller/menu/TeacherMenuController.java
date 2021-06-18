@@ -70,6 +70,13 @@ public class TeacherMenuController implements ParametrizedController {
         Main.setRoot("teacherActions/teacherNoteForm", params, WindowSize.teacherNoteForm);
     }
 
+    public void clickButtonClubs() throws IOException
+    {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherClubForm", params);
+    }
+
 
     public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");

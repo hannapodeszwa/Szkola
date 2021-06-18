@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-public class TeacherAddNewGrade implements ParametrizedController {
+public class TeacherAddNewGradeController implements ParametrizedController {
     Integer loggedTeacherId;
     Integer studentId;
     Integer subjectId;
