@@ -1,13 +1,15 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "uwagi")
+@NamedQueries({
+        @NamedQuery(name = "rozklady.findByTeacher",
+                query = "SELECT r FROM Rozklady r WHERE r.idNauczyciela = :id"),
+
+})
 public class Uwagi implements Serializable {
 
     private static final long serialVersionUID = 1L;
