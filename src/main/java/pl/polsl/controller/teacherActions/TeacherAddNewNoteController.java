@@ -1,36 +1,31 @@
 package pl.polsl.controller.teacherActions;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
-import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TeacherAddNewNoteController implements ParametrizedController {
 
-    public TextField textField;
-    public Button buttonCancel;
-    public Button buttonAdd;
+    @FXML
+    private TextField textField;
+    @FXML
+    private Button buttonAdd;
 
     Integer id;
     Integer idStudent;
     Integer classCombobox;
     Integer studentCombobox;
 
-    private ChangeListener TextListener = (observable, oldValue, newValue) -> {
-
-        buttonAdd.setDisable(textField.getText().isEmpty());
-    };
+    private final ChangeListener TextListener = (observable, oldValue, newValue) -> buttonAdd.setDisable(textField.getText().isEmpty());
 
     public void initialize() {
         textField.textProperty().addListener(TextListener);
@@ -53,11 +48,11 @@ public class TeacherAddNewNoteController implements ParametrizedController {
         return params;
     }
 
-    public void clickButtonCancel(ActionEvent actionEvent) throws IOException {
+    public void clickButtonCancel() throws IOException {
         Main.setRoot("teacherActions/teacherNoteForm", params(), WindowSize.teacherNoteForm);
     }
 
-    public void clickButtonAdd(ActionEvent actionEvent) throws IOException {
+    public void clickButtonAdd() throws IOException {
         (new NoteModel()).persist(new Uwagi(textField.getText(), idStudent, id));
         Main.setRoot("teacherActions/teacherNoteForm", params(), WindowSize.teacherNoteForm);
 

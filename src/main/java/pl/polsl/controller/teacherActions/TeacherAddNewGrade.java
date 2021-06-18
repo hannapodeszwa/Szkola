@@ -21,32 +21,42 @@ import pl.polsl.model.Teacher;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.UnaryOperator;
 
-public class TeacherAddGradeController implements ParametrizedController {
+public class TeacherAddNewGrade implements ParametrizedController {
     Integer loggedTeacherId;
+    Integer studentId;
+    Integer subjectId;
 
     @Override
     public void receiveArguments(Map params){
-        loggedTeacherId = (Integer) params.get("id");
-        System.out.println("Logged as: " + loggedTeacherId);
+        loggedTeacherId = (Integer) params.get("teacherId");
+        studentId = (Integer) params.get("studentId");
+        subjectId = (Integer) params.get("subjectId");
 
+        subjectTextField.setText((String) params.get("subject"));
+        subjectTextField.setEditable(false);
 
-        ObservableList<String> subjects = FXCollections.observableArrayList( (new Teacher().checkTeacherSubjects(loggedTeacherId)));
-        subjectComboBox.setItems(subjects);
-        subjectComboBox.setVisibleRowCount(subjects.size());
-        subjectComboBox.setValue(subjects.get(0));
+        surnameTextField.setText((String) params.get("surname"));
+        surnameTextField.setEditable(false);
+
+        nameTextField.setText((String) params.get("name"));
+        nameTextField.setEditable(false);
+
+        gradeComboBox.getSelectionModel().select(0);
+        valueComboBox.getSelectionModel().select(0);
+
     }
 
-    @FXML
-    private ComboBox subjectComboBox;
+
     @FXML
     private ComboBox gradeComboBox;
     @FXML
     private ComboBox valueComboBox;
     @FXML
-    private TextField idTextField;
+    private TextField subjectTextField;
     @FXML
     private TextField nameTextField;
     @FXML
@@ -57,27 +67,15 @@ public class TeacherAddGradeController implements ParametrizedController {
     private Label errorLabel;
 
     public void initialize(){
-        UnaryOperator<TextFormatter.Change> idFilter = change -> {
+        /* UnaryOperator<TextFormatter.Change> idFilter = change -> {
             String typedText = change.getControlNewText();
             if(!typedText.matches("-?([1-9][0-9]*)?")){
                 return null;
             } else {
                 return change;
             }
-        };
-        idTextField.setTextFormatter((new TextFormatter<Integer>(new IntegerStringConverter(), 0, idFilter)));
+        }; */
 
-        surnameTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
-
-        nameTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
-
-        idTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
 
         descriptionTextField.textProperty().addListener((observable -> {
             errorLabel.setText("");
@@ -87,32 +85,35 @@ public class TeacherAddGradeController implements ParametrizedController {
 
     public void backAction(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/TeacherMenuForm");
+        Map params = new HashMap<String, String>();
+        params.put("id", loggedTeacherId);
+        Main.setRoot("teacherActions/teacherGradeForm", params);
     }
     public void submitAction(ActionEvent event) throws IOException
     {
        //validate fields
-        if(idTextField.getText().isEmpty() ||
-                nameTextField.getText().isEmpty() ||
-                surnameTextField.getText().isEmpty() ||
-                descriptionTextField.getText().isEmpty()){
+        if(descriptionTextField.getText().isEmpty()){
             errorLabel.setText("Fill all text fields!");
         } else {
-            Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
-           // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
+            //    Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
+            // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
+            addNewGrade();
+
+        }
+
+    }
+
+        private void addNewGrade() {
             Oceny o = new Oceny();
-            /* To be moved to separate method */
+
             o.setData(new Date(System.currentTimeMillis()));
-            o.setIdPrzedmiotu(subjectID);
-            o.setIdUcznia(Integer.parseInt(idTextField.getText().toString()));
+            o.setIdPrzedmiotu(subjectId);
+            o.setIdUcznia(studentId);
             o.setOcena((Float) gradeComboBox.getValue());
             o.setOpis(descriptionTextField.getText());
             o.setWaga((Float) valueComboBox.getValue());
             (new Grade()).persist(o);
-
         }
 
 
-
-    }
 }
