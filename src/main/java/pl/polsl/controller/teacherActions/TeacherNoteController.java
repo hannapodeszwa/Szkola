@@ -3,13 +3,11 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
@@ -20,7 +18,6 @@ import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,28 +27,29 @@ import java.util.Map;
 public class TeacherNoteController implements ParametrizedController {
 
     @FXML
-    public TableView table;
-    public TableColumn<Uwagi, String> columnDesc;
-    public ComboBox<String> comboboxClass;
-    public ComboBox<String> comboboxStudent;
-    public Button buttonDelete;
-    public Button buttonAdd;
-    public Button buttonBack;
+    private TableView<Uwagi> table;
+    @FXML
+    private TableColumn<Uwagi, String> columnDesc;
+    @FXML
+    private ComboBox<String> comboboxClass;
+    @FXML
+    private ComboBox<String> comboboxStudent;
+    @FXML
+    private Button buttonDelete;
+    @FXML
+    private Button buttonAdd;
 
     Integer id;
     List<Klasy> classList;
     List<Uczniowie> studentList = new ArrayList<>();
     ObservableList<Uwagi> noteList = FXCollections.observableArrayList();
 
-    private ChangeListener addNote = (observable, oldValue, newValue) -> {
+    private final ChangeListener addNote = (observable, oldValue, newValue) -> buttonAdd.setDisable(comboboxStudent.getSelectionModel().getSelectedIndex()==-1 || comboboxClass.getSelectionModel().getSelectedIndex()==-1);
 
-        buttonAdd.setDisable(comboboxStudent.getSelectionModel().getSelectedIndex()==-1 || comboboxClass.getSelectionModel().getSelectedIndex()==-1);
-    };
-
-    private ListChangeListener<? extends TablePosition> deleteNote = (
+    private final ListChangeListener<? extends TablePosition> deleteNote = (
     javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
-        Uwagi tym = (Uwagi)table.getSelectionModel().getSelectedItem();
-        buttonDelete.setDisable(tym==null || tym.getIdNauczyciela()!=id);
+        Uwagi tym = table.getSelectionModel().getSelectedItem();
+        buttonDelete.setDisable(tym==null || !tym.getIdNauczyciela().equals(id));
     };
 
 
@@ -88,8 +86,8 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void clickButtonDelete() {
-        Uwagi tym = (Uwagi)table.getSelectionModel().getSelectedItem();
-        if(tym.getIdNauczyciela()==id) {
+        Uwagi tym = table.getSelectionModel().getSelectedItem();
+        if(tym.getIdNauczyciela().equals(id)) {
             table.getItems().remove(tym);
             noteList.remove(tym);
             (new NoteModel()).delete(tym);
@@ -141,33 +139,33 @@ public class TeacherNoteController implements ParametrizedController {
         if(getWitdh(wraping) < width) {
             return wraping;
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String[] words = wraping.split(" ");
-        List<Integer> sizewords = new ArrayList<Integer>();
+        List<Integer> sizewords = new ArrayList<>();
 
         for(String word : words){
             sizewords.add(getWitdh(word));
         }
         Integer act = 0;
-        Integer i = 0;
+        int i = 0;
         for(Integer size : sizewords) {
             if(size + act < width){
-                result += words[i] + " ";
+                result.append(words[i]).append(" ");
                 act +=size+3;
             }
             else if (size + act >= width) {
-                result += "\n" + words[i]+" ";
+                result.append("\n").append(words[i]).append(" ");
                 act=size+3;
             }
             else {
-                result += "\n" + words[i] + "\n";
+                result.append("\n").append(words[i]).append("\n");
                 act = 0;
             }
             i++;
         }
 
 
-        return result;
+        return result.toString();
     }
 
     void setNote(Integer index){
@@ -193,7 +191,7 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void clickButtonBack() throws IOException {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         Main.setRoot("menu/TeacherMenuForm", params);
     }
