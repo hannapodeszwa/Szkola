@@ -13,6 +13,11 @@ import java.util.Date;
                 query = "SELECT w FROM Wiadomosci w WHERE w.nadawca = :LOGIN"),
         @NamedQuery(name = "Wiadomosci.getMessageByReceiverSenderAndDate",
                 query = "SELECT w.tresc FROM Wiadomosci w WHERE w.nadawca = :SENDER AND w.odbiorca = :RECEIVER AND w.data = :DATE"),
+        @NamedQuery(name = "wiadomosci.findByTeacher",
+        query = "SELECT w FROM Wiadomosci w WHERE (w.odbiorca = :l) OR (w.nadawca = :l)"),
+@NamedQuery(name = "wiadomosci.findByParent",
+                query = "SELECT w FROM Wiadomosci w WHERE (w.odbiorca = :l) OR (w.nadawca = :l)")
+
 })
 public class Wiadomosci implements Serializable {
 

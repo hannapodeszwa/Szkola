@@ -28,7 +28,7 @@ public class ManageTeachersController {
     @FXML
     private TableColumn<Nauczyciele, String> surnameC;
 
-
+    private String login;
     @FXML
     public void initialize()
     {
@@ -123,6 +123,7 @@ public class ManageTeachersController {
 
        //delete user
        Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), Roles.TEACHER);
+       login = userToDelete.getLogin();
        if(userToDelete !=null)
        {
            (new UserModel()).delete(userToDelete);
@@ -138,27 +139,23 @@ public class ManageTeachersController {
        (new Teacher()).delete(toDelete);
    }
 
-    private void deleteMessages(Nauczyciele toDelete)
-    {
-        List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(toDelete);
-        if(!(messagesList.isEmpty())) {
-            for (Wiadomosci w: messagesList) {
-                /*switch (w.getTyp())
-                {
-                    case (0):
-                    case(2):
-                        w.setOdbiorca(null);
-                        (new MessageModel()).update(w);
-                        break;
-                    case(1):
-                    case(3):
-                        w.setNadawca(null);
-                        (new MessageModel()).update(w);
-                        break;
-                }*/
+    private void deleteMessages(Nauczyciele toDelete) {
+        List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(login);
+        if (!(messagesList.isEmpty())) {
+
+            for (Wiadomosci w : messagesList) {
+                if (w.getNadawca().equals(login)) {
+                    w.setNadawca(null);
+                    (new MessageModel()).update(w);
+                } else {
+                    w.setOdbiorca(null);
+                    (new MessageModel()).update(w);
+                }
             }
         }
-    }
+            }
+
+
 
     private void deleteSchedule(Nauczyciele toDelete)
     {

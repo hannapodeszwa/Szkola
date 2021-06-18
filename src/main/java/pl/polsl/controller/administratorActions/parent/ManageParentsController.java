@@ -35,6 +35,8 @@ public class ManageParentsController implements ManageDataBase {
     @FXML
     private ListView children;
 
+    private String login;
+
 
     @FXML
     public void initialize()
@@ -140,6 +142,7 @@ public class ManageParentsController implements ManageDataBase {
     private void deleteUser(Rodzice toDelete)
     {
         Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), Roles.PARENT);
+        login = userToDelete.getLogin();
         if(userToDelete !=null)
         {
             (new UserModel()).delete(userToDelete);
@@ -148,19 +151,19 @@ public class ManageParentsController implements ManageDataBase {
 
     private void deleteMessages(Rodzice toDelete)
     {
-        List<Wiadomosci> messagesList = (new MessageModel()).findByParent(toDelete);
+        List<Wiadomosci> messagesList = (new MessageModel()).findByParent(login);
         if(!(messagesList.isEmpty())) {
             for (Wiadomosci w: messagesList) {
-                /*switch (w.getTyp()) {
-                    case (2):
-                        w.setNadawca(null);
-                        (new MessageModel()).update(w);
-                        break;
-                    case (3):
-                        w.setOdbiorca(null);
-                        (new MessageModel()).update(w);
-                        break;
-                }*/
+                if(w.getNadawca().equals(login))
+                {
+                    w.setNadawca(null);
+                    (new MessageModel()).update(w);
+                }
+                else
+                {
+                    w.setOdbiorca(null);
+                    (new MessageModel()).update(w);
+                }
             }
         }
     }

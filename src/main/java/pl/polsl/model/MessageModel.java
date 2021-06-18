@@ -76,22 +76,22 @@ public class MessageModel implements ManageDataBase {
         }
     }
 
-    public List<Wiadomosci> findByTeacher(Nauczyciele n)
+    public List<Wiadomosci> findByTeacher(String login)
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query =
                 entityManager.createNamedQuery("wiadomosci.findByTeacher", Wiadomosci.class);
-        List<Wiadomosci> results = query.setParameter("ID", n.getID()).getResultList();
+        List<Wiadomosci> results = query.setParameter("l", login).getResultList();
 
         return results;
     }
 
-    public List<Wiadomosci> findByParent(Rodzice r)
+    public List<Wiadomosci> findByParent(String login)
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query =
                 entityManager.createNamedQuery("wiadomosci.findByParent", Wiadomosci.class);
-        List<Wiadomosci> results = query.setParameter("ID", r.getID()).getResultList();
+        List<Wiadomosci> results = query.setParameter("l", login).getResultList();
 
         return results;
     }
