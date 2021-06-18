@@ -2,6 +2,7 @@ package pl.polsl.entities;
 
 import pl.polsl.model.Classroom;
 import pl.polsl.model.Subject;
+import pl.polsl.model.Teacher;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class Rozklady implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
@@ -121,6 +123,6 @@ public class Rozklady implements Serializable {
             }
             subjectName = shortenedName;
         }
-        return subjectName + "\ns. " + (new Classroom()).getNameById(idSali);
+        return subjectName + "\n" + (idSali != null ? "s. " + (new Classroom()).getNameById(idSali) : "") + (idNauczyciela != null ? "\nnaucz. " + (new Teacher()).getTeacherById(idNauczyciela).getImie().charAt(0) + (new Teacher()).getTeacherById(idNauczyciela).getNazwisko().charAt(0) : "");
     }
 }
