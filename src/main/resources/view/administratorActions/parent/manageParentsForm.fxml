@@ -28,7 +28,7 @@
       <Label layoutX="313.0" layoutY="221.0" text="Adres:" AnchorPane.leftAnchor="350.0" />
       <Label fx:id="adress" layoutX="313.0" layoutY="239.0" prefHeight="27.0" prefWidth="180.0" AnchorPane.leftAnchor="350.0" />
       <Label layoutX="349.0" layoutY="308.0" text="Dzieci:" AnchorPane.leftAnchor="350.0" />
-      <ListView fx:id="children" layoutX="350.0" layoutY="327.0" prefHeight="66.0" prefWidth="170.0" AnchorPane.leftAnchor="350.0" />
+      <ListView fx:id="children" layoutX="350.0" layoutY="327.0" prefHeight="66.0" prefWidth="210.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="20.0" />
       <Label layoutX="353.0" layoutY="265.0" text="Numer kontaktowy:" AnchorPane.leftAnchor="350.0" />
       <Label fx:id="phone" layoutX="352.0" layoutY="283.0" AnchorPane.leftAnchor="350.0" />
     </children>

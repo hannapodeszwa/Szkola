@@ -19,10 +19,10 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="392.0" layoutY="200.0" text="Liczba miejsc:" AnchorPane.leftAnchor="300.0" />
-      <Label fx:id="size" layoutX="392.0" layoutY="220.0" AnchorPane.leftAnchor="300.0" />
-      <Label layoutX="392.0" layoutY="252.0" text="Rzutnik:" AnchorPane.leftAnchor="300.0" />
-      <Label fx:id="projector" layoutX="392.0" layoutY="270.0" AnchorPane.leftAnchor="300.0" />
+      <Label layoutX="392.0" layoutY="200.0" text="Liczba miejsc:" AnchorPane.leftAnchor="290.0" />
+      <Label fx:id="size" layoutX="392.0" layoutY="220.0" AnchorPane.leftAnchor="290.0" />
+      <Label layoutX="392.0" layoutY="252.0" text="Rzutnik:" AnchorPane.leftAnchor="290.0" />
+      <Label fx:id="projector" layoutX="392.0" layoutY="270.0" AnchorPane.leftAnchor="290.0" />
 
 
 </children>
