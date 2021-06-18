@@ -1,10 +1,7 @@
 package pl.polsl.model;
 
 import pl.polsl.MyManager;
-import pl.polsl.entities.Kodyweryfikacyjne;
-import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.controller.ManageDataBase;
-import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Rodzice;
 import pl.polsl.entities.Wiadomosci;

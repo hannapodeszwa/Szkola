@@ -4,9 +4,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
@@ -102,7 +102,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
     {
        u.setLogin(generateLogin(name,surname));
        u.setHaslo(generatePassword());
-       u.setDostep("nauczyciel");
+       u.setDostep(Roles.TEACHER);
        u.setID(id);
     }
 

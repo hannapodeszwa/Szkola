@@ -1,4 +1,4 @@
-package pl.polsl.model.email;
+package pl.polsl.utils;
 
 public abstract class EmailMessages {
 

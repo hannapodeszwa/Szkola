@@ -7,7 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.*;
@@ -97,7 +98,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             usr.setID(u.getID());
             usr.setHaslo(generatePassword());
             usr.setLogin(generateLogin(u.getImie(),u.getNazwisko()));
-            usr.setDostep("uczen");
+            usr.setDostep(Roles.STUDENT);
             (new UserModel()).persist(usr);
 
             sendCredentialsByEmail(usr.getLogin(), usr.getHaslo(), u.getEmail());

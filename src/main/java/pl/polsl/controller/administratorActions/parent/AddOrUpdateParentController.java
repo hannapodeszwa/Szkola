@@ -9,13 +9,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
-import javax.management.remote.rmi._RMIConnection_Stub;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -203,7 +203,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     {
         u.setLogin(generateLogin(name,surname));
         u.setHaslo(generatePassword());
-        u.setDostep("rodzic");
+        u.setDostep(Roles.PARENT);
         u.setID(id);
     }
 

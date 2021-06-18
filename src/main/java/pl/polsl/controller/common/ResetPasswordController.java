@@ -12,6 +12,7 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.model.email.VerificationCodesGenerator;
+import pl.polsl.utils.Roles;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static pl.polsl.model.email.EmailMessages.*;
+import static pl.polsl.utils.EmailMessages.*;
 
 public class ResetPasswordController {
 
@@ -154,11 +155,11 @@ public class ResetPasswordController {
 
     private String getUserEmailByIdAndRole(Integer id, String role) {
         switch (role) {
-            case "uczen":
+            case Roles.STUDENT:
                 return studentModel.getStudentEmailById(id);
-            case "rodzic":
+            case Roles.PARENT:
                 return parentModel.getParentEmailByID(id);
-            case "nauczyciel":
+            case Roles.TEACHER:
                 return teacherModel.getTeacherEmailByID(id);
         }
         return null;

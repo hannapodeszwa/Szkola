@@ -7,7 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.UserModel;
 
@@ -52,27 +53,27 @@ public class SignInController {
 
             if (user != null) {
                 switch (user.getDostep()) {
-                    case "uczen":
+                    case Roles.STUDENT:
                         params = new HashMap<String, String>();
                         params.put("mode", "Student");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params);
                         break;
-                    case "nauczyciel":
+                    case Roles.TEACHER:
                         params = new HashMap<String, String>();
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/teacherMenuForm", params);
                         break;
-                    case "rodzic":
+                    case Roles.PARENT:
                         params = new HashMap<String, String>();
                         params.put("mode", "Parent");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params);
                         break;
-                    case "admin":
+                    case Roles.ADMIN:
                         Main.setRoot("menu/adminMenuForm",
                                 WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
                         break;

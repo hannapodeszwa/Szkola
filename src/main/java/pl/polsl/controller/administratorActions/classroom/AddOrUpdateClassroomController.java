@@ -6,13 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.administratorActions.subject.AddOrUpdateSubjectController;
-import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Sale;
 import pl.polsl.model.Classroom;
-import pl.polsl.model.Subject;
 
 import java.io.IOException;
 import java.util.Map;

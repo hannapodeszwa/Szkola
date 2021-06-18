@@ -1,6 +1,5 @@
 package pl.polsl.controller.administratorActions.parent;
 
-import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,7 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
@@ -145,7 +145,7 @@ public class ManageParentsController implements ManageDataBase {
 
     private void deleteUser(Rodzice toDelete)
     {
-        Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "rodzic");
+        Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), Roles.PARENT);
         login = userToDelete.getLogin();
         if(userToDelete !=null)
         {
