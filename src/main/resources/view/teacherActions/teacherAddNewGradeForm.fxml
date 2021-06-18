@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewGrade">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewGrade">
    <children>
-      <VBox alignment="CENTER" layoutX="55.0" layoutY="17.0" prefHeight="276.0" prefWidth="195.0" spacing="25.0">
-         <children>
-            <Label text="Szczegóły oceny:" />
-            <TextField fx:id="subjectTextField" />
-            <TextField fx:id="nameTextField" />
-            <TextField fx:id="surnameTextField" />
-         </children>
-      </VBox>
-      <Button fx:id="backButton" layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#backAction" text="Back" />
-      <VBox alignment="CENTER" layoutX="318.0" layoutY="70.0" prefHeight="235.0" prefWidth="195.0" spacing="25.0">
-         <children>
-            <Label text="Ocena" />
-            <ComboBox fx:id="gradeComboBox" prefWidth="150.0">
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <Float fx:value="1.00" />
-                     <Float fx:value="2.00" />
-                     <Float fx:value="3.00" />
-                     <Float fx:value="4.00" />
-                     <Float fx:value="5.00" />
-                     <Float fx:value="6.00" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
-            <Label text="Waga" />
-            <ComboBox fx:id="valueComboBox" prefWidth="150.0" >
-               <items>
-                  <FXCollections fx:factory="observableArrayList">
-                     <Float fx:value="1.00" />
-                     <Float fx:value="2.00" />
-                     <Float fx:value="3.00" />
-                  </FXCollections>
-               </items>
-            </ComboBox>
-            <TextField fx:id="descriptionTextField" prefHeight="58.0" prefWidth="195.0" promptText="Opis" />
-            <Label fx:id="errorLabel" />
-         </children>
-      </VBox>
-      <Button layoutX="255.0" layoutY="323.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="80.0" styleClass="button-confirm" text="Submit" />
+      <Button fx:id="backButton" layoutX="219.0" layoutY="317.0" mnemonicParsing="false" onAction="#backAction" prefWidth="150.0" text="Back" />
+      <Button layoutX="23.0" layoutY="317.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="150.0" text="Submit" />
+      <Label layoutX="41.0" layoutY="53.0" text="Uczeń" />
+      <Label layoutX="239.0" layoutY="70.0" text="Ocena" />
+      <ComboBox fx:id="gradeComboBox" layoutX="219.0" layoutY="106.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Float fx:value="1.00" />
+               <Float fx:value="2.00" />
+               <Float fx:value="3.00" />
+               <Float fx:value="4.00" />
+               <Float fx:value="5.00" />
+               <Float fx:value="6.00" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <Label layoutX="263.0" layoutY="143.0" text="Waga" />
+      <ComboBox fx:id="valueComboBox" layoutX="211.0" layoutY="176.0" prefWidth="150.0">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <Float fx:value="1.00" />
+               <Float fx:value="2.00" />
+               <Float fx:value="3.00" />
+            </FXCollections>
+         </items>
+      </ComboBox>
+      <TextField fx:id="descriptionTextField" layoutX="211.0" layoutY="226.0" prefHeight="58.0" prefWidth="195.0" promptText="Opis" />
+      <Label fx:id="errorLabel" />
+      <Label alignment="CENTER" layoutX="39.0" layoutY="10.0" prefWidth="200.0" text="Dodawanie oceny">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelSurname" layoutX="17.0" layoutY="123.0" text="labelSurname" />
+      <Label fx:id="labelName" layoutX="21.0" layoutY="87.0" text="labelName" />
+      <Label fx:id="labelSubject" layoutX="25.0" layoutY="160.0" text="labelSubject" />
    </children>
 </AnchorPane>
