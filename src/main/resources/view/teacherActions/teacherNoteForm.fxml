@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane fx:id="table" prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherNoteController">
+   <children>
+      <TableView layoutX="44.0" layoutY="39.0" prefHeight="269.0" prefWidth="171.0">
+        <columns>
+          <TableColumn fx:id="columnDesc" editable="false" prefWidth="153.0" sortable="false" text="Opis" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="comboboxClass" layoutX="238.0" layoutY="39.0" onAction="#chengeComboboxClass" prefWidth="150.0" />
+      <ComboBox fx:id="comboboxStudent" layoutX="238.0" layoutY="83.0" onAction="#chengeComboboxStudent" prefWidth="150.0" />
+      <Button fx:id="buttonDelete" layoutX="238.0" layoutY="188.0" mnemonicParsing="false" onAction="#clickButtonDelete" text="Usuń zaznaczoną" />
+      <Button fx:id="buttonAdd" layoutX="238.0" layoutY="132.0" mnemonicParsing="false" onAction="#clickButtonAdd" text="Dodaj nową" />
+      <Button fx:id="buttonBack" layoutX="228.0" layoutY="283.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
+   </children>
+</AnchorPane>

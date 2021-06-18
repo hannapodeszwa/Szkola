@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class TeacherMenuController implements ParametrizedController {
     public Button messagesButton;
     public Button buttonLogout;
     public Button buttonSchedule;
+    public Button buttonNote;
     Map params = new HashMap<String, Integer>();
     
     private Integer id;
@@ -61,10 +63,17 @@ public class TeacherMenuController implements ParametrizedController {
 
     public void clickButtonSchedule() throws IOException {
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherScheduleForm", params);
+        Main.setRoot("teacherActions/teacherScheduleForm", params, WindowSize.teacherScheduleForm);
     }
+
+    public void clickButtonNote() throws IOException {
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherNoteForm", params);
+    }
+
 
     public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");
     }
+
 }
