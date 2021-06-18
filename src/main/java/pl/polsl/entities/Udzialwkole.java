@@ -1,19 +1,18 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+
 @Table(name = "udzialwkole")
 public class Udzialwkole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "idKola", nullable = false)
     private Integer idKola;
 
