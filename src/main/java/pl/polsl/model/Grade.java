@@ -15,6 +15,7 @@ import pl.polsl.entities.Uczniowie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class Grade implements ManageDataBase {
 
         return results;
     }
+
 
 
 }

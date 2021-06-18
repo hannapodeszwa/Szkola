@@ -43,7 +43,7 @@ public class TeacherMenuController implements ParametrizedController {
     public void clickButtonGrades() throws IOException
     {
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherGradesForm", params);
+        Main.setRoot("teacherActions/teacherGradeForm", params);
     }
 
 

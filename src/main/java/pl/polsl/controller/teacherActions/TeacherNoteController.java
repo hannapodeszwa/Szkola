@@ -20,6 +20,8 @@ import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
+import pl.polsl.model.Teacher;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,10 +48,7 @@ public class TeacherNoteController implements ParametrizedController {
     @Override
     public void receiveArguments(Map params) {
         id = (Integer) params.get("id");
-    }
-
-    public void initialize(){
-        classList = (new SchoolClass()).displayClass();
+        classList = (new Teacher()).checkTeacherClasses(id);
         if(!classList.isEmpty()) {
             for (Klasy cl : classList) {
                 comboboxClass.getItems().add(cl.getNumer());

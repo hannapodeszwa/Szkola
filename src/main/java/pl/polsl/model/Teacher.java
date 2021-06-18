@@ -55,10 +55,22 @@ public class Teacher implements ManageDataBase {
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query =
-                entityManager.createNamedQuery("przedmioty.findByTutorId", String.class);
-        List<String> results = query.setParameter("idNauczyciela", id).getResultList();
+                entityManager.createNamedQuery("przedmioty.findByTutorId", Przedmioty.class);
+        List<Przedmioty> results = query.setParameter("idNauczyciela", id).getResultList();
 
         return results;
+    }
+
+    /*returns all classes that take courses led by a given teacher*/
+    public List checkTeacherClasses(Integer id){
+
+
+            entityManager = MyManager.getEntityManager();
+            TypedQuery query = entityManager.createNamedQuery("klasy.findByTeacherId", Klasy.class);
+            List<Klasy> results = query.setParameter("idNauczyciela", id).getResultList();
+
+            return results;
+
     }
 
     public Nauczyciele getTeacherById(Integer id)
