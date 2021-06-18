@@ -21,5 +21,11 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <Label layoutX="339.0" layoutY="164.0" text="Drugie imię:" />
+      <Label fx:id="name2" layoutX="339.0" layoutY="182.0" />
+      <Label layoutX="339.0" layoutY="218.0" text="Email:" />
+      <Label fx:id="email" layoutX="339.0" layoutY="236.0" />
+      <Label layoutX="339.0" layoutY="271.0" text="Numer kontaktowy:" />
+      <Label fx:id="phone" layoutX="339.0" layoutY="289.0" />
     </children>
 </AnchorPane>

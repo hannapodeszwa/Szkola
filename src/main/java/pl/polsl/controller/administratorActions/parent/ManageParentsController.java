@@ -33,6 +33,8 @@ public class ManageParentsController implements ManageDataBase {
     @FXML
     private Label adress;
     @FXML
+    private Label phone;
+    @FXML
     private ListView children;
 
     private String login;
@@ -54,10 +56,12 @@ public class ManageParentsController implements ManageDataBase {
                 String selectedName2 = selectedParent.get(0).getDrugieImie();
                 String selectedEmail = selectedParent.get(0).getEmail();
                 String selectedAdress = selectedParent.get(0).getAdres();
+                String selectedPhone = selectedParent.get(0).getNrKontaktowy();
 
                 name2.setText(selectedName2);
                 email.setText(selectedEmail);
                 adress.setText(selectedAdress);
+                phone.setText(selectedPhone);
 
                 children.getItems().clear();
                 ParenthoodModel p = new ParenthoodModel();
