@@ -23,6 +23,8 @@ public class SchoolClass implements ManageDataBase {
         return results;
     }
 
+
+
     public Klasy getClassByLeader(Integer Id)
     {
         em = MyManager.getEntityManager();

@@ -1,118 +1,160 @@
 package pl.polsl.controller.teacherActions;
 
+
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.util.converter.IntegerStringConverter;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Oceny;
-import pl.polsl.model.Grade;
-import pl.polsl.model.Subject;
-import pl.polsl.model.Teacher;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.function.UnaryOperator;
 
 public class TeacherGradesController implements ParametrizedController {
-    Integer loggedTeacherId;
+
+    @FXML
+    public TableView table;
+//    public TableColumn<Uwagi, Text> columnDesc;
+    public TableColumn<Oceny, String> columnDesc;
+    public ComboBox<String> comboboxClass;
+    public ComboBox<String> comboboxStudent;
+    public ComboBox<String> comboboxSubject;
+    public Button buttonDelete;
+    public Button buttonAdd;
+    public Button buttonBack;
+
+    Integer id;
+    List<Klasy> classList;
+    ObservableList<Uczniowie> studentList;
+    ObservableList<Przedmioty> subjectsList;
+    ObservableList<Oceny> gradeList;
 
     @Override
-    public void receiveArguments(Map params){
-        loggedTeacherId = (Integer) params.get("id");
-        System.out.println("Logged as: " + loggedTeacherId);
+    public void receiveArguments(Map params) {
+        id = (Integer) params.get("id");
+        classList = (new Teacher()).checkTeacherClasses(id);
+        subjectsList = (FXCollections.observableArrayList((new Teacher()).checkTeacherSubjects(id)));
 
-
-        ObservableList<String> subjects = FXCollections.observableArrayList( (new Teacher().checkTeacherSubjects(loggedTeacherId)));
-        subjectComboBox.setItems(subjects);
-        subjectComboBox.setVisibleRowCount(subjects.size());
-        subjectComboBox.setValue(subjects.get(0));
-    }
-
-    @FXML
-    private ComboBox subjectComboBox;
-    @FXML
-    private ComboBox gradeComboBox;
-    @FXML
-    private ComboBox valueComboBox;
-    @FXML
-    private TextField idTextField;
-    @FXML
-    private TextField nameTextField;
-    @FXML
-    private TextField surnameTextField;
-    @FXML
-    private TextField descriptionTextField;
-    @FXML
-    private Label errorLabel;
-
-    public void initialize(){
-        UnaryOperator<TextFormatter.Change> idFilter = change -> {
-            String typedText = change.getControlNewText();
-            if(!typedText.matches("-?([1-9][0-9]*)?")){
-                return null;
-            } else {
-                return change;
+        if(!subjectsList.isEmpty()) {
+            for (Przedmioty sl : subjectsList) {
+                comboboxSubject.getItems().add(sl.getNazwa());
             }
-        };
-        idTextField.setTextFormatter((new TextFormatter<Integer>(new IntegerStringConverter(), 0, idFilter)));
+            comboboxSubject.getSelectionModel().select(0);
+        }
 
-        surnameTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
+        if(!classList.isEmpty()) {
+            for (Klasy cl : classList) {
+                comboboxClass.getItems().add(cl.getNumer());
+            }
+            comboboxClass.getSelectionModel().select(0);
+            setStudents(0);
+            setGrade();
+        }
 
-        nameTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
-
-        idTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
-
-        descriptionTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
     }
 
+    public void clickButtonDelete() {
 
-    public void backAction(ActionEvent event) throws IOException
-    {
-        Main.setRoot("menu/TeacherMenuForm");
     }
-    public void submitAction(ActionEvent event) throws IOException
-    {
-       //validate fields
-        if(idTextField.getText().isEmpty() ||
-                nameTextField.getText().isEmpty() ||
-                surnameTextField.getText().isEmpty() ||
-                descriptionTextField.getText().isEmpty()){
-            errorLabel.setText("Fill all text fields!");
-        } else {
-            Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
-           // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
-            Oceny o = new Oceny();
-            /* To be moved to separate method */
-            o.setData(new Date(System.currentTimeMillis()));
-            o.setIdPrzedmiotu(subjectID);
-            o.setIdUcznia(Integer.parseInt(idTextField.getText().toString()));
-            o.setOcena((Float) gradeComboBox.getValue());
-            o.setOpis(descriptionTextField.getText());
-            o.setWaga((Float) valueComboBox.getValue());
-            (new Grade()).persist(o);
 
+    public void clickButtonAdd() {
+        
+    }
+
+    void setStudents(Integer index){
+        studentList = FXCollections.observableArrayList((new Student()).getStudentInClass(classList.get(index).getID()));
+        if(!studentList.isEmpty()){
+            for (Uczniowie student : studentList) {
+                comboboxStudent.getItems().add(student.getImie()+" " + student.getNazwisko());
+            }
+            comboboxStudent.getSelectionModel().select(0);
+        }
+    }
+
+    public void changeComboboxClass() {
+        studentList.clear();
+        comboboxStudent.getItems().clear();
+        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+    }
+
+    public void changeComboboxSubject(){
+        gradeList.clear();
+        setGrade();
+    }
+
+    public Integer getWitdh(String text){
+        return (int)(new Text(text)).getBoundsInLocal().getWidth();
+    }
+
+    public String wrapString(String wraping,Integer wid){
+        Integer width = wid-10;
+        if(getWitdh(wraping) < width) {
+            return wraping;
+        }
+        String result = "";
+        String[] words = wraping.split(" ");
+        List<Integer> sizewords = new ArrayList<Integer>();
+
+        for(String word : words){
+            sizewords.add(getWitdh(word));
+        }
+        Integer act = 0;
+        Integer i = 0;
+        for(Integer size : sizewords) {
+
+            if(size + act < width){
+                result += words[i] + " ";
+                act +=size+3;
+            }
+            else if (size + act >= width) {
+                result += "\n" + words[i]+" ";
+                act=size+3;
+            }
+            else {
+                result += "\n" + words[i] + "\n";
+                act = 0;
+            }
+            i++;
         }
 
 
+        return result;
+    }
+
+    void setGrade(){
+        gradeList = FXCollections.observableArrayList((new Grade()).checkStudentGrades(studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()), subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex())));
+
+
+        columnDesc.setCellValueFactory(CellData -> {
+            String tym = CellData.getValue().getOpis();
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDesc.getWidth()));
+        });
+
+        table.setItems(gradeList);
+    }
+
+    public void changeComboboxStudent() {
+        gradeList.clear();
+        setGrade();
 
     }
+
+    public void clickButtonBack() throws IOException {
+        Map params = new HashMap<String, String>();
+        params.put("id", id);
+        Main.setRoot("menu/TeacherMenuForm", params);
+    }
+
+
 }

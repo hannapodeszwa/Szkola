@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherGradesController">
+   <children>
+      <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="39.0" prefHeight="337.0" prefWidth="245.0">
+        <columns>
+          <TableColumn fx:id="columnDesc" editable="false" prefWidth="200.0" sortable="false" text="Opis" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="comboboxClass" layoutX="278.0" layoutY="39.0" onAction="#changeComboboxClass" prefWidth="150.0" />
+      <ComboBox fx:id="comboboxStudent" layoutX="278.0" layoutY="85.0" onAction="#changeComboboxStudent" prefWidth="150.0" />
+       <ComboBox fx:id="comboboxSubject" layoutX="278.0" layoutY="129.0" onAction="#changeComboboxSubject" prefWidth="150.0" />
+
+       <Button fx:id="buttonDelete" layoutX="278.0" layoutY="234.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń zaznaczoną" />
+      <Button fx:id="buttonAdd" layoutX="278.0" layoutY="188.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj nową" />
+      <Button fx:id="buttonBack" layoutX="303.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
+   </children>
+</AnchorPane>

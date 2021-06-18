@@ -2,14 +2,13 @@ package pl.polsl.controller.teacherActions;
 
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import pl.polsl.Main;
@@ -20,6 +19,8 @@ import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
+import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +31,6 @@ public class TeacherNoteController implements ParametrizedController {
 
     @FXML
     public TableView table;
-//    public TableColumn<Uwagi, Text> columnDesc;
     public TableColumn<Uwagi, String> columnDesc;
     public ComboBox<String> comboboxClass;
     public ComboBox<String> comboboxStudent;
@@ -40,33 +40,70 @@ public class TeacherNoteController implements ParametrizedController {
 
     Integer id;
     List<Klasy> classList;
-    List<Uczniowie> studentList;
-    ObservableList<Uwagi> noteList;
+    List<Uczniowie> studentList = new ArrayList<>();
+    ObservableList<Uwagi> noteList = FXCollections.observableArrayList();
+
+    private ChangeListener addNote = (observable, oldValue, newValue) -> {
+
+        buttonAdd.setDisable(comboboxStudent.getSelectionModel().getSelectedIndex()==-1 || comboboxClass.getSelectionModel().getSelectedIndex()==-1);
+    };
+
+    private ListChangeListener<? extends TablePosition> deleteNote = (
+    javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+        Uwagi tym = (Uwagi)table.getSelectionModel().getSelectedItem();
+        buttonDelete.setDisable(tym==null || tym.getIdNauczyciela()!=id);
+    };
+
 
     @Override
     public void receiveArguments(Map params) {
-        id = (Integer) params.get("id");
-    }
 
-    public void initialize(){
+        id = (Integer) params.get("id");
+        Integer classCombobox = (Integer) params.get("classCombobox");
+        Integer studentCombobox = (Integer) params.get("studentCombobox");
+        if(classCombobox==null){
+            classCombobox=0;
+            studentCombobox=0;
+        }
+
         classList = (new SchoolClass()).displayClass();
         if(!classList.isEmpty()) {
             for (Klasy cl : classList) {
                 comboboxClass.getItems().add(cl.getNumer());
             }
-            comboboxClass.getSelectionModel().select(0);
-            setStudents(0);
-            setNote(0);
+            comboboxClass.getSelectionModel().select(classCombobox);
+            setStudents(classCombobox);
+            comboboxStudent.getSelectionModel().select(studentCombobox);
+            setNote(studentCombobox);
         }
 
     }
 
-    public void clickButtonDelete() {
-
+    public void initialize(){
+        comboboxClass.valueProperty().addListener(addNote);
+        comboboxStudent.valueProperty().addListener(addNote);
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) deleteNote);
+        buttonAdd.setDisable(true);
+        buttonDelete.setDisable(true);
     }
 
-    public void clickButtonAdd() {
-        
+    public void clickButtonDelete() {
+        Uwagi tym = (Uwagi)table.getSelectionModel().getSelectedItem();
+        if(tym.getIdNauczyciela()==id) {
+            table.getItems().remove(tym);
+            noteList.remove(tym);
+            (new NoteModel()).delete(tym);
+        }
+    }
+
+    public void clickButtonAdd() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("idStudent", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID());
+        params.put("classCombobox", comboboxClass.getSelectionModel().getSelectedIndex());
+        params.put("studentCombobox", comboboxStudent.getSelectionModel().getSelectedIndex());
+        Main.setRoot("teacherActions/teacherAddNewNoteForm", params, WindowSize.teacherAddNewNoteForm);
+
     }
 
     void setStudents(Integer index){
@@ -77,12 +114,22 @@ public class TeacherNoteController implements ParametrizedController {
             }
             comboboxStudent.getSelectionModel().select(0);
         }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public void chengeComboboxClass() {
-        studentList.clear();
-        comboboxStudent.getItems().clear();
-        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        if (!comboboxClass.getSelectionModel().isEmpty()) {
+            studentList.clear();
+            comboboxStudent.getItems().clear();
+            noteList.clear();
+            table.getItems().clear();
+            setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public Integer getWitdh(String text){
@@ -104,7 +151,6 @@ public class TeacherNoteController implements ParametrizedController {
         Integer act = 0;
         Integer i = 0;
         for(Integer size : sizewords) {
-
             if(size + act < width){
                 result += words[i] + " ";
                 act +=size+3;
@@ -137,10 +183,13 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void chengeComboboxStudent() {
-        noteList.clear();
-        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
-        setNote(index);
-
+        if(!comboboxStudent.getSelectionModel().isEmpty()) {
+            Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+            setNote(index);
+        }
+        else{
+            comboboxStudent.getSelectionModel().select(-1);
+        }
     }
 
     public void clickButtonBack() throws IOException {

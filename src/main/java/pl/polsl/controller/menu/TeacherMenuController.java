@@ -24,7 +24,6 @@ public class TeacherMenuController implements ParametrizedController {
     public Button buttonLogout;
     public Button buttonSchedule;
     public Button buttonNote;
-    Map params = new HashMap<String, Integer>();
     
     private Integer id;
     private String login;
@@ -35,19 +34,17 @@ public class TeacherMenuController implements ParametrizedController {
         login = (String) params.get("login");
     }
 
-    public void viewGradesAction(ActionEvent event) throws IOException
-    {
-    }
-
 
     public void clickButtonGrades() throws IOException
     {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherGradesForm", params);
+        Main.setRoot("teacherActions/teacherGradeForm", params);
     }
 
 
     public void clickButtonPresence() throws IOException {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherPresenceForm", params);
     }
@@ -62,13 +59,15 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
     public void clickButtonSchedule() throws IOException {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherScheduleForm", params, WindowSize.teacherScheduleForm);
     }
 
     public void clickButtonNote() throws IOException {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherNoteForm", params);
+        Main.setRoot("teacherActions/teacherNoteForm", params, WindowSize.teacherNoteForm);
     }
 
 
