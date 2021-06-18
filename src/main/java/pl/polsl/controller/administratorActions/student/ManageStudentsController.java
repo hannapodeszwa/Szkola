@@ -6,7 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
@@ -109,7 +110,7 @@ public class ManageStudentsController {
             List<Object> toDelete = new ArrayList<>();
 
             toDelete.add(u);
-            Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(),"uczen");
+            Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(), Roles.STUDENT);
             toDelete.add(usr);
 
             //(new ParenthoodModel()).getParentsByChildID(u.getID());

@@ -6,14 +6,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Przedmioty;
-import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.Subject;
 
 import java.io.IOException;

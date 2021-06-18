@@ -13,18 +13,13 @@ import pl.polsl.entities.Rodzice;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.*;
-import pl.polsl.model.email.EmailMessages;
-import pl.polsl.model.email.MailSenderModel;
+import pl.polsl.utils.Roles;
 import pl.polsl.view.NotificationsInterface;
 
 import java.io.IOException;
 import java.util.*;
 
 public class MessageController implements ParametrizedController, NotificationsInterface {
-
-    private final String teacherRole = "nauczyciel";
-    private final String studentRole = "uczen";
-    private final String parentRole = "rodzic";
 
     private String previousLocation;
     private String role;
@@ -83,30 +78,7 @@ public class MessageController implements ParametrizedController, NotificationsI
             receiverSet = true;
         }
 
-        switch (role) {
-            case teacherRole: {
-                List<Uczniowie> students = studentModel.getAllStudents();
-                List<Rodzice> parents = parentModel.getAllParents();
-                for (Uczniowie student : students) {
-                    suggestionsSet.add(student.getImie() + " " + student.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(student.getID(), studentRole) + "]");
-                }
-                for (Rodzice parent : parents) {
-                    suggestionsSet.add(parent.getImie() + " " + parent.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(parent.getID(), parentRole) + "]");
-                }
-                break;
-            }
-            case studentRole:
-            case parentRole: {
-                List<Nauczyciele> teachers = teacherModel.getAllTeachers();
-                for (Nauczyciele teacher : teachers) {
-                    suggestionsSet.add(teacher.getImie() + " " + teacher.getNazwisko() +
-                            " [" + userModel.getLoginByIdAndRole(teacher.getID(), teacherRole) + "]");
-                }
-                break;
-            }
-        }
+        createSuggestions();
         autoCompletionBinding = TextFields.bindAutoCompletion(receiverTextField, suggestionsSet);
         autoCompletionBinding.setOnAutoCompleted(event -> {
             receiverSet = true;
@@ -150,6 +122,33 @@ public class MessageController implements ParametrizedController, NotificationsI
                 receiver,
                 sender
         );
+    }
+
+    private void createSuggestions() {
+        switch (role) {
+            case Roles.TEACHER: {
+                List<Uczniowie> students = studentModel.getAllStudents();
+                List<Rodzice> parents = parentModel.getAllParents();
+                for (Uczniowie student : students) {
+                    suggestionsSet.add(student.getImie() + " " + student.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(student.getID(), Roles.STUDENT) + "]");
+                }
+                for (Rodzice parent : parents) {
+                    suggestionsSet.add(parent.getImie() + " " + parent.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(parent.getID(), Roles.PARENT) + "]");
+                }
+                break;
+            }
+            case Roles.STUDENT:
+            case Roles.PARENT: {
+                List<Nauczyciele> teachers = teacherModel.getAllTeachers();
+                for (Nauczyciele teacher : teachers) {
+                    suggestionsSet.add(teacher.getImie() + " " + teacher.getNazwisko() +
+                            " [" + userModel.getLoginByIdAndRole(teacher.getID(), Roles.TEACHER) + "]");
+                }
+                break;
+            }
+        }
     }
 
     private void returnFromMessageWriter() throws IOException {

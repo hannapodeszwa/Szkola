@@ -1,4 +1,4 @@
-package pl.polsl;
+package pl.polsl.utils;
 
 public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +40
     //ADMINISTRATOR

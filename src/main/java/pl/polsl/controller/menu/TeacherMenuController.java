@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
+import pl.polsl.utils.Roles;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,7 +53,7 @@ public class TeacherMenuController implements ParametrizedController {
     public void clickButtonMessages() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", "menu/teacherMenuForm");
-        parameters.put("role", "nauczyciel");
+        parameters.put("role", Roles.TEACHER);
         parameters.put("id", id);
         parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);

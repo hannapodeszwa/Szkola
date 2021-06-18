@@ -8,7 +8,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Nauczyciele;

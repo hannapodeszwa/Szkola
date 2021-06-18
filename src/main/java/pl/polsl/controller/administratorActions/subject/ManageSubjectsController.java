@@ -8,7 +8,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 

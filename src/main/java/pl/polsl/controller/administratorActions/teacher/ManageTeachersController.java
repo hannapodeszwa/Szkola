@@ -7,9 +7,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
@@ -122,7 +122,7 @@ public class ManageTeachersController {
        }
 
        //delete user
-       Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), "nauczyciel");
+       Uzytkownicy userToDelete = (new UserModel()).getUserByIdAndRole(toDelete.getID(), Roles.TEACHER);
        if(userToDelete !=null)
        {
            (new UserModel()).delete(userToDelete);

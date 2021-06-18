@@ -12,6 +12,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
+import pl.polsl.utils.Roles;
 
 import java.io.IOException;
 import java.util.Date;
@@ -199,15 +200,15 @@ public class MessengerController implements ParametrizedController {
 
     private String getFullName(String role, int id) {
         switch (role) {
-            case "uczen":
+            case Roles.STUDENT:
                 Student studentModel = new Student();
                 Uczniowie student = studentModel.getStudentById(id);
                 return student.getImie() + " " + student.getNazwisko();
-            case "nauczyciel":
+            case Roles.TEACHER:
                 Teacher teacherModel = new Teacher();
                 Nauczyciele teacher = teacherModel.getTeacherById(id);
                 return teacher.getImie() + " " + teacher.getNazwisko();
-            case "rodzic":
+            case Roles.PARENT:
                 ParentModel parentModel = new ParentModel();
                 Rodzice parent = parentModel.getParentById(id);
                 return parent.getImie() + " " + parent.getNazwisko();

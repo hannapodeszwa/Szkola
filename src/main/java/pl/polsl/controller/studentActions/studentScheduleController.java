@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.*;

@@ -1,6 +1,5 @@
 package pl.polsl.controller.administratorActions.classroom;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 

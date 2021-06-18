@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.polsl.controller.*;
-import pl.polsl.controller.common.ChangePasswordController;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.net.URL;

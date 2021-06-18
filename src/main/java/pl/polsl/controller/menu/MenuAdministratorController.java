@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import pl.polsl.Main;
-import pl.polsl.WindowSize;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
