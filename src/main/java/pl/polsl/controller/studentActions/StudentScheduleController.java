@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class studentScheduleController implements ParametrizedController {
+public class StudentScheduleController implements ParametrizedController {
 
     public Button buttonBack;
     public TableView<ScheduleTable> table;

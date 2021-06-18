@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="563.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.studentScheduleController">
+<AnchorPane prefHeight="563.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentScheduleController">
    <children>
       <Button fx:id="buttonBack" layoutX="846.0" layoutY="526.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
       <TableView fx:id="table" layoutX="20.0" layoutY="46.0" prefHeight="464.0" prefWidth="926.0">

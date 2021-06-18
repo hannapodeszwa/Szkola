@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class studentPresenceController implements ParametrizedController {
+public class StudentPresenceController implements ParametrizedController {
 
     @FXML
     public TableView<Presentv2> table;
