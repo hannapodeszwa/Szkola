@@ -17,6 +17,11 @@ import java.util.logging.Logger;
 
 public class ParenthoodModel extends Uczniowie implements ManageDataBase {
     EntityManager entityManager;
+
+    public void setChoose(CheckBox choose) {
+        this.choose = choose;
+    }
+
     public CheckBox choose = new CheckBox();
 
     public ParenthoodModel(){}
