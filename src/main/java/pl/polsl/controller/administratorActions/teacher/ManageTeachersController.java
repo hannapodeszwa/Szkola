@@ -153,15 +153,47 @@ public class ManageTeachersController {
            (new UserModel()).delete(userToDelete);
        }
 
-
-       deleteMessages(toDelete);
-      deleteSchedule(toDelete);
-
-       //usuwanie z kola
-       //usuwanie z udzialu w konkursie
+        deleteMessages(toDelete);
+        deleteSchedule(toDelete);
+        deleteNote(toDelete);
+        deleteCompetition(toDelete);
+        deleteClub(toDelete);
 
        (new Teacher()).delete(toDelete);
    }
+
+    private void deleteNote(Nauczyciele toDelete)
+    {
+        List<Uwagi> teacherNoteList = (new NoteModel()).findByTeacher(toDelete);
+        if(!(teacherNoteList.isEmpty())) {
+            for (Uwagi u: teacherNoteList) {
+                u.setIdNauczyciela(null);
+                (new NoteModel()).update(u);
+            }
+        }
+    }
+
+    private void deleteCompetition(Nauczyciele toDelete)
+    {
+        List<Udzialwkonkursie> teacherCompetitionList = (new CompetiotionModel()).findByTeacher(toDelete);
+        if(!(teacherCompetitionList.isEmpty())) {
+            for (Udzialwkonkursie u: teacherCompetitionList) {
+                u.setIdNauczyciela(null);
+                (new CompetiotionModel()).update(u);
+            }
+        }
+    }
+
+    private void deleteClub(Nauczyciele toDelete)
+    {
+        List<Kolanaukowe> teacherClubList = (new ClubModel()).findByTeacher(toDelete);
+        if(!(teacherClubList.isEmpty())) {
+            for (Kolanaukowe k: teacherClubList) {
+                k.setIdNauczyciela(null);
+                (new ClubModel()).update(k);
+            }
+        }
+    }
 
     private void deleteMessages(Nauczyciele toDelete) {
         List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(login);

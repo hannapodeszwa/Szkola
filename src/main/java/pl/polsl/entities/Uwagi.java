@@ -7,6 +7,8 @@ import java.io.Serializable;
 @Table(name = "uwagi")
 @NamedQueries({
         @NamedQuery(name = "uwagi.getStudentNote", query = "SELECT u FROM Uwagi u WHERE u.idUcznia = :id"),
+        @NamedQuery(name = "uwagi.findByTeacher",
+                query = "SELECT u FROM Uwagi u  WHERE u.idNauczyciela = :id")
 
 })
 public class Uwagi implements Serializable {
@@ -14,6 +16,7 @@ public class Uwagi implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    @GeneratedValue
     @Column(name = "ID", nullable = false)
     private Integer ID;
 
