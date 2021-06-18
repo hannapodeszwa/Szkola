@@ -67,4 +67,15 @@ public class Uwagi implements Serializable {
                 "tresc=" + tresc + '\'' +
                 '}';
     }
+
+    public Uwagi(){
+
+    }
+
+    public Uwagi(String desc,Integer idStudent, Integer idTeacher){
+        this.tresc=desc;
+        this.idNauczyciela=idTeacher;
+        this.idUcznia=idStudent;
+    }
+
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewNote">
+   <children>
+      <TextField fx:id="textField" layoutX="54.0" layoutY="66.0" prefHeight="212.0" prefWidth="360.0" />
+      <Label layoutX="192.0" layoutY="31.0" text="Opis">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonCancel" layoutX="234.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickButtonCancel" text="Anuluj" />
+      <Button fx:id="buttonAdd" layoutX="360.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickButtonAdd" text="Dodaj" />
+      <Label fx:id="labelError" layoutX="63.0" layoutY="306.0" text="Label" textFill="RED" />
+   </children>
+</AnchorPane>

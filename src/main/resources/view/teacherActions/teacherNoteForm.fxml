@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherNoteController">
+
+<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherNoteController">
    <children>
-      <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="39.0" prefHeight="337.0" prefWidth="245.0">
+      <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="39.0" prefHeight="269.0" prefWidth="245.0">
         <columns>
           <TableColumn fx:id="columnDesc" editable="false" prefWidth="200.0" sortable="false" text="Opis" />
         </columns>
       </TableView>
       <ComboBox fx:id="comboboxClass" layoutX="278.0" layoutY="39.0" onAction="#chengeComboboxClass" prefWidth="150.0" />
       <ComboBox fx:id="comboboxStudent" layoutX="278.0" layoutY="85.0" onAction="#chengeComboboxStudent" prefWidth="150.0" />
-      <Button fx:id="buttonDelete" layoutX="278.0" layoutY="188.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń zaznaczoną" />
-      <Button fx:id="buttonAdd" layoutX="278.0" layoutY="141.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj nową" />
-      <Button fx:id="buttonBack" layoutX="303.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
+      <Button fx:id="buttonDelete" layoutX="278.0" layoutY="174.0" mnemonicParsing="false" onAction="#clickButtonDelete" text="Usuń zaznaczoną" />
+      <Button fx:id="buttonAdd" layoutX="278.0" layoutY="131.0" mnemonicParsing="false" onAction="#clickButtonAdd" text="Dodaj nową" />
+      <Button fx:id="buttonBack" layoutX="268.0" layoutY="283.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
+      <Label layoutX="195.0" layoutY="14.0" text="Uwagi">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelError" layoutX="278.0" layoutY="211.0" text="Label" textFill="RED" />
    </children>
 </AnchorPane>
