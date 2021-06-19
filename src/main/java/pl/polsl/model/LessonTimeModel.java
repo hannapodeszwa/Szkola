@@ -4,6 +4,7 @@ import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.GodzinyLekcji;
 import pl.polsl.entities.Nieobecnosci;
+import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Wiadomosci;
 
 import javax.persistence.EntityManager;
@@ -16,6 +17,14 @@ import java.util.logging.Logger;
 public class LessonTimeModel implements ManageDataBase {
 
     private EntityManager entityManager;
+
+
+    public Integer getHighestNumber() {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("godzinyLekcji.getHighestNumber", Uczniowie.class);
+        Integer result = (Integer) query.getResultList().get(0);
+        return result;
+    }
 
     public Integer getNumberById(Integer id) {
         entityManager = MyManager.getEntityManager();

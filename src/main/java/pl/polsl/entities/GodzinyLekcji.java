@@ -8,6 +8,7 @@ import java.sql.Time;
 @Entity
 @Table(name = "godzinyLekcji")
 @NamedQueries({
+        @NamedQuery(name = "godzinyLekcji.getHighestNumber", query = "SELECT g.numer FROM GodzinyLekcji g ORDER BY g.numer DESC"),
         @NamedQuery(name = "godzinyLekcji.getAll", query = "SELECT g FROM GodzinyLekcji g ORDER BY g.numer"),
         @NamedQuery(name = "godzinyLekcji.getNumber", query = "SELECT g.numer FROM GodzinyLekcji g WHERE g.ID = :id")
 })
