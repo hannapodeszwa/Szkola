@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
+import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.ClubModel;
@@ -34,7 +35,8 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     private TableColumn<Uczniowie, String> columnName;
     @FXML
     private TableColumn<Uczniowie, String> columnSurname;
-
+    @FXML
+    private Label infoLabel;
 
 
     @Override
@@ -51,6 +53,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
             Klasy k = classList.get(0);
             setStudents((k));
         }
+        infoLabel.setText("");
 
     }
 
@@ -62,12 +65,21 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {
+        infoLabel.setText("");
         Integer uid = table.getSelectionModel().getSelectedItem().getID();
-        Udzialwkole parclub = new Udzialwkole();
-        parclub.setIdUcznia(uid);
-        parclub.setDataDolaczenia(new Date(System.currentTimeMillis()));
-        parclub.setIdKola(clubId);
-        (new ClubModel()).persist(parclub);
+        ObservableList<Kolanaukowe> clubList = FXCollections.observableList((new ClubModel()).findByStudentId(uid));
+        if(clubList.stream().anyMatch(c -> c.getID() == clubId)){
+            infoLabel.setText("Błąd! Ten uczeń jest juz przypisany do tego koła!");
+        } else {
+            Udzialwkole parclub = new Udzialwkole();
+            parclub.setIdUcznia(uid);
+            parclub.setDataDolaczenia(new Date(System.currentTimeMillis()));
+            parclub.setIdKola(clubId);
+            (new ClubModel()).persist(parclub);
+            infoLabel.setText("Sukces! Uczeń został przypisany do koła!");
+        }
+
+
 
     }
 

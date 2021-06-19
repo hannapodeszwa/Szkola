@@ -13,8 +13,9 @@
       </TableView>
       <ComboBox fx:id="comboboxClass" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClass" prefWidth="150.0" />
 
+       <Label fx:id="infoLabel" layoutX="282.0" layoutY="78.0" prefHeight="224.0" prefWidth="150.0" />
 
-     <Button fx:id="buttonAdd" layoutX="282.0" layoutY="311.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Przypisz" />
+       <Button fx:id="buttonAdd" layoutX="282.0" layoutY="311.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Przypisz" />
       <Button fx:id="buttonBack" layoutX="282.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
    </children>
 </AnchorPane>
