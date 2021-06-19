@@ -7,11 +7,8 @@
    <children>
       <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="39.0" prefHeight="348.0" prefWidth="257.0">
         <columns>
-          <TableColumn fx:id="columnDesc" editable="false" prefWidth="129.0" sortable="true" text="Imie" />
-            <TableColumn fx:id="columnDate" editable="false" prefWidth="127.0" sortable="true" text="Nazwisko" />
-
-
-
+          <TableColumn fx:id="columnName" editable="false" prefWidth="129.0" sortable="true" text="Imie" />
+            <TableColumn fx:id="columnSurname" editable="false" prefWidth="127.0" sortable="true" text="Nazwisko" />
         </columns>
       </TableView>
       <ComboBox fx:id="comboboxClass" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClass" prefWidth="150.0" />
