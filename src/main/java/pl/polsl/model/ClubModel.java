@@ -39,4 +39,6 @@ public class ClubModel implements ManageDataBase {
         List<Kolanaukowe> results = query.getResultList();
         return results;
     }
+
+
 }

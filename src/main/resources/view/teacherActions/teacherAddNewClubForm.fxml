@@ -6,8 +6,9 @@
 
 <AnchorPane prefHeight="167.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewClubController">
    <children>
-       <VBox alignment="CENTER" prefHeight="167.0" prefWidth="315.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">   <TextField fx:id="nameTextField" layoutX="63.0" layoutY="26.0" prefHeight="25.0" prefWidth="189.0" promptText="Nazwa koła" />
-
+       <VBox alignment="CENTER" prefHeight="167.0" prefWidth="315.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <TextField fx:id="nameTextField" layoutX="63.0" layoutY="26.0" prefHeight="25.0" prefWidth="189.0" promptText="Nazwa koła" />
+           <Label fx:id="infoLabel" />
            <Button fx:id="buttonAdd" layoutX="66.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="189.0" text="Dodaj koło" />
            <Button fx:id="buttonBack" layoutX="65.0" layoutY="119.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="189.0" text="Powrót" />
          <opaqueInsets>
