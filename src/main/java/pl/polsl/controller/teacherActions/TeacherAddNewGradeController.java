@@ -1,70 +1,61 @@
 package pl.polsl.controller.teacherActions;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
-import javafx.util.converter.IntegerStringConverter;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Oceny;
 import pl.polsl.model.Grade;
-import pl.polsl.model.Subject;
-import pl.polsl.model.Teacher;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.UnaryOperator;
 
-public class TeacherAddNewGrade implements ParametrizedController {
+public class TeacherAddNewGradeController implements ParametrizedController {
+
+
+
     Integer loggedTeacherId;
     Integer studentId;
     Integer subjectId;
-
-    @Override
-    public void receiveArguments(Map params){
-        loggedTeacherId = (Integer) params.get("teacherId");
-        studentId = (Integer) params.get("studentId");
-        subjectId = (Integer) params.get("subjectId");
-
-        subjectTextField.setText((String) params.get("subject"));
-        subjectTextField.setEditable(false);
-
-        surnameTextField.setText((String) params.get("surname"));
-        surnameTextField.setEditable(false);
-
-        nameTextField.setText((String) params.get("name"));
-        nameTextField.setEditable(false);
-
-        gradeComboBox.getSelectionModel().select(0);
-        valueComboBox.getSelectionModel().select(0);
-
-    }
-
 
     @FXML
     private ComboBox gradeComboBox;
     @FXML
     private ComboBox valueComboBox;
     @FXML
-    private TextField subjectTextField;
+    private Label labelSubject;
     @FXML
-    private TextField nameTextField;
+    private Label labelName;
     @FXML
-    private TextField surnameTextField;
+    private Label labelSurname;
     @FXML
     private TextField descriptionTextField;
     @FXML
     private Label errorLabel;
+
+    @Override
+    public void receiveArguments(Map<String, Object> params){
+        loggedTeacherId = (Integer) params.get("teacherId");
+        studentId = (Integer) params.get("studentId");
+        subjectId = (Integer) params.get("subjectId");
+
+        labelSubject.setText((String) params.get("subject"));
+
+        labelSurname.setText((String) params.get("surname"));
+
+        labelName.setText((String) params.get("name"));
+        gradeComboBox.getSelectionModel().select(0);
+        valueComboBox.getSelectionModel().select(0);
+
+    }
+
+
 
     public void initialize(){
         /* UnaryOperator<TextFormatter.Change> idFilter = change -> {

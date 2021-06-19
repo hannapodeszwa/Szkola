@@ -65,12 +65,18 @@ public class MenuAdministratorController {
                 WindowSize.manageClassroomsForm);
     }
 
+    public void pressLessonHoursButton(ActionEvent Event) throws IOException
+    {
+        Main.setRoot("administratorActions/manageLessonHoursForm",
+                WindowSize.manageLessonHoursForm);
+    }
+
     public void pressLogOutButton(ActionEvent event) throws IOException
     {
         Main.setRoot("common/signIn");
     }
 
-    public void pressDeleteUnused(ActionEvent actionEvent) {
+    public void pressDeleteUnusedButton(ActionEvent actionEvent) {
         List toDelete = new ArrayList<>();
         toDelete.addAll((new Student()).getUnusedStudents());
         toDelete.addAll((new Teacher()).getUnusedTeachers());

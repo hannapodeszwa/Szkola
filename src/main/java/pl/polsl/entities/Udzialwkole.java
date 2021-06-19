@@ -7,6 +7,10 @@ import java.sql.Date;
 @Entity
 
 @Table(name = "udzialwkole")
+@NamedQueries({
+        @NamedQuery(name = "udzialwkole.findByTeacher",
+                query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id")
+})
 public class Udzialwkole implements Serializable {
 
     private static final long serialVersionUID = 1L;
