@@ -10,6 +10,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Oceny;
 import pl.polsl.model.Grade;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -31,9 +32,7 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     @FXML
     private Label labelSubject;
     @FXML
-    private Label labelName;
-    @FXML
-    private Label labelSurname;
+    private Label labelStudent;
     @FXML
     private TextField descriptionTextField;
     @FXML
@@ -45,11 +44,11 @@ public class TeacherAddNewGradeController implements ParametrizedController {
         studentId = (Integer) params.get("studentId");
         subjectId = (Integer) params.get("subjectId");
 
-        labelSubject.setText((String) params.get("subject"));
+        labelSubject.setText("Przedmiot:\n " + (String) params.get("subject"));
 
-        labelSurname.setText((String) params.get("surname"));
 
-        labelName.setText((String) params.get("name"));
+        labelStudent.setText(params.get("name") + " " + params.get("surname"));
+
         gradeComboBox.getSelectionModel().select(0);
         valueComboBox.getSelectionModel().select(0);
 
@@ -78,7 +77,7 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherGradeForm", params);
+        Main.setRoot("teacherActions/teacherGradeForm", params, WindowSize.teacherGradeForm);
     }
     public void submitAction(ActionEvent event) throws IOException
     {

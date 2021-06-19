@@ -46,18 +46,44 @@ public class StudentClubsForm implements ParametrizedController {
         Main.setRoot("menu/studentMenuForm", params);
     }
 
+
+    public void clickButtonLeave() {
+        Kolanaukowe club = clubsTable.getSelectionModel().getSelectedItem();
+        if (club != null) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz opuścić koło naukowe \"" + club.getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
+            alert.setHeaderText("");
+            alert.setTitle("Opuszczanie koła");
+            alert.showAndWait();
+            if (alert.getResult() == ButtonType.OK){
+                Udzialwkole u = (new ClubParticipationModel()).findByBoth(id,clubsTable.getSelectionModel().getSelectedItem().getID());
+                (new ClubModel()).delete(u);
+                Alert done = new Alert(Alert.AlertType.INFORMATION, "Opuszczono koło.", ButtonType.OK);
+                done.setHeaderText("");
+                done.setTitle("Opuszczanie koła");
+                done.showAndWait();
+                refreshTable();
+            }
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Nie wybrano żadnego koła z tabeli.", ButtonType.OK);
+            alert.setHeaderText("");
+            alert.setTitle("Opuszczanie koła");
+            alert.showAndWait();
+        }
+    }
+
     public void clickButtonApply() {
         Integer clubId = comboBoxClubs.getSelectionModel().getSelectedItem().getID();
 
         //Student is already participating in selected club
         if (clubsTable.getItems().stream().anyMatch(c -> c.getID() == clubId)){
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Jesteś już zapisany do tego koła naukowego.", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Jesteś już zapisany/a do tego koła naukowego.", ButtonType.OK);
             alert.setHeaderText("");
             alert.setTitle("Zapis do koła");
             alert.showAndWait();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chce zapisać się do koła naukowego \"" + comboBoxClubs.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz zapisać się do koła naukowego \"" + comboBoxClubs.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
             alert.setHeaderText("");
             alert.setTitle("Zapis do koła");
             alert.showAndWait();
@@ -67,7 +93,7 @@ public class StudentClubsForm implements ParametrizedController {
                 u.setIdKola(clubId);
                 u.setIdUcznia(id);
                 (new ClubModel()).persist(u);
-                Alert done = new Alert(Alert.AlertType.INFORMATION, "Zapisałeś się do koła.", ButtonType.OK);
+                Alert done = new Alert(Alert.AlertType.INFORMATION, "Zapisano się do koła.", ButtonType.OK);
                 done.setHeaderText("");
                 done.setTitle("Zapis do koła");
                 done.showAndWait();
