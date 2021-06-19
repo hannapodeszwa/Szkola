@@ -9,7 +9,8 @@ import java.sql.Date;
 @Table(name = "udzialwkole")
 @NamedQueries({
         @NamedQuery(name = "udzialwkole.findByTeacher",
-                query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id")
+                query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id"),
+        @NamedQuery(name = "udzialwkole.findByClub", query = "SELECT u FROM Udzialwkole u WHERE u.idKola = :idKola")
 })
 public class Udzialwkole implements Serializable {
 

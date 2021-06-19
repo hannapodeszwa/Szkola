@@ -16,8 +16,13 @@
       </TableView>
      <ComboBox fx:id="comboboxClubs" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClubs" prefWidth="150.0" />
 
-       <Button fx:id="buttonAssign" layoutX="282.0" layoutY="149.0" mnemonicParsing="false" onAction="#clickButtonAssign" prefHeight="25.0" prefWidth="150.0" text="Przypisz uczestników" />
-      <Button fx:id="buttonAdd" layoutX="282.0" layoutY="93.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj koło" />
+       <Button fx:id="buttonAssign" layoutX="282.0" layoutY="107.0" mnemonicParsing="false" onAction="#clickButtonAssign" prefHeight="25.0" prefWidth="150.0" text="Przypisz uczestników" />
+       <Button fx:id="buttonUnassign" layoutX="282.0" layoutY="321.0" mnemonicParsing="false" onAction="#clickButtonUnassign" prefHeight="25.0" prefWidth="150.0" text="Usuń uczestnika" />
+
+       <Button fx:id="buttonDelete" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń koło naukowe" />
+
+       <Button fx:id="buttonAdd" layoutX="282.0" layoutY="72.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj koło" />
       <Button fx:id="buttonBack" layoutX="282.0" layoutY="365.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
+      <Label fx:id="infoLabel" layoutX="282.0" layoutY="147.0" prefHeight="117.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
