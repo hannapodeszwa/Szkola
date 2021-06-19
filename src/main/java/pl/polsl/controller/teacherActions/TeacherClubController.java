@@ -83,6 +83,7 @@ public class TeacherClubController implements ParametrizedController {
     }
 
     public void changeComboboxClubs(ActionEvent event) throws IOException {
+        studentList.clear();
         setParticipants(comboboxClubs.getSelectionModel().getSelectedIndex());
     }
 
@@ -92,7 +93,7 @@ public class TeacherClubController implements ParametrizedController {
 
         studentList = FXCollections.observableArrayList((new Student()).getStudentInClub(clubId));
 
-        System.out.println(clubId + " " + studentList.get(0).getImie());
+   //     System.out.println(clubId + " " + studentList.get(0).getImie());
 
         columnClass.setCellValueFactory(CellData -> new SimpleStringProperty((new SchoolClass()).getClassById(CellData.getValue().getIdKlasy()).getNumer()));
         columnName.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie()));
