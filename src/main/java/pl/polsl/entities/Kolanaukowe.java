@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+
 @NamedQueries({
         @NamedQuery(name = "kolanaukowe.findByTeacher",
-                query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id")
-})
+                query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id")})
 @Table(name = "kolanaukowe")
 public class Kolanaukowe implements Serializable {
 

@@ -19,6 +19,7 @@
             <Button fx:id="messagesButton" mnemonicParsing="false" onAction="#clickButtonMessages" prefHeight="25.0" prefWidth="150.0" text="Wiadomości" />
             <Button fx:id="buttonSchedule" mnemonicParsing="false" onAction="#clickButtonSchedule" prefHeight="25.0" prefWidth="150.0" text="Plan lekcji" />
             <Button fx:id="buttonNote" mnemonicParsing="false" onAction="#clickButtonNote" prefHeight="25.0" prefWidth="150.0" text="Uwagi" />
+            <Button fx:id="buttonClubs" mnemonicParsing="false" onAction="#clickButtonClubs" prefHeight="25.0" prefWidth="150.0" text="Koła zainteresowań" />
             <Button fx:id="buttonLogout" alignment="CENTER" cacheShape="false" centerShape="false" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickButtonLogout" prefHeight="25.0" prefWidth="150.0" scaleShape="false" text="Wyloguj" />
          </children>
       </VBox>

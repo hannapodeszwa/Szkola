@@ -2,6 +2,7 @@ package pl.polsl.controller.teacherActions;
 
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,17 +17,17 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class TeacherGradesController implements ParametrizedController {
 
     @FXML
-    public TableView table;
+    public TableView<Oceny> table;
 //    public TableColumn<Uwagi, Text> columnDesc;
     public TableColumn<Oceny, String> columnDesc;
+    public TableColumn<Oceny, String> columnDate;
+    public TableColumn<Oceny, String> columnGrade;
+    public TableColumn<Oceny, String> columnValue;
     public ComboBox<String> comboboxClass;
     public ComboBox<String> comboboxStudent;
     public ComboBox<String> comboboxSubject;
@@ -65,11 +66,30 @@ public class TeacherGradesController implements ParametrizedController {
     }
 
     public void clickButtonDelete() {
-
+        Oceny o = table.getSelectionModel().getSelectedItem();
+        (new Grade()).delete(o);
     }
 
-    public void clickButtonAdd() {
-        
+    public void clickButtonAdd() throws IOException{
+        Map params = new HashMap<String, String>();
+        params.put("teacherId", id);
+
+        Integer studentId = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID();
+        params.put("studentId", studentId);
+
+        Integer subjectId = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getID();
+        params.put("subjectId", subjectId);
+
+        String surname = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getNazwisko();
+        params.put("surname", surname);
+
+        String name = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getImie();
+        params.put("name", name);
+
+        String subject = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getNazwa();
+        params.put("subject",subject);
+
+        Main.setRoot("teacherActions/teacherAddNewGradeForm", params);
     }
 
     void setStudents(Integer index){
@@ -88,7 +108,7 @@ public class TeacherGradesController implements ParametrizedController {
         setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
     }
 
-    public void changeComboboxSubject(){
+    public void changeComboboxSubject() {
         gradeList.clear();
         setGrade();
     }
@@ -141,6 +161,21 @@ public class TeacherGradesController implements ParametrizedController {
             return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDesc.getWidth()));
         });
 
+        columnDate.setCellValueFactory(CellData -> {
+            String tym = CellData.getValue().getData().toString();
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDate.getWidth()));
+        });
+
+        columnValue.setCellValueFactory(CellData -> {
+            String tym = CellData.getValue().getWaga().toString().toString();
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnValue.getWidth()));
+        });
+
+        columnGrade.setCellValueFactory(CellData -> {
+            String tym = CellData.getValue().getOcena().toString();
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnGrade.getWidth()));
+        });
+
         table.setItems(gradeList);
     }
 
@@ -153,7 +188,7 @@ public class TeacherGradesController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", id);
-        Main.setRoot("menu/TeacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params);
     }
 
 
