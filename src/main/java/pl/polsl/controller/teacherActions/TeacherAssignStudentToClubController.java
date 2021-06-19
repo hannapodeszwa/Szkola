@@ -4,7 +4,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
@@ -30,7 +29,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     List<Udzialwkole> studentAdded;
 
     @FXML
-    private ComboBox comboboxClass;
+    private ComboBox<String> comboboxClass;
     @FXML
     private TableView<Uczniowie> table;
     @FXML
@@ -61,7 +60,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     };
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
         clubId = (Integer) params.get("clubId");
 
@@ -82,15 +81,15 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
 
     }
 
-    public void clickButtonBack(ActionEvent event) throws IOException {
-        Map params = new HashMap<String, String>();
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
         Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
 
 
-    public void clickButtonAdd(ActionEvent event) throws IOException {
+    public void clickButtonAdd() throws IOException {
         infoLabel.setText("");
 
         Integer uid = table.getSelectionModel().getSelectedItem().getID();
@@ -106,10 +105,9 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
 
 
 
-    public void changeComboboxClass(ActionEvent event) throws  IOException {
+    public void changeComboboxClass() {
         studentsList.clear();
-        Integer classID = comboboxClass.getSelectionModel().getSelectedIndex();
-        Klasy k = classList.get(classID);
+        Klasy k = classList.get(comboboxClass.getSelectionModel().getSelectedIndex());
         setStudents(k);
     }
 

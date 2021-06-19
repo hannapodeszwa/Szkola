@@ -90,7 +90,7 @@ public class TeacherClubController implements ParametrizedController {
             (new ClubModel()).delete(k);
             refreshClubList();
         } else {
-            infoLabel.setText("Usuń wszystkich uczestników\nprzed usunięciem koła\nnaukowego!");
+            infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem koła naukowego!");
         }
     }
 

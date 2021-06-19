@@ -2,7 +2,6 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,7 +10,6 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.model.ClubModel;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -27,19 +25,19 @@ public class TeacherAddNewClubController implements ParametrizedController {
     private Label infoLabel;
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
         infoLabel.setText("");
     }
 
-    public void clickButtonBack(ActionEvent event) throws IOException
+    public void clickButtonBack() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
         Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
-    public void clickButtonAdd(ActionEvent event) throws IOException {
+    public void clickButtonAdd() throws IOException {
         infoLabel.setText("");
         String name = nameTextField.getText();
         if(name.isEmpty()){
