@@ -16,7 +16,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TeacherAddNewGrade implements ParametrizedController {
+public class TeacherAddNewGradeController implements ParametrizedController {
 
 
 

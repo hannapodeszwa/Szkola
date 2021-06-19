@@ -7,14 +7,14 @@
    <children>
       <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="39.0" prefHeight="349.0" prefWidth="247.0">
         <columns>
-          <TableColumn fx:id="columnDesc" editable="false" prefWidth="76.0" sortable="true" text="Imię" />
-            <TableColumn fx:id="columnDate" editable="false" prefWidth="122.0" sortable="true" text="Nazwisko" />
-            <TableColumn fx:id="columnGrade" editable="false" prefWidth="47.0" sortable="true" text="Klasa" />
+          <TableColumn fx:id="columnName" editable="false" prefWidth="76.0" sortable="true" text="Imię" />
+            <TableColumn fx:id="columnSurname" editable="false" prefWidth="122.0" sortable="true" text="Nazwisko" />
+            <TableColumn fx:id="columnClass" editable="false" prefWidth="47.0" sortable="true" text="Klasa" />
 
 
         </columns>
       </TableView>
-      <ComboBox fx:id="comboboxClass" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClass" prefWidth="150.0" />
+      <ComboBox fx:id="comboboxClubs" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClubs" prefWidth="150.0" />
 
        <Button fx:id="buttonAssign" layoutX="282.0" layoutY="149.0" mnemonicParsing="false" onAction="#clickButtonAssign" prefHeight="25.0" prefWidth="150.0" text="Przypisz uczestników" />
       <Button fx:id="buttonAdd" layoutX="282.0" layoutY="93.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj koło" />
