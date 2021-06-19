@@ -6,6 +6,8 @@ import java.io.Serializable;
 @Entity
 
 @NamedQueries({
+        @NamedQuery(name = "kolanaukowe.findAll", query = "SELECT k FROM Kolanaukowe k"),
+        @NamedQuery(name = "kolanaukowe.findByStudent", query = "SELECT k FROM Kolanaukowe k JOIN Udzialwkole u ON k.ID = u.idKola WHERE u.idUcznia = :id"),
         @NamedQuery(name = "kolanaukowe.findByTeacher",
                 query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id")})
 @Table(name = "kolanaukowe")
@@ -49,10 +51,6 @@ public class Kolanaukowe implements Serializable {
 
     @Override
     public String toString() {
-        return "Kolanaukowe{" +
-                "ID=" + ID + '\'' +
-                "idNauczyciela=" + idNauczyciela + '\'' +
-                "opis=" + opis + '\'' +
-                '}';
+        return opis;
     }
 }

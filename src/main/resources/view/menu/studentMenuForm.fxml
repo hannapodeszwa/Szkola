@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.StudentMenuController">
+<AnchorPane prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.StudentMenuController">
    <children>
-      <VBox alignment="CENTER" prefHeight="300.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="346.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="labelTitle" text="Titles">
                <font>
@@ -17,6 +16,8 @@
             <Button fx:id="buttonPresence" mnemonicParsing="false" onAction="#clickButtonPresence" text="Obecności" />
             <Button fx:id="buttonMessages" mnemonicParsing="false" onAction="#buttonMessagesAction" text="Wiadomości" />
             <Button fx:id="buttonSchedule" mnemonicParsing="false" onAction="#clickButtonSchedule" text="Plan lekcji" />
+            <Button fx:id="buttonClubs" mnemonicParsing="false" onAction="#clickButtonClubs" text="Koła naukowe" />
+            <Button fx:id="buttonCompetitions" mnemonicParsing="false" onAction="#clickButtonCompetitions" text="Konkursy" />
             <Button fx:id="buttonLogout" mnemonicParsing="false" onAction="#clickButtonLogout" text="Wyloguj" />
          </children>
       </VBox>

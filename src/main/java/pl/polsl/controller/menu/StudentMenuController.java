@@ -1,5 +1,6 @@
 package pl.polsl.controller.menu;
 
+import javafx.event.ActionEvent;
 import pl.polsl.Main;
 import java.io.IOException;
 import javafx.fxml.FXML;
@@ -13,11 +14,13 @@ import java.util.Map;
 
 public class StudentMenuController implements ParametrizedController{
 
+    public Button buttonClubs;
+    public Button buttonCompetitions;
     private int id;
     public enum md {Parent, Student, Admin}
     private md mode;
     private String a;
-    private Map params;
+    private Map params = new HashMap<>();
     private String login;
 
     @FXML
@@ -41,6 +44,8 @@ public class StudentMenuController implements ParametrizedController{
     {
         if(md.Parent == mode){
             labelTitle.setText("Konto rodzica");
+            buttonClubs.setVisible(true);
+            buttonCompetitions.setVisible(true);
         }
         else{
             labelTitle.setText("Konto ucznia");
@@ -79,6 +84,21 @@ public class StudentMenuController implements ParametrizedController{
         params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
     }
+
+    public void clickButtonClubs() throws IOException {
+
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentClubsForm", params, WindowSize.studentClubsForm);
+    }
+
+    public void clickButtonCompetitions() throws IOException {
+
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
+    }
+
 
 
     public void clickButtonLogout() throws IOException {
