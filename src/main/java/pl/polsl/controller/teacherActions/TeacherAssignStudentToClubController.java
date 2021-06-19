@@ -12,13 +12,11 @@ import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.ClubModel;
-import pl.polsl.model.ClubParticipationModel;
 import pl.polsl.model.SchoolClass;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TeacherAssignStudentToClubController implements ParametrizedController {
