@@ -10,7 +10,7 @@ import java.sql.Date;
 @NamedQueries({
         @NamedQuery(name = "udzialwkole.findByTeacher",
                 query = "SELECT k FROM Kolanaukowe k WHERE k.idNauczyciela = :id"),
-        @NamedQuery(name = "udzialwkole.findByClub", query = "SELECT u FROM Udzialwkole u WHERE u.idKola = :idKola")
+        @NamedQuery(name = "udzialwkole.findByClub", query = "SELECT u FROM Udzialwkole u WHERE u.idKola = :idKola"),
         @NamedQuery(name = "udzialwkole.findByBoth",
                 query = "SELECT u FROM Udzialwkole u WHERE u.idUcznia = :studentID AND u.idKola = :clubID")
 })

@@ -15,6 +15,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.*;
@@ -71,25 +72,18 @@ public class TeacherGradesController implements ParametrizedController {
     }
 
     public void clickButtonAdd() throws IOException{
-        Map params = new HashMap<String, String>();
+        Map params = new HashMap<String, Object>();
+
         params.put("teacherId", id);
 
-        Integer studentId = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getID();
-        params.put("studentId", studentId);
+        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+        params.put("studentId", studentList.get(index).getID());
+        params.put("subjectId", subjectsList.get(index).getID());
+        params.put("surname", studentList.get(index).getNazwisko());
+        params.put("name", studentList.get(index).getImie());
+        params.put("subject",subjectsList.get(index).getNazwa());
 
-        Integer subjectId = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getID();
-        params.put("subjectId", subjectId);
-
-        String surname = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getNazwisko();
-        params.put("surname", surname);
-
-        String name = studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()).getImie();
-        params.put("name", name);
-
-        String subject = subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()).getNazwa();
-        params.put("subject",subject);
-
-        Main.setRoot("teacherActions/teacherAddNewGradeForm", params);
+        Main.setRoot("teacherActions/teacherAddNewGradeForm", params, WindowSize.teacherAddNewGradeForm);
     }
 
     void setStudents(Integer index){

@@ -13,15 +13,14 @@ import java.util.List;
 public class ClubParticipationModel implements ManageDataBase {
     EntityManager entityManager;
 
-    public Udzialwkole findByBoth(Integer studentId, Integer clubId)
-    {
+    public Udzialwkole findByBoth(Integer studentId, Integer clubId) {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("udzialwkole.findByBoth", Udzialwkole.class);
         query.setParameter("studentID", studentId);
         query.setParameter("clubID", clubId);
         Udzialwkole result = (Udzialwkole) query.getSingleResult();
         return result;
-
+    }
 
     public List<Udzialwkole> findByClub(Kolanaukowe k)
     {
