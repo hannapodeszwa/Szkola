@@ -2,22 +2,23 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Kolanaukowe;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Udzialwkole;
+import pl.polsl.entities.*;
 import pl.polsl.model.ClubModel;
+import pl.polsl.model.ClubParticipationModel;
 import pl.polsl.model.SchoolClass;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TeacherAssignStudentToClubController implements ParametrizedController {
@@ -26,6 +27,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
 
     ObservableList<Klasy> classList;
     ObservableList<Uczniowie> studentsList;
+    List<Udzialwkole> studentAdded;
 
     @FXML
     private ComboBox comboboxClass;
@@ -37,7 +39,26 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     private TableColumn<Uczniowie, String> columnSurname;
     @FXML
     private Label infoLabel;
+    @FXML
+    private Button buttonAdd;
 
+
+
+    private final ListChangeListener<? extends TablePosition> tableListener = (
+            javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+        if(table.getSelectionModel().getSelectedIndex()==-1) {
+            buttonAdd.setDisable(true);
+            infoLabel.setText("");
+        }
+        else if(studentAdded.stream().anyMatch(c -> c.getIdUcznia().equals(table.getSelectionModel().getSelectedItem().getID()))) {
+            buttonAdd.setDisable(true);
+            infoLabel.setText("Ten uczeń jest już\nprzypisany do tego koła!");
+        }
+        else {
+            buttonAdd.setDisable(false);
+            infoLabel.setText("");
+        }
+    };
 
     @Override
     public void receiveArguments(Map params) {
@@ -45,7 +66,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
         clubId = (Integer) params.get("clubId");
 
         classList = FXCollections.observableList((new SchoolClass()).displayClass());
-        if(!classList.isEmpty()) {
+        if (!classList.isEmpty()) {
             for (Klasy cl : classList) {
                 comboboxClass.getItems().add(cl.getNumer());
             }
@@ -54,34 +75,36 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
             setStudents((k));
         }
         infoLabel.setText("");
+        buttonAdd.setDisable(true);
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) tableListener);
+
+        studentAdded = (new ClubParticipationModel()).findByClub(clubId);
 
     }
 
-    public void clickButtonBack(ActionEvent event) throws IOException
-    {
+    public void clickButtonBack(ActionEvent event) throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherClubForm", params);
+        Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
+
+
 
     public void clickButtonAdd(ActionEvent event) throws IOException {
         infoLabel.setText("");
+
         Integer uid = table.getSelectionModel().getSelectedItem().getID();
-        ObservableList<Kolanaukowe> clubList = FXCollections.observableList((new ClubModel()).findByStudentId(uid));
-        if(clubList.stream().anyMatch(c -> c.getID() == clubId)){
-            infoLabel.setText("Błąd! Ten uczeń jest juz przypisany do tego koła!");
-        } else {
-            Udzialwkole parclub = new Udzialwkole();
-            parclub.setIdUcznia(uid);
-            parclub.setDataDolaczenia(new Date(System.currentTimeMillis()));
-            parclub.setIdKola(clubId);
-            (new ClubModel()).persist(parclub);
-            infoLabel.setText("Sukces! Uczeń został przypisany do koła!");
-        }
-
-
-
+        Udzialwkole parclub = new Udzialwkole();
+        parclub.setIdUcznia(uid);
+        parclub.setDataDolaczenia(new Date(System.currentTimeMillis()));
+        parclub.setIdKola(clubId);
+        (new ClubModel()).persist(parclub);
+        infoLabel.setText("Sukces! Uczeń został\nprzypisany do koła!");
     }
+
+
+
+
 
     public void changeComboboxClass(ActionEvent event) throws  IOException {
         studentsList.clear();

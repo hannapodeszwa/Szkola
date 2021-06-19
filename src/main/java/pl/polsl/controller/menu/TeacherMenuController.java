@@ -39,7 +39,7 @@ public class TeacherMenuController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherGradeForm", params);
+        Main.setRoot("teacherActions/teacherGradeForm", params, WindowSize.teacherGradeForm);
     }
 
 
@@ -74,7 +74,7 @@ public class TeacherMenuController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherClubForm", params);
+        Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
 

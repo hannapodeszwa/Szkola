@@ -10,6 +10,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.model.ClubModel;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class TeacherAddNewClubController implements ParametrizedController {
     {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherClubForm", params);
+        Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {

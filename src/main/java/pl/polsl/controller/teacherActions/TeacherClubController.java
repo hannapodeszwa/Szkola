@@ -27,11 +27,9 @@ public class TeacherClubController implements ParametrizedController {
     @FXML
     private ComboBox comboboxClubs;
     @FXML
-    private TableColumn<Uczniowie, String> columnName;
+    private TableColumn<Uczniowie, String> columnStudent;
     @FXML
     private TableColumn<Uczniowie, String> columnClass;
-    @FXML
-    private TableColumn<Uczniowie, String> columnSurname;
     @FXML
     private TableView<Uczniowie> table;
     @FXML
@@ -92,7 +90,7 @@ public class TeacherClubController implements ParametrizedController {
             (new ClubModel()).delete(k);
             refreshClubList();
         } else {
-            infoLabel.setText("Usuń wszystkich uczestników"+ System.lineSeparator() + "przed usunięciem koła naukowego!");
+            infoLabel.setText("Usuń wszystkich uczestników\nprzed usunięciem koła\nnaukowego!");
         }
     }
 
@@ -130,8 +128,7 @@ public class TeacherClubController implements ParametrizedController {
    //     System.out.println(clubId + " " + studentList.get(0).getImie());
 
         columnClass.setCellValueFactory(CellData -> new SimpleStringProperty((new SchoolClass()).getClassById(CellData.getValue().getIdKlasy()).getNumer()));
-        columnName.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie()));
-        columnSurname.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getNazwisko()));
+        columnStudent.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie() + " " + CellData.getValue().getNazwisko()));
 
         table.setItems(studentList);
     }

@@ -19,7 +19,6 @@ public class Udzialwkole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     @Column(name = "idKola", nullable = false)
     private Integer idKola;
 

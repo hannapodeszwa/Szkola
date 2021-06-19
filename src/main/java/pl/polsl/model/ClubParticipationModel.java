@@ -30,6 +30,14 @@ public class ClubParticipationModel implements ManageDataBase {
         List<Udzialwkole> results = query.getResultList();
         return results;
     }
+    public List<Udzialwkole> findByClub(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("udzialwkole.findByClub", Udzialwkole.class);
+        query.setParameter("idKola", id);
+        List<Udzialwkole> results = query.getResultList();
+        return results;
+    }
 
     public List<Udzialwkole> findByTeacher(Nauczyciele n)
     {
