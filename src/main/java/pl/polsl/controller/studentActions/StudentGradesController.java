@@ -52,7 +52,7 @@ public class StudentGradesController implements ParametrizedController {
     }
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = StudentMenuController.md.valueOf((String) params.get("mode"));
         id = (Integer) params.get("id");
 
@@ -76,14 +76,14 @@ public class StudentGradesController implements ParametrizedController {
     }
 
 
-    public void clickButtonBack(ActionEvent actionEvent) throws IOException {
-        Map params = new HashMap<String, String>();
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("menu/studentMenuForm", params);
     }
 
-    public void changeComboboxChildren(ActionEvent actionEvent) {
+    public void changeComboboxChildren() {
         id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
         list.clear();
         setTable();

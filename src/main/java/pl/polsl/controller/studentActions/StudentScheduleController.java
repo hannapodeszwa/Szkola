@@ -1,11 +1,9 @@
 package pl.polsl.controller.studentActions;
 
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,7 +13,6 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -23,27 +20,41 @@ import java.util.Map;
 
 public class StudentScheduleController implements ParametrizedController {
 
-    public Button buttonBack;
-    public TableView<ScheduleTable> table;
-    public TableColumn<ScheduleTable, Integer> columnNum;
-    public TableColumn<ScheduleTable, String> columnHours;
-    public TableColumn<ScheduleTable, Rozklady> columnMon;
-    public TableColumn<ScheduleTable, Rozklady> columnTue;
-    public TableColumn<ScheduleTable, Rozklady> columnWen;
-    public TableColumn<ScheduleTable, Rozklady> columnThu;
-    public TableColumn<ScheduleTable, Rozklady> columnFri;
-    public ComboBox comboboxChildren;
-    public ComboBox<Klasy> comboboxClasses;
-    public Label warnings;
+    @FXML
+    private TableView<ScheduleTable> table;
+    @FXML
+    private TableColumn<ScheduleTable, Integer> columnNum;
+    @FXML
+    private TableColumn<ScheduleTable, String> columnHours;
+    @FXML
+    private TableColumn<ScheduleTable, Rozklady> columnMon;
+    @FXML
+    private TableColumn<ScheduleTable, Rozklady> columnTue;
+    @FXML
+    private TableColumn<ScheduleTable, Rozklady> columnWen;
+    @FXML
+    private TableColumn<ScheduleTable, Rozklady> columnThu;
+    @FXML
+    private TableColumn<ScheduleTable, Rozklady> columnFri;
+    @FXML
+    private ComboBox<String> comboboxChildren;
+    @FXML
+    private ComboBox<Klasy> comboboxClasses;
+    @FXML
+    private Label warnings;
+    @FXML
+    private ComboBox<Przedmioty> comboBoxSubject;
+    @FXML
+    private ComboBox<Nauczyciele> comboBoxTeacher;
+    @FXML
+    private ComboBox<Sale> comboBoxClassroom;
+
     private Integer id;
     private StudentMenuController.md mode;
     private Integer id_child;
     private ObservableList<Uczniowie> children;
     private ObservableList<GodzinyLekcji> hour;
     private ObservableList<ScheduleTable> schedule;
-    public ComboBox<Przedmioty> comboBoxSubject;
-    public ComboBox<Nauczyciele> comboBoxTeacher;
-    public ComboBox<Sale> comboBoxClassroom;
 
     private Rozklady selected = null;
     private TablePosition<?,?> selectedCell;
@@ -246,7 +257,7 @@ public class StudentScheduleController implements ParametrizedController {
     }
 
 
-    private ListChangeListener<? extends TablePosition> cellSelectListener = (ListChangeListener.Change<? extends TablePosition> change) -> {
+    private final ListChangeListener<? extends TablePosition> cellSelectListener = (ListChangeListener.Change<? extends TablePosition> change) -> {
         selected = null;
 
         if (change.getList().size() > 0) {
@@ -341,14 +352,14 @@ public class StudentScheduleController implements ParametrizedController {
     }
 
     void refreshTable() {
-        Integer row = -1;
-        Integer column = -1;
+        int row = -1;
+        int column = -1;
         if (selectedCell != null) {
             row = selectedCell.getRow();
             column = selectedCell.getColumn();
         }
-        Integer finalRow = row;
-        Integer finalColumn = column;
+        int finalRow = row;
+        int finalColumn = column;
         //Platform.runLater(() -> {
             System.out.println("Refreshing table");
             table.getSelectionModel().getSelectedCells().removeListener((ListChangeListener<? super TablePosition>) cellSelectListener);
@@ -367,7 +378,7 @@ public class StudentScheduleController implements ParametrizedController {
 
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = StudentMenuController.md.valueOf((String) params.get("mode"));
 
         if (mode == StudentMenuController.md.Admin) {
@@ -420,21 +431,21 @@ public class StudentScheduleController implements ParametrizedController {
         if (mode == StudentMenuController.md.Admin)
             Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
         else {
-            Map params = new HashMap<String, String>();
+            Map<String, Object> params = new HashMap<>();
             params.put("mode", mode.toString());
             params.put("id", id);
             Main.setRoot("menu/studentMenuForm", params);
         }
     }
 
-    public void changeComboboxChildren(ActionEvent actionEvent) {
+    public void changeComboboxChildren() {
         id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
         schedule.clear();
         idKlasy = (new Student()).getStudentById(id_child).getIdKlasy();
         setTable();
     }
 
-    public void changeComboboxClasses(ActionEvent actionEvent) {
+    public void changeComboboxClasses() {
         idKlasy = comboboxClasses.getSelectionModel().getSelectedItem().getID();
         //comboBoxSubject.getSelectionModel().select(null);
         comboBoxSubject.setDisable(true);
