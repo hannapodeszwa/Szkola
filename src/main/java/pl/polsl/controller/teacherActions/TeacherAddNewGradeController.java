@@ -37,7 +37,7 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     @FXML
     private TextField descriptionTextField;
     @FXML
-    private Label errorLabel;
+    private Label infoLabel;
 
     @Override
     public void receiveArguments(Map<String, Object> params){
@@ -69,7 +69,7 @@ public class TeacherAddNewGradeController implements ParametrizedController {
 
 
         descriptionTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
+            infoLabel.setText("");
         }));
     }
 
@@ -84,12 +84,12 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     {
        //validate fields
         if(descriptionTextField.getText().isEmpty()){
-            errorLabel.setText("Fill all text fields!");
+            infoLabel.setText("Wypelnij  wszystkie pola tekstowe");
         } else {
             //    Integer subjectID = (new Subject()).getSubjectByName(subjectComboBox.getValue().toString()).getID();
             // (new Grade()).add(subjectID, Integer.parseInt(idTextField.getText().toString()),Integer.parseInt( gradeComboBox.getValue().toString()),Integer.parseInt(  valueComboBox.getValue().toString()), LocalDateTime.now(), descriptionTextField.getText());
             addNewGrade();
-
+            infoLabel.setText("Sukces!"+ System.lineSeparator() + "Ocena: " + gradeComboBox.getValue().toString() + System.lineSeparator() + "Waga: " + valueComboBox.getValue().toString() + System.lineSeparator() + "Opis: " + descriptionTextField.getText() );
         }
 
     }
