@@ -78,7 +78,10 @@ public class TeacherClubController implements ParametrizedController {
 
     public void clickButtonAssign(ActionEvent event) throws IOException {
         Map params = new HashMap<String, String>();
+        // TODO: get selected club id
+        Integer clubId = 1;
         params.put("id", loggedTeacherId);
+        params.put("clubId", clubId);
         Main.setRoot("teacherActions/teacherAssignStudentToClubForm", params);
     }
 
