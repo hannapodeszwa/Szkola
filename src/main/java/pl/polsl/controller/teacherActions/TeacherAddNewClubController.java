@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
+import pl.polsl.entities.Kolanaukowe;
+import pl.polsl.model.ClubModel;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,7 +31,16 @@ public class TeacherAddNewClubController implements ParametrizedController {
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {
-
+        if(nameTextField.getText().isEmpty()){
+            // TODO: add label, display error text
+        } else {
+            // TODO: add duplicate name check, display error text
+            Kolanaukowe kl = new Kolanaukowe();
+            kl.setOpis(nameTextField.getText());
+            kl.setIdNauczyciela(loggedTeacherId);
+            (new ClubModel()).persist(kl);
+            // TODO: add label, display success text if OK
+        }
     }
 
 }
