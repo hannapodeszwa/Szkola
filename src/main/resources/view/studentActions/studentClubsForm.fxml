@@ -7,17 +7,18 @@
 <AnchorPane prefHeight="309.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentClubsForm">
    <children>
        <ComboBox fx:id="comboBoxClubs" layoutX="16.0" layoutY="93.0" prefWidth="150.0" promptText="Wybierz koło" />
-       <Button layoutX="271.0" layoutY="270.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="100.0" text="Powrót" />
+       <Button layoutX="271.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="100.0" text="Powrót" />
        <Label layoutX="91.0" layoutY="14.0" prefHeight="27.0" prefWidth="204.0" style="-fx-alignment: Center;" text="Koła naukowe">
            <font>
                <Font size="18.0" />
            </font>
        </Label>
-      <Button fx:id="buttonApply" layoutX="14.0" layoutY="270.0" mnemonicParsing="false" onAction="#clickButtonApply" prefHeight="26.0" prefWidth="100.0" text="Zapisz się" />
+      <Button fx:id="buttonApply" layoutX="14.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickButtonApply" prefHeight="26.0" prefWidth="100.0" text="Zapisz się" />
+      <Button fx:id="buttonLeave" layoutX="126.0" layoutY="320.0" mnemonicParsing="false" onAction="#clickButtonLeave" prefHeight="26.0" prefWidth="100.0" text="Opuść koło" />
       <Label fx:id="clubDescription" layoutX="16.0" layoutY="129.0" />
       <Label fx:id="clubTeacher" layoutX="16.0" layoutY="156.0" />
       <Label layoutX="229.0" layoutY="67.0" text="Twoje koła naukowe" />
-      <TableView fx:id="clubsTable" layoutX="229.0" layoutY="93.0" prefHeight="161.0" prefWidth="142.0">
+      <TableView fx:id="clubsTable" layoutX="229.0" layoutY="93.0" prefHeight="211.0" prefWidth="142.0">
         <columns>
           <TableColumn fx:id="clubsColumn" prefWidth="116.20001220703125" text="Opis" />
         </columns>
