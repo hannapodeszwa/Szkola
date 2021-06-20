@@ -2,9 +2,7 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,29 +18,34 @@ import java.util.Map;
 public class TeacherScheduleController implements ParametrizedController {
 
     @FXML
-    public TableView table;
-    public TableColumn columnNum;
-    public TableColumn columnHours;
-    public TableColumn columnMon;
-    public TableColumn columnTue;
-    public TableColumn columnWen;
-    public TableColumn columnThu;
-    public TableColumn columnFri;
-    public Button buttonBack;
+    private TableView<ScheduleTableTeacher> table;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnNum;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnHours;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnMon;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnTue;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnWen;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnThu;
+    @FXML
+    private TableColumn<ScheduleTableTeacher, ScheduleTeacher> columnFri;
 
     Integer id;
     private ObservableList<GodzinyLekcji> hour;
-    private ObservableList<ScheduleTableTeacher> schedule;
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         id = (Integer) params.get("id");
         hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
         setTable();
     }
 
     void setTable() {
-        schedule = (new ScheduleTableTeacher()).getSchedule(id,hour);
+        ObservableList<ScheduleTableTeacher> schedule = (new ScheduleTableTeacher()).getSchedule(id, hour);
 
         columnNum.setCellValueFactory(new PropertyValueFactory<>("number"));
         columnHours.setCellValueFactory(new PropertyValueFactory<>("hours"));
@@ -57,7 +60,7 @@ public class TeacherScheduleController implements ParametrizedController {
     }
 
     public void clickButtonBack() throws IOException {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("menu/TeacherMenuForm", params);
     }

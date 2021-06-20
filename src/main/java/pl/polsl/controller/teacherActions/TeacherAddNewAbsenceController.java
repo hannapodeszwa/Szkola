@@ -10,12 +10,13 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.model.ClubModel;
 import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TeacherAddNewClubController implements ParametrizedController {
+public class TeacherAddNewAbsenceController implements ParametrizedController {
     Integer loggedTeacherId;
 
     @FXML

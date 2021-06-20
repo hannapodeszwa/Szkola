@@ -1,16 +1,20 @@
 package pl.polsl.controller.teacherActions;
 
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.*;
+import pl.polsl.entities.Kolanaukowe;
+import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.*;
 
 import java.io.IOException;
@@ -18,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TeacherClubController implements ParametrizedController {
+public class TeacherCompetitionController implements ParametrizedController {
     Integer loggedTeacherId;
 
     ObservableList<Kolanaukowe> clubsList;

@@ -8,7 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.*;
+import pl.polsl.entities.Klasy;
+import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.ClubModel;
 import pl.polsl.model.ClubParticipationModel;
 import pl.polsl.model.SchoolClass;
@@ -20,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TeacherAssignStudentToClubController implements ParametrizedController {
+public class TeacherAssignStudentToCompetitionController implements ParametrizedController {
     Integer clubId;
     Integer loggedTeacherId;
 
@@ -44,7 +46,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
 
 
     private final ListChangeListener<? extends TablePosition> tableListener = (
-            javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+            ListChangeListener.Change<? extends TablePosition> change) -> {
         if(table.getSelectionModel().getSelectedIndex()==-1) {
             buttonAdd.setDisable(true);
             infoLabel.setText("");

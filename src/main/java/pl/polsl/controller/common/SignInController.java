@@ -58,7 +58,7 @@ public class SignInController {
                         params.put("mode", "Student");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
-                        Main.setRoot("menu/studentMenuForm", params);
+                        Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
                         break;
                     case Roles.TEACHER:
                         params = new HashMap<String, String>();
@@ -71,16 +71,16 @@ public class SignInController {
                         params.put("mode", "Parent");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
-                        Main.setRoot("menu/studentMenuForm", params);
+                        Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
                         break;
                     case Roles.ADMIN:
                         Main.setRoot("menu/adminMenuForm",
                                 WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
                         break;
                 }
-            } else errorLabel.setText("Wrong login or password");
+            } else errorLabel.setText("Błedny login lub hasło");
 
-        } else errorLabel.setText("Fill all of the fields");
+        } else errorLabel.setText("Wypełnij wszystkie pola");
     }
 
     public void resetPasswordAction() throws Exception {
