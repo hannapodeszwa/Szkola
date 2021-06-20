@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="425.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAbsenceController">
+<AnchorPane prefHeight="425.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAbsenceController">
    <children>
       <TableView fx:id="table" editable="true" layoutX="20.0" layoutY="46.0" prefHeight="230.0" prefWidth="446.0">
         <columns>
-          <TableColumn fx:id="columnDesc" editable="false" prefWidth="250.0" resizable="false" sortable="true" text="Opis" />
-            <TableColumn fx:id="columnDate" editable="false" resizable="false" sortable="true" text="Data" />
-            <TableColumn fx:id="columnGrade" editable="false" prefWidth="50.0" resizable="false" sortable="true" text="Ocena" />
-            <TableColumn fx:id="columnValue" editable="false" prefWidth="50.0" resizable="false" sortable="true" text="Waga" />
+          <TableColumn fx:id="columnDate" editable="false" prefWidth="64.0" resizable="false" sortable="true" text="Data" />
+            <TableColumn fx:id="columnLessonStart" editable="false" prefWidth="59.0" resizable="false" sortable="true" text="Od" />
+            <TableColumn fx:id="columnLessonEnd" editable="false" prefWidth="74.0" resizable="false" sortable="true" text="Do" />
+            <TableColumn fx:id="columnSubject" editable="false" minWidth="0.0" prefWidth="82.0" resizable="false" sortable="true" text="Przedmiot" />
+
+            <TableColumn fx:id="columnExcuse" editable="false" prefWidth="166.0" resizable="false" sortable="true" text="Usprawiedliwiona" />
 
         </columns>
       </TableView>
       <ComboBox fx:id="comboboxClass" layoutX="20.0" layoutY="290.0" onAction="#changeComboboxClass" prefWidth="150.0" />
       <ComboBox fx:id="comboboxStudent" layoutX="20.0" layoutY="335.0" onAction="#changeComboboxStudent" prefWidth="150.0" />
-       <ComboBox fx:id="comboboxSubject" layoutX="20.0" layoutY="380.0" onAction="#changeComboboxSubject" prefWidth="150.0" />
 
-       <Button fx:id="buttonDelete" layoutX="316.0" layoutY="335.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń zaznaczoną" />
-      <Button fx:id="buttonAdd" layoutX="316.0" layoutY="290.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj nową" />
-      <Button fx:id="buttonBack" layoutX="316.0" layoutY="380.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
-      <Label alignment="CENTER" layoutX="193.0" layoutY="10.0" prefWidth="100.0" text="Oceny">
+       <Button fx:id="buttonDelete" layoutX="296.0" layoutY="323.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="170.0" text="Usuń zaznaczoną" />
+       <Button fx:id="buttonExcuse" layoutX="296.0" layoutY="360.0" mnemonicParsing="false" onAction="#clickButtonExcuse" prefHeight="25.0" prefWidth="170.0" text="Usprawiedliw zaznaczoną" />
+       <Button fx:id="buttonAdd" layoutX="296.0" layoutY="290.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="170.0" text="Dodaj nową" />
+      <Button fx:id="buttonBack" layoutX="296.0" layoutY="393.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="170.0" text="Powrót" />
+      <Label alignment="CENTER" layoutX="179.0" layoutY="14.0" prefHeight="27.0" prefWidth="128.0" text="Nieobecności">
          <font>
             <Font size="18.0" />
          </font>
