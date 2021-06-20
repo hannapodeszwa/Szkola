@@ -78,9 +78,9 @@ public class SignInController {
                                 WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
                         break;
                 }
-            } else errorLabel.setText("Wrong login or password");
+            } else errorLabel.setText("Błedny login lub hasło");
 
-        } else errorLabel.setText("Fill all of the fields");
+        } else errorLabel.setText("Wypełnij wszystkie pola");
     }
 
     public void resetPasswordAction() throws Exception {
