@@ -434,7 +434,10 @@ public class StudentScheduleController implements ParametrizedController {
             Map<String, Object> params = new HashMap<>();
             params.put("mode", mode.toString());
             params.put("id", id);
-            Main.setRoot("menu/studentMenuForm", params);
+            if (mode == StudentMenuController.md.Student)
+                Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+            else
+                Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
         }
     }
 

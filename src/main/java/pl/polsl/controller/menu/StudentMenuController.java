@@ -13,8 +13,10 @@ import java.util.Map;
 
 public class StudentMenuController implements ParametrizedController{
 
-    public Button buttonClubs;
-    public Button buttonCompetitions;
+
+
+
+
     private int id;
     public enum md {Parent, Student, Admin}
     private md mode;
@@ -26,7 +28,8 @@ public class StudentMenuController implements ParametrizedController{
     public Button buttonPresence;
     public Button buttonMessages;
     public Button buttonSchedule;
-    public Button buttonLogout;
+    public Button buttonLogout;    public Button buttonClubs;
+    public Button buttonCompetitions;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
@@ -36,25 +39,21 @@ public class StudentMenuController implements ParametrizedController{
         login = (String) params.get("login");
         if(md.Parent == mode){
             labelTitle.setText("Konto rodzica");
-            buttonClubs.setDisable(true);
-            buttonCompetitions.setDisable(true);
+            buttonClubs.setVisible(false);
+            buttonCompetitions.setVisible(false);
+            buttonLogout.setLayoutY(246);
         }
         else{
             labelTitle.setText("Konto ucznia");
         }
     }
 
-    @FXML
-    public void initialize()
-    {
-    }
 
     public void clickButtonGrades() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentGradesForm",params,
-                WindowSize.studentGradesForm);
+        Main.setRoot("studentActions/studentGradesForm", params, WindowSize.studentGradesForm);
     }
 
     public void clickButtonPresence() throws IOException
@@ -81,6 +80,13 @@ public class StudentMenuController implements ParametrizedController{
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
+    }
+
+    public void clickButtonNote() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode.toString());
+        params.put("id", id);
+        Main.setRoot("studentActions/studentNoteForm", params, WindowSize.studentNoteForm);
     }
 
     public void clickButtonClubs() throws IOException {

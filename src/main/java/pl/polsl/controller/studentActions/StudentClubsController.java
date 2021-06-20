@@ -9,6 +9,8 @@ import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
@@ -38,7 +40,10 @@ public class StudentClubsController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
+        if (mode == StudentMenuController.md.Student)
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else
+            Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
 
 

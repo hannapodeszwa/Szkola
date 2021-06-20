@@ -10,6 +10,7 @@ import pl.polsl.entities.*;
 import pl.polsl.model.ClubModel;
 import pl.polsl.model.CompetitionModel;
 import pl.polsl.model.Teacher;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -92,7 +93,10 @@ public class StudentCompetitionController implements ParametrizedController {
         Map params = new HashMap<String, String>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
+        if (mode == StudentMenuController.md.Student)
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else
+            Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
 
 

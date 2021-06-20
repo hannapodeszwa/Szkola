@@ -12,10 +12,9 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.Present;
-import pl.polsl.model.Presentv2;
-import pl.polsl.model.Student;
-import pl.polsl.model.Subject;
+import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -28,7 +27,7 @@ public class StudentPresenceController implements ParametrizedController {
     @FXML
     public TableView<Presentv2> table;
     public TableColumn<Presentv2, Date> columnDate;
-    public TableColumn<Presentv2, Integer> columnHour;
+    public TableColumn<Presentv2, String> columnHour;
     public TableColumn<Presentv2, CheckBox> columnCheck;
     public TableColumn<Presentv2, String> columnSubject;
     public Button buttonBack;
@@ -51,11 +50,15 @@ public class StudentPresenceController implements ParametrizedController {
         }
 
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
-        columnHour.setCellValueFactory(new PropertyValueFactory<>("godzina"));//TODO poprawić na numer, nie id
         columnCheck.setCellValueFactory(new PropertyValueFactory<>("czyUsp"));
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();
             String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
+            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
+        });
+        columnHour.setCellValueFactory(CellData -> {
+            Integer idHour = CellData.getValue().getGodzina();
+            String nazwaPrzedmiotu = (new LessonTimeModel()).getNumberById(idHour).toString();
             return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
         });
 
@@ -108,7 +111,7 @@ public class StudentPresenceController implements ParametrizedController {
             setTable();
         }
 
-        if (mode == StudentMenuController.md.Student) {
+        if (mode == StudentMenuController.md.Student) {//wyłączenie możliwości usprawiedliwiania dla ucznia
             for (Presentv2 a : data)
                 a.Usp.setDisable(true);
         }
@@ -119,10 +122,12 @@ public class StudentPresenceController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
-
-        if (mode == StudentMenuController.md.Parent)
+        if (mode == StudentMenuController.md.Student)
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else {
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
             saveData();
+        }
 
     }
 

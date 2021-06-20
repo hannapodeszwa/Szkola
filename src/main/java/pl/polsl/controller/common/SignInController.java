@@ -58,7 +58,7 @@ public class SignInController {
                         params.put("mode", "Student");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
-                        Main.setRoot("menu/studentMenuForm", params);
+                        Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
                         break;
                     case Roles.TEACHER:
                         params = new HashMap<String, String>();
@@ -71,7 +71,7 @@ public class SignInController {
                         params.put("mode", "Parent");
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
-                        Main.setRoot("menu/studentMenuForm", params);
+                        Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
                         break;
                     case Roles.ADMIN:
                         Main.setRoot("menu/adminMenuForm",

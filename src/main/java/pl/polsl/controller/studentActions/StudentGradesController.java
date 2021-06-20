@@ -13,6 +13,8 @@ import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Oceny;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
+
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,7 +82,10 @@ public class StudentGradesController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("menu/studentMenuForm", params);
+        if (mode == StudentMenuController.md.Student)
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else
+            Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
 
     public void changeComboboxChildren() {

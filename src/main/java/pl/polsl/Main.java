@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import pl.polsl.controller.*;
 import pl.polsl.utils.WindowSize;
 
@@ -25,6 +26,7 @@ public class Main extends Application {
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        stage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
     }
 
