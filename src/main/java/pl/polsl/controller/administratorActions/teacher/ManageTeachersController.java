@@ -175,11 +175,11 @@ public class ManageTeachersController {
 
     private void deleteCompetition(Nauczyciele toDelete)
     {
-        List<Udzialwkonkursie> teacherCompetitionList = (new CompetiotionModel()).findByTeacher(toDelete);
+        List<Udzialwkonkursie> teacherCompetitionList = (new CompetitionModel()).findByTeacher(toDelete);
         if(!(teacherCompetitionList.isEmpty())) {
             for (Udzialwkonkursie u: teacherCompetitionList) {
                 u.setIdNauczyciela(null);
-                (new CompetiotionModel()).update(u);
+                (new CompetitionModel()).update(u);
             }
         }
     }

@@ -1,7 +1,5 @@
 package pl.polsl.controller.studentActions;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -10,7 +8,6 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.*;
 
@@ -20,10 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentClubsForm implements ParametrizedController {
+public class StudentClubsController implements ParametrizedController {
     public Label clubDescription;
     public Label clubTeacher;
-    public ComboBox<Kolanaukowe> comboBoxClubs;
+    public ComboBox<Kolanaukowe> comboBoxCompetitions;
     public TableView<Kolanaukowe> clubsTable;
     public TableColumn<Kolanaukowe, String> clubsColumn;
     public Button buttonApply;
@@ -73,7 +70,7 @@ public class StudentClubsForm implements ParametrizedController {
     }
 
     public void clickButtonApply() {
-        Integer clubId = comboBoxClubs.getSelectionModel().getSelectedItem().getID();
+        Integer clubId = comboBoxCompetitions.getSelectionModel().getSelectedItem().getID();
 
         //Student is already participating in selected club
         if (clubsTable.getItems().stream().anyMatch(c -> c.getID() == clubId)){
@@ -83,7 +80,7 @@ public class StudentClubsForm implements ParametrizedController {
             alert.showAndWait();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz zapisać się do koła naukowego \"" + comboBoxClubs.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz zapisać się do koła naukowego \"" + comboBoxCompetitions.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
             alert.setHeaderText("");
             alert.setTitle("Zapis do koła");
             alert.showAndWait();
@@ -113,8 +110,8 @@ public class StudentClubsForm implements ParametrizedController {
     public void initialize() {
         buttonApply.setDisable(true);
         clubsColumn.setCellValueFactory(new PropertyValueFactory<>("opis"));
-        comboBoxClubs.getItems().addAll((new ClubModel()).findAll());
-        comboBoxClubs.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
+        comboBoxCompetitions.getItems().addAll((new ClubModel()).findAll());
+        comboBoxCompetitions.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
             Nauczyciele teacher = (new Teacher()).getTeacherById(newSelection.getIdNauczyciela());
             clubTeacher.setText(teacher.getImie() + " " + teacher.getNazwisko() + "\n" + teacher.getEmail());
             clubDescription.setText(newSelection.getOpis());

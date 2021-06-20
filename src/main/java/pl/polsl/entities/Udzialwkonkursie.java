@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 @Entity
 @NamedQueries({
+        @NamedQuery(name = "udzialwkonkursie.findByBoth",
+                query = "SELECT u FROM Udzialwkonkursie u WHERE u.idUcznia = :studentID AND u.idKonkursu = :competitionID"),
         @NamedQuery(name = "udzialwkonkursie.findByTeacher",
                 query = "SELECT u FROM Udzialwkonkursie u WHERE u.idNauczyciela = :id")
 })

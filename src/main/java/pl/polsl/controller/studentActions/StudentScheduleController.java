@@ -50,6 +50,64 @@ public class StudentScheduleController implements ParametrizedController {
     private Integer idKlasy;
 
 
+
+    public Sale decorate(Sale classroom){
+        Sale decoratedClassroom = new Sale() {
+            @Override
+            public String toString() {
+                return this.getNazwa() + " (liczba miejsc: " + this.getLiczbaMiejsc() + (this.getCzyJestRzutnik() ? ", wyposażona w rzutnik)" : ")");
+            }
+        };
+        decoratedClassroom.setNazwa(classroom.getNazwa());
+        decoratedClassroom.setID(classroom.getID());
+        decoratedClassroom.setCzyJestRzutnik(classroom.getCzyJestRzutnik());
+        decoratedClassroom.setLiczbaMiejsc(classroom.getLiczbaMiejsc());
+        return decoratedClassroom;
+    }
+
+
+    public Nauczyciele decorate(Nauczyciele tea){
+        Nauczyciele decoratedTea = new Nauczyciele(){
+            @Override
+            public String toString() {
+                return this.getImie() + " " + this.getNazwisko();
+            }
+        };
+        decoratedTea.setImie(tea.getImie());
+        decoratedTea.setDrugieImie(tea.getDrugieImie());
+        decoratedTea.setNazwisko(tea.getNazwisko());
+        decoratedTea.setEmail(tea.getEmail());
+        decoratedTea.setNrKontaktowy(tea.getNrKontaktowy());
+        decoratedTea.setID(tea.getID());
+        return decoratedTea;
+    }
+
+    public Przedmioty decorate(Przedmioty subject){
+        Przedmioty decoratedSubject = new Przedmioty(){
+            @Override
+            public String toString() {
+                return this.getNazwa();
+            }
+        };
+        decoratedSubject.setID(subject.getID());
+        decoratedSubject.setNazwa(subject.getNazwa());
+        return decoratedSubject;
+    }
+
+    public Klasy decorate(Klasy classes){
+        Klasy decoratedClass = new Klasy(){
+            @Override
+            public String toString() {
+                return this.getNumer();
+            }
+        };
+        decoratedClass.setID(classes.getID());
+        decoratedClass.setIdPrzewodniczacego(classes.getIdPrzewodniczacego());
+        decoratedClass.setIdWychowawcy(classes.getIdWychowawcy());
+        decoratedClass.setNumer(classes.getNumer());
+        return decoratedClass;
+    }
+
     private void checkProblems() {
         String problems = "";
         //If the classroom is too small to fit all students in
@@ -183,66 +241,6 @@ public class StudentScheduleController implements ParametrizedController {
         });
 
 
-    }
-
-
-    public Sale decorate(Sale classroom){
-        Sale decoratedClassroom = new Sale() {
-            @Override
-            public String toString() {
-                return this.getNazwa() + " (liczba miejsc: " + this.getLiczbaMiejsc() + (this.getCzyJestRzutnik() ? ", wyposażona w rzutnik)" : ")");
-            }
-        };
-        decoratedClassroom.setNazwa(classroom.getNazwa());
-        decoratedClassroom.setID(classroom.getID());
-        decoratedClassroom.setCzyJestRzutnik(classroom.getCzyJestRzutnik());
-        decoratedClassroom.setLiczbaMiejsc(classroom.getLiczbaMiejsc());
-        return decoratedClassroom;
-    }
-
-
-    public Nauczyciele decorate(Nauczyciele tea){
-        Nauczyciele decoratedTea = new Nauczyciele(){
-            @Override
-            public String toString() {
-                return this.getImie() + " " + this.getNazwisko();
-            }
-        };
-        decoratedTea.setImie(tea.getImie());
-        decoratedTea.setDrugieImie(tea.getDrugieImie());
-        decoratedTea.setNazwisko(tea.getNazwisko());
-        decoratedTea.setEmail(tea.getEmail());
-        decoratedTea.setNrKontaktowy(tea.getNrKontaktowy());
-        decoratedTea.setID(tea.getID());
-        return decoratedTea;
-    }
-
-
-    public Przedmioty decorate(Przedmioty subject){
-        Przedmioty decoratedSubject = new Przedmioty(){
-            @Override
-            public String toString() {
-                return this.getNazwa();
-            }
-        };
-        decoratedSubject.setID(subject.getID());
-        decoratedSubject.setNazwa(subject.getNazwa());
-        return decoratedSubject;
-    }
-
-
-    public Klasy decorate(Klasy classes){
-        Klasy decoratedClass = new Klasy(){
-            @Override
-            public String toString() {
-                return this.getNumer();
-            }
-        };
-        decoratedClass.setID(classes.getID());
-        decoratedClass.setIdPrzewodniczacego(classes.getIdPrzewodniczacego());
-        decoratedClass.setIdWychowawcy(classes.getIdWychowawcy());
-        decoratedClass.setNumer(classes.getNumer());
-        return decoratedClass;
     }
 
 

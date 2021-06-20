@@ -96,7 +96,7 @@ public class StudentMenuController implements ParametrizedController{
 
         params.put("mode", mode.toString());
         params.put("id", id);
-        Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
+        Main.setRoot("studentActions/studentCompetitionForm", params, WindowSize.studentCompetitionsForm);
     }
 
 

@@ -1,13 +1,14 @@
 package pl.polsl.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Konkursy.findAll", query = "SELECT k FROM Konkursy k"),
+        @NamedQuery(name = "Konkursy.findByStudent", query = "SELECT k FROM Konkursy k JOIN Udzialwkonkursie u ON k.ID = u.idKonkursu WHERE u.idUcznia = :id")
+})
 @Table(name = "konkursy")
 public class Konkursy implements Serializable {
 
