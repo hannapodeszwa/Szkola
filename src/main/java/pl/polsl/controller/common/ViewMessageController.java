@@ -5,8 +5,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Wiadomosci;
 import pl.polsl.model.MessageModel;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.Date;
@@ -14,6 +14,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewMessageController implements ParametrizedController {
+
+    @FXML
+    private TextField topicTextField;
+    @FXML
+    private TextField senderTextField;
+    @FXML
+    private TextField dateTextField;
+    @FXML
+    private TextArea messageTextArea;
 
     private String previousLocation;
     private String role;
@@ -23,25 +32,8 @@ public class ViewMessageController implements ParametrizedController {
     private Date date;
     private MessageModel messageModel;
 
-    @FXML
-    private TextField topicTextField;
-
-    @FXML
-    private TextField senderTextField;
-
-    @FXML
-    private TextField dateTextField;
-
-    @FXML
-    private TextArea messageTextArea;
-
-    @FXML
-    public void initialize() {
-
-    }
-
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         messageModel = new MessageModel();
         previousLocation = (String) params.get("previousLocation");
         role = (String) params.get("role");
@@ -67,7 +59,7 @@ public class ViewMessageController implements ParametrizedController {
         parameters.put("login", login);
         parameters.put("correspondent", correspondent);
         parameters.put("topic", "RE: " + topic);
-        Main.setRoot("common/messageForm", parameters, 800.0, 450.0);
+        Main.setRoot("common/messageForm", parameters, WindowSize.messageForm);
     }
 
     private void displayMessage() {
@@ -87,7 +79,7 @@ public class ViewMessageController implements ParametrizedController {
         parameters.put("role", role);
         parameters.put("id", id);
         parameters.put("login", login);
-        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+        Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 
     private String getLoginFromCorrespondentsName(){

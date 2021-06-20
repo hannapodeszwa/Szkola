@@ -101,6 +101,6 @@ public class StudentMenuController implements ParametrizedController{
     }
 
     public void clickButtonLogout() throws IOException {
-        Main.setRoot("common/signIn");
+        Main.setRoot("common/signIn", WindowSize.signIn);
     }
 }

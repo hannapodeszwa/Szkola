@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.geometry.Insets?>
-<AnchorPane maxHeight="400.0" maxWidth="800.0" minHeight="400.0" minWidth="800.0" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.common.MessageController">
+
+<AnchorPane prefHeight="400.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.common.MessageController">
    <children>
-      <VBox alignment="CENTER" fillWidth="false" layoutX="20.0" layoutY="51.0" prefHeight="200.0" prefWidth="780.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <TextField fx:id="receiverTextField" prefHeight="25.0" prefWidth="810.0" promptText="Odbiorca" />
-            <TextField fx:id="topicTextField" prefHeight="25.0" prefWidth="810.0" promptText="Temat" />
-            <TextArea fx:id="messageTextArea" prefHeight="200.0" prefWidth="810.0" promptText="Wiadomość..." />
-            <Label fx:id="errorLabel" textFill="RED">
-               <VBox.margin>
-                  <Insets bottom="-20.0" />
-               </VBox.margin></Label>
-            <HBox alignment="CENTER" fillHeight="false" prefHeight="80.0" prefWidth="780.0" spacing="650.0">
-               <children>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonAction" text="Anuluj" />
-                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#sendButtonAction" text="Wyślij" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+      <TextField fx:id="receiverTextField" layoutX="20.0" layoutY="76.0" prefHeight="25.0" prefWidth="800.0" promptText="Odbiorca" />
+      <TextField fx:id="topicTextField" layoutX="20.0" layoutY="46.0" prefHeight="25.0" prefWidth="800.0" promptText="Temat" />
+      <TextArea fx:id="messageTextArea" layoutX="20.0" layoutY="106.0" prefHeight="244.0" prefWidth="800.0" promptText="Wiadomość..." />
+      <Label fx:id="errorLabel" layoutX="180.0" layoutY="365.0" textFill="RED" />
+      <Button fx:id="cancelButton" layoutX="670.0" layoutY="360.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="150.0" text="Anuluj" />
+      <Button fx:id="sendButton" layoutX="20.0" layoutY="360.0" mnemonicParsing="false" onAction="#sendButtonAction" prefWidth="150.0" text="Wyślij" />
+      <Label alignment="CENTER" layoutX="320.0" layoutY="14.0" prefWidth="200.0" text="Nowa wiadomość">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

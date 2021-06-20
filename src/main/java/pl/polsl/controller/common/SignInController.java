@@ -60,8 +60,7 @@ public class SignInController {
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
                         break;
                     case Roles.ADMIN:
-                        Main.setRoot("menu/adminMenuForm",
-                                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+                        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
                         break;
                 }
             } else errorLabel.setText("Błedny login lub hasło");
@@ -70,7 +69,7 @@ public class SignInController {
     }
 
     public void resetPasswordAction() throws Exception {
-        Main.setRoot("common/resetPasswordForm");
+        Main.setRoot("common/resetPasswordForm", WindowSize.resetPasswordForm);
     }
 
     public void textChanged() {
