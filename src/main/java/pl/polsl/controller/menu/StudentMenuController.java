@@ -66,6 +66,7 @@ public class StudentMenuController implements ParametrizedController{
         parameters.put("role", Roles.STUDENT);
         parameters.put("id", id);
         parameters.put("login", login);
+        parameters.put("mode", mode);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 

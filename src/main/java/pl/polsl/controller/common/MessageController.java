@@ -25,6 +25,7 @@ public class MessageController implements ParametrizedController, NotificationsI
     private String role;
     private Integer id;
     private String login;
+    private String mode;
     private Student studentModel;
     private ParentModel parentModel;
     private Teacher teacherModel;
@@ -70,7 +71,8 @@ public class MessageController implements ParametrizedController, NotificationsI
         role = (String) params.get("role");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
-        if (params.size() > 4) {
+        mode = (String) params.get("mode");
+        if (params.size() > 5) {
             receiverTextField.setText((String) params.get("correspondent"));
             receiverTextField.setDisable(true);
             topicTextField.setText((String) params.get("topic"));
@@ -157,6 +159,7 @@ public class MessageController implements ParametrizedController, NotificationsI
         parameters.put("role", role);
         parameters.put("id", id);
         parameters.put("login", login);
+        parameters.put("mode", mode);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 

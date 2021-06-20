@@ -13,6 +13,7 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class MessengerController implements ParametrizedController {
     private String role;
     private Integer id;
     private String login;
+    private String mode;
     private MessageModel messageModel;
     private List<Wiadomosci> receivedList;
     private List<Wiadomosci> sentList;
@@ -132,6 +134,7 @@ public class MessengerController implements ParametrizedController {
         role = (String) params.get("role");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
+        mode = (String) params.get("mode");
         receivedList = messageModel.getReceivedMessagesByUserLogin(login);
         sentList = messageModel.getSentMessagesByUserLogin(login);
         displayReceivedMessages();
@@ -140,7 +143,9 @@ public class MessengerController implements ParametrizedController {
     public void backButtonAction() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Main.setRoot(previousLocation, params);
+        params.put("login", login);
+        params.put("mode", mode);
+        Main.setRoot(previousLocation, params, WindowSize.studenMenuForm);
     }
 
     public void newMessageButtonAction() throws IOException {
@@ -149,6 +154,7 @@ public class MessengerController implements ParametrizedController {
         parameters.put("role", role);
         parameters.put("id", id);
         parameters.put("login", login);
+        parameters.put("mode", mode);
         Main.setRoot("common/messageForm", parameters, 800.0, 450.0);
     }
 
