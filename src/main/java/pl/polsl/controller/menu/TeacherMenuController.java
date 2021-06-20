@@ -1,6 +1,5 @@
 package pl.polsl.controller.menu;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import pl.polsl.Main;
@@ -11,8 +10,6 @@ import pl.polsl.utils.WindowSize;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TeacherMenuController implements ParametrizedController {
 
@@ -29,7 +26,7 @@ public class TeacherMenuController implements ParametrizedController {
     private String login;
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         id = (Integer) params.get("id");
         login = (String) params.get("login");
     }
@@ -37,14 +34,14 @@ public class TeacherMenuController implements ParametrizedController {
 
     public void clickButtonGrades() throws IOException
     {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherGradeForm", params, WindowSize.teacherGradeForm);
     }
 
 
     public void clickButtonPresence() throws IOException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherPresenceForm", params);
     }
@@ -59,20 +56,20 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
     public void clickButtonSchedule() throws IOException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherScheduleForm", params, WindowSize.teacherScheduleForm);
     }
 
     public void clickButtonNote() throws IOException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherNoteForm", params, WindowSize.teacherNoteForm);
     }
 
     public void clickButtonClubs() throws IOException
     {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
