@@ -202,7 +202,7 @@ public class TeacherAbsenceController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", id);
-        Main.setRoot("menu/teacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
 

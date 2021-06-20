@@ -1,7 +1,5 @@
 package pl.polsl.controller.menu;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.utils.Roles;
@@ -12,15 +10,6 @@ import java.util.Map;
 import java.io.IOException;
 
 public class TeacherMenuController implements ParametrizedController {
-
-
-    @FXML
-    public Button buttonGrades;
-    public Button buttonPresence;
-    public Button messagesButton;
-    public Button buttonLogout;
-    public Button buttonSchedule;
-    public Button buttonNote;
     
     private Integer id;
     private String login;
@@ -40,7 +29,7 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
 
-    public void clickButtonPresence() throws IOException {
+    public void clickButtonAbsence() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("teacherActions/teacherAbsenceForm", params);
@@ -74,9 +63,15 @@ public class TeacherMenuController implements ParametrizedController {
         Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
+    public void clickButtonCompetitions() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        Main.setRoot("teacherActions/teacherCompetitionForm", params);
+    }
 
     public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");
     }
+
 
 }

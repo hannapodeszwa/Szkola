@@ -13,56 +13,50 @@ import java.util.Map;
 
 public class StudentMenuController implements ParametrizedController{
 
-    public Button buttonClubs;
-    public Button buttonCompetitions;
-    private int id;
-    public enum md {Parent, Student, Admin}
-    private md mode;
-    private String login;
-
     @FXML
-    public Label labelTitle;
-    public Button buttonGrades;
-    public Button buttonPresence;
-    public Button buttonMessages;
-    public Button buttonSchedule;
-    public Button buttonLogout;
+    private Label labelTitle;
+    @FXML
+    private Button buttonClubs;
+    @FXML
+    private Button buttonCompetitions;
+    @FXML
+    private Button buttonLogout;
+
+    private int id;
+    private String mode;
+    private String login;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
 
-        mode = md.valueOf((String)params.get("mode"));
+        mode = (String)params.get("mode");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
-        if(md.Parent == mode){
+        if(Roles.PARENT.equals(mode)){
             labelTitle.setText("Konto rodzica");
-            buttonClubs.setDisable(true);
-            buttonCompetitions.setDisable(true);
+            buttonClubs.setVisible(false);
+            buttonCompetitions.setVisible(false);
+            buttonLogout.setLayoutY(246);
         }
         else{
             labelTitle.setText("Konto ucznia");
         }
     }
 
-    @FXML
-    public void initialize()
-    {
-    }
 
     public void clickButtonGrades() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
-        Main.setRoot("studentActions/studentGradesForm",params,
-                WindowSize.studentGradesForm);
+        Main.setRoot("studentActions/studentGradesForm", params, WindowSize.studentGradesForm);
     }
 
-    public void clickButtonPresence() throws IOException
+    public void clickButtonAbsence() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
-        Main.setRoot("studentActions/studentPresenceForm",params, WindowSize.studentPresenceForm);
+        Main.setRoot("studentActions/studentAbsenceForm",params, WindowSize.studentAbsenceForm);
     }
 
 
@@ -72,20 +66,28 @@ public class StudentMenuController implements ParametrizedController{
         parameters.put("role", Roles.STUDENT);
         parameters.put("id", id);
         parameters.put("login", login);
+        parameters.put("mode", mode);
         Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
     }
 
 
     public void clickButtonSchedule() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.studentScheduleForm);
     }
 
+    public void clickButtonNote() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        params.put("id", id);
+        Main.setRoot("studentActions/studentNoteForm", params, WindowSize.studentNoteForm);
+    }
+
     public void clickButtonClubs() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
         Main.setRoot("studentActions/studentClubsForm", params, WindowSize.studentClubsForm);
     }
@@ -93,12 +95,10 @@ public class StudentMenuController implements ParametrizedController{
     public void clickButtonCompetitions() throws IOException {
 
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
         Main.setRoot("studentActions/studentCompetitionForm", params, WindowSize.studentCompetitionsForm);
     }
-
-
 
     public void clickButtonLogout() throws IOException {
         Main.setRoot("common/signIn");

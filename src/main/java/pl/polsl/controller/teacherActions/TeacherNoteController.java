@@ -193,7 +193,7 @@ public class TeacherNoteController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        Main.setRoot("menu/TeacherMenuForm", params);
+        Main.setRoot("menu/TeacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
 
