@@ -16,6 +16,7 @@ import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -68,7 +69,7 @@ public class TeacherCompetitionController implements ParametrizedController {
     {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("menu/teacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {

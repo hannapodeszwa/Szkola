@@ -212,7 +212,7 @@ public class TeacherGradesController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Main.setRoot("menu/teacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
 
