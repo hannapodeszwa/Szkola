@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentClubsForm implements ParametrizedController {
+public class StudentClubsController implements ParametrizedController {
     public Label clubDescription;
     public Label clubTeacher;
     public ComboBox<Kolanaukowe> comboBoxClubs;
