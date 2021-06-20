@@ -26,9 +26,9 @@
              <Font size="18.0" />
            </font>
        </Label>
-       <ComboBox fx:id="comboBoxSubject" layoutX="190.0" layoutY="526.0" prefWidth="150.0" />
-       <ComboBox fx:id="comboBoxTeacher" layoutX="360.0" layoutY="526.0" prefWidth="150.0" />
-       <ComboBox fx:id="comboBoxClassroom" layoutX="530.0" layoutY="526.0" prefWidth="150.0" />
+       <ComboBox fx:id="comboBoxSubject" layoutX="190.0" layoutY="526.0" prefWidth="150.0" visible="false" />
+       <ComboBox fx:id="comboBoxTeacher" layoutX="360.0" layoutY="526.0" prefWidth="150.0" visible="false" />
+       <ComboBox fx:id="comboBoxClassroom" layoutX="530.0" layoutY="526.0" prefWidth="150.0" visible="false" />
        <Label fx:id="warnings" alignment="CENTER" layoutX="20.0" layoutY="557.0" prefHeight="25.0" prefWidth="916.0" textFill="RED" wrapText="true" />
    </children>
 </AnchorPane>

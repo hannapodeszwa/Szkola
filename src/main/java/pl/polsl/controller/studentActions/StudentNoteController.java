@@ -73,7 +73,7 @@ public class StudentNoteController implements ParametrizedController {
     }
 
     public String wrapString(String wraping,Integer wid){
-        Integer width = wid-10;
+        Integer width = wid-15;
         if(getWitdh(wraping) < width) {
             return wraping;
         }

@@ -133,7 +133,7 @@ public class MessengerController implements ParametrizedController {
 
     public void backButtonAction() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
+         params.put("id", id);
         params.put("login", login);
         params.put("mode", mode);
         WindowSize size;
