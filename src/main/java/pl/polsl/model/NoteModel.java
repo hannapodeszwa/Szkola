@@ -29,4 +29,5 @@ public class NoteModel implements ManageDataBase {
         List<Uwagi> results = query.getResultList();
         return results;
     }
+
 }

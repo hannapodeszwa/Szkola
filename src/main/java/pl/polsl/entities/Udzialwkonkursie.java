@@ -1,5 +1,7 @@
 package pl.polsl.entities;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,7 +18,6 @@ public class Udzialwkonkursie implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue
     @Column(name = "idKonkursu", nullable = false)
     private Integer idKonkursu;
 

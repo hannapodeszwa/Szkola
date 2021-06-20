@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="167.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewClubController">
+<AnchorPane prefHeight="167.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewClubController">
    <children>
        <VBox alignment="CENTER" prefHeight="167.0" prefWidth="315.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
            <TextField fx:id="nameTextField" layoutX="63.0" layoutY="26.0" prefHeight="25.0" prefWidth="189.0" promptText="Nazwa koła" />

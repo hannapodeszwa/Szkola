@@ -1,6 +1,5 @@
 package pl.polsl.controller.studentActions;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
@@ -10,17 +9,16 @@ import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Udzialwkole;
 import pl.polsl.model.*;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentClubsController implements ParametrizedController {
+public class StudentClubsForm implements ParametrizedController {
     public Label clubDescription;
     public Label clubTeacher;
-    public ComboBox<Kolanaukowe> comboBoxCompetitions;
+    public ComboBox<Kolanaukowe> comboBoxClubs;
     public TableView<Kolanaukowe> clubsTable;
     public TableColumn<Kolanaukowe, String> clubsColumn;
     public Button buttonApply;
@@ -29,15 +27,15 @@ public class StudentClubsController implements ParametrizedController {
     private StudentMenuController.md mode;
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = StudentMenuController.md.valueOf((String) params.get("mode"));
         id = (Integer) params.get("id");
         List l = (new ClubModel()).findByStudentId(id);
         clubsTable.getItems().addAll((new ClubModel()).findByStudentId(id));
     }
 
-    public void clickButtonBack(ActionEvent actionEvent) throws IOException {
-        Map params = new HashMap<String, String>();
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
         params.put("mode", mode.toString());
         params.put("id", id);
         Main.setRoot("menu/studentMenuForm", params);
@@ -70,7 +68,7 @@ public class StudentClubsController implements ParametrizedController {
     }
 
     public void clickButtonApply() {
-        Integer clubId = comboBoxCompetitions.getSelectionModel().getSelectedItem().getID();
+        Integer clubId = comboBoxClubs.getSelectionModel().getSelectedItem().getID();
 
         //Student is already participating in selected club
         if (clubsTable.getItems().stream().anyMatch(c -> c.getID() == clubId)){
@@ -80,7 +78,7 @@ public class StudentClubsController implements ParametrizedController {
             alert.showAndWait();
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz zapisać się do koła naukowego \"" + comboBoxCompetitions.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Czy na pewno chcesz zapisać się do koła naukowego \"" + comboBoxClubs.getSelectionModel().getSelectedItem().getOpis() + "\"?", ButtonType.OK, ButtonType.CANCEL);
             alert.setHeaderText("");
             alert.setTitle("Zapis do koła");
             alert.showAndWait();
@@ -100,7 +98,7 @@ public class StudentClubsController implements ParametrizedController {
     }
 
     private void refreshTable() {
-        Integer index = clubsTable.getSelectionModel().getSelectedIndex();
+        int index = clubsTable.getSelectionModel().getSelectedIndex();
         clubsTable.getItems().clear();
         clubsTable.getItems().addAll((new ClubModel()).findByStudentId(id));
         clubsTable.getSelectionModel().select(index);
@@ -110,8 +108,8 @@ public class StudentClubsController implements ParametrizedController {
     public void initialize() {
         buttonApply.setDisable(true);
         clubsColumn.setCellValueFactory(new PropertyValueFactory<>("opis"));
-        comboBoxCompetitions.getItems().addAll((new ClubModel()).findAll());
-        comboBoxCompetitions.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
+        comboBoxClubs.getItems().addAll((new ClubModel()).findAll());
+        comboBoxClubs.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
             Nauczyciele teacher = (new Teacher()).getTeacherById(newSelection.getIdNauczyciela());
             clubTeacher.setText(teacher.getImie() + " " + teacher.getNazwisko() + "\n" + teacher.getEmail());
             clubDescription.setText(newSelection.getOpis());
