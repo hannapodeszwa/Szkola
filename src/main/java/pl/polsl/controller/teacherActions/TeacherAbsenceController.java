@@ -31,7 +31,6 @@ public class TeacherAbsenceController implements ParametrizedController {
 
     @FXML
     public TableView<Oceny> table;
-//    public TableColumn<Uwagi, Text> columnDesc;
     public TableColumn<Oceny, String> columnDesc;
     public TableColumn<Oceny, String> columnDate;
     public TableColumn<Oceny, String> columnGrade;
@@ -123,7 +122,7 @@ public class TeacherAbsenceController implements ParametrizedController {
         if(getWitdh(wraping) < width) {
             return wraping;
         }
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String[] words = wraping.split(" ");
         List<Integer> sizewords = new ArrayList<Integer>();
 
@@ -131,26 +130,26 @@ public class TeacherAbsenceController implements ParametrizedController {
             sizewords.add(getWitdh(word));
         }
         Integer act = 0;
-        Integer i = 0;
+        int i = 0;
         for(Integer size : sizewords) {
 
             if(size + act < width){
-                result += words[i] + " ";
+                result.append(words[i]).append(" ");
                 act +=size+3;
             }
             else if (size + act >= width) {
-                result += "\n" + words[i]+" ";
+                result.append("\n").append(words[i]).append(" ");
                 act=size+3;
             }
             else {
-                result += "\n" + words[i] + "\n";
+                result.append("\n").append(words[i]).append("\n");
                 act = 0;
             }
             i++;
         }
 
 
-        return result;
+        return result.toString();
     }
 
     void setGrade(){

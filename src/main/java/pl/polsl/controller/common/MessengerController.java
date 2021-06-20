@@ -138,7 +138,9 @@ public class MessengerController implements ParametrizedController {
     }
 
     public void backButtonAction() throws IOException {
-        Main.setRoot(previousLocation);
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        Main.setRoot(previousLocation, params);
     }
 
     public void newMessageButtonAction() throws IOException {
