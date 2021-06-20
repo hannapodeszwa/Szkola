@@ -21,7 +21,7 @@
 
       <TextField fx:id="loginTextField" accessibleRole="TEXT" onInputMethodTextChanged="#textChanged"
                  promptText="Login"/>
-      <PasswordField prefHeight="25.0" prefWidth="149.0" promptText="Hasło"/>
+      <PasswordField fx:id="passwordTextField" prefHeight="25.0" prefWidth="149.0" promptText="Hasło"/>
       <Label fx:id="errorLabel"/>
       <Button mnemonicParsing="false" onAction="#signInAction" prefHeight="25.0" prefWidth="126.0"
               styleClass="button-confirm" text="Zaloguj się">

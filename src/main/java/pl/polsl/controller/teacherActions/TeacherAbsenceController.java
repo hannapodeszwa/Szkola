@@ -62,7 +62,7 @@ public class TeacherAbsenceController implements ParametrizedController {
 
     public void clickButtonDelete() {
         Nieobecnosci n = table.getSelectionModel().getSelectedItem();
-        (new Present()).delete(n);
+        (new AbsenceModel()).delete(n);
 
         Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
         absenceList.clear();
@@ -73,7 +73,7 @@ public class TeacherAbsenceController implements ParametrizedController {
     public void clickButtonExcuse() {
         Nieobecnosci n = table.getSelectionModel().getSelectedItem();
         n.setCzyUsprawiedliwiona(1);
-        (new Present()).update(n);
+        (new AbsenceModel()).update(n);
 
         Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
         absenceList.clear();
@@ -151,7 +151,7 @@ public class TeacherAbsenceController implements ParametrizedController {
     }
 
     public void setAbsence(Integer index ){
-        absenceList = FXCollections.observableArrayList((new Present()).displayPresent(studentList.get(index).getID()));
+        absenceList = FXCollections.observableArrayList((new AbsenceModel()).displayPresent(studentList.get(index).getID()));
 
 
         columnLessonEnd.setCellValueFactory(CellData -> {

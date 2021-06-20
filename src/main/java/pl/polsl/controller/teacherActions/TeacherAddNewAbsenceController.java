@@ -11,7 +11,7 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.Grade;
 import pl.polsl.model.LessonTimeModel;
-import pl.polsl.model.Present;
+import pl.polsl.model.AbsenceModel;
 import pl.polsl.model.Teacher;
 import pl.polsl.utils.WindowSize;
 
@@ -109,7 +109,7 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
         a.setGodzina(tid);
 
         a.setCzyUsprawiedliwiona(excuseComboBox.getSelectionModel().getSelectedIndex());
-        (new Present()).persist(a);
+        (new AbsenceModel()).persist(a);
     }
 
 
