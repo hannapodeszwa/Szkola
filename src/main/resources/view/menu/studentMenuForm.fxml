@@ -13,7 +13,7 @@
    </Label>
    <Button layoutX="20.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickButtonGrades" prefWidth="150.0"
            text="Oceny"/>
-   <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonPresence" prefWidth="150.0"
+   <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAbsence" prefWidth="150.0"
            text="Obecności"/>
    <Button layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#buttonMessagesAction" prefWidth="150.0"
            text="Wiadomości"/>

@@ -32,7 +32,7 @@ public class StudentMenuController implements ParametrizedController{
         mode = (String)params.get("mode");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
-        if(Roles.PARENT == mode){
+        if(Roles.PARENT.equals(mode)){
             labelTitle.setText("Konto rodzica");
             buttonClubs.setVisible(false);
             buttonCompetitions.setVisible(false);
@@ -51,12 +51,12 @@ public class StudentMenuController implements ParametrizedController{
         Main.setRoot("studentActions/studentGradesForm", params, WindowSize.studentGradesForm);
     }
 
-    public void clickButtonPresence() throws IOException
+    public void clickButtonAbsence() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("id", id);
-        Main.setRoot("studentActions/studentAbsenceForm",params, WindowSize.studentPresenceForm);
+        Main.setRoot("studentActions/studentAbsenceForm",params, WindowSize.studentAbsenceForm);
     }
 
 
