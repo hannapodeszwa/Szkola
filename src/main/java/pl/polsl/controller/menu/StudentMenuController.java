@@ -34,20 +34,19 @@ public class StudentMenuController implements ParametrizedController{
         mode = md.valueOf((String)params.get("mode"));
         id = (Integer) params.get("id");
         login = (String) params.get("login");
+        if(md.Parent == mode){
+            labelTitle.setText("Konto rodzica");
+            buttonClubs.setDisable(true);
+            buttonCompetitions.setDisable(true);
+        }
+        else{
+            labelTitle.setText("Konto ucznia");
+        }
     }
 
     @FXML
     public void initialize()
     {
-        if(md.Parent == mode){
-            labelTitle.setText("Konto rodzica");
-            buttonClubs.setVisible(true);
-            buttonCompetitions.setVisible(true);
-        }
-        else{
-            labelTitle.setText("Konto ucznia");
-        }
-
     }
 
     public void clickButtonGrades() throws IOException {
