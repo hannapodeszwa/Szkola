@@ -10,7 +10,8 @@ import java.sql.Time;
 @NamedQueries({
         @NamedQuery(name = "godzinyLekcji.getHighestNumber", query = "SELECT g.numer FROM GodzinyLekcji g ORDER BY g.numer DESC"),
         @NamedQuery(name = "godzinyLekcji.getAll", query = "SELECT g FROM GodzinyLekcji g ORDER BY g.numer"),
-        @NamedQuery(name = "godzinyLekcji.getNumber", query = "SELECT g.numer FROM GodzinyLekcji g WHERE g.ID = :id")
+        @NamedQuery(name = "godzinyLekcji.getNumber", query = "SELECT g.numer FROM GodzinyLekcji g WHERE g.ID = :id"),
+        @NamedQuery(name = "godzinyLekcji.getById", query = "SELECT g FROM GodzinyLekcji g WHERE g.ID = :id")
 })
 public class GodzinyLekcji implements Serializable {
 

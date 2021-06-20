@@ -12,29 +12,23 @@ import javafx.scene.control.TableView;
 import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Oceny;
-import pl.polsl.entities.Przedmioty;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.Grade;
-import pl.polsl.model.Student;
-import pl.polsl.model.Teacher;
+import pl.polsl.entities.*;
+import pl.polsl.model.*;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 public class TeacherAbsenceController implements ParametrizedController {
 
     @FXML
-    public TableView<Oceny> table;
-    public TableColumn<Oceny, String> columnDesc;
-    public TableColumn<Oceny, String> columnDate;
-    public TableColumn<Oceny, String> columnGrade;
-    public TableColumn<Oceny, String> columnValue;
+    public TableView<Nieobecnosci> table;
+    public TableColumn<Nieobecnosci, String> columnExcuse;
+    public TableColumn<Nieobecnosci, String> columnDate;
+    public TableColumn<Nieobecnosci, String> columnLessonStart;
+    public TableColumn<Nieobecnosci, String> columnLessonEnd;
+    public TableColumn<Nieobecnosci, String> columnSubject;
     public ComboBox<String> comboboxClass;
     public ComboBox<String> comboboxStudent;
     public ComboBox<String> comboboxSubject;
@@ -45,21 +39,15 @@ public class TeacherAbsenceController implements ParametrizedController {
     Integer id;
     List<Klasy> classList;
     ObservableList<Uczniowie> studentList;
-    ObservableList<Przedmioty> subjectsList;
-    ObservableList<Oceny> gradeList;
+
+    ObservableList<Nieobecnosci> absenceList;
 
     @Override
     public void receiveArguments(Map params) {
         id = (Integer) params.get("id");
         classList = (new Teacher()).checkTeacherClasses(id);
-        subjectsList = (FXCollections.observableArrayList((new Teacher()).checkTeacherSubjects(id)));
 
-        if(!subjectsList.isEmpty()) {
-            for (Przedmioty sl : subjectsList) {
-                comboboxSubject.getItems().add(sl.getNazwa());
-            }
-            comboboxSubject.getSelectionModel().select(0);
-        }
+
 
         if(!classList.isEmpty()) {
             for (Klasy cl : classList) {
@@ -67,14 +55,29 @@ public class TeacherAbsenceController implements ParametrizedController {
             }
             comboboxClass.getSelectionModel().select(0);
             setStudents(0);
-            setGrade();
+            setAbsence(0);
         }
 
     }
 
     public void clickButtonDelete() {
-        Oceny o = table.getSelectionModel().getSelectedItem();
-        (new Grade()).delete(o);
+        Nieobecnosci n = table.getSelectionModel().getSelectedItem();
+        (new AbsenceModel()).delete(n);
+
+        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+        absenceList.clear();
+        setAbsence(index);
+
+    }
+
+    public void clickButtonExcuse() {
+        Nieobecnosci n = table.getSelectionModel().getSelectedItem();
+        n.setCzyUsprawiedliwiona(1);
+        (new AbsenceModel()).update(n);
+
+        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
+        absenceList.clear();
+        setAbsence(index);
     }
 
     public void clickButtonAdd() throws IOException{
@@ -82,14 +85,12 @@ public class TeacherAbsenceController implements ParametrizedController {
 
         params.put("teacherId", id);
 
-        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
-        params.put("studentId", studentList.get(index).getID());
-        params.put("subjectId", subjectsList.get(index).getID());
-        params.put("surname", studentList.get(index).getNazwisko());
-        params.put("name", studentList.get(index).getImie());
-        params.put("subject",subjectsList.get(index).getNazwa());
+        Integer studentIndex = comboboxStudent.getSelectionModel().getSelectedIndex();
 
-        Main.setRoot("teacherActions/teacherAddNewGradeForm", params, WindowSize.teacherAddNewGradeForm);
+
+        params.put("student", studentList.get(studentIndex));
+
+        Main.setRoot("teacherActions/teacherAddNewAbsenceForm", params, WindowSize.teacherAddNewGradeForm);
     }
 
     void setStudents(Integer index){
@@ -108,10 +109,7 @@ public class TeacherAbsenceController implements ParametrizedController {
         setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
     }
 
-    public void changeComboboxSubject() {
-        gradeList.clear();
-        setGrade();
-    }
+
 
     public Integer getWitdh(String text){
         return (int)(new Text(text)).getBoundsInLocal().getWidth();
@@ -152,13 +150,18 @@ public class TeacherAbsenceController implements ParametrizedController {
         return result.toString();
     }
 
-    void setGrade(){
-        gradeList = FXCollections.observableArrayList((new Grade()).checkStudentGrades(studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()), subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex())));
+    public void setAbsence(Integer index ){
+        absenceList = FXCollections.observableArrayList((new AbsenceModel()).displayPresent(studentList.get(index).getID()));
 
 
-        columnDesc.setCellValueFactory(CellData -> {
-            String tym = CellData.getValue().getOpis();
-            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDesc.getWidth()));
+        columnLessonEnd.setCellValueFactory(CellData -> {
+            String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getKoniec().toString();
+            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonEnd.getWidth()));
+        });
+
+        columnSubject.setCellValueFactory(CellData -> {
+            String tym = (new Subject()).getSubjectName(CellData.getValue().getPrzedmiotyId());
+            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnSubject.getWidth()));
         });
 
         columnDate.setCellValueFactory(CellData -> {
@@ -166,23 +169,34 @@ public class TeacherAbsenceController implements ParametrizedController {
             return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDate.getWidth()));
         });
 
-        columnValue.setCellValueFactory(CellData -> {
-            String tym = CellData.getValue().getWaga().toString().toString();
-            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnValue.getWidth()));
+       columnExcuse.setCellValueFactory(CellData -> {
+            Integer pom = CellData.getValue().getCzyUsprawiedliwiona();
+            String tym = "";
+            if(pom.equals(0)){
+                tym = "Nie";
+            } else {
+                tym = "Tak";
+            }
+            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnExcuse.getWidth()));
         });
 
-        columnGrade.setCellValueFactory(CellData -> {
-            String tym = CellData.getValue().getOcena().toString();
-            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnGrade.getWidth()));
+        columnLessonStart.setCellValueFactory(CellData -> {
+            String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getPoczatek().toString();
+
+            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonStart.getWidth()));
         });
 
-        table.setItems(gradeList);
+        table.setItems(absenceList);
     }
 
     public void changeComboboxStudent() {
-        gradeList.clear();
-        setGrade();
+        Integer index = comboboxStudent.getSelectionModel().getSelectedIndex();
 
+        absenceList.clear();
+
+        if(!studentList.isEmpty()){
+            setAbsence(index);
+        }
     }
 
     public void clickButtonBack() throws IOException {
