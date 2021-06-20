@@ -55,7 +55,7 @@ public class SignInController {
                 switch (user.getDostep()) {
                     case Roles.STUDENT:
                         params = new HashMap<String, String>();
-                        params.put("mode", "Student");
+                        params.put("mode", Roles.STUDENT);
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
@@ -68,7 +68,7 @@ public class SignInController {
                         break;
                     case Roles.PARENT:
                         params = new HashMap<String, String>();
-                        params.put("mode", "Parent");
+                        params.put("mode", Roles.PARENT);
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);

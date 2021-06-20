@@ -1,35 +1,51 @@
 package pl.polsl.controller.studentActions;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.menu.StudentMenuController;
-import pl.polsl.entities.*;
+import pl.polsl.entities.Konkursy;
+import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Udzialwkonkursie;
 import pl.polsl.model.ClubModel;
 import pl.polsl.model.CompetitionModel;
 import pl.polsl.model.Teacher;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StudentCompetitionController implements ParametrizedController {
-    public Label competitionDescription;
-    public Label competitionName;
-    public ComboBox<Konkursy> comboBoxCompetitions;
-    public ComboBox<Nauczyciele> comboBoxTeachers;
-    public TableView<Konkursy> competitionTable;
-    public TableColumn<Konkursy, String> competitionColumn;
-    public TableColumn<Konkursy, String> competitionNameColumn;
-    public Button buttonApply;
+
+    @FXML
+    private Label competitionDescription;
+    @FXML
+    private Label competitionName;
+    @FXML
+    private ComboBox<Konkursy> comboBoxCompetitions;
+    @FXML
+    private ComboBox<Nauczyciele> comboBoxTeachers;
+    @FXML
+    private TableView<Konkursy> competitionTable;
+    @FXML
+    private TableColumn<Konkursy, String> competitionColumn;
+    @FXML
+    private TableColumn<Konkursy, String> competitionNameColumn;
+    @FXML
+    private Button buttonApply;
 
     private Integer id;
-    private StudentMenuController.md mode;
+    private String mode;
 
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String) params.get("mode");
+        id = (Integer) params.get("id");
+        competitionTable.getItems().addAll((new CompetitionModel()).findByStudentId(id));
+    }
 
     public Nauczyciele decorate(Nauczyciele tea){
         Nauczyciele decoratedTea = new Nauczyciele(){
@@ -61,14 +77,6 @@ public class StudentCompetitionController implements ParametrizedController {
         return decoratedComp;
     }
 
-    @Override
-    public void receiveArguments(Map params) {
-        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
-        id = (Integer) params.get("id");
-        List l = (new ClubModel()).findByStudentId(id);
-        competitionTable.getItems().addAll((new CompetitionModel()).findByStudentId(id));
-    }
-
     public void initialize() {
         buttonApply.setDisable(true);
         competitionNameColumn.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
@@ -89,11 +97,11 @@ public class StudentCompetitionController implements ParametrizedController {
         });
     }
 
-    public void clickButtonBack(ActionEvent actionEvent) throws IOException {
-        Map params = new HashMap<String, String>();
-        params.put("mode", mode.toString());
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
         params.put("id", id);
-        if (mode == StudentMenuController.md.Student)
+        if (mode.equals(Roles.STUDENT))
             Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
         else
             Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
@@ -129,7 +137,7 @@ public class StudentCompetitionController implements ParametrizedController {
         Integer competitionId = comboBoxCompetitions.getSelectionModel().getSelectedItem().getID();
 
 
-        if (competitionTable.getItems().stream().anyMatch(c -> c.getID() == competitionId)){
+        if (competitionTable.getItems().stream().anyMatch(c -> c.getID().equals(competitionId))){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Już bierzesz udział w tym konkursie.", ButtonType.OK);
             alert.setHeaderText("");
             alert.setTitle("Zapis na konkurs");
@@ -156,7 +164,7 @@ public class StudentCompetitionController implements ParametrizedController {
     }
 
     private void refreshTable() {
-        Integer index = competitionTable.getSelectionModel().getSelectedIndex();
+        int index = competitionTable.getSelectionModel().getSelectedIndex();
         competitionTable.getItems().clear();
         competitionTable.getItems().addAll((new CompetitionModel()).findByStudentId(id));
         competitionTable.getSelectionModel().select(index);

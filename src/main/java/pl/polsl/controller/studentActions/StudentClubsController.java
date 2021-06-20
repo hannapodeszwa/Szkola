@@ -1,51 +1,60 @@
 package pl.polsl.controller.studentActions;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Udzialwkole;
-import pl.polsl.model.*;
+import pl.polsl.model.ClubModel;
+import pl.polsl.model.ClubParticipationModel;
+import pl.polsl.model.Teacher;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StudentClubsController implements ParametrizedController {
-    public Label clubDescription;
-    public Label clubTeacher;
-    public ComboBox<Kolanaukowe> comboBoxClubs;
-    public TableView<Kolanaukowe> clubsTable;
-    public TableColumn<Kolanaukowe, String> clubsColumn;
-    public Button buttonApply;
+
+    @FXML
+    private Label clubDescription;
+    @FXML
+    private Label clubTeacher;
+    @FXML
+    private ComboBox<Kolanaukowe> comboBoxClubs;
+    @FXML
+    private TableView<Kolanaukowe> clubsTable;
+    @FXML
+    private TableColumn<Kolanaukowe, String> clubsColumn;
+    @FXML
+    private Button buttonApply;
 
     private Integer id;
-    private StudentMenuController.md mode;
+    private String mode;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
-        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
+        mode = (String) params.get("mode");
         id = (Integer) params.get("id");
-        List l = (new ClubModel()).findByStudentId(id);
         clubsTable.getItems().addAll((new ClubModel()).findByStudentId(id));
     }
 
-    public void clickButtonBack() throws IOException {
-        Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
-        params.put("id", id);
-        if (mode == StudentMenuController.md.Student)
-            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
-        else
-            Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
+    public void initialize() {
+        buttonApply.setDisable(true);
+        clubsColumn.setCellValueFactory(new PropertyValueFactory<>("opis"));
+        comboBoxClubs.getItems().addAll((new ClubModel()).findAll());
+        comboBoxClubs.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
+            Nauczyciele teacher = (new Teacher()).getTeacherById(newSelection.getIdNauczyciela());
+            clubTeacher.setText(teacher.getImie() + " " + teacher.getNazwisko() + "\n" + teacher.getEmail());
+            clubDescription.setText(newSelection.getOpis());
+            buttonApply.setDisable(false);
+        });
     }
-
 
     public void clickButtonLeave() {
         Kolanaukowe club = clubsTable.getSelectionModel().getSelectedItem();
@@ -76,7 +85,7 @@ public class StudentClubsController implements ParametrizedController {
         Integer clubId = comboBoxClubs.getSelectionModel().getSelectedItem().getID();
 
         //Student is already participating in selected club
-        if (clubsTable.getItems().stream().anyMatch(c -> c.getID() == clubId)){
+        if (clubsTable.getItems().stream().anyMatch(c -> c.getID().equals(clubId))){
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Jesteś już zapisany/a do tego koła naukowego.", ButtonType.OK);
             alert.setHeaderText("");
             alert.setTitle("Zapis do koła");
@@ -110,15 +119,13 @@ public class StudentClubsController implements ParametrizedController {
         clubsTable.getFocusModel().focus(index);
     }
 
-    public void initialize() {
-        buttonApply.setDisable(true);
-        clubsColumn.setCellValueFactory(new PropertyValueFactory<>("opis"));
-        comboBoxClubs.getItems().addAll((new ClubModel()).findAll());
-        comboBoxClubs.getSelectionModel().selectedItemProperty().addListener ((observable, oldSelection, newSelection) -> {
-            Nauczyciele teacher = (new Teacher()).getTeacherById(newSelection.getIdNauczyciela());
-            clubTeacher.setText(teacher.getImie() + " " + teacher.getNazwisko() + "\n" + teacher.getEmail());
-            clubDescription.setText(newSelection.getOpis());
-            buttonApply.setDisable(false);
-        });
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        params.put("id", id);
+        if (mode.equals(Roles.STUDENT))
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else
+            Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
 }
