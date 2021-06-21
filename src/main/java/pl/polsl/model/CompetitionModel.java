@@ -28,6 +28,8 @@ public class CompetitionModel implements ManageDataBase {
         return results;
     }
 
+
+
     public List<Udzialwkonkursie> findByTeacher(Nauczyciele n)
     {
         entityManager = MyManager.getEntityManager();
@@ -42,6 +44,15 @@ public class CompetitionModel implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("udzialwkonkursie.findByCompetition", Udzialwkonkursie.class);
         query.setParameter("id", k.getID());
+        List<Udzialwkonkursie> results = query.getResultList();
+        return results;
+    }
+
+    public List<Udzialwkonkursie> findByCompetitionId(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("udzialwkonkursie.findByCompetition", Udzialwkonkursie.class);
+        query.setParameter("id", id);
         List<Udzialwkonkursie> results = query.getResultList();
         return results;
     }

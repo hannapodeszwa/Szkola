@@ -11,8 +11,10 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
+import pl.polsl.entities.Udzialwkonkursie;
 import pl.polsl.model.ClubModel;
 import pl.polsl.model.ClubParticipationModel;
+import pl.polsl.model.CompetitionModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.utils.WindowSize;
 
@@ -23,12 +25,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TeacherAssignStudentToCompetitionController implements ParametrizedController {
-    Integer clubId;
+    Integer competitionId;
     Integer loggedTeacherId;
 
     ObservableList<Klasy> classList;
     ObservableList<Uczniowie> studentsList;
-    List<Udzialwkole> studentAdded;
+    List<Udzialwkonkursie> studentAdded;
 
     @FXML
     private ComboBox<String> comboboxClass;
@@ -42,6 +44,8 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
     private Label infoLabel;
     @FXML
     private Button buttonAdd;
+    @FXML
+    private TextField achievementText;
 
 
 
@@ -64,7 +68,7 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
     @Override
     public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
-        clubId = (Integer) params.get("clubId");
+        competitionId = (Integer) params.get("competitionId");
 
         classList = FXCollections.observableList((new SchoolClass()).displayClass());
         if (!classList.isEmpty()) {
@@ -79,28 +83,29 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
         buttonAdd.setDisable(true);
         table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) tableListener);
 
-        studentAdded = (new ClubParticipationModel()).findByClub(clubId);
+        studentAdded = (new CompetitionModel()).findByCompetitionId(competitionId);
 
     }
 
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
+        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherClubForm);
     }
 
 
 
     public void clickButtonAdd() throws IOException {
         infoLabel.setText("");
-
+        String achievement = achievementText.getText();
         Integer uid = table.getSelectionModel().getSelectedItem().getID();
-        Udzialwkole parclub = new Udzialwkole();
-        parclub.setIdUcznia(uid);
-        parclub.setDataDolaczenia(new Date(System.currentTimeMillis()));
-        parclub.setIdKola(clubId);
-        (new ClubModel()).persist(parclub);
-        infoLabel.setText("Sukces! Uczeń został\nprzypisany do koła!");
+        Udzialwkonkursie parcomp = new Udzialwkonkursie();
+        parcomp.setIdUcznia(uid);
+        parcomp.setIdNauczyciela(loggedTeacherId);
+        parcomp.setOsiagniecie(achievement);
+        parcomp.setIdKonkursu(competitionId);
+        (new CompetitionModel()).persist(parcomp);
+        infoLabel.setText("Sukces! Uczeń został\nprzypisany do konkursu!");
     }
 
 
