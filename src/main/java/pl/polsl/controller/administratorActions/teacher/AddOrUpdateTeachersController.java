@@ -67,6 +67,8 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
             name.setText(toUpdate.getImie());
             name2.setText(toUpdate.getDrugieImie());
             surname.setText(toUpdate.getNazwisko());
+            email.setText(toUpdate.getEmail());
+            phone.setText(toUpdate.getNrKontaktowy());
         }
     }
 
