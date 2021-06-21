@@ -13,6 +13,7 @@ import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.Date;
@@ -22,43 +23,35 @@ import java.util.Map;
 
 public class MessengerController implements ParametrizedController {
 
+    @FXML
+    private TableColumn<Map, String> senderRColumn;
+    @FXML
+    private TableColumn<Map, String> topicRColumn;
+    @FXML
+    private TableColumn<Map, Date> dateRColumn;
+    @FXML
+    private TableColumn<Map, String> receiverSColumn;
+    @FXML
+    private TableColumn<Map, String> topicSColumn;
+    @FXML
+    private TableColumn<Map, Date> dateSColumn;
+    @FXML
+    private TabPane messagesTabPane;
+    @FXML
+    private TableView<Map<String, Object>> receivedTable;
+    @FXML
+    private TableView<Map<String, Object>> sentTable;
+
     private String previousLocation;
     private String role;
     private Integer id;
     private String login;
+    private String mode;
     private MessageModel messageModel;
     private List<Wiadomosci> receivedList;
     private List<Wiadomosci> sentList;
     private Boolean firstTabSelected;
     private UserModel userModel;
-
-    @FXML
-    private TableColumn<Map, String> senderRColumn;
-
-    @FXML
-    private TableColumn<Map, String> topicRColumn;
-
-    @FXML
-    private TableColumn<Map, Date> dateRColumn;
-
-    @FXML
-    private TableColumn<Map, String> receiverSColumn;
-
-    @FXML
-    private TableColumn<Map, String> topicSColumn;
-
-    @FXML
-    private TableColumn<Map, Date> dateSColumn;
-
-    @FXML
-    private TabPane messagesTabPane;
-
-    @FXML
-    private TableView<Map<String, Object>> receivedTable;
-
-    @FXML
-    private TableView<Map<String, Object>> sentTable;
-
 
     @FXML
     public void initialize() {
@@ -80,7 +73,7 @@ public class MessengerController implements ParametrizedController {
                     parameters.put("login", login);
                     parameters.put("type", "received");
                     try {
-                        Main.setRoot("common/viewMessageForm", parameters, 800.0, 450.0);
+                        Main.setRoot("common/viewMessageForm", parameters, WindowSize.messageForm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -104,7 +97,7 @@ public class MessengerController implements ParametrizedController {
                     parameters.put("login", login);
                     parameters.put("type", "sent");
                     try {
-                        Main.setRoot("common/viewMessageForm", parameters, 800.0, 450.0);
+                        Main.setRoot("common/viewMessageForm", parameters, WindowSize.viewMessageForm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -115,7 +108,7 @@ public class MessengerController implements ParametrizedController {
     }
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         senderRColumn.setCellValueFactory(new MapValueFactory<>("senderRColumn"));
         topicRColumn.setCellValueFactory(new MapValueFactory<>("topicRColumn"));
         dateRColumn.setCellValueFactory(new MapValueFactory<>("dateRColumn"));
@@ -132,6 +125,7 @@ public class MessengerController implements ParametrizedController {
         role = (String) params.get("role");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
+        mode = (String) params.get("mode");
         receivedList = messageModel.getReceivedMessagesByUserLogin(login);
         sentList = messageModel.getSentMessagesByUserLogin(login);
         displayReceivedMessages();
@@ -139,8 +133,25 @@ public class MessengerController implements ParametrizedController {
 
     public void backButtonAction() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("id", id);
-        Main.setRoot(previousLocation, params);
+         params.put("id", id);
+        params.put("login", login);
+        params.put("mode", mode);
+        WindowSize size;
+        switch (mode) {
+            case Roles.STUDENT:
+                size = WindowSize.studenMenuForm;
+                break;
+            case Roles.PARENT:
+                size = WindowSize.parentMenuForm;
+                break;
+            case Roles.TEACHER:
+                size = WindowSize.teacherMenuForm;
+                break;
+            default:
+                size = WindowSize.adminMenuForm;
+                break;
+        }
+        Main.setRoot(previousLocation, params, size);
     }
 
     public void newMessageButtonAction() throws IOException {
@@ -149,7 +160,8 @@ public class MessengerController implements ParametrizedController {
         parameters.put("role", role);
         parameters.put("id", id);
         parameters.put("login", login);
-        Main.setRoot("common/messageForm", parameters, 800.0, 450.0);
+        parameters.put("mode", mode);
+        Main.setRoot("common/messageForm", parameters, WindowSize.messagerForm);
     }
 
     public void refreshMessagesButtonAction() {

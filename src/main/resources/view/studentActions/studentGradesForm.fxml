@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="362.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentGradesController">
-   <children>
-       <TableView fx:id="table" layoutX="20.0" layoutY="46.0" prefHeight="257.0" prefWidth="486.0">
-         <columns>
-             <TableColumn fx:id="columnSubject" editable="false" prefWidth="150.0" text="Przedmiot" />
-             <TableColumn fx:id="columnGrade" editable="false" prefWidth="45.0" text="Ocena" />
-             <TableColumn fx:id="columnWeight" editable="false" prefWidth="45.0" text="Waga" />
-             <TableColumn fx:id="columnDate" editable="false" text="Data" />
-             <TableColumn fx:id="columnDescription" editable="false" prefWidth="150.0" sortable="false" text="Opis" />
-         </columns>
-       </TableView>
-       <Button fx:id="buttonBack" layoutX="406.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="100.0" text="Powrót" />
-       <ComboBox fx:id="comboboxChildren" layoutX="20.0" layoutY="317.0" onAction="#changeComboboxChildren" prefWidth="200.0" />
-      <Label layoutX="213.0" layoutY="10.0" prefWidth="100.0" style="-fx-alignment: Center;" text="Oceny">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane prefHeight="362.0" prefWidth="526.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pl.polsl.controller.studentActions.StudentGradesController">
+    <TableView fx:id="table" layoutX="20.0" layoutY="46.0" prefHeight="257.0" prefWidth="486.0">
+        <columns>
+            <TableColumn fx:id="columnSubject" editable="false" prefWidth="150.0" text="Przedmiot"/>
+            <TableColumn fx:id="columnGrade" editable="false" prefWidth="45.0" text="Ocena"/>
+            <TableColumn fx:id="columnWeight" editable="false" prefWidth="45.0" text="Waga"/>
+            <TableColumn fx:id="columnDate" editable="false" text="Data"/>
+            <TableColumn fx:id="columnDescription" editable="false" prefWidth="150.0" sortable="false" text="Opis"/>
+        </columns>
+    </TableView>
+    <Button layoutX="406.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0"
+            prefWidth="100.0" text="Powrót"/>
+    <ComboBox fx:id="comboboxChildren" layoutX="20.0" layoutY="317.0" onAction="#changeComboboxChildren"
+              prefWidth="200.0"/>
+    <Label layoutX="213.0" layoutY="10.0" prefWidth="100.0" style="-fx-alignment: Center;" text="Oceny">
+        <font>
+          <Font size="18.0"/>
+        </font>
+    </Label>
 </AnchorPane>

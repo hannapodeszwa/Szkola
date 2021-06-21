@@ -12,6 +12,7 @@ import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -64,7 +65,7 @@ public class TeacherClubController implements ParametrizedController {
     {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("menu/teacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {

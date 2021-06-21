@@ -6,15 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.*;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,76 +20,34 @@ import java.util.List;
 import java.util.Map;
 
 
-public class StudentPresenceController implements ParametrizedController {
+public class StudentAbsenceController implements ParametrizedController {
 
     @FXML
-    public TableView<Presentv2> table;
-    public TableColumn<Presentv2, Date> columnDate;
-    public TableColumn<Presentv2, String> columnHour;
-    public TableColumn<Presentv2, CheckBox> columnCheck;
-    public TableColumn<Presentv2, String> columnSubject;
-    public Button buttonBack;
-    public ComboBox<String> comboboxChildren;
-    public AnchorPane window;
+    private TableView<AbsenceComboBoxModel> table;
+    @FXML
+    private TableColumn<AbsenceComboBoxModel, Date> columnDate;
+    @FXML
+    private TableColumn<AbsenceComboBoxModel, String> columnHour;
+    @FXML
+    private TableColumn<AbsenceComboBoxModel, CheckBox> columnCheck;
+    @FXML
+    private TableColumn<AbsenceComboBoxModel, String> columnSubject;
+    @FXML
+    private ComboBox<String> comboboxChildren;
 
-    private StudentMenuController.md mode;
+    private String mode;
     private Integer id;
     private Integer id_child;
     private List<Nieobecnosci> list;
-    private final ObservableList<Presentv2> data = FXCollections.observableArrayList();
+    private final ObservableList<AbsenceComboBoxModel> data = FXCollections.observableArrayList();
     private ObservableList<Uczniowie> children;
-
-
-    private void setTable() {
-        list = (new Present()).displayPresent(id_child);
-
-        for (Nieobecnosci a : list) {
-            data.add(new Presentv2(a));
-        }
-
-        columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
-        columnCheck.setCellValueFactory(new PropertyValueFactory<>("czyUsp"));
-        columnSubject.setCellValueFactory(CellData -> {
-            Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();
-            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
-            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
-        });
-        columnHour.setCellValueFactory(CellData -> {
-            Integer idHour = CellData.getValue().getGodzina();
-            String nazwaPrzedmiotu = (new LessonTimeModel()).getNumberById(idHour).toString();
-            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
-        });
-
-        table.setItems(data);
-
-
-    }
-
-    private void saveData() {
-
-        for (Presentv2 a : data) {
-            if (a.Usp.isSelected() == (a.czyUsprawiedliwiona == 0)) {
-                for (Nieobecnosci find : list) {
-                    if (a.ID.equals(find.ID)) {
-                        if (a.Usp.isSelected()) {
-                            find.setCzyUsprawiedliwiona(1);
-                        } else {
-                            find.setCzyUsprawiedliwiona(0);
-                        }
-                        (new Present()).update(find);
-                        break;
-                    }
-                }
-            }
-        }
-    }
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
-        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
+        mode = (String) params.get("mode");
         id = (Integer) params.get("id");
 
-        if (mode == StudentMenuController.md.Parent) {
+        if (mode.equals(Roles.PARENT)) {
             children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
 
 
@@ -111,26 +67,52 @@ public class StudentPresenceController implements ParametrizedController {
             setTable();
         }
 
-        if (mode == StudentMenuController.md.Student) {//wyłączenie możliwości usprawiedliwiania dla ucznia
-            for (Presentv2 a : data)
+        if (mode.equals(Roles.STUDENT)) {//wyłączenie możliwości usprawiedliwiania dla ucznia
+            for (AbsenceComboBoxModel a : data)
                 a.Usp.setDisable(true);
         }
     }
 
+    private void setTable() {
+        list = (new AbsenceModel()).displayPresent(id_child);
 
-    public void clickButtonBack() throws IOException {
-        Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
-        params.put("id", id);
-        if (mode == StudentMenuController.md.Student)
-            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
-        else {
-            Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
-            saveData();
+        for (Nieobecnosci a : list) {
+            data.add(new AbsenceComboBoxModel(a));
         }
 
+        columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
+        columnCheck.setCellValueFactory(new PropertyValueFactory<>("czyUsp"));
+        columnSubject.setCellValueFactory(CellData -> {
+            Integer idPrzedmiotu = CellData.getValue().getPrzedmiotyId();
+            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
+            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
+        });
+        columnHour.setCellValueFactory(CellData -> {
+            Integer idHour = CellData.getValue().getGodzina();
+            String nazwaPrzedmiotu = (new LessonTimeModel()).getNumberById(idHour).toString();
+            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
+        });
+
+        table.setItems(data);
     }
 
+    private void saveData() {
+        for (AbsenceComboBoxModel a : data) {
+            if (a.Usp.isSelected() == (a.czyUsprawiedliwiona == 0)) {
+                for (Nieobecnosci find : list) {
+                    if (a.ID.equals(find.ID)) {
+                        if (a.Usp.isSelected()) {
+                            find.setCzyUsprawiedliwiona(1);
+                        } else {
+                            find.setCzyUsprawiedliwiona(0);
+                        }
+                        (new AbsenceModel()).update(find);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 
     public void changeComboboxChildren() {
         id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
@@ -138,5 +120,18 @@ public class StudentPresenceController implements ParametrizedController {
         list.clear();
         data.clear();
         setTable();
+    }
+
+    public void clickButtonBack() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        params.put("id", id);
+        if (mode.equals(Roles.STUDENT))
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+        else {
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
+            saveData();
+        }
+
     }
 }

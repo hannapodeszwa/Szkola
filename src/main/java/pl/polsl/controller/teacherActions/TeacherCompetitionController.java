@@ -11,11 +11,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Kolanaukowe;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Udzialwkole;
+import pl.polsl.entities.*;
 import pl.polsl.model.*;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,11 +23,11 @@ import java.util.Map;
 public class TeacherCompetitionController implements ParametrizedController {
     Integer loggedTeacherId;
 
-    ObservableList<Kolanaukowe> clubsList;
+    ObservableList<Konkursy> competitionsList;
     ObservableList<Uczniowie> studentList;
 
     @FXML
-    private ComboBox comboboxClubs;
+    private ComboBox comboboxCompetitions;
     @FXML
     private TableColumn<Uczniowie, String> columnStudent;
     @FXML
@@ -38,98 +36,119 @@ public class TeacherCompetitionController implements ParametrizedController {
     private TableView<Uczniowie> table;
     @FXML
     private Label infoLabel;
+    @FXML
+    private  Label descLabel;
+    @FXML
+    private Label dateLabel;
 
-    private void refreshClubList(){
-        if(clubsList.isEmpty()) {
+    private void refreshCompetitionList(){
+        comboboxCompetitions.getItems().clear();
+        competitionsList = FXCollections.observableArrayList(((new CompetitionModel()).findAll()));
+
+        if(competitionsList.isEmpty()) {
             ObservableList<String> emp = null;
-            emp.add("Brak kół zainteresowań");
-            comboboxClubs.setItems(emp);
+            emp.add("Brak konkursów");
+            comboboxCompetitions.setItems(emp);
+            dateLabel.setText("");
+            descLabel.setText("");
         } else {
-            for(Kolanaukowe knl : clubsList) {
-                comboboxClubs.getItems().add(knl.getOpis());
+
+            for(Konkursy knk : competitionsList) {
+                comboboxCompetitions.getItems().add(knk.getNazwa());
             }
-            comboboxClubs.getSelectionModel().select(0);
+            comboboxCompetitions.getSelectionModel().select(0);
+            refreshDesc(0);
             setParticipants(0);
         }
+
     }
     @Override
     public void receiveArguments(Map params) {
         loggedTeacherId = (Integer) params.get("id");
 
-        Nauczyciele n = (new Teacher()).getTeacherById(loggedTeacherId);
-        clubsList = FXCollections.observableArrayList((new ClubModel()).findByTeacher(n));
 
-        refreshClubList();
+        competitionsList = FXCollections.observableArrayList(((new CompetitionModel()).findAll()));
+
+        refreshCompetitionList();
 
         infoLabel.setText("");
+
+
+    }
+
+    private void refreshDesc (Integer index){
+        dateLabel.setText(competitionsList.get(index).getDataOdbyciaSie().toString());
+        descLabel.setText(competitionsList.get(index).getOpis());
     }
 
     public void clickButtonBack(ActionEvent event) throws IOException
     {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("menu/teacherMenuForm", params);
+        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
     }
 
     public void clickButtonAdd(ActionEvent event) throws IOException {
         Map params = new HashMap<String, String>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherAddNewClubForm", params);
+        Main.setRoot("teacherActions/teacherAddNewCompetitionForm", params);
     }
 
     public void clickButtonAssign(ActionEvent event) throws IOException {
         Map params = new HashMap<String, String>();
-        Integer tmpId = comboboxClubs.getSelectionModel().getSelectedIndex();
-        Kolanaukowe k =  clubsList.get(tmpId);
-        Integer clubId = k.getID();
+        Integer tmpId = comboboxCompetitions.getSelectionModel().getSelectedIndex();
+        Konkursy k =  competitionsList.get(tmpId);
+        Integer competitionID = k.getID();
         params.put("id", loggedTeacherId);
-        params.put("clubId", clubId);
-        Main.setRoot("teacherActions/teacherAssignStudentToClubForm", params);
+        params.put("competitionId", competitionID);
+        Main.setRoot("teacherActions/teacherAssignStudentToCompetitionForm", params);
     }
 
     public void clickButtonDelete() {
         if(studentList.isEmpty()){
-            Integer tmpId = comboboxClubs.getSelectionModel().getSelectedIndex();
-            Kolanaukowe k =  clubsList.get(tmpId);
-            (new ClubModel()).delete(k);
-            refreshClubList();
+            Integer tmpId = comboboxCompetitions.getSelectionModel().getSelectedIndex();
+            Konkursy k =  competitionsList.get(tmpId);
+            (new CompetitionModel()).delete(k);
+            refreshDesc(0);
+            competitionsList.clear();
+            refreshCompetitionList();
         } else {
-            infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem koła naukowego!");
+            infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem konkursu!");
         }
     }
 
     public void clickButtonUnassign() {
      /*   Oceny o = table.getSelectionModel().getSelectedItem();
         (new Grade()).delete(o); */
-        Integer tmpId = comboboxClubs.getSelectionModel().getSelectedIndex();
-        Kolanaukowe k =  clubsList.get(tmpId);
-        List<Udzialwkole> participantsList = (new ClubParticipationModel()).findByClub(k);
+        Integer tmpId = comboboxCompetitions.getSelectionModel().getSelectedIndex();
+        Konkursy k =  competitionsList.get(tmpId);
+        List<Udzialwkonkursie> participantsList = (new CompetitionModel()).findByCompetition(k);
 
         Integer uid = table.getSelectionModel().getSelectedItem().getID();
 
 
-        Udzialwkole tmp = participantsList.stream().filter(p -> p.getIdUcznia().equals(uid)).findAny().orElse(null);
+        Udzialwkonkursie tmp = participantsList.stream().filter(p -> p.getIdUcznia().equals(uid)).findAny().orElse(null);
         if(tmp != null) {
             
-            (new ClubParticipationModel()).delete(tmp);
+            (new CompetitionModel()).delete(tmp);
         }
         studentList.clear();
-        refreshClubList();
+        refreshCompetitionList();
         setParticipants(tmpId);
     }
 
-    public void changeComboboxClubs(ActionEvent event) throws IOException {
+    public void changeComboboxCompetitions(ActionEvent event) throws IOException {
         studentList.clear();
-        setParticipants(comboboxClubs.getSelectionModel().getSelectedIndex());
+        Integer index = comboboxCompetitions.getSelectionModel().getSelectedIndex();
+        refreshDesc(index);
+        setParticipants(index);
     }
 
     private void setParticipants(int index) {
 
-        Integer clubId = clubsList.get(index).getID();
+        Integer competitionId = competitionsList.get(index).getID();
 
-        studentList = FXCollections.observableArrayList((new Student()).getStudentInClub(clubId));
-
-   //     System.out.println(clubId + " " + studentList.get(0).getImie());
+        studentList = FXCollections.observableArrayList((new Student()).getStudentInCompetition(competitionId));
 
         columnClass.setCellValueFactory(CellData -> new SimpleStringProperty((new SchoolClass()).getClassById(CellData.getValue().getIdKlasy()).getNumer()));
         columnStudent.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie() + " " + CellData.getValue().getNazwisko()));

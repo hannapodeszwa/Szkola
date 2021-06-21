@@ -4,48 +4,60 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import pl.polsl.controller.*;
+import pl.polsl.model.UserModel;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application {
     private static Scene scene;
     private static Stage stage;
-    private static double defaultWidth = 600;
-    private static double defaultHeight =600;
+    private static final double defaultWidth = 600;
+    private static final double defaultHeight =600;
+    private static double xPosition;
+    private static double yPosition;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage=primaryStage;
-        scene = new Scene(loadFXML("common/signIn"), defaultWidth, defaultHeight);
+        scene = new Scene(loadFXML("common/signIn"), WindowSize.signIn.getWidth()-15,WindowSize.signIn.getHeight()-40);
         primaryStage.setTitle("Szkola");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        stage.initStyle(StageStyle.UTILITY);
         primaryStage.show();
     }
 
-    public static void setRoot(String fxml, Map params, double... size) throws IOException {
+    public static void setRoot(String fxml, Map<String, Object> params, double... size) throws IOException {
+        getPosition();
         scene.setRoot(loadFXML(fxml, params));
         resizeScene(size);
+        setPosition();
     }
     public static void setRoot(String fxml,double... size) throws IOException {
+        getPosition();
         scene.setRoot(loadFXML(fxml));
         resizeScene(size);
+        setPosition();
     }
 
-    public static void setRoot(String fxml, Map params, WindowSize size) throws IOException {
+    public static void setRoot(String fxml, Map<String, Object> params, WindowSize size) throws IOException {
+        getPosition();
         scene.setRoot(loadFXML(fxml, params));
         resizeScene(size);
+        setPosition();
     }
     public static void setRoot(String fxml, WindowSize size) throws IOException {
+        getPosition();
         scene.setRoot(loadFXML(fxml));
         resizeScene(size);
+        setPosition();
     }
 
     public static void resizeScene(double[] size) {
@@ -56,6 +68,19 @@ public class Main extends Application {
             stage.setWidth(defaultWidth);
             stage.setHeight(defaultHeight);
          }
+    }
+
+    public static void getPosition() {
+//        xPosition = scene.getWidth()/2;
+//        yPosition = scene.getHeight()/2;
+    }
+
+    public static void setPosition(){
+//        double a = xPosition - stage.getWidth();
+//        double b = yPosition - stage.getHeight();
+//        stage.setX(stage.getX()  + a/2);
+//        stage.setY(stage.getY() + b/2);
+//        Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, xPosition + ", " + yPosition+ " -> " + stage.getX() + ", " + stage.getY());
     }
 
     public static void resizeScene(WindowSize size) {
@@ -69,7 +94,7 @@ public class Main extends Application {
         return fxmlLoader.load();
     }
 
-    private static Parent loadFXML(String fxml, Map params) throws IOException {
+    private static Parent loadFXML(String fxml, Map<String, Object> params) throws IOException {
         URL url = Main.class.getResource("/view/" + fxml + ".fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(url);
         Parent ret = fxmlLoader.load();

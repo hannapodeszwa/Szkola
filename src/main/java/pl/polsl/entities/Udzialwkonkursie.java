@@ -10,7 +10,9 @@ import java.io.Serializable;
         @NamedQuery(name = "udzialwkonkursie.findByBoth",
                 query = "SELECT u FROM Udzialwkonkursie u WHERE u.idUcznia = :studentID AND u.idKonkursu = :competitionID"),
         @NamedQuery(name = "udzialwkonkursie.findByTeacher",
-                query = "SELECT u FROM Udzialwkonkursie u WHERE u.idNauczyciela = :id")
+                query = "SELECT u FROM Udzialwkonkursie u WHERE u.idNauczyciela = :id"),
+        @NamedQuery(name = "udzialwkonkursie.findByCompetition",
+                query = "SELECT u FROM Udzialwkonkursie u WHERE u.idKonkursu = :id")
 })
 @Table(name = "udzialwkonkursie")
 public class Udzialwkonkursie implements Serializable {

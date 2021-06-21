@@ -28,12 +28,41 @@ public class CompetitionModel implements ManageDataBase {
         return results;
     }
 
+
+
     public List<Udzialwkonkursie> findByTeacher(Nauczyciele n)
     {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("udzialwkonkursie.findByTeacher", Udzialwkonkursie.class);
         query.setParameter("id", n.getID());
         List<Udzialwkonkursie> results = query.getResultList();
+        return results;
+    }
+
+    public List<Udzialwkonkursie> findByCompetition(Konkursy k)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("udzialwkonkursie.findByCompetition", Udzialwkonkursie.class);
+        query.setParameter("id", k.getID());
+        List<Udzialwkonkursie> results = query.getResultList();
+        return results;
+    }
+
+    public List<Udzialwkonkursie> findByCompetitionId(Integer id)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("udzialwkonkursie.findByCompetition", Udzialwkonkursie.class);
+        query.setParameter("id", id);
+        List<Udzialwkonkursie> results = query.getResultList();
+        return results;
+    }
+
+    public List<Konkursy> findCompetitionsByTeacher(Nauczyciele n)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("Konkursy.findByTeacher", Konkursy.class);
+        query.setParameter("id", n.getID());
+        List<Konkursy> results = query.getResultList();
         return results;
     }
 

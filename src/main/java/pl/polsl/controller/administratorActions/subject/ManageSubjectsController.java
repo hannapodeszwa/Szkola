@@ -113,10 +113,10 @@ public class ManageSubjectsController{
 
     private void deleteAbsence(Przedmioty toDelete)
     {
-        List<Nieobecnosci> absenceList = (new Present()).findBySubject(toDelete);
+        List<Nieobecnosci> absenceList = (new AbsenceModel()).findBySubject(toDelete);
         if(!(absenceList.isEmpty())) {
             for (Nieobecnosci n: absenceList) {
-                (new Present()).delete(n);
+                (new AbsenceModel()).delete(n);
             }
         }
     }

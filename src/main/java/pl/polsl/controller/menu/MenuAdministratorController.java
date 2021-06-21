@@ -73,7 +73,7 @@ public class MenuAdministratorController {
 
     public void pressLogOutButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("common/signIn");
+        Main.setRoot("common/signIn", WindowSize.signIn);
     }
 
     public void pressDeleteUnusedButton(ActionEvent actionEvent) {

@@ -33,6 +33,13 @@ public class LessonTimeModel implements ManageDataBase {
         return (Integer) query.getSingleResult();
     }
 
+    public GodzinyLekcji getById(Integer id) {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("godzinyLekcji.getById", GodzinyLekcji.class);
+        query.setParameter("id", id);
+        return (GodzinyLekcji) query.getSingleResult();
+    }
+
     public List<GodzinyLekcji> getTime(){
 
         entityManager = MyManager.getEntityManager();

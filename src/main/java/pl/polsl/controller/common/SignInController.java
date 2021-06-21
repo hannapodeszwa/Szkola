@@ -1,8 +1,6 @@
 package pl.polsl.controller.common;
 
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
@@ -18,31 +16,21 @@ import java.util.Map;
 
 public class SignInController {
 
-    private UserModel userModel;
-
     @FXML
     private TextField loginTextField;
-
     @FXML
     private PasswordField passwordTextField;
-
     @FXML
     private Label errorLabel;
 
-    private Parent parent;
-    private Scene scene;
-    private Map params = new HashMap<String, String>();
+    private UserModel userModel;
 
     @FXML
     public void initialize() {
         userModel = new UserModel();
-        loginTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
+        loginTextField.textProperty().addListener((observable -> errorLabel.setText("")));
 
-        passwordTextField.textProperty().addListener((observable -> {
-            errorLabel.setText("");
-        }));
+        passwordTextField.textProperty().addListener((observable -> errorLabel.setText("")));
     }
 
     public void signInAction() throws IOException {
@@ -52,30 +40,27 @@ public class SignInController {
             Uzytkownicy user = userModel.getUserByLoginAndPassword(login, password);
 
             if (user != null) {
+                Map<String, Object> params = new HashMap<>();
                 switch (user.getDostep()) {
                     case Roles.STUDENT:
-                        params = new HashMap<String, String>();
-                        params.put("mode", "Student");
+                        params.put("mode", Roles.STUDENT);
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
                         break;
                     case Roles.TEACHER:
-                        params = new HashMap<String, String>();
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
-                        Main.setRoot("menu/teacherMenuForm", params);
+                        Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
                         break;
                     case Roles.PARENT:
-                        params = new HashMap<String, String>();
-                        params.put("mode", "Parent");
+                        params.put("mode", Roles.PARENT);
                         params.put("id", user.getID());
                         params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
                         break;
                     case Roles.ADMIN:
-                        Main.setRoot("menu/adminMenuForm",
-                                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+                        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
                         break;
                 }
             } else errorLabel.setText("Błedny login lub hasło");
@@ -84,7 +69,7 @@ public class SignInController {
     }
 
     public void resetPasswordAction() throws Exception {
-        Main.setRoot("common/resetPasswordForm");
+        Main.setRoot("common/resetPasswordForm", WindowSize.resetPasswordForm);
     }
 
     public void textChanged() {

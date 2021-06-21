@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-public class Present implements ManageDataBase {
+public class AbsenceModel implements ManageDataBase {
 
 
     EntityManager entityManager;

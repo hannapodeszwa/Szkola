@@ -7,7 +7,9 @@ import java.sql.Date;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Konkursy.findAll", query = "SELECT k FROM Konkursy k"),
-        @NamedQuery(name = "Konkursy.findByStudent", query = "SELECT k FROM Konkursy k JOIN Udzialwkonkursie u ON k.ID = u.idKonkursu WHERE u.idUcznia = :id")
+        @NamedQuery(name = "Konkursy.findByStudent", query = "SELECT k FROM Konkursy k JOIN Udzialwkonkursie u ON k.ID = u.idKonkursu WHERE u.idUcznia = :id"),
+        @NamedQuery(name = "Konkursy.findByTeacher", query = "SELECT DISTINCT k FROM Konkursy k JOIN Udzialwkonkursie u ON k.ID = u.idKonkursu WHERE u.idNauczyciela = :id")
+
 })
 @Table(name = "konkursy")
 public class Konkursy implements Serializable {

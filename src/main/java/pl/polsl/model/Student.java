@@ -93,6 +93,16 @@ public class Student implements ManageDataBase {
 
     }
 
+    public List getStudentInCompetition(Integer Id){
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.getStudentInCompetition", Uczniowie.class);
+        query.setParameter("idKonkursu", Id);
+        List<Uczniowie> result = query.getResultList();
+        return result;
+
+
+    }
+
 
     /*public Nauczyciele getStudentByName(String s)
     {

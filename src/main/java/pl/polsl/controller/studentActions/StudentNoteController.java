@@ -3,21 +3,20 @@ package pl.polsl.controller.studentActions;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Nieobecnosci;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uwagi;
-import pl.polsl.model.*;
+import pl.polsl.model.NoteModel;
+import pl.polsl.model.Student;
+import pl.polsl.model.Teacher;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
@@ -37,18 +36,18 @@ public class StudentNoteController implements ParametrizedController {
     @FXML
     private ComboBox<String>  comboboxChildren;
 
-    private StudentMenuController.md mode;
+    private String mode;
     private Integer id;
     private Integer id_child;
     private ObservableList<Uczniowie> children;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
-        mode = StudentMenuController.md.valueOf((String) params.get("mode"));
+        mode = (String) params.get("mode");
         id = (Integer) params.get("id");
 
 
-        if (mode == StudentMenuController.md.Parent) {
+        if (mode.equals(Roles.PARENT)) {
             children = FXCollections.observableArrayList((new Student()).getParentsChildren(id));
 
 
@@ -74,7 +73,7 @@ public class StudentNoteController implements ParametrizedController {
     }
 
     public String wrapString(String wraping,Integer wid){
-        Integer width = wid-10;
+        Integer width = wid-15;
         if(getWitdh(wraping) < width) {
             return wraping;
         }
@@ -134,9 +133,9 @@ public class StudentNoteController implements ParametrizedController {
 
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", mode.toString());
+        params.put("mode", mode);
         params.put("id", id);
-        if (mode == StudentMenuController.md.Student)
+        if (mode.equals(Roles.STUDENT))
             Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
         else
             Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
