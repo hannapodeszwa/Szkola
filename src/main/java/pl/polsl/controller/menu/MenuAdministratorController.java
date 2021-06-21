@@ -49,7 +49,7 @@ public class MenuAdministratorController {
     public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {
         Map params = new HashMap<String, String>();
-        params.put("mode", "Admin");
+        params.put("mode", "admin");
         //params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
