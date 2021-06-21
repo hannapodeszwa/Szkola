@@ -19,7 +19,9 @@ import java.io.Serializable;
         @NamedQuery(name = "uczniowie.findByParentsId", query = "SELECT u FROM Uczniowie u JOIN Rodzicielstwo r ON r.idUcznia=u.ID WHERE r.idRodzica= :id"),
         @NamedQuery(name = "uczniowie.getStudentInClass", query = "SELECT u FROM Uczniowie u WHERE u.idKlasy = :id"),
         @NamedQuery(name = "uczniowie.getStudentInClub",
-                query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkole p ON p.idUcznia = u.ID WHERE p.idKola = :idKola")
+                query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkole p ON p.idUcznia = u.ID WHERE p.idKola = :idKola"),
+        @NamedQuery(name = "uczniowie.getStudentInCompetition",
+                query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkonkursie p ON p.idUcznia = u.ID WHERE p.idKonkursu = :idKonkursu")
 })
 public class Uczniowie implements Serializable {
 
