@@ -2,6 +2,7 @@ package pl.polsl.controller.administratorActions.parent;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +54,37 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     @FXML
     public void initialize()
     {
-       // displayStudents();
         name.textProperty().addListener(TextListener);
         surname.textProperty().addListener(TextListener);
         email.textProperty().addListener(TextListener);
         disableButton();
+
+        checkPhone();
+    }
+
+    private boolean checkEmail()
+    {
+        boolean result = true;
+        try {
+            InternetAddress emailAddr = new InternetAddress(email.getText());
+            emailAddr.validate();
+        } catch (AddressException ex) {
+            result = false;
+        }
+        return result;
+    }
+
+    private void checkPhone()
+    {
+        phone.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d | \\+ | \\- | \\( | \\)*")) {
+                    phone.setText(newValue.replaceAll("[^\\d & ^\\+ & ^\\- &^\\( & ^\\) *)]", ""));
+                }
+            }
+        });
     }
 
     private void disableButton()
@@ -143,7 +172,11 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         if (mode == AddOrUpdateParentController.md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Rodzice r = new Rodzice();
-            setNewValues(r);
+            if(!setNewValues(r))
+            {
+                wrongEmailAlert();
+                return;
+            }
 
             (new ParentModel()).persist(r);
             setNewValues(u, r.getImie(), r.getNazwisko(), r.getID());
@@ -151,12 +184,25 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             addChildren(r);
 
         } else if (mode == md.Update) {
-            setNewValues(toUpdate);
+            if(!setNewValues(toUpdate))
+            {
+                wrongEmailAlert();
+                return;
+            }
             (new ParentModel()).update(toUpdate);
             addChildren(toUpdate);
         }
         Main.setRoot("administratorActions/parent/manageParentsForm",
                 WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
+    }
+
+    private void wrongEmailAlert()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Niepoprawny email");
+        alert.setHeaderText("Niepoprawny format emaila!!!");
+        alert.setContentText(null);
+        alert.showAndWait();
     }
 
     private void deleteChildren()
@@ -189,14 +235,18 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         }
     }
 
-    private void setNewValues(Rodzice r)
+    private boolean setNewValues(Rodzice r)
     {
         r.setImie((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
         r.setDrugieImie((name2.getText().length() >= 45 ? name2.getText().substring(0,45) : name2.getText()));
         r.setNazwisko((surname.getText().length() >= 45 ? surname.getText().substring(0,45) : surname.getText()));
         r.setNrKontaktowy((phone.getText().length() >= 20 ? phone.getText().substring(0,20) : phone.getText()));
         r.setEmail((email.getText().length() >= 45 ? email.getText().substring(0,45) : email.getText()));
-        r.setAdres((adress.getText().length() >= 45 ? adress.getText().substring(0,45) : adress.getText()));
+        if(checkEmail())
+            r.setAdres((adress.getText().length() >= 45 ? adress.getText().substring(0,45) : adress.getText()));
+        else
+            return false;
+        return true;
     }
 
     private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
