@@ -22,6 +22,8 @@ import java.util.*;
 
 public class TeacherAbsenceController implements ParametrizedController {
 
+    public enum dayOrder{pon, wto, sro, czw, pia};
+
     @FXML
     public TableView<Nieobecnosci> table;
     public TableColumn<Nieobecnosci, String> columnExcuse;
@@ -29,15 +31,15 @@ public class TeacherAbsenceController implements ParametrizedController {
     public TableColumn<Nieobecnosci, String> columnLessonStart;
     public TableColumn<Nieobecnosci, String> columnLessonEnd;
     public TableColumn<Nieobecnosci, String> columnSubject;
-    public ComboBox<String> comboboxClass;
+    public ComboBox<String> comboboxSchedule;
     public ComboBox<String> comboboxStudent;
-    public ComboBox<String> comboboxSubject;
+  //  public ComboBox<String> comboboxSubject;
     public Button buttonDelete;
     public Button buttonAdd;
     public Button buttonBack;
 
     Integer id;
-    List<Klasy> classList;
+    ObservableList<Rozklady> scheduleList;
     ObservableList<Uczniowie> studentList;
 
     ObservableList<Nieobecnosci> absenceList;
@@ -45,15 +47,33 @@ public class TeacherAbsenceController implements ParametrizedController {
     @Override
     public void receiveArguments(Map params) {
         id = (Integer) params.get("id");
-        classList = (new Teacher()).checkTeacherClasses(id);
+        scheduleList = FXCollections.observableList((new ScheduleModel()).findByTeacher(id));
 
 
+        Comparator<Rozklady> byLesson = new Comparator<Rozklady>() {
+            @Override
+            public int compare(Rozklady r1, Rozklady r2) {
 
-        if(!classList.isEmpty()) {
-            for (Klasy cl : classList) {
-                comboboxClass.getItems().add(cl.getNumer());
+
+                if(dayOrder.valueOf(r1.getDzien()).compareTo(dayOrder.valueOf(r2.getDzien())) > 0){
+                    return 1;
+                } else if (dayOrder.valueOf(r1.getDzien()).equals(dayOrder.valueOf(r2.getDzien()))){
+                    return r1.getGodzina() - r2.getGodzina();
+                } else {
+                    return 0;
+                }
             }
-            comboboxClass.getSelectionModel().select(0);
+        };
+        scheduleList = scheduleList.sorted(byLesson);
+
+        if(!scheduleList.isEmpty()) {
+            for (Rozklady r : scheduleList) {
+                String date = r.getDzien();
+                String lesson = r.getGodzina().toString();
+                String subject = (new Subject()).getSubjectById(r.getIdPrzedmiotu()).getNazwa();
+                comboboxSchedule.getItems().add(date + " " + lesson + " " + subject);
+            }
+            comboboxSchedule.getSelectionModel().select(0);
             setStudents(0);
             setAbsence(0);
         }
@@ -86,15 +106,17 @@ public class TeacherAbsenceController implements ParametrizedController {
         params.put("teacherId", id);
 
         Integer studentIndex = comboboxStudent.getSelectionModel().getSelectedIndex();
+        Integer scheduleIndex = comboboxStudent.getSelectionModel().getSelectedIndex();
 
 
         params.put("student", studentList.get(studentIndex));
-
+        params.put("subject", (new Subject()).getSubjectById(scheduleList.get(scheduleIndex).getIdPrzedmiotu()));
+params.put("lesson", scheduleList.get(scheduleIndex).getGodzina());
         Main.setRoot("teacherActions/teacherAddNewAbsenceForm", params, WindowSize.teacherAddNewGradeForm);
     }
 
     void setStudents(Integer index){
-        studentList = FXCollections.observableArrayList((new Student()).getStudentInClass(classList.get(index).getID()));
+        studentList = FXCollections.observableArrayList((new Student()).getStudentInClass(scheduleList.get(index).getIdKlasy()));
         if(!studentList.isEmpty()){
             for (Uczniowie student : studentList) {
                 comboboxStudent.getItems().add(student.getImie()+" " + student.getNazwisko());
@@ -103,10 +125,10 @@ public class TeacherAbsenceController implements ParametrizedController {
         }
     }
 
-    public void changeComboboxClass() {
+    public void changeComboboxSchedule() {
         studentList.clear();
         comboboxStudent.getItems().clear();
-        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        setStudents(comboboxSchedule.getSelectionModel().getSelectedIndex());
     }
 
 
