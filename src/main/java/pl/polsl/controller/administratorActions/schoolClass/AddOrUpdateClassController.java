@@ -39,11 +39,20 @@ public class AddOrUpdateClassController  implements ParametrizedController {
     @FXML
     public void initialize()
     {
-        displayStudents();
         displayTeachers();
         name.textProperty().addListener(TextListener);
 
         disableButton();
+    }
+
+    private void displayStudentsByClass()
+    {
+        leader.getItems().add(null);
+        Student student = new Student();
+        students = student.getStudentInClass(toUpdate.getID());
+        for (Uczniowie u : students) {
+            leader.getItems().add(u.getImie() + " " + u.getNazwisko());
+        }
     }
 
     private void displayStudents()
@@ -78,6 +87,8 @@ private void disableButton()
         {
             mode = md.Add;
             title.setText("Dodawanie klasy:");
+
+            displayStudents();
         }
         else {
             mode = md.Update;
@@ -91,6 +102,7 @@ private void disableButton()
                 Uczniowie selectedLeader = (new Student()).getStudentById(toUpdate.getIdPrzewodniczacego());
                 leader.getSelectionModel().select(selectedLeader.getImie() + " " + selectedLeader.getNazwisko());
             }
+            displayStudentsByClass();
         }
 
         if (toUpdate != null) {
@@ -128,7 +140,7 @@ private void disableButton()
 
         int leaderIndex = leader.getSelectionModel().getSelectedIndex()-1;
         Uczniowie selectedLeader  = null;
-        if(tutorIndex>=0)
+        if(leaderIndex>=0)
         {
             selectedLeader = students.get(leaderIndex);
             k.setIdPrzewodniczacego(selectedLeader.getID());

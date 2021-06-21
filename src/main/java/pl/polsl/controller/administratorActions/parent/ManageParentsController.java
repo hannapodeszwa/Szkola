@@ -1,7 +1,9 @@
 package pl.polsl.controller.administratorActions.parent;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -37,14 +39,47 @@ public class ManageParentsController implements ManageDataBase {
     @FXML
     private ListView children;
 
+    @FXML
+    private TextField searchT;
+    @FXML
+    private ComboBox searchC;
+
     private String login;
+    private ObservableList<Rodzice> parents;
 
 
     @FXML
     public void initialize()
     {
         displayTableParents();
+        displayCategories();
         changeLabels();
+        search();
+
+    }
+
+    private void search()
+    {
+        FilteredList<Rodzice> filter = new FilteredList(parents, p -> true);//Pass the data to a filtered list
+        tableParents.setItems(filter);//Set the table's items using the filtered list
+        searchC.setValue("Nazwisko");
+
+        searchT.textProperty().addListener((obs, oldValue, newValue) -> {
+            switch (searchC.getValue().toString())
+            {
+                case "Imię":
+                    filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                    break;
+                case "Nazwisko":
+                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    break;
+            }
+        });
+    }
+    private void displayCategories()
+    {
+        searchC.getItems().add("Imię");
+        searchC.getItems().add("Nazwisko");
     }
 
     private void changeLabels()
@@ -82,6 +117,7 @@ public class ManageParentsController implements ManageDataBase {
         tableParents.getItems().clear();
         ParentModel p = new ParentModel();
         List l=p.getAllParents();
+        parents = FXCollections.observableArrayList(l);
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
