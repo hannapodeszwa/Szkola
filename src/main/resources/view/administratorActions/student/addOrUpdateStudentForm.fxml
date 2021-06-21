@@ -10,7 +10,7 @@
       <TextField fx:id="poleImie" layoutX="156.0" layoutY="37.0" promptText="wymagane" />
       <TextField fx:id="poleDrugieImie" layoutX="156.0" layoutY="84.0" />
       <TextField fx:id="poleNazwisko" layoutX="156.0" layoutY="127.0" promptText="wymagane" />
-      <TextField fx:id="poleMail" layoutX="156.0" layoutY="170.0" promptText="wymagane" />
+      <TextField fx:id="poleMail" layoutX="156.0" layoutY="170.0" promptText="" />
       <TextField fx:id="poleAdres" layoutX="156.0" layoutY="213.0" />
       <Label layoutX="73.0" layoutY="41.0" text="Imie:" />
       <Label layoutX="61.0" layoutY="131.0" text="Nazwisko:" />
