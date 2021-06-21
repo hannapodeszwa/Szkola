@@ -14,12 +14,21 @@ import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.*;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 import pl.polsl.view.NotificationsInterface;
-
 import java.io.IOException;
 import java.util.*;
 
 public class MessageController implements ParametrizedController, NotificationsInterface {
+
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private TextField receiverTextField;
+    @FXML
+    private TextField topicTextField;
+    @FXML
+    private TextArea messageTextArea;
 
     private String previousLocation;
     private String role;
@@ -31,22 +40,8 @@ public class MessageController implements ParametrizedController, NotificationsI
     private Teacher teacherModel;
     private UserModel userModel;
     private MessageModel messageModel;
-    private AutoCompletionBinding<String> autoCompletionBinding;
     private Boolean receiverSet;
-
     private Set<String> suggestionsSet;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private TextField receiverTextField;
-
-    @FXML
-    private TextField topicTextField;
-
-    @FXML
-    private TextArea messageTextArea;
 
     @FXML
     public void initialize() {
@@ -66,7 +61,7 @@ public class MessageController implements ParametrizedController, NotificationsI
     }
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         previousLocation = (String) params.get("previousLocation");
         role = (String) params.get("role");
         id = (Integer) params.get("id");
@@ -81,10 +76,8 @@ public class MessageController implements ParametrizedController, NotificationsI
         }
 
         createSuggestions();
-        autoCompletionBinding = TextFields.bindAutoCompletion(receiverTextField, suggestionsSet);
-        autoCompletionBinding.setOnAutoCompleted(event -> {
-            receiverSet = true;
-        });
+        AutoCompletionBinding<String> autoCompletionBinding = TextFields.bindAutoCompletion(receiverTextField, suggestionsSet);
+        autoCompletionBinding.setOnAutoCompleted(event -> receiverSet = true);
     }
 
     public void cancelButtonAction() throws IOException {
@@ -160,7 +153,7 @@ public class MessageController implements ParametrizedController, NotificationsI
         parameters.put("id", id);
         parameters.put("login", login);
         parameters.put("mode", mode);
-        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+        Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 
 }

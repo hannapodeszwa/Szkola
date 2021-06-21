@@ -13,6 +13,7 @@ import pl.polsl.model.*;
 import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.model.email.VerificationCodesGenerator;
 import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,6 +25,19 @@ import static pl.polsl.utils.EmailMessages.*;
 
 public class ResetPasswordController {
 
+    @FXML
+    private TextField loginTextField;
+    @FXML
+    private TextField emailTextField;
+    @FXML
+    private Button sendVerificationMailButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private ProgressIndicator sendingProgressBar;
+
     private Boolean loginSet = false;
     private Boolean emailSet = false;
     private Boolean foundMail = false;
@@ -34,25 +48,6 @@ public class ResetPasswordController {
     private ParentModel parentModel;
     private Student studentModel;
     private Teacher teacherModel;
-
-    @FXML
-    private TextField loginTextField;
-
-    @FXML
-    private TextField emailTextField;
-
-    @FXML
-    private Button sendVerificationMailButton;
-
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private ProgressIndicator sendingProgressBar;
-
 
     @FXML
     public void initialize() {
@@ -93,16 +88,16 @@ public class ResetPasswordController {
                     }
                 }
                 if (!foundMail) {
-                    errorLabel.setText("Login and email do not match.");
+                    errorLabel.setText("Login i e-mail nie są poprawne.");
                 }
             }
         } else {
-            errorLabel.setText("Login does not exist.");
+            errorLabel.setText("Taki login nie istnieje");
         }
     }
 
     public void cancelAction() throws IOException {
-        Main.setRoot("common/signIn");
+        Main.setRoot("common/signIn", WindowSize.signIn);
     }
 
     private void prepareVerification(Uzytkownicy user) {
@@ -127,7 +122,7 @@ public class ResetPasswordController {
                         params.put("login", loginTextField.getText());
                         params.put("role", user.getDostep());
                         params.put("id", user.getID());
-                        Main.setRoot("common/changePasswordForm", params);
+                        Main.setRoot("common/changePasswordForm", params, WindowSize.changePasswordForm);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -139,9 +134,7 @@ public class ResetPasswordController {
                 sendVerificationMailButton.setDisable(false);
                 sendingProgressBar.setVisible(false);
                 verificationCodesModel.removeVerificationCodeByLogin(loginTextField.getText());
-                Platform.runLater(() -> {
-                    errorLabel.setText("Cannot send an email! Check your connection.");
-                });
+                Platform.runLater(() -> errorLabel.setText("Nie można wysłać e-maila! Sprawdź swoje połączenie."));
             }
         }).start();
     }

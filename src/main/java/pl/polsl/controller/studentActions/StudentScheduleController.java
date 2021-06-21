@@ -72,7 +72,7 @@ public class StudentScheduleController implements ParametrizedController {
         if (comboBoxClassroom.getSelectionModel().getSelectedItem() != null &&
                 comboBoxClassroom.getSelectionModel().getSelectedItem().getLiczbaMiejsc() <
                 (new SchoolClass()).getStudentsByClass(comboboxClasses.getSelectionModel().getSelectedItem()).size()) {
-            problems += "Wybrana sala jest za mała\n";
+            problems += "Wybrana sala jest za mała. ";
         }
 
         //If the classroom has another lesson at the same time
@@ -83,7 +83,7 @@ public class StudentScheduleController implements ParametrizedController {
                                         && s.getDzien().equals(selected.getDzien())
                                         && !s.getIdKlasy().equals(selected.getIdKlasy())
                         )) {
-            problems += "Wybrana sala jest już zajęta\n";
+            problems += "Wybrana sala jest już zajęta. ";
         }
 
         //If the teacher has another lesson at the same time
@@ -94,7 +94,7 @@ public class StudentScheduleController implements ParametrizedController {
                                         && r.getDzien().equals(selected.getDzien())
                                         && !r.getIdKlasy().equals(selected.getIdKlasy())
                         )) {
-            problems += "Wybrany nauczyciel prowadzi w tym czasie inne zajęcia\n";
+            problems += "Wybrany nauczyciel prowadzi w tym czasie inne zajęcia.";
         }
         warnings.setText(problems);
     }

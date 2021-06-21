@@ -38,10 +38,10 @@ public class TeacherMenuController implements ParametrizedController {
     public void clickButtonMessages() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", "menu/teacherMenuForm");
-        parameters.put("role", Roles.TEACHER);
+        parameters.put("mode", Roles.TEACHER);
         parameters.put("id", id);
         parameters.put("login", login);
-        Main.setRoot("common/messengerForm", parameters, 800.0, 450.0);
+        Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 
     public void clickButtonSchedule() throws IOException {
@@ -70,7 +70,7 @@ public class TeacherMenuController implements ParametrizedController {
     }
 
     public void clickButtonLogout() throws IOException {
-        Main.setRoot("common/signIn");
+        Main.setRoot("common/signIn", WindowSize.signIn);
     }
 
 
