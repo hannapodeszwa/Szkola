@@ -1,7 +1,9 @@
 package pl.polsl.controller.administratorActions.teacher;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -34,12 +36,46 @@ public class ManageTeachersController {
     @FXML
     private Label phone;
 
+    @FXML
+    private TextField searchT;
+    @FXML
+    private ComboBox searchC;
+
     private String login;
+
+    private ObservableList<Rodzice> teachers;
+
     @FXML
     public void initialize()
     {
         displayTableTeachers();
         changeLabels();
+        displayCategories();
+        search();
+    }
+
+    private void search()
+    {
+        FilteredList<Nauczyciele> filter = new FilteredList(teachers, p -> true);
+        tableTeachers.setItems(filter);
+        searchC.setValue("Nazwisko");
+
+        searchT.textProperty().addListener((obs, oldValue, newValue) -> {
+            switch (searchC.getValue().toString())
+            {
+                case "Imię":
+                    filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                    break;
+                case "Nazwisko":
+                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    break;
+            }
+        });
+    }
+    private void displayCategories()
+    {
+        searchC.getItems().add("Imię");
+        searchC.getItems().add("Nazwisko");
     }
 
     public void displayTableTeachers()
@@ -47,6 +83,7 @@ public class ManageTeachersController {
         tableTeachers.getItems().clear();
         Teacher t = new Teacher();
         List l=t.getAllTeachers();
+        teachers = FXCollections.observableArrayList(l);
 
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));

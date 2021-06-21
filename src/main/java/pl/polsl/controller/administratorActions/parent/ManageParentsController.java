@@ -60,8 +60,8 @@ public class ManageParentsController implements ManageDataBase {
 
     private void search()
     {
-        FilteredList<Rodzice> filter = new FilteredList(parents, p -> true);//Pass the data to a filtered list
-        tableParents.setItems(filter);//Set the table's items using the filtered list
+        FilteredList<Rodzice> filter = new FilteredList(parents, p -> true);
+        tableParents.setItems(filter);
         searchC.setValue("Nazwisko");
 
         searchT.textProperty().addListener((obs, oldValue, newValue) -> {

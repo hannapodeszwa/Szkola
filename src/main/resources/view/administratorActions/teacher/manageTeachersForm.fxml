@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="window" prefHeight="372.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.teacher.ManageTeachersController">
     <children>
-        <TableView fx:id="tableTeachers" layoutX="38.0" layoutY="50.0" prefHeight="299.0" prefWidth="294.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
+        <TableView fx:id="tableTeachers" layoutX="38.0" layoutY="50.0" prefHeight="299.0" prefWidth="294.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="90.0">
             <columns>
                 <TableColumn id="nameC" fx:id="nameC" prefWidth="96.0" text="Imię" />
                 <TableColumn id="surnameC" fx:id="surnameC" prefWidth="116.0" text="Nazwisko" />
@@ -27,5 +27,7 @@
       <Label fx:id="email" layoutX="339.0" layoutY="236.0" />
       <Label layoutX="339.0" layoutY="271.0" text="Numer kontaktowy:" />
       <Label fx:id="phone" layoutX="339.0" layoutY="289.0" />
+      <ComboBox fx:id="searchC" layoutX="30.0" layoutY="57.0" prefHeight="26.0" prefWidth="132.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="48.0" />
+      <TextField fx:id="searchT" layoutX="171.0" layoutY="57.0" prefHeight="26.0" prefWidth="155.0" AnchorPane.leftAnchor="171.0" AnchorPane.topAnchor="48.0" />
     </children>
 </AnchorPane>
