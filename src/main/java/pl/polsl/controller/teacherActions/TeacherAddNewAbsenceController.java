@@ -4,6 +4,7 @@ package pl.polsl.controller.teacherActions;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import pl.polsl.Main;
@@ -26,22 +27,23 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
 
     private Integer loggedTeacherId;
     private Uczniowie student;
+    private Przedmioty subject;
+    private Integer lesson;
 
+    @FXML
+    private CheckBox excuseCheckBox;
 
-    @FXML
-    private ComboBox<String> lessonComboBox;
-    @FXML
-    private ComboBox<String> excuseComboBox;
-    @FXML
-    private ComboBox<String> subjectComboBox;
     @FXML
     private Label labelStudent;
+    @FXML
+    private Label labelSubject;
+    @FXML
+    private Label labelLesson;
 
     @FXML
     private Label infoLabel;
 
     ObservableList<GodzinyLekcji> timesList;
-    ObservableList<Przedmioty> subjectsList;
 
     @Override
     public void receiveArguments(Map<String, Object> params){
@@ -49,32 +51,17 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
 
 
         student = (Uczniowie) params.get("student");
-
-        subjectsList = (FXCollections.observableArrayList((new Teacher()).checkTeacherSubjects(loggedTeacherId)));
-
-
-
-
-        if(!subjectsList.isEmpty()){
-            for (Przedmioty p : subjectsList){
-                subjectComboBox.getItems().add(p.getNazwa());
-            }
-        }
+        subject = (Przedmioty) params.get("subject");
+        lesson = (Integer) params.get("lesson");
 
         labelStudent.setText(student.getImie() + " " + student.getNazwisko());
+        labelSubject.setText(subject.getNazwa());
+        labelLesson.setText(lesson.toString());
+        infoLabel.setText("");
 
         timesList = FXCollections.observableList((new LessonTimeModel()).getTime());
 
-        if(!timesList.isEmpty()){
-            for (GodzinyLekcji t : timesList){
-                String start = t.getPoczatek().toString();
-                String end = t.getKoniec().toString();
-                lessonComboBox.getItems().add(start + "-" + end);
-            }
-        }
-        lessonComboBox.getSelectionModel().select(0);
-        excuseComboBox.getSelectionModel().select(0);
-        subjectComboBox.getSelectionModel().select(0);
+
 
     }
 
@@ -93,7 +80,13 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
     {
 
             addNewAbsence();
-            infoLabel.setText("Sukces!"+ System.lineSeparator() + "Lekcja: " + lessonComboBox.getValue().toString() + System.lineSeparator() + "Usprawiedliwiona: " + excuseComboBox.getValue().toString() + System.lineSeparator() );
+            String excuse = "";
+            if(excuseCheckBox.isSelected()){
+                excuse = "Tak";
+            } else {
+                excuse = "Nie";
+            }
+            infoLabel.setText("Sukces!"+ System.lineSeparator() + "Lekcja: " + lesson + System.lineSeparator() + "Usprawiedliwiona: " + excuse + System.lineSeparator() + "Przedmiot: " + subject.getNazwa());
 
 
     }
@@ -102,13 +95,16 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
         Nieobecnosci a = new Nieobecnosci();
 
         a.setData(new Date(System.currentTimeMillis()));
-        a.setPrzedmiotyId(subjectsList.get(subjectComboBox.getSelectionModel().getSelectedIndex()).getID());
+        a.setPrzedmiotyId(subject.getID());
         a.setUczniowieId(student.getID());
+        a.setGodzina(lesson);
 
-        Integer tid = timesList.get(lessonComboBox.getSelectionModel().getSelectedIndex()).getID();
-        a.setGodzina(tid);
+        if(excuseCheckBox.isSelected()){
+            a.setCzyUsprawiedliwiona(1);
+        } else {
+            a.setCzyUsprawiedliwiona(0);
+        }
 
-        a.setCzyUsprawiedliwiona(excuseComboBox.getSelectionModel().getSelectedIndex());
         (new AbsenceModel()).persist(a);
     }
 

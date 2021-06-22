@@ -106,12 +106,12 @@ public class TeacherAbsenceController implements ParametrizedController {
         params.put("teacherId", id);
 
         Integer studentIndex = comboboxStudent.getSelectionModel().getSelectedIndex();
-        Integer scheduleIndex = comboboxStudent.getSelectionModel().getSelectedIndex();
+        Integer scheduleIndex = comboboxSchedule.getSelectionModel().getSelectedIndex();
 
 
         params.put("student", studentList.get(studentIndex));
         params.put("subject", (new Subject()).getSubjectById(scheduleList.get(scheduleIndex).getIdPrzedmiotu()));
-params.put("lesson", scheduleList.get(scheduleIndex).getGodzina());
+        params.put("lesson", scheduleList.get(scheduleIndex).getGodzina());
         Main.setRoot("teacherActions/teacherAddNewAbsenceForm", params, WindowSize.teacherAddNewGradeForm);
     }
 

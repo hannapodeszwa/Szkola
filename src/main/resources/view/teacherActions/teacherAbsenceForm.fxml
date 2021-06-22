@@ -8,12 +8,12 @@
    <children>
       <TableView fx:id="table" editable="true" layoutX="20.0" layoutY="46.0" prefHeight="230.0" prefWidth="446.0">
         <columns>
-          <TableColumn fx:id="columnDate" editable="false" prefWidth="64.0" resizable="false" sortable="true" text="Data" />
-            <TableColumn fx:id="columnLessonStart" editable="false" prefWidth="59.0" resizable="false" sortable="true" text="Od" />
-            <TableColumn fx:id="columnLessonEnd" editable="false" prefWidth="74.0" resizable="false" sortable="true" text="Do" />
-            <TableColumn fx:id="columnSubject" editable="false" minWidth="0.0" prefWidth="82.0" resizable="false" sortable="true" text="Przedmiot" />
+          <TableColumn fx:id="columnDate" editable="false" prefWidth="102.0" resizable="false" sortable="true" text="Data" />
+            <TableColumn fx:id="columnLessonStart" editable="false" prefWidth="64.0" resizable="false" sortable="true" text="Od" />
+            <TableColumn fx:id="columnLessonEnd" editable="false" prefWidth="66.0" resizable="false" sortable="true" text="Do" />
+            <TableColumn fx:id="columnSubject" editable="false" minWidth="0.0" prefWidth="91.0" resizable="false" sortable="true" text="Przedmiot" />
 
-            <TableColumn fx:id="columnExcuse" editable="false" prefWidth="166.0" resizable="false" sortable="true" text="Usprawiedliwiona" />
+            <TableColumn fx:id="columnExcuse" editable="false" prefWidth="122.0" resizable="false" sortable="true" text="Usprawiedliwiona" />
 
         </columns>
       </TableView>
