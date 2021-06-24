@@ -28,21 +28,18 @@ public class ManageTeachersController {
     private TableColumn<Nauczyciele, String> nameC;
     @FXML
     private TableColumn<Nauczyciele, String> surnameC;
-
     @FXML
     private Label name2;
     @FXML
     private Label email;
     @FXML
     private Label phone;
-
     @FXML
     private TextField searchT;
     @FXML
     private ComboBox searchC;
 
     private String login;
-
     private ObservableList<Rodzice> teachers;
 
     @FXML

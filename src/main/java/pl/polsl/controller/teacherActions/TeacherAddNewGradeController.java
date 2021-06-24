@@ -20,12 +20,6 @@ import java.util.Map;
 
 public class TeacherAddNewGradeController implements ParametrizedController {
 
-
-
-    private Integer loggedTeacherId;
-    private Uczniowie student;
-    private Przedmioty subject;
-
     @FXML
     private ComboBox<Float> gradeComboBox;
     @FXML
@@ -39,6 +33,12 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     @FXML
     private Label infoLabel;
 
+    private Integer loggedTeacherId;
+    private Uczniowie student;
+    private Przedmioty subject;
+    private Integer studentNumber;
+    private Integer subjectNumber;
+    private Integer classNumber;
     @Override
     public void receiveArguments(Map<String, Object> params){
         loggedTeacherId = (Integer) params.get("teacherId");
@@ -46,7 +46,9 @@ public class TeacherAddNewGradeController implements ParametrizedController {
 
         student = (Uczniowie) params.get("student");
         subject = (Przedmioty) params.get("subject");
-
+        classNumber = (Integer) params.get("classNumber");
+        subjectNumber = (Integer) params.get("subjectNumber");
+        studentNumber = (Integer) params.get("studentNumber");
 
         labelSubject.setText(subject.getNazwa());
 
@@ -71,6 +73,9 @@ public class TeacherAddNewGradeController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
+        params.put("classNumber",classNumber);
+        params.put("subjectNumber",subjectNumber);
+        params.put("studentNumber",studentNumber);
         Main.setRoot("teacherActions/teacherGradeForm", params, WindowSize.teacherGradeForm);
     }
     public void submitAction()
