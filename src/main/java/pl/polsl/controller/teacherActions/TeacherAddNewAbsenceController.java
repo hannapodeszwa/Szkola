@@ -39,7 +39,6 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
     private Label labelSubject;
     @FXML
     private Label labelLesson;
-
     @FXML
     private Label infoLabel;
 

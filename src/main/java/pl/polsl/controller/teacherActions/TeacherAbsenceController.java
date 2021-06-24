@@ -111,7 +111,7 @@ public class TeacherAbsenceController implements ParametrizedController {
         params.put("student", studentList.get(studentIndex));
         params.put("subject", (new Subject()).getSubjectById(scheduleList.get(scheduleIndex).getIdPrzedmiotu()));
         params.put("lesson", scheduleList.get(scheduleIndex).getGodzina());
-        Main.setRoot("teacherActions/teacherAddNewAbsenceForm", params, WindowSize.teacherAddNewGradeForm);
+        Main.setRoot("teacherActions/teacherAddNewAbsenceForm", params, WindowSize.teacherAddNewAbsenceForm);
     }
 
     void setStudents(Integer index){
