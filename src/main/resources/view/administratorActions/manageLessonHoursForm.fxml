@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="343.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.lessons.manageLessonHoursController">
+<AnchorPane prefHeight="343.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.lessons.manageLessonHoursController">
    <children>
       <Label alignment="CENTER" layoutX="55.0" layoutY="8.0" prefHeight="27.0" prefWidth="290.0" text="Harmonogram godzin lekcyjnych">
          <font>

@@ -31,7 +31,7 @@ public class UserModel implements ManageDataBase {
                     .setParameter("PASSWORD", password)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login and password", e);
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login and password");
             return null;
         }
     }
@@ -43,7 +43,7 @@ public class UserModel implements ManageDataBase {
                     .setParameter("LOGIN", login)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login", e);
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login");
             return null;
         }
     }
@@ -56,7 +56,7 @@ public class UserModel implements ManageDataBase {
                     .setParameter("ID", ID)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by id and role", e);
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by id and role");
             return null;
         }
     }
@@ -85,7 +85,7 @@ public class UserModel implements ManageDataBase {
                     .setParameter("ROLE", role)
                     .getSingleResult();
         } catch (Exception e) {
-            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get login by id and role", e.getMessage());
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get login by id and role");
             return "";
         }
     }

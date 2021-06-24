@@ -31,7 +31,6 @@ public class MessageController implements ParametrizedController, NotificationsI
     private TextArea messageTextArea;
 
     private String previousLocation;
-    private String role;
     private Integer id;
     private String login;
     private String mode;
@@ -63,7 +62,6 @@ public class MessageController implements ParametrizedController, NotificationsI
     @Override
     public void receiveArguments(Map<String, Object> params) {
         previousLocation = (String) params.get("previousLocation");
-        role = (String) params.get("role");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
         mode = (String) params.get("mode");
@@ -120,7 +118,7 @@ public class MessageController implements ParametrizedController, NotificationsI
     }
 
     private void createSuggestions() {
-        switch (role) {
+        switch (mode) {
             case Roles.TEACHER: {
                 List<Uczniowie> students = studentModel.getAllStudents();
                 List<Rodzice> parents = parentModel.getAllParents();
@@ -149,10 +147,9 @@ public class MessageController implements ParametrizedController, NotificationsI
     private void returnFromMessageWriter() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", previousLocation);
-        parameters.put("role", role);
+        parameters.put("mode", mode);
         parameters.put("id", id);
         parameters.put("login", login);
-        parameters.put("mode", mode);
         Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 

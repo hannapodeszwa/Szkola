@@ -25,7 +25,7 @@ public class ViewMessageController implements ParametrizedController {
     private TextArea messageTextArea;
 
     private String previousLocation;
-    private String role;
+    private String mode;
     private Integer id;
     private String login;
     private String topic, correspondent, type;
@@ -36,7 +36,7 @@ public class ViewMessageController implements ParametrizedController {
     public void receiveArguments(Map<String, Object> params) {
         messageModel = new MessageModel();
         previousLocation = (String) params.get("previousLocation");
-        role = (String) params.get("role");
+        mode = (String) params.get("mode");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
         topic = (String) params.get("topic");
@@ -54,7 +54,7 @@ public class ViewMessageController implements ParametrizedController {
     public void respondButtonAction() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", previousLocation);
-        parameters.put("role", role);
+        parameters.put("mode", mode);
         parameters.put("id", id);
         parameters.put("login", login);
         parameters.put("correspondent", correspondent);
@@ -76,7 +76,7 @@ public class ViewMessageController implements ParametrizedController {
     private void returnFromMessageViewer() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", previousLocation);
-        parameters.put("role", role);
+        parameters.put("mode", mode);
         parameters.put("id", id);
         parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
