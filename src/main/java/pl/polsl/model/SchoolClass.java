@@ -29,7 +29,7 @@ public class SchoolClass implements ManageDataBase {
     {
         em = MyManager.getEntityManager();
         TypedQuery query = em.createNamedQuery("klasy.findByLeader", Klasy.class);
-        query.setParameter("k.idPrzewodniczacego", Id);
+        query.setParameter("idPrzewodniczacego", Id);
         Klasy result = (Klasy) query.getSingleResult();
         return result;
     }

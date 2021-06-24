@@ -1,16 +1,17 @@
 package pl.polsl.controller.administratorActions.student;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.entities.*;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-import pl.polsl.entities.Klasy;
-import pl.polsl.entities.Uczniowie;
-import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.*;
 
 import java.io.IOException;
@@ -22,9 +23,13 @@ import java.util.Map;
 public class ManageStudentsController {
 
     @FXML
-    public Button buttonDeleteStudent;
+    private Button buttonDeleteStudent;
     @FXML
-    public Button buttonUpdateStudent;
+    private Button buttonUpdateStudent;
+    @FXML
+    private ComboBox searchC;
+    @FXML
+    private TextField searchT;
     @FXML
     private TableView<Uczniowie> tableStudents;
     @FXML
@@ -34,6 +39,8 @@ public class ManageStudentsController {
     @FXML
     private TableColumn<Uczniowie, String> classC;
 
+
+    private ObservableList<Uczniowie> students;
 
 
 
@@ -54,6 +61,7 @@ public class ManageStudentsController {
         for (Uczniowie u: l) {
             tableStudents.getItems().add(u);
         }
+        students = FXCollections.observableArrayList(l);
 
         buttonDeleteStudent.setDisable(true);
         buttonUpdateStudent.setDisable(true);
@@ -69,9 +77,28 @@ public class ManageStudentsController {
             }
         });
 
-
+        search();
     }
 
+
+    private void search()
+    {
+        FilteredList<Uczniowie> filter = new FilteredList(students, p -> true);
+        tableStudents.setItems(filter);
+        searchC.setValue("Nazwisko");
+
+        searchT.textProperty().addListener((obs, oldValue, newValue) -> {
+            switch (searchC.getValue().toString())
+            {
+                case "Imię":
+                    filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                    break;
+                case "Nazwisko":
+                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    break;
+            }
+        });
+    }
 
 
 
@@ -117,8 +144,10 @@ public class ManageStudentsController {
             //toDelete.addAll()
 
             Klasy k = (new SchoolClass()).getClassByLeader(u.getID());
-            k.setIdPrzewodniczacego(null);
-            toUpdate.add(k);
+            if (k != null) {
+                k.setIdPrzewodniczacego(null);
+                toUpdate.add(k);
+            }
 
             (new Student()).applyChanges(toUpdate,null,toDelete);
 
