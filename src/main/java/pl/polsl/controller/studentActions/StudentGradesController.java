@@ -98,7 +98,7 @@ public class StudentGradesController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("id", id);
-        if (mode.equals(Roles.PARENT))
+        if (mode.equals(Roles.STUDENT))
             Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
         else
             Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);

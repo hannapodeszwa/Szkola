@@ -1,9 +1,7 @@
 package pl.polsl.controller.menu;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 import pl.polsl.Main;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
@@ -19,65 +17,60 @@ import java.util.List;
 import java.util.Map;
 
 public class MenuAdministratorController {
-    private final Stage thisStage;
-
-    public MenuAdministratorController() {
-        thisStage = new Stage();
-    }
 
 
-    public void pressManageStudentsButton(ActionEvent event) throws IOException
+    public void pressManageStudentsButton() throws IOException
     {
        Main.setRoot("administratorActions/student/manageStudentsForm",
                WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
 
     }
-    public void pressManageTeacherButton(ActionEvent event) throws IOException
+    public void pressManageTeacherButton() throws IOException
     {
         Main.setRoot("administratorActions/teacher/manageTeachersForm",
                 WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
     }
-    public void pressManageSubjectButton(ActionEvent event) throws IOException
+    public void pressManageSubjectButton() throws IOException
     {
         Main.setRoot("administratorActions/subject/manageSubjectsForm",
                 WindowSize.manageSubjectsForm.getWidth(), WindowSize.manageSubjectsForm.getHeight());
     }
-    public void pressManageClassButton(ActionEvent event) throws IOException
+    public void pressManageClassButton() throws IOException
     {
         Main.setRoot("administratorActions/class/manageClassForm",
                 WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
     }
-    public void pressCreateScheduleButton(ActionEvent event) throws IOException
+    public void pressCreateScheduleButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("mode", Roles.ADMIN);
         //params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
-    public void pressManageParentButton(ActionEvent event) throws IOException
+    public void pressManageParentButton() throws IOException
     {
         Main.setRoot("administratorActions/parent/manageParentsForm",
                 WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
     }
 
-    public void pressManageClassroomsButton(ActionEvent event) throws IOException
+    public void pressManageClassroomsButton() throws IOException
     {
         Main.setRoot("administratorActions/classroom/manageClassroomsForm",
                 WindowSize.manageClassroomsForm);
     }
 
-    public void pressLessonHoursButton(ActionEvent Event) throws IOException
+    public void pressLessonHoursButton() throws IOException
     {
         Main.setRoot("administratorActions/manageLessonHoursForm",
                 WindowSize.manageLessonHoursForm);
     }
 
-    public void pressLogOutButton(ActionEvent event) throws IOException
+    public void pressLogOutButton() throws IOException
     {
         Main.setRoot("common/signIn", WindowSize.signIn);
     }
 
-    public void pressDeleteUnusedButton(ActionEvent actionEvent) {
+    public void pressDeleteUnusedButton() {
         List toDelete = new ArrayList<>();
         toDelete.addAll((new Student()).getUnusedStudents());
         toDelete.addAll((new Teacher()).getUnusedTeachers());
