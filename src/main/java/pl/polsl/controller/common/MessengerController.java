@@ -43,7 +43,6 @@ public class MessengerController implements ParametrizedController {
     private TableView<Map<String, Object>> sentTable;
 
     private String previousLocation;
-    private String role;
     private Integer id;
     private String login;
     private String mode;
@@ -65,7 +64,7 @@ public class MessengerController implements ParametrizedController {
                     Map<String, Object> item = row.getItem();
                     Map<String, Object> parameters = new HashMap<>();
                     parameters.put("previousLocation", previousLocation);
-                    parameters.put("role", role);
+                    parameters.put("mode", mode);
                     parameters.put("id", id);
                     parameters.put("topic", item.get("topicRColumn"));
                     parameters.put("date", item.get("dateRColumn"));
@@ -89,7 +88,7 @@ public class MessengerController implements ParametrizedController {
                     Map<String, Object> item = row.getItem();
                     Map<String, Object> parameters = new HashMap<>();
                     parameters.put("previousLocation", previousLocation);
-                    parameters.put("role", role);
+                    parameters.put("mode", mode);
                     parameters.put("id", id);
                     parameters.put("topic", item.get("topicSColumn"));
                     parameters.put("date", item.get("dateSColumn"));
@@ -122,7 +121,6 @@ public class MessengerController implements ParametrizedController {
                     else displaySentMessages();
                 });
         previousLocation = (String) params.get("previousLocation");
-        role = (String) params.get("role");
         id = (Integer) params.get("id");
         login = (String) params.get("login");
         mode = (String) params.get("mode");
@@ -157,10 +155,9 @@ public class MessengerController implements ParametrizedController {
     public void newMessageButtonAction() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", previousLocation);
-        parameters.put("role", role);
+        parameters.put("mode", mode);
         parameters.put("id", id);
         parameters.put("login", login);
-        parameters.put("mode", mode);
         Main.setRoot("common/messageForm", parameters, WindowSize.messagerForm);
     }
 
@@ -212,8 +209,8 @@ public class MessengerController implements ParametrizedController {
         }
     }
 
-    private String getFullName(String role, int id) {
-        switch (role) {
+    private String getFullName(String mode, int id) {
+        switch (mode) {
             case Roles.STUDENT:
                 Student studentModel = new Student();
                 Uczniowie student = studentModel.getStudentById(id);
