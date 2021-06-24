@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAssignStudentToCompetitionController">
+<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAssignStudentToCompetitionController">
    <children>
       <TableView fx:id="table" editable="true" layoutX="14.0" layoutY="41.0" prefHeight="308.0" prefWidth="257.0">
         <columns>

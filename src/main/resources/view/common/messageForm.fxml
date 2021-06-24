@@ -11,8 +11,8 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="840.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.common.MessageController">
    <children>
-      <TextField fx:id="receiverTextField" layoutX="20.0" layoutY="76.0" prefHeight="25.0" prefWidth="800.0" promptText="Odbiorca" />
-      <TextField fx:id="topicTextField" layoutX="20.0" layoutY="46.0" prefHeight="25.0" prefWidth="800.0" promptText="Temat" />
+      <TextField fx:id="receiverTextField" layoutX="20.0" layoutY="46.0" prefHeight="25.0" prefWidth="800.0" promptText="Odbiorca" />
+      <TextField fx:id="topicTextField" layoutX="20.0" layoutY="76.0" prefHeight="25.0" prefWidth="800.0" promptText="Temat" />
       <TextArea fx:id="messageTextArea" layoutX="20.0" layoutY="106.0" prefHeight="244.0" prefWidth="800.0" promptText="Wiadomość..." />
       <Label fx:id="errorLabel" layoutX="180.0" layoutY="365.0" textFill="RED" />
       <Button fx:id="cancelButton" layoutX="670.0" layoutY="360.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefWidth="150.0" text="Anuluj" />

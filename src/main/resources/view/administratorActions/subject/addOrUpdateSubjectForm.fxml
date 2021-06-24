@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="window" prefHeight="229.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.subject.AddOrUpdateSubjectController">
+<AnchorPane fx:id="window" prefHeight="229.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.subject.AddOrUpdateSubjectController">
     <children>
     <Button fx:id="confirm" layoutX="147.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefHeight="26.0" prefWidth="78.0" styleClass="button-confirm" text="Zatwierdź" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="111.0" />
     <Button layoutX="241.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="26.0" prefWidth="78.0" text="Anuluj" AnchorPane.rightAnchor="25.0" />

@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import pl.polsl.Main;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
@@ -49,7 +50,7 @@ public class MenuAdministratorController {
     public void pressCreateScheduleButton(ActionEvent event) throws IOException
     {
         Map params = new HashMap<String, String>();
-        params.put("mode", "admin");
+        params.put("mode", Roles.ADMIN);
         //params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
