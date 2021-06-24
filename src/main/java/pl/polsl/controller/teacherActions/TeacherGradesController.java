@@ -3,8 +3,8 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
@@ -14,6 +14,7 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.utils.WindowSize;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.*;
 
@@ -58,57 +59,81 @@ public class TeacherGradesController implements ParametrizedController {
         classList = (new Teacher()).checkTeacherClasses(id);
         subjectsList = (FXCollections.observableArrayList((new Teacher()).checkTeacherSubjects(id)));
 
+        Integer classNumber = (Integer) params.get("classNumber");
+        Integer subjectNumber = (Integer) params.get("subjectNumber");
+        Integer studentNumber = (Integer) params.get("studentNumber");
+        if(classNumber==null){
+            classNumber=0;
+            subjectNumber=0;
+            studentNumber=0;
+        }
+
+
         if(!subjectsList.isEmpty()) {
             for (Przedmioty sl : subjectsList) {
                 comboboxSubject.getItems().add(sl.getNazwa());
             }
-            comboboxSubject.getSelectionModel().select(0);
+            comboboxSubject.getSelectionModel().select(subjectNumber);
         }
 
         if(!classList.isEmpty()) {
             for (Klasy cl : classList) {
                 comboboxClass.getItems().add(cl.getNumer());
             }
-            comboboxClass.getSelectionModel().select(0);
-            setStudents(0);
+            comboboxClass.getSelectionModel().select(classNumber);
+            setStudents(classNumber,studentNumber);
             setGrade();
         }
 
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) deleteGrade);
+        buttonDelete.setDisable(true);
+
+
     }
+
+    private final ListChangeListener<? extends TablePosition> deleteGrade = (
+            javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+        Oceny tym = table.getSelectionModel().getSelectedItem();
+        buttonDelete.setDisable(tym==null);
+    };
 
     public void clickButtonDelete() {
         Oceny o = table.getSelectionModel().getSelectedItem();
         (new Grade()).delete(o);
+        setGrade();
     }
 
     public void clickButtonAdd() throws IOException{
         Map<String, Object> params = new HashMap<>();
 
         params.put("teacherId", id);
-
-        int index = comboboxStudent.getSelectionModel().getSelectedIndex();
-        params.put("student", studentList.get(index));
-        params.put("subject", subjectsList.get(index));
+        params.put("student", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()));
+        params.put("subject", subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()));
+        params.put("classNumber",comboboxClass.getSelectionModel().getSelectedIndex());
+        params.put("subjectNumber",comboboxSubject.getSelectionModel().getSelectedIndex());
+        params.put("studentNumber",comboboxStudent.getSelectionModel().getSelectedIndex());
         Main.setRoot("teacherActions/teacherAddNewGradeForm", params, WindowSize.teacherAddNewGradeForm);
     }
 
-    void setStudents(Integer index){
+    void setStudents(Integer index, Integer numberStudent){
         studentList = FXCollections.observableArrayList((new Student()).getStudentInClass(classList.get(index).getID()));
         if(!studentList.isEmpty()){
             for (Uczniowie student : studentList) {
                 comboboxStudent.getItems().add(student.getImie()+" " + student.getNazwisko());
             }
-            comboboxStudent.getSelectionModel().select(0);
+            comboboxStudent.getSelectionModel().select(numberStudent);
+            buttonAdd.setDisable(false);
         }
         else{
             comboboxStudent.getSelectionModel().select(-1);
+            buttonAdd.setDisable(true);
         }
     }
 
     public void changeComboboxClass() {
         studentList.clear();
         comboboxStudent.getItems().clear();
-        setStudents(comboboxClass.getSelectionModel().getSelectedIndex());
+        setStudents(comboboxClass.getSelectionModel().getSelectedIndex(),0);
     }
 
     public void changeComboboxSubject() {
@@ -198,8 +223,8 @@ public class TeacherGradesController implements ParametrizedController {
 
     }
 
-    public void clickButtonAverage(ActionEvent actionEvent) {
-        Float sum = 0.0f;
+    public void clickButtonAverage() {
+        float sum = 0.0f;
         Float weight = 0.0f;
         for(Oceny grade :gradeList){
             sum+=grade.getOcena() * grade.getWaga();

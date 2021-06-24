@@ -22,7 +22,7 @@ import java.util.*;
 
 public class TeacherAbsenceController implements ParametrizedController {
 
-    public enum dayOrder{pon, wto, sro, czw, pia};
+    public enum dayOrder{pon, wto, sro, czw, pia}
 
     @FXML
     public TableView<Nieobecnosci> table;
@@ -33,7 +33,6 @@ public class TeacherAbsenceController implements ParametrizedController {
     public TableColumn<Nieobecnosci, String> columnSubject;
     public ComboBox<String> comboboxSchedule;
     public ComboBox<String> comboboxStudent;
-  //  public ComboBox<String> comboboxSubject;
     public Button buttonDelete;
     public Button buttonAdd;
     public Button buttonBack;
