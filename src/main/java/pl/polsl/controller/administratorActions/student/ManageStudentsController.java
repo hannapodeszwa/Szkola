@@ -149,6 +149,11 @@ public class ManageStudentsController {
                 toUpdate.add(k);
             }
 
+            List<Rodzicielstwo> r = (new ParenthoodModel()).findByStudent(u);
+            if (r != null) {
+                toDelete.addAll(r);
+            }
+
             (new Student()).applyChanges(toUpdate,null,toDelete);
 
             tableStudents.getItems().remove(tableStudents.getSelectionModel().getSelectedItem());

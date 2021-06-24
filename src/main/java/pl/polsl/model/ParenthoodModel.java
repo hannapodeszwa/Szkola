@@ -43,7 +43,15 @@ public class ParenthoodModel extends Uczniowie implements ManageDataBase {
 
         return results;
     }
+    public List findByStudent(Uczniowie u)
+    {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query =
+                entityManager.createNamedQuery("rodzicielstwo.findByStudent", Rodzicielstwo.class);
+        List<Rodzicielstwo> results = query.setParameter("id", u.getID()).getResultList();
 
+        return results;
+    }
 
     public List<Rodzicielstwo> getParentsByChildID(int id) {
         entityManager = MyManager.getEntityManager();

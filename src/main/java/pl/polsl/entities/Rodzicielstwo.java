@@ -6,9 +6,11 @@ import java.io.Serializable;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "Rodzicielstwo.getParentsByChildId",
-        query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :ID"),
+                query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :ID"),
         @NamedQuery(name = "rodzicielstwo.findByParent",
-                query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :id")
+                query = "SELECT R FROM Rodzicielstwo R WHERE R.idRodzica = :id"),
+        @NamedQuery(name = "rodzicielstwo.findByStudent",
+                query = "SELECT R FROM Rodzicielstwo R WHERE R.idUcznia = :id")
 })
 @Table(name = "rodzicielstwo")
 public class Rodzicielstwo implements Serializable {
