@@ -15,6 +15,7 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,6 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     private Uczniowie modyfikowany;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
-
         buttonAccept.setDisable(poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty());
     };
 
@@ -111,8 +111,21 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             modyfikowany.setAdres(poleAdres.getText());
             modyfikowany.setEmail(poleMail.getText());
             String classNumber = poleKlasa.getSelectionModel().getSelectedItem();
-            modyfikowany.setIdKlasy((new SchoolClass()).getClassId(classNumber));
-            (new Student()).update(modyfikowany);
+            Integer classId = (new SchoolClass()).getClassId(classNumber);
+
+            List<Object> toUpdate = new ArrayList<>();
+
+            if (classId != modyfikowany.getID()) {
+                Klasy k = (new SchoolClass()).getClassByLeader(modyfikowany.getID());
+                if (k != null) {
+                    k.setIdPrzewodniczacego(null);
+                    toUpdate.add(k);
+                }
+            }
+            modyfikowany.setIdKlasy(classId);
+            toUpdate.add(modyfikowany);
+
+            (new Student()).update(toUpdate);
         }
         Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
     }
