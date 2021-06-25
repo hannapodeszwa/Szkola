@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="385.0" prefWidth="335.0" stylesheets="@../../../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.student.AddOrUpdateStudentsController">
+<AnchorPane prefHeight="281.0" prefWidth="265.0" stylesheets="@../../../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.student.AddOrUpdateStudentsController">
    <children>
-      <Button fx:id="buttonAccept" layoutX="156.0" layoutY="317.0" mnemonicParsing="false" onAction="#confirmChangesButton" styleClass="button-confirm" text="Zatwierdz" />
-      <Button layoutX="242.0" layoutY="317.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="25.0" prefWidth="68.0" text="Anuluj" />
-      <TextField fx:id="poleImie" layoutX="156.0" layoutY="37.0" promptText="wymagane" />
-      <TextField fx:id="poleDrugieImie" layoutX="156.0" layoutY="84.0" />
-      <TextField fx:id="poleNazwisko" layoutX="156.0" layoutY="127.0" promptText="wymagane" />
-      <TextField fx:id="poleMail" layoutX="156.0" layoutY="170.0" promptText="" />
-      <TextField fx:id="poleAdres" layoutX="156.0" layoutY="213.0" />
-      <Label layoutX="73.0" layoutY="41.0" text="Imie:" />
-      <Label layoutX="61.0" layoutY="131.0" text="Nazwisko:" />
-      <Label layoutX="72.0" layoutY="217.0" text="Adres:" />
-      <Label layoutX="72.0" layoutY="261.0" text="Klasa:" />
-      <ComboBox fx:id="poleKlasa" layoutX="156.0" layoutY="256.0" prefHeight="26.0" prefWidth="171.0" />
-      <Label layoutX="57.0" layoutY="88.0" text="Drugie imie:" />
-      <Label layoutX="71.0" layoutY="174.0" text="E-mail:" />
+      <Button fx:id="buttonAccept" layoutX="20.0" layoutY="236.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefWidth="102.0" styleClass="button-confirm" text="Zatwierdz" />
+      <Button layoutX="143.0" layoutY="236.0" mnemonicParsing="false" onAction="#discardChangesButton" prefWidth="102.0" text="Anuluj" />
+      <TextField fx:id="poleImie" layoutX="95.0" layoutY="46.0" prefWidth="150.0" promptText="wymagane" />
+      <TextField fx:id="poleDrugieImie" layoutX="95.0" layoutY="76.0" prefWidth="150.0" />
+      <TextField fx:id="poleNazwisko" layoutX="95.0" layoutY="106.0" prefWidth="150.0" promptText="wymagane" />
+      <TextField fx:id="poleMail" layoutX="95.0" layoutY="136.0" prefWidth="150.0" />
+      <TextField fx:id="poleAdres" layoutX="95.0" layoutY="166.0" prefWidth="150.0" />
+      <Label layoutX="20.0" layoutY="51.0" text="Imie:" />
+      <Label layoutX="20.0" layoutY="111.0" prefWidth="70.0" text="Nazwisko:" />
+      <Label layoutX="20.0" layoutY="171.0" prefWidth="70.0" text="Adres:" />
+      <Label layoutX="20.0" layoutY="201.0" prefWidth="70.0" text="Klasa:" />
+      <ComboBox fx:id="poleKlasa" layoutX="95.0" layoutY="196.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="20.0" layoutY="81.0" prefWidth="70.0" text="Drugie imie:" />
+      <Label layoutX="20.0" layoutY="141.0" prefWidth="70.0" text="E-mail:" />
+      <Label fx:id="title" alignment="CENTER" layoutX="32.0" layoutY="10.0" prefWidth="200.0" text="Title">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

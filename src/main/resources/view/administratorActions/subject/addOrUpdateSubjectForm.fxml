@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="window" prefHeight="229.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.subject.AddOrUpdateSubjectController">
+<AnchorPane prefHeight="146.0" prefWidth="240.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.subject.AddOrUpdateSubjectController">
     <children>
-    <Button fx:id="confirm" layoutX="147.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefHeight="26.0" prefWidth="78.0" styleClass="button-confirm" text="Zatwierdź" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="111.0" />
-    <Button layoutX="241.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="26.0" prefWidth="78.0" text="Anuluj" AnchorPane.rightAnchor="25.0" />
-    <TextField fx:id="name" layoutX="85.0" layoutY="75.0" prefHeight="26.0" prefWidth="227.0" promptText="wymagane" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="23.80000000000001" />
-        <Label layoutX="39.0" layoutY="79.0" prefHeight="18.0" prefWidth="52.0" text="Nazwa:" AnchorPane.leftAnchor="40.0" />
-      <Label fx:id="title" layoutX="21.0" layoutY="26.0" prefHeight="27.0" prefWidth="290.0" text="Title" AnchorPane.leftAnchor="35.0">
+      <Label fx:id="title" alignment="CENTER" layoutX="20.0" layoutY="10.0" prefWidth="200.0" text="Title">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+        <Label alignment="CENTER" layoutX="20.0" layoutY="46.0" prefHeight="18.0" prefWidth="200.0" text="Nazwa:" />
+    <TextField fx:id="name" layoutX="20.0" layoutY="66.0" prefHeight="26.0" prefWidth="200.0" promptText="wymagane" />
+    <Button fx:id="confirm" layoutX="20.0" layoutY="101.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefHeight="26.0" prefWidth="95.0" styleClass="button-confirm" text="Zatwierdź" />
+    <Button layoutX="125.0" layoutY="101.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="26.0" prefWidth="95.0" text="Anuluj" />
     </children>
 </AnchorPane>

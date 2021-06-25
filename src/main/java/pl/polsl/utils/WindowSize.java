@@ -8,13 +8,13 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     addOrUpdateClassForm(305,251),
     //schedule
     manageScheduleForm(971,630),
-    manageLessonHoursForm(420,420),
+    manageLessonHoursForm(416,347),
     //subject
-    manageSubjectsForm(500,450),
-    addOrUpdateSubjectForm(400,280),
+    manageSubjectsForm(461,356),
+    addOrUpdateSubjectForm(255,186),
     //student
     manageStudentsForm(593, 435),
-    addOrUpdateStudentForm(435, 435),
+    addOrUpdateStudentForm(270, 321),
     //teacher
     manageTeachersForm (600, 450),
     addOrUpdateTeacherForm(470,410),
@@ -48,7 +48,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     studentCompetitionsForm(591, 375),
     studentNoteForm(425, 415),
     //common
-    changePasswordForm(205,280),
+    changePasswordForm(205,291),
     messageForm(855,440),
     messagerForm(855,440),
     resetPasswordForm(205,385),
