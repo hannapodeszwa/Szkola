@@ -4,22 +4,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="501.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.MenuAdministratorController">
+<AnchorPane prefHeight="451.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.MenuAdministratorController">
    <children>
-      <Label layoutX="46.0" layoutY="26.0" text="Konto administratora" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutY="10.0" prefWidth="190.0" text="Konto administratora">
          <font>
             <Font size="18.0" />
-         </font></Label>
-      <Button fx:id="buttonManageStudents" layoutX="79.0" layoutY="87.0" mnemonicParsing="false" onAction="#pressManageStudentsButton" prefHeight="25.0" prefWidth="180.0" text="Zarządzaj uczniami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="127.0" mnemonicParsing="false" onAction="#pressManageTeacherButton" prefWidth="180.0" text="Zarządzaj nauczycielami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="167.0" mnemonicParsing="false" onAction="#pressManageSubjectButton" prefWidth="180.0" text="Zarządzaj przedmiotami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="207.0" mnemonicParsing="false" onAction="#pressManageClassButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj klasami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="79.0" layoutY="247.0" mnemonicParsing="false" onAction="#pressManageParentButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj rodzicami" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="40.0" layoutY="287.0" mnemonicParsing="false" onAction="#pressManageClassroomsButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj salami" />
-      <Button layoutX="40.0" layoutY="327.0" mnemonicParsing="false" onAction="#pressCreateScheduleButton" prefHeight="25.0" prefWidth="180.0" text="Zarządzaj planem zajęć" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="40.0" layoutY="367.0" mnemonicParsing="false" onAction="#pressLessonHoursButton" prefHeight="26.0" prefWidth="180.0" text="Zarządzaj godzinami" />
-      <Button layoutX="40.0" layoutY="407.0" mnemonicParsing="false" onAction="#pressDeleteUnusedButton" prefHeight="26.0" prefWidth="180.0" text="Usuń nieużywane konta" AnchorPane.leftAnchor="40.0" />
-      <Button layoutX="40.0" layoutY="447.0" mnemonicParsing="false" onAction="#pressLogOutButton" prefHeight="26.0" prefWidth="180.0" text="Wyloguj się" AnchorPane.leftAnchor="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="buttonManageStudents" layoutX="20.0" layoutY="46.0" mnemonicParsing="false" onAction="#pressManageStudentsButton" prefWidth="150.0" text="Zarządzaj uczniami"/>
+      <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#pressManageTeacherButton" prefWidth="150.0" text="Zarządzaj nauczycielami"/>
+      <Button layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#pressManageSubjectButton" prefWidth="150.0" text="Zarządzaj przedmiotami"/>
+      <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#pressManageClassButton" prefWidth="150.0" text="Zarządzaj klasami"/>
+      <Button layoutX="20.0" layoutY="206.0" mnemonicParsing="false" onAction="#pressManageParentButton" prefWidth="150.0" text="Zarządzaj rodzicami"/>
+      <Button layoutX="20.0" layoutY="246.0" mnemonicParsing="false" onAction="#pressManageClassroomsButton" prefWidth="150.0" text="Zarządzaj salami"/>
+      <Button layoutX="20.0" layoutY="286.0" mnemonicParsing="false" onAction="#pressCreateScheduleButton" prefWidth="150.0" text="Zarządzaj planem zajęć"/>
+      <Button layoutX="20.0" layoutY="326.0" mnemonicParsing="false" onAction="#pressLessonHoursButton" prefWidth="150.0" text="Zarządzaj godzinami"/>
+      <Button layoutX="20.0" layoutY="366.0" mnemonicParsing="false" onAction="#pressDeleteUnusedButton" prefWidth="150.0" text="Usuń nieużywane konta"/>
+      <Button layoutX="20.0" layoutY="406.0" mnemonicParsing="false" onAction="#pressLogOutButton" prefWidth="150.0" text="Wyloguj się"/>
 
    </children>
 </AnchorPane>
