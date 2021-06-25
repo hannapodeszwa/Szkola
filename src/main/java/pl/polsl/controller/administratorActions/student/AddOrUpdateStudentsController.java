@@ -1,10 +1,10 @@
 package pl.polsl.controller.administratorActions.student;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.utils.Roles;
@@ -21,13 +21,22 @@ import java.util.Map;
 
 public class AddOrUpdateStudentsController implements ParametrizedController, CredentialsGenerator {
 
-    public TextField poleImie;
-    public TextField poleMail;
-    public TextField poleDrugieImie;
-    public TextField poleAdres;
-    public TextField poleNazwisko;
-    public ComboBox<String> poleKlasa;
-    public Button buttonAccept;
+    @FXML
+    private TextField poleImie;
+    @FXML
+    private TextField poleMail;
+    @FXML
+    private TextField poleDrugieImie;
+    @FXML
+    private TextField poleAdres;
+    @FXML
+    private TextField poleNazwisko;
+    @FXML
+    private ComboBox<String> poleKlasa;
+    @FXML
+    private Button buttonAccept;
+    @FXML
+    private Label title;
 
     private Uczniowie modyfikowany;
 
@@ -53,11 +62,14 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add")
+        if (params.get("mode") == "add"){
             mode = md.Add;
+            title.setText("Dodawanie ucznia");
+        }
         else {
             mode = md.Update;
             modyfikowany = (Uczniowie) params.get("student");
+            title.setText("Modyfikacja ucznia");
         }
 
         if (modyfikowany != null) {
@@ -78,7 +90,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
     private md mode = md.Update;
 
-    public void confirmChangesButton(ActionEvent event) throws IOException {
+    public void confirmChangesButton() throws IOException {
 
         if (mode == md.Add) {
             System.out.println("Dodawanie nowego ucznia");
@@ -130,7 +142,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException {
+    public void discardChangesButton() throws IOException {
         System.out.println("Zmiany anulowano");
         Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
     }
