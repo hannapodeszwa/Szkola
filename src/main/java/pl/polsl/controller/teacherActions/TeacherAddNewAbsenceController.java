@@ -1,18 +1,13 @@
 package pl.polsl.controller.teacherActions;
 
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
-import pl.polsl.model.LessonTimeModel;
 import pl.polsl.model.AbsenceModel;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
@@ -20,16 +15,8 @@ import java.util.Map;
 
 public class TeacherAddNewAbsenceController implements ParametrizedController {
 
-
-
-    private Integer loggedTeacherId;
-    private Uczniowie student;
-    private Przedmioty subject;
-    private Integer lesson;
-
     @FXML
     private CheckBox excuseCheckBox;
-
     @FXML
     private Label labelStudent;
     @FXML
@@ -39,12 +26,18 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
     @FXML
     private Label infoLabel;
 
-    ObservableList<GodzinyLekcji> timesList;
+    private Integer loggedTeacherId;
+    private Uczniowie student;
+    private Przedmioty subject;
+    private Integer lesson;
+    private Integer numberStudent;
+    private Integer numberSchedule;
 
     @Override
     public void receiveArguments(Map<String, Object> params){
         loggedTeacherId = (Integer) params.get("teacherId");
-
+        numberStudent = (Integer) params.get("numberStudent");
+        numberSchedule = (Integer) params.get("numberSchedule");
 
         student = (Uczniowie) params.get("student");
         subject = (Przedmioty) params.get("subject");
@@ -55,21 +48,16 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
         labelLesson.setText(lesson.toString());
         infoLabel.setText("");
 
-        timesList = FXCollections.observableList((new LessonTimeModel()).getTime());
-
 
 
     }
-
-
-
-
-
 
     public void backAction() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
+        params.put("numberSchedule", numberSchedule);
+        params.put("numberStudent", numberStudent);
         Main.setRoot("teacherActions/teacherAbsenceForm", params, WindowSize.teacherAbsenceForm);
     }
     public void submitAction()

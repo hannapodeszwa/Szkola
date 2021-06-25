@@ -5,35 +5,31 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Konkursy;
-import pl.polsl.model.ClubModel;
 import pl.polsl.model.CompetitionModel;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TeacherAddNewCompetitionController implements ParametrizedController {
-    Integer loggedTeacherId;
 
     @FXML
     private TextField nameTextField;
-
     @FXML
-    private TextField descriptionTextField;
-
+    private TextArea descriptionTextArena;
     @FXML
     private Label infoLabel;
-
     @FXML
     private DatePicker datePicker;
+
+    Integer loggedTeacherId;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
@@ -46,13 +42,13 @@ public class TeacherAddNewCompetitionController implements ParametrizedControlle
     {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherClubForm);
+        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherCompetitionForm);
     }
 
     public void clickButtonAdd() throws IOException {
         infoLabel.setText("");
         String name = nameTextField.getText();
-        String description = descriptionTextField.getText();
+        String description = descriptionTextArena.getText();
 
         if(name.isEmpty() || description.isEmpty()){
             infoLabel.setText("Nazwa i opis konkursu nie mogą być puste!");
@@ -72,15 +68,5 @@ public class TeacherAddNewCompetitionController implements ParametrizedControlle
         }
     }
 
-    private boolean checkIfExists(String name){
-        Boolean ifExistsAlready = false;
-        List<Kolanaukowe> clubList = (new ClubModel()).findAll();
-        for(Kolanaukowe k : clubList){
-            if(k.getOpis() == name){
-                ifExistsAlready = true;
-            }
-        }
-        return ifExistsAlready;
-    }
 
 }

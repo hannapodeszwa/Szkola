@@ -25,12 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 public class TeacherAssignStudentToCompetitionController implements ParametrizedController {
-    Integer competitionId;
-    Integer loggedTeacherId;
-
-    ObservableList<Klasy> classList;
-    ObservableList<Uczniowie> studentsList;
-    List<Udzialwkonkursie> studentAdded;
 
     @FXML
     private ComboBox<String> comboboxClass;
@@ -47,7 +41,12 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
     @FXML
     private TextField achievementText;
 
-
+    Integer competitionId;
+    Integer loggedTeacherId;
+    ObservableList<Klasy> classList;
+    ObservableList<Uczniowie> studentsList;
+    List<Udzialwkonkursie> studentAdded;
+    private Integer numberCompetition;
 
     private final ListChangeListener<? extends TablePosition> tableListener = (
             ListChangeListener.Change<? extends TablePosition> change) -> {
@@ -57,7 +56,7 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
         }
         else if(studentAdded.stream().anyMatch(c -> c.getIdUcznia().equals(table.getSelectionModel().getSelectedItem().getID()))) {
             buttonAdd.setDisable(true);
-            infoLabel.setText("Ten uczeń jest już\nprzypisany do tego koła!");
+            infoLabel.setText("Ten uczeń jest już przypisany do tego koła!");
         }
         else {
             buttonAdd.setDisable(false);
@@ -69,6 +68,7 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
     public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
         competitionId = (Integer) params.get("competitionId");
+        numberCompetition = (Integer) params.get("numberCompetition");
 
         classList = FXCollections.observableList((new SchoolClass()).displayClass());
         if (!classList.isEmpty()) {
@@ -90,7 +90,8 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherClubForm);
+        params.put("numberCompetition", numberCompetition);
+        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherCompetitionForm);
     }
 
 
@@ -106,6 +107,7 @@ public class TeacherAssignStudentToCompetitionController implements Parametrized
         parcomp.setIdKonkursu(competitionId);
         (new CompetitionModel()).persist(parcomp);
         infoLabel.setText("Sukces! Uczeń został\nprzypisany do konkursu!");
+        buttonAdd.setDisable(true);
     }
 
 
