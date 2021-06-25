@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="246.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.classroom.AddOrUpdateClassroomController">
+<AnchorPane prefHeight="211.0" prefWidth="330.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.classroom.AddOrUpdateClassroomController">
     <children>
-        <Button fx:id="confirm" layoutX="147.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefHeight="26.0" prefWidth="78.0" styleClass="button-confirm" text="Zatwierdź" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="111.0" />
-        <Button layoutX="241.0" layoutY="182.0" maxWidth="78.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="26.0" prefWidth="78.0" text="Anuluj" AnchorPane.rightAnchor="25.0" />
-        <TextField fx:id="name" layoutX="130.0" layoutY="75.0" prefHeight="26.0" prefWidth="446.0" promptText="wymagane" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="24.0" />
-        <Label layoutX="39.0" layoutY="79.0" prefHeight="18.0" prefWidth="52.0" text="Nazwa:" AnchorPane.leftAnchor="40.0" />
-        <Label fx:id="title" layoutX="21.0" layoutY="26.0" prefHeight="27.0" prefWidth="290.0" text="Title" AnchorPane.leftAnchor="35.0">
+        <Button fx:id="confirm" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#confirmChangesButton" prefHeight="25.0" prefWidth="135.0" styleClass="button-confirm" text="Zatwierdź" />
+        <Button layoutX="175.0" layoutY="166.0" mnemonicParsing="false" onAction="#discardChangesButton" prefHeight="26.0" prefWidth="135.0" text="Anuluj" />
+        <TextField fx:id="name" layoutX="110.0" layoutY="46.0" prefHeight="25.0" prefWidth="200.0" promptText="wymagane" />
+        <Label layoutX="20.0" layoutY="51.0" prefHeight="18.0" prefWidth="80.0" text="Nazwa:" />
+        <Label fx:id="title" alignment="CENTER" layoutX="21.0" layoutY="10.0" prefHeight="27.0" prefWidth="290.0" text="Title">
          <font>
             <Font size="18.0" />
          </font></Label>
-        <TextField fx:id="size" layoutX="132.0" layoutY="109.0" prefHeight="26.0" prefWidth="174.0" />
-      <Label layoutX="40.0" layoutY="113.0" text="Liczba miejsc:" AnchorPane.leftAnchor="40.0" />
-      <Label layoutX="40.0" layoutY="141.0" text="Rzutnik:" AnchorPane.leftAnchor="40.0" />
-      <RadioButton fx:id="yes" layoutX="132.0" layoutY="141.0" mnemonicParsing="false" text="Tak" />
-      <RadioButton fx:id="no" layoutX="199.0" layoutY="141.0" mnemonicParsing="false" selected="true" text="Nie" />
+        <TextField fx:id="size" layoutX="110.0" layoutY="86.0" prefHeight="25.0" prefWidth="200.0" />
+      <Label layoutX="20.0" layoutY="91.0" prefWidth="80.0" text="Liczba miejsc:" />
+      <Label layoutX="20.0" layoutY="131.0" prefWidth="80.0" text="Rzutnik:" />
+      <RadioButton fx:id="yes" layoutX="132.0" layoutY="131.0" mnemonicParsing="false" text="Tak" />
+      <RadioButton fx:id="no" layoutX="199.0" layoutY="131.0" mnemonicParsing="false" selected="true" text="Nie" />
 
     </children>
 </AnchorPane>

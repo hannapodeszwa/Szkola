@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,7 +37,6 @@ public class ManageParentsController implements ManageDataBase {
     private Label phone;
     @FXML
     private ListView children;
-
     @FXML
     private TextField searchT;
     @FXML
@@ -127,7 +125,7 @@ public class ManageParentsController implements ManageDataBase {
         }
     }
 
-    public void addParentButton(ActionEvent event) throws IOException
+    public void addParentButton() throws IOException
     {
         Map params = new HashMap<String, String>();
         params.put("mode","add");
@@ -135,7 +133,7 @@ public class ManageParentsController implements ManageDataBase {
                 WindowSize.addOrUpdateParentForm.getWidth(),  WindowSize.addOrUpdateParentForm.getHeight());
     }
 
-    public void updateParentButton(ActionEvent event) throws IOException
+    public void updateParentButton() throws IOException
     {
         Rodzice toUpdate = tableParents.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
@@ -151,7 +149,7 @@ public class ManageParentsController implements ManageDataBase {
         }
     }
 
-    public void deleteParentButton(ActionEvent event) throws IOException
+    public void deleteParentButton()
     {
         Rodzice toDelete = tableParents.getSelectionModel().getSelectedItem();
 
@@ -197,13 +195,12 @@ public class ManageParentsController implements ManageDataBase {
                 if(w.getNadawca().equals(login))
                 {
                     w.setNadawca(null);
-                    (new MessageModel()).update(w);
                 }
                 else
                 {
                     w.setOdbiorca(null);
-                    (new MessageModel()).update(w);
                 }
+                (new MessageModel()).update(w);
             }
         }
     }
@@ -233,7 +230,7 @@ public class ManageParentsController implements ManageDataBase {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException
+    public void cancelButton() throws IOException
     {
         Main.setRoot("menu/adminMenuForm",
                 WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
