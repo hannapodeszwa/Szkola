@@ -21,12 +21,6 @@ import java.util.List;
 import java.util.Map;
 
 public class TeacherAssignStudentToClubController implements ParametrizedController {
-    Integer clubId;
-    Integer loggedTeacherId;
-
-    ObservableList<Klasy> classList;
-    ObservableList<Uczniowie> studentsList;
-    List<Udzialwkole> studentAdded;
 
     @FXML
     private ComboBox<String> comboboxClass;
@@ -41,7 +35,12 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     @FXML
     private Button buttonAdd;
 
-
+    Integer clubId;
+    Integer loggedTeacherId;
+    ObservableList<Klasy> classList;
+    ObservableList<Uczniowie> studentsList;
+    List<Udzialwkole> studentAdded;
+    Integer numberClub;
 
     private final ListChangeListener<? extends TablePosition> tableListener = (
             javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
@@ -63,6 +62,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
         clubId = (Integer) params.get("clubId");
+        numberClub = (Integer) params.get("numberClub");
 
         classList = FXCollections.observableList((new SchoolClass()).displayClass());
         if (!classList.isEmpty()) {
@@ -84,6 +84,7 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
+        params.put("numberClub", numberClub);
         Main.setRoot("teacherActions/teacherClubForm", params, WindowSize.teacherClubForm);
     }
 
@@ -99,6 +100,8 @@ public class TeacherAssignStudentToClubController implements ParametrizedControl
         parclub.setIdKola(clubId);
         (new ClubModel()).persist(parclub);
         infoLabel.setText("Sukces! Uczeń został\nprzypisany do koła!");
+        studentAdded = (new ClubParticipationModel()).findByClub(clubId);
+        buttonAdd.setDisable(true);
     }
 
 

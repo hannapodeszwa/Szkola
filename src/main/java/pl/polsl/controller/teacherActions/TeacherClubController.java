@@ -2,6 +2,7 @@ package pl.polsl.controller.teacherActions;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,11 +19,6 @@ import java.util.Map;
 
 public class TeacherClubController implements ParametrizedController {
 
-    Integer loggedTeacherId;
-
-    ObservableList<Kolanaukowe> clubsList;
-    ObservableList<Uczniowie> studentList;
-
     @FXML
     private ComboBox<String> comboboxClubs;
     @FXML
@@ -37,31 +33,50 @@ public class TeacherClubController implements ParametrizedController {
     private Button buttonUnassign;
     @FXML
     private Button buttonDelete;
+    @FXML
+    private Button buttonAssign;
 
-    private void refreshClubList(){
+    Integer loggedTeacherId;
+    ObservableList<Kolanaukowe> clubsList;
+    ObservableList<Uczniowie> studentList = FXCollections.observableArrayList();
+
+    private void refreshClubList(Integer position){
         if(clubsList.isEmpty()) {
-            ObservableList<String> emp = FXCollections.observableArrayList();
-            emp.add("Brak kół zainteresowań");
-            comboboxClubs.setItems(emp);
+            comboboxClubs.getSelectionModel().select(-1);
+            buttonAssign.setDisable(true);
+            buttonDelete.setDisable(true);
         } else {
+            comboboxClubs.getItems().clear();
             for(Kolanaukowe knl : clubsList) {
                 comboboxClubs.getItems().add(knl.getOpis());
             }
-            comboboxClubs.getSelectionModel().select(0);
-            setParticipants(0);
+            comboboxClubs.getSelectionModel().select(position);
+            setParticipants(position);
+            buttonAssign.setDisable(false);
+            buttonDelete.setDisable(false);
         }
     }
     @Override
     public void receiveArguments(Map<String, Object> params) {
         loggedTeacherId = (Integer) params.get("id");
 
+        Integer numberClub = (Integer) params.get("numberClub");
+        if(numberClub == null)
+            numberClub = 0;
+
         Nauczyciele n = (new Teacher()).getTeacherById(loggedTeacherId);
         clubsList = FXCollections.observableArrayList((new ClubModel()).findByTeacher(n));
-
-        refreshClubList();
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) deleteGrade);
+        refreshClubList(numberClub);
 
         infoLabel.setText("");
     }
+
+    private final ListChangeListener<? extends TablePosition> deleteGrade = (
+            javafx.collections.ListChangeListener.Change<? extends TablePosition> change) -> {
+        Uczniowie tym = table.getSelectionModel().getSelectedItem();
+        buttonUnassign.setDisable(tym == null);
+    };
 
     public void clickButtonBack() throws IOException
     {
@@ -73,7 +88,7 @@ public class TeacherClubController implements ParametrizedController {
     public void clickButtonAdd() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherAddNewClubForm", params);
+        Main.setRoot("teacherActions/teacherAddNewClubForm", params, WindowSize.teacherAddNewClubForm);
     }
 
     public void clickButtonAssign() throws IOException {
@@ -83,17 +98,19 @@ public class TeacherClubController implements ParametrizedController {
         Integer clubId = k.getID();
         params.put("id", loggedTeacherId);
         params.put("clubId", clubId);
-        Main.setRoot("teacherActions/teacherAssignStudentToClubForm", params);
+        params.put("numberClub", comboboxClubs.getSelectionModel().getSelectedIndex());
+        Main.setRoot("teacherActions/teacherAssignStudentToClubForm", params, WindowSize.TeacherAssignStudentToClubForm);
     }
 
     public void clickButtonDelete() {
         if(studentList.isEmpty()){
             int tmpId = comboboxClubs.getSelectionModel().getSelectedIndex();
             Kolanaukowe k =  clubsList.get(tmpId);
+            clubsList.remove(k);
             (new ClubModel()).delete(k);
-            refreshClubList();
+            refreshClubList(0);
         } else {
-            infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem koła naukowego!");
+            infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem koła\nnaukowego!");
         }
     }
 
@@ -107,13 +124,15 @@ public class TeacherClubController implements ParametrizedController {
 
         participantsList.stream().filter(p -> p.getIdUcznia().equals(uid)).findAny().ifPresent(tmp -> (new ClubParticipationModel()).delete(tmp));
         studentList.clear();
-        refreshClubList();
+        refreshClubList(tmpId);
         setParticipants(tmpId);
     }
 
     public void changeComboboxClubs() {
         studentList.clear();
-        setParticipants(comboboxClubs.getSelectionModel().getSelectedIndex());
+        int index = comboboxClubs.getSelectionModel().getSelectedIndex();
+        if (index != -1)
+            setParticipants(comboboxClubs.getSelectionModel().getSelectedIndex());
     }
 
     private void setParticipants(int index) {

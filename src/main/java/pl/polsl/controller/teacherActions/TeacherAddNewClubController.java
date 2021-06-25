@@ -19,7 +19,6 @@ public class TeacherAddNewClubController implements ParametrizedController {
 
     @FXML
     private TextField nameTextField;
-
     @FXML
     private Label infoLabel;
 
