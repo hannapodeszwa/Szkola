@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MenuAdministratorController {
+public class AdministratorMenuController {
 
 
     public void pressManageStudentsButton() throws IOException
