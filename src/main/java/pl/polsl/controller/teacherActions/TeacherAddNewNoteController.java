@@ -33,7 +33,7 @@ public class TeacherAddNewNoteController implements ParametrizedController {
     }
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         id = (Integer) params.get("id");
         idStudent = (Integer) params.get("idStudent");
         classCombobox = (Integer) params.get("classCombobox");

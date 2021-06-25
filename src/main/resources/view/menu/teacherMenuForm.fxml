@@ -13,7 +13,7 @@
          </font>
       </Label>
       <Button layoutX="20.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickButtonGrades" prefHeight="25.0" prefWidth="150.0" text="Oceny" />
-      <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAbsence" prefHeight="25.0" prefWidth="150.0" text="Obecności" />
+      <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAbsence" prefHeight="25.0" prefWidth="150.0" text="Nieobecności" />
       <Button layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickButtonMessages" prefHeight="25.0" prefWidth="150.0" text="Wiadomości" />
       <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickButtonSchedule" prefHeight="25.0" prefWidth="150.0" text="Plan lekcji" />
       <Button layoutX="20.0" layoutY="206.0" mnemonicParsing="false" onAction="#clickButtonNote" prefHeight="25.0" prefWidth="150.0" text="Uwagi" />

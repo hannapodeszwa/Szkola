@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAssignStudentToCompetitionController">
+<AnchorPane prefHeight="266.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAssignStudentToCompetitionController">
    <children>
-      <TableView fx:id="table" editable="true" layoutX="14.0" layoutY="41.0" prefHeight="308.0" prefWidth="257.0">
+      <TableView fx:id="table" editable="true" layoutX="20.0" layoutY="46.0" prefHeight="165.0" prefWidth="236.0">
         <columns>
-          <TableColumn fx:id="columnName" editable="false" prefWidth="129.0" sortable="true" text="Imie" />
-            <TableColumn fx:id="columnSurname" editable="false" prefWidth="127.0" sortable="true" text="Nazwisko" />
+          <TableColumn fx:id="columnName" editable="false" prefWidth="100.0" text="Imie" />
+            <TableColumn fx:id="columnSurname" editable="false" prefWidth="120.0" text="Nazwisko" />
         </columns>
       </TableView>
-      <ComboBox fx:id="comboboxClass" layoutX="282.0" layoutY="39.0" onAction="#changeComboboxClass" prefWidth="150.0" />
+      <ComboBox fx:id="comboboxClass" layoutX="276.0" layoutY="46.0" onAction="#changeComboboxClass" prefWidth="150.0" />
 
-       <Label fx:id="infoLabel" layoutX="282.0" layoutY="78.0" prefHeight="224.0" prefWidth="150.0" />
+       <Label fx:id="infoLabel" alignment="TOP_LEFT" layoutX="276.0" layoutY="78.0" prefHeight="78.0" prefWidth="150.0" wrapText="true" />
 
-       <Button fx:id="buttonAdd" layoutX="282.0" layoutY="311.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Przypisz" />
-      <Button fx:id="buttonBack" layoutX="282.0" layoutY="361.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
-      <TextField fx:id="achievementText" layoutX="14.0" layoutY="361.0" prefHeight="25.0" prefWidth="257.0" promptText="Osiągnięcie"/>
+       <Button fx:id="buttonAdd" layoutX="276.0" layoutY="186.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Przypisz" />
+      <Button layoutX="276.0" layoutY="221.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
+      <TextField fx:id="achievementText" layoutX="20.0" layoutY="221.0" prefHeight="25.0" prefWidth="236.0" promptText="Osiągnięcie" />
+      <Label alignment="CENTER" layoutX="133.0" layoutY="10.0" prefWidth="200.0" text="Zapisywanie uczniów">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

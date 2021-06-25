@@ -18,6 +18,7 @@ public class TeacherMenuController implements ParametrizedController {
     public void receiveArguments(Map<String, Object> params) {
         id = (Integer) params.get("id");
         login = (String) params.get("login");
+
     }
 
 
@@ -66,7 +67,7 @@ public class TeacherMenuController implements ParametrizedController {
     public void clickButtonCompetitions() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherCompetitionForm", params);
+        Main.setRoot("teacherActions/teacherCompetitionForm", params, WindowSize.teacherCompetitionForm);
     }
 
     public void clickButtonLogout() throws IOException {

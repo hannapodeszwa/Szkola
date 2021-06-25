@@ -22,15 +22,16 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     teacherAbsenceForm(545,410),
     teacherAddNewAbsenceForm(385,291),
     teacherAddNewClubForm(245,251),
+    teacherAddNewCompetitionForm(245, 320),
     teacherAddNewGradeForm(375,351),
     teacherAddNewNoteForm(405,265),
     TeacherAssignStudentToClubForm(461, 306),
-
+    TeacherAssignStudentToCompetitionForm(461, 306),
     teacherClubForm(461,406),
-
+    teacherCompetitionForm(461,387),
     teacherGradeForm(501,465),
     teacherNoteForm(461,376),
-    teacherScheduleForm(971,606),
+    teacherScheduleForm(926,440),
     //parent
     manageParentsForm (580, 500),
     addOrUpdateParentForm(450,600),

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -15,7 +13,7 @@
       </Label>
         <Label fx:id="infoLabel" layoutX="20.0" layoutY="81.0" prefHeight="35.0" prefWidth="190.0" wrapText="true" />
         <TextField fx:id="nameTextField" layoutX="20.0" layoutY="46.0" prefHeight="25.0" prefWidth="190.0" promptText="Nazwa koła" />
-        <Button fx:id="buttonAdd" layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="190.0" text="Dodaj koło" />
-        <Button fx:id="buttonBack" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="190.0" text="Powrót" />
+        <Button layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="190.0" text="Dodaj koło" />
+        <Button layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="190.0" text="Powrót" />
       </children>
 </AnchorPane>
