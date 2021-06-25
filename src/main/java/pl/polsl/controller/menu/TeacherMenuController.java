@@ -32,7 +32,7 @@ public class TeacherMenuController implements ParametrizedController {
     public void clickButtonAbsence() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        Main.setRoot("teacherActions/teacherAbsenceForm", params);
+        Main.setRoot("teacherActions/teacherAbsenceForm", params, WindowSize.teacherAbsenceForm);
     }
 
     public void clickButtonMessages() throws IOException {

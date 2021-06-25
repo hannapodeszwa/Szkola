@@ -18,14 +18,14 @@
      <ComboBox fx:id="comboboxClubs" layoutX="276.0" layoutY="46.0" onAction="#changeComboboxClubs" prefWidth="150.0" />
 
        <Button fx:id="buttonAssign" layoutX="276.0" layoutY="116.0" mnemonicParsing="false" onAction="#clickButtonAssign" prefHeight="25.0" prefWidth="150.0" text="Przypisz uczestników" />
-       <Button fx:id="buttonUnassign" layoutX="276.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickButtonUnassign" prefHeight="25.0" prefWidth="150.0" text="Usuń uczestnika" />
+       <Button fx:id="buttonUnassign" disable="true" layoutX="276.0" layoutY="286.0" mnemonicParsing="false" onAction="#clickButtonUnassign" prefHeight="25.0" prefWidth="150.0" text="Usuń uczestnika" />
 
        <Button fx:id="buttonDelete" layoutX="276.0" layoutY="251.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń koło naukowe" />
 
        <Button fx:id="buttonAdd" layoutX="276.0" layoutY="81.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj koło" />
       <Button fx:id="buttonBack" layoutX="276.0" layoutY="321.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
       <Label fx:id="infoLabel" alignment="TOP_LEFT" layoutX="276.0" layoutY="156.0" prefHeight="70.0" prefWidth="150.0" />
-      <Label alignment="CENTER" layoutX="173.0" layoutY="10.0" prefWidth="100.0" text="Kluby">
+      <Label alignment="CENTER" layoutX="123.0" layoutY="10.0" prefWidth="200.0" text="Koła naukowe">
          <font>
             <Font size="18.0" />
          </font>

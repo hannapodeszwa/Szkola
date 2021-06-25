@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="167.0" prefWidth="315.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewClubController">
+<AnchorPane prefHeight="211.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewClubController">
    <children>
-       <VBox alignment="CENTER" prefHeight="167.0" prefWidth="315.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
-           <TextField fx:id="nameTextField" layoutX="63.0" layoutY="26.0" prefHeight="25.0" prefWidth="189.0" promptText="Nazwa koła" />
-           <Label fx:id="infoLabel" />
-           <Button fx:id="buttonAdd" layoutX="66.0" layoutY="84.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="189.0" text="Dodaj koło" />
-           <Button fx:id="buttonBack" layoutX="65.0" layoutY="119.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="189.0" text="Powrót" />
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets bottom="10.0" left="65.0" right="65.0" top="10.0" />
-         </padding>
-       </VBox>
+      <Label alignment="CENTER" layoutY="10.0" prefWidth="230.0" text="Nowe koło">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+        <Label fx:id="infoLabel" layoutX="20.0" layoutY="81.0" prefHeight="35.0" prefWidth="190.0" wrapText="true" />
+        <TextField fx:id="nameTextField" layoutX="20.0" layoutY="46.0" prefHeight="25.0" prefWidth="190.0" promptText="Nazwa koła" />
+        <Button fx:id="buttonAdd" layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefHeight="25.0" prefWidth="190.0" text="Dodaj koło" />
+        <Button fx:id="buttonBack" layoutX="20.0" layoutY="166.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="190.0" text="Powrót" />
       </children>
 </AnchorPane>

@@ -5,15 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
-import pl.polsl.model.Grade;
 import pl.polsl.model.LessonTimeModel;
 import pl.polsl.model.AbsenceModel;
-import pl.polsl.model.Teacher;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
@@ -39,7 +36,6 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
     private Label labelSubject;
     @FXML
     private Label labelLesson;
-
     @FXML
     private Label infoLabel;
 
@@ -74,13 +70,13 @@ public class TeacherAddNewAbsenceController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<>();
         params.put("id", loggedTeacherId);
-        Main.setRoot("teacherActions/teacherAbsenceForm", params, WindowSize.teacherGradeForm);
+        Main.setRoot("teacherActions/teacherAbsenceForm", params, WindowSize.teacherAbsenceForm);
     }
     public void submitAction()
     {
 
             addNewAbsence();
-            String excuse = "";
+            String excuse;
             if(excuseCheckBox.isSelected()){
                 excuse = "Tak";
             } else {
