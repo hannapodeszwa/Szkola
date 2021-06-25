@@ -40,7 +40,7 @@ public class ManageTeachersController {
     private ComboBox searchC;
 
     private String login;
-    private ObservableList<Rodzice> teachers;
+    private ObservableList<Nauczyciele> teachers;
 
     @FXML
     public void initialize()
@@ -164,7 +164,7 @@ public class ManageTeachersController {
             if (result.get() == ButtonType.OK) {
 
                 deleteTeacher(toDelete, classTutorList);
-                displayTableTeachers();
+                teachers.remove(toDelete);
             }
         }
     }

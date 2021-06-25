@@ -174,7 +174,7 @@ public class ManageParentsController implements ManageDataBase {
                deleteParenthood(toDelete);
 
                 (new ParentModel()).delete(toDelete);
-                displayTableParents();
+                parents.remove(toDelete);
             }
         }
     }

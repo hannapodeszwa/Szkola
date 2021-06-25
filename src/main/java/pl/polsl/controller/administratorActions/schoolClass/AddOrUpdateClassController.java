@@ -87,7 +87,7 @@ private void disableButton()
         {
             mode = md.Add;
             title.setText("Dodawanie klasy:");
-
+leader.setDisable(true);
             displayStudents();
         }
         else {
