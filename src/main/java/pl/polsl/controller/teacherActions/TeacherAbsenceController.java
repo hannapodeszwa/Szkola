@@ -43,8 +43,6 @@ public class TeacherAbsenceController implements ParametrizedController {
     @FXML
     private Button buttonAdd;
     @FXML
-    private Button buttonBack;
-    @FXML
     private Button buttonExcuse;
 
     Integer id;

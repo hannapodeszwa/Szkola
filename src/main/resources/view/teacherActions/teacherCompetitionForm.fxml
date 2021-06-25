@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
@@ -22,8 +21,8 @@
 
        <Button fx:id="buttonDelete" layoutX="276.0" layoutY="222.0" mnemonicParsing="false" onAction="#clickButtonDelete" prefHeight="25.0" prefWidth="150.0" text="Usuń konkurs" />
 
-       <Button fx:id="buttonAdd" layoutX="276.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj konkurs" />
-      <Button fx:id="buttonBack" layoutX="276.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
+       <Button layoutX="276.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj konkurs" />
+      <Button layoutX="276.0" layoutY="302.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="150.0" text="Powrót" />
       <Label fx:id="infoLabel" alignment="TOP_LEFT" layoutX="276.0" layoutY="161.0" prefHeight="51.0" prefWidth="150.0" wrapText="true" />
        <Label fx:id="descLabel" alignment="TOP_LEFT" layoutX="20.0" layoutY="271.0" prefHeight="51.0" prefWidth="236.0" wrapText="true" />
        <Label fx:id="dateLabel" alignment="TOP_LEFT" layoutX="20.0" layoutY="246.0" prefHeight="25.0" prefWidth="62.0" />

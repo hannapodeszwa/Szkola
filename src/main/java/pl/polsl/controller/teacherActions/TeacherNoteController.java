@@ -54,7 +54,7 @@ public class TeacherNoteController implements ParametrizedController {
 
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
 
         id = (Integer) params.get("id");
         Integer classCombobox = (Integer) params.get("classCombobox");
@@ -191,7 +191,7 @@ public class TeacherNoteController implements ParametrizedController {
     }
 
     public void clickButtonBack() throws IOException {
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("id", id);
         Main.setRoot("menu/TeacherMenuForm", params, WindowSize.teacherMenuForm);
     }
