@@ -19,7 +19,7 @@ import java.util.Map;
 public class TeacherCompetitionController implements ParametrizedController {
 
     @FXML
-    private Label achievementLabel;
+    private TextField achievementField;
     @FXML
     private Button buttonDelete;
     @FXML
@@ -32,6 +32,8 @@ public class TeacherCompetitionController implements ParametrizedController {
     private TableColumn<Uczniowie, String> columnStudent;
     @FXML
     private TableColumn<Uczniowie, String> columnClass;
+    @FXML
+    private TableColumn<Uczniowie, String> columnAchievement;
     @FXML
     private TableView<Uczniowie> table;
     @FXML
@@ -86,13 +88,13 @@ public class TeacherCompetitionController implements ParametrizedController {
         Uczniowie tym = table.getSelectionModel().getSelectedItem();
         if (tym == null){
             buttonUnassign.setDisable(true);
-            achievementLabel.setText("");
+            achievementField.setText("");
         }
         else{
             buttonUnassign.setDisable(false);
             for(Udzialwkonkursie act : participationList) {
                 if (act.getIdUcznia().equals(tym.getID())) {
-                    achievementLabel.setText(act.getOsiagniecie());
+                    achievementField.setText(act.getOsiagniecie());
                     break;
                 }
             }
@@ -127,6 +129,17 @@ public class TeacherCompetitionController implements ParametrizedController {
         params.put("numberCompetition",comboboxCompetitions.getSelectionModel().getSelectedIndex());
         Main.setRoot("teacherActions/teacherAssignStudentToCompetitionForm", params, WindowSize.TeacherAssignStudentToCompetitionForm);
     }
+
+    public void clickButtonAchievement() throws IOException {
+        Integer studentID = studentList.get(table.getSelectionModel().getSelectedIndex()).getID();
+        Integer competitionIndex = comboboxCompetitions.getSelectionModel().getSelectedIndex();
+        Integer competitionID = competitionsList.get(competitionIndex).getID();
+        Udzialwkonkursie p = new CompetitionModel().findByBoth(studentID, competitionID);
+        p.setOsiagniecie(achievementField.getText());
+        (new CompetitionModel()).update(p);
+      //  setParticipants(competitionIndex);
+        changeComboboxCompetitions();
+     }
 
     public void clickButtonDelete() {
         if(studentList.isEmpty()){
@@ -174,6 +187,8 @@ public class TeacherCompetitionController implements ParametrizedController {
 
         columnClass.setCellValueFactory(CellData -> new SimpleStringProperty((new SchoolClass()).getClassById(CellData.getValue().getIdKlasy()).getNumer()));
         columnStudent.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie() + " " + CellData.getValue().getNazwisko()));
+        columnAchievement.setCellValueFactory(CellData -> new SimpleStringProperty((new CompetitionModel()).findByBoth(CellData.getValue().getID(), competitionId).getOsiagniecie()));
+
 
         table.setItems(studentList);
     }
