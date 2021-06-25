@@ -12,7 +12,6 @@ import pl.polsl.model.ClubModel;
 import pl.polsl.utils.WindowSize;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class TeacherAddNewClubController implements ParametrizedController {
@@ -54,17 +53,6 @@ public class TeacherAddNewClubController implements ParametrizedController {
                 infoLabel.setText("Koło naukowe " + name + " utworzono pomyślnie");
             }
         }
-    }
-
-    private boolean checkIfExists(String name){
-        Boolean ifExistsAlready = false;
-        List<Kolanaukowe> clubList = (new ClubModel()).findAll();
-        for(Kolanaukowe k : clubList){
-            if(k.getOpis() == name){
-                ifExistsAlready = true;
-            }
-        }
-        return ifExistsAlready;
     }
 
 }

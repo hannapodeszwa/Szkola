@@ -14,7 +14,6 @@ import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.utils.WindowSize;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.IOException;
 import java.util.*;
 
@@ -42,8 +41,6 @@ public class TeacherGradesController implements ParametrizedController {
     private Button buttonDelete;
     @FXML
     private Button buttonAdd;
-    @FXML
-    private Button buttonBack;
     @FXML
     private Label labelAerage;
 
@@ -209,13 +206,8 @@ public class TeacherGradesController implements ParametrizedController {
 
             table.setItems(gradeList);
         }
+        buttonAverage.setDisable(gradeList.isEmpty());
 
-        if(gradeList.isEmpty()){
-            buttonAverage.setDisable(true);
-        }
-        else{
-            buttonAverage.setDisable(false);
-        }
     }
     public void changeComboboxStudent() {
         gradeList.clear();
