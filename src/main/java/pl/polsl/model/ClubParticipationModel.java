@@ -4,6 +4,7 @@ import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Kolanaukowe;
 import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Udzialwkole;
 
 import javax.persistence.EntityManager;
@@ -48,5 +49,11 @@ public class ClubParticipationModel implements ManageDataBase {
         return results;
     }
 
-
+    public List<Udzialwkole> findByStudent(Uczniowie u) {
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("udzialwkole.findByStudent", Udzialwkole.class);
+        query.setParameter("id", u.getID());
+        List<Udzialwkole> results = query.getResultList();
+        return results;
+    }
 }

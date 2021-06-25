@@ -83,6 +83,10 @@ public class ManageStudentsController {
 
     private void search()
     {
+        searchC.getItems().add("Imię");
+        searchC.getItems().add("Nazwisko");
+        searchC.getItems().add("Klasa");
+
         FilteredList<Uczniowie> filter = new FilteredList(students, p -> true);
         tableStudents.setItems(filter);
         searchC.setValue("Nazwisko");
@@ -96,6 +100,9 @@ public class ManageStudentsController {
                 case "Nazwisko":
                     filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
                     break;
+                case "Klasa":
+                    filter.setPredicate(p -> (new SchoolClass()).getClassNumber(p.getIdKlasy()).toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    break;
             }
         });
     }
@@ -104,7 +111,6 @@ public class ManageStudentsController {
 
     public void addStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Dodawanie ucznia");
         Map params = new HashMap<String, String>();
 
         params.put("mode","add");
@@ -113,13 +119,11 @@ public class ManageStudentsController {
 
     public void updateStudentsButton(ActionEvent event) throws IOException
     {
-        System.out.println("Modyfikowanie ucznia");
-
         Map params = new HashMap<String, String>();
 
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
         params.put("mode","update");
-        //AddOrUpdateStudentsController
+
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm.getWidth(), WindowSize.addOrUpdateStudentForm.getHeight());
     }
 
@@ -136,12 +140,10 @@ public class ManageStudentsController {
             List<Object> toUpdate = new ArrayList<>();
             List<Object> toDelete = new ArrayList<>();
 
-            toDelete.add(u);
+            //toDelete.add(u);
+
             Uzytkownicy usr = (new UserModel()).getUserByIdAndRole(u.getID(), Roles.STUDENT);
             toDelete.add(usr);
-
-            //(new ParenthoodModel()).getParentsByChildID(u.getID());
-            //toDelete.addAll()
 
             Klasy k = (new SchoolClass()).getClassByLeader(u.getID());
             if (k != null) {
@@ -149,22 +151,46 @@ public class ManageStudentsController {
                 toUpdate.add(k);
             }
 
-            List<Rodzicielstwo> r = (new ParenthoodModel()).findByStudent(u);
-            if (r != null) {
-                toDelete.addAll(r);
+            List<Nieobecnosci> absences = (new AbsenceModel()).displayPresent(u.getID());
+            if (absences != null) {
+                toDelete.addAll(absences);
             }
 
-            (new Student()).applyChanges(toUpdate,null,toDelete);
+            List<Rodzicielstwo> parenthood = (new ParenthoodModel()).findByStudent(u);
+            if (parenthood != null) {
+                toDelete.addAll(parenthood);
+            }
 
-            tableStudents.getItems().remove(tableStudents.getSelectionModel().getSelectedItem());
+            List<Udzialwkonkursie> competitionParticipation = (new CompetitionModel()).findByStudent(u);
+            if (competitionParticipation != null) {
+                toDelete.addAll(competitionParticipation);
+            }
+
+            List<Udzialwkole> clubParticipation = (new ClubParticipationModel()).findByStudent(u);
+            if (clubParticipation != null) {
+                toDelete.addAll(clubParticipation);
+            }
+
+            List<Uwagi> studentNotes = (new NoteModel()).getStudentNote(u.getID());
+            if (studentNotes != null) {
+                toDelete.addAll(studentNotes);
+            }
+
+            List<Oceny> studentGrades = (new Grade()).getGradeByStudent(u.getID());
+            if (studentGrades != null) {
+                toDelete.addAll(studentGrades);
+                //(new Grade()).delete(studentGrades);
+            }
+
+            (new Student()).applyChanges(toUpdate, new ArrayList<>(), toDelete);
+            (new Student()).delete(u);
+
+            students.remove(u);
         }
-
-        System.out.println("Usuwanie ucznia");
     }
 
 
     public void goBackButtonClick(ActionEvent event) throws IOException {
-        System.out.println("Powrot");
         Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
     }
 }
