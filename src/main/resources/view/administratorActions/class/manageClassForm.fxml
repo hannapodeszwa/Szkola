@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="window" prefHeight="377.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.schoolClass.ManageClassController">
+<AnchorPane fx:id="window" prefHeight="300.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.administratorActions.schoolClass.ManageClassController">
     <children>
-        <TableView fx:id="tableClass" layoutX="30.0" layoutY="53.0" prefHeight="294.0" prefWidth="110.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="60.0">
-            <columns>
-                <TableColumn id="nameC" fx:id="nameC" prefWidth="101.19997787475586" text="Nazwa" />
-            </columns>
-        </TableView>
-        <Button fx:id="buttonAddNewSubject" layoutX="156.0" layoutY="60.0" mnemonicParsing="false" onAction="#addClassButton" prefHeight="26.0" prefWidth="137.0" text="Dodaj nową klasę" AnchorPane.rightAnchor="20.0" />
-        <Button fx:id="buttonUpdateSubject" layoutX="174.0" layoutY="96.0" mnemonicParsing="false" onAction="#updateClassButton" prefHeight="26.0" prefWidth="138.0" text="Modyfikuj klasę" AnchorPane.rightAnchor="20.0" />
-        <Button layoutX="174.0" layoutY="131.0" mnemonicParsing="false" onAction="#deleteClassButton" prefHeight="26.0" prefWidth="138.0" text="Usuń klasę" AnchorPane.rightAnchor="20.0" />
-        <Button layoutX="246.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelButton" prefWidth="69.0" text="Powrót" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-        <Label layoutX="186.0" layoutY="180.0" text="Wychowawca:" AnchorPane.leftAnchor="186.0" />
-        <Label fx:id="tutor" layoutX="188.0" layoutY="200.0" AnchorPane.leftAnchor="186.0" />
-        <Label layoutX="191.0" layoutY="229.0" text="Przewodniczący:" AnchorPane.leftAnchor="186.0" />
-        <Label fx:id="leader" layoutX="189.0" layoutY="247.0" AnchorPane.leftAnchor="186.0" />
-      <Label layoutX="41.0" layoutY="29.0" text="Zarządzanie klasami" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="20.0">
+      <Label alignment="CENTER" layoutX="53.0" layoutY="10.0" prefWidth="200.0" text="Zarządzanie klasami">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+        <TableView fx:id="tableClass" layoutX="20.0" layoutY="46.0" prefHeight="234.0" prefWidth="96.0">
+            <columns>
+                <TableColumn id="nameC" fx:id="nameC" editable="false" text="Nazwa" />
+            </columns>
+        </TableView>
+        <Button layoutX="136.0" layoutY="46.0" mnemonicParsing="false" onAction="#addClassButton" prefHeight="26.0" prefWidth="150.0" text="Dodaj nową klasę" />
+        <Button layoutX="136.0" layoutY="86.0" mnemonicParsing="false" onAction="#updateClassButton" prefHeight="26.0" prefWidth="150.0" text="Modyfikuj klasę" />
+        <Button layoutX="136.0" layoutY="126.0" mnemonicParsing="false" onAction="#deleteClassButton" prefHeight="26.0" prefWidth="150.0" text="Usuń klasę" />
+        <Label alignment="CENTER" layoutX="136.0" layoutY="165.0" prefWidth="150.0" text="Wychowawca:" />
+        <Label fx:id="tutor" alignment="CENTER" layoutX="136.0" layoutY="185.0" prefWidth="150.0" />
+        <Label alignment="CENTER" layoutX="136.0" layoutY="210.0" prefWidth="150.0" text="Przewodniczący:" />
+        <Label fx:id="leader" alignment="CENTER" layoutX="136.0" layoutY="230.0" prefWidth="150.0" />
+        <Button layoutX="136.0" layoutY="255.0" mnemonicParsing="false" onAction="#cancelButton" prefWidth="150.0" text="Powrót" />
     </children>
 </AnchorPane>
