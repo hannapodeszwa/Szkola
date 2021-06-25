@@ -137,7 +137,7 @@ public class MessengerController implements ParametrizedController {
         WindowSize size;
         switch (mode) {
             case Roles.STUDENT:
-                size = WindowSize.studenMenuForm;
+                size = WindowSize.studentMenuForm;
                 break;
             case Roles.PARENT:
                 size = WindowSize.parentMenuForm;

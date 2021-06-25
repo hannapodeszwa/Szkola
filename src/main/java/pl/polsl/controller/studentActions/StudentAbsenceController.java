@@ -127,7 +127,7 @@ public class StudentAbsenceController implements ParametrizedController {
         params.put("mode", mode);
         params.put("id", id);
         if (mode.equals(Roles.STUDENT))
-            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studentMenuForm);
         else {
             Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
             saveData();

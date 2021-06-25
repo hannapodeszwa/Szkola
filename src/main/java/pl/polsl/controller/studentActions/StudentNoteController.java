@@ -117,8 +117,8 @@ public class StudentNoteController implements ParametrizedController {
         columnTeacher.setCellValueFactory(CellData -> {
             Integer idTeacher = CellData.getValue().getIdNauczyciela();
             Nauczyciele act = (new Teacher()).getTeacherById(idTeacher);
-            if(act != null)
-            return new ReadOnlyStringWrapper(act.getImie() + " " + act.getNazwisko());
+            if (act != null)
+                return new ReadOnlyStringWrapper(act.getImie() + " " + act.getNazwisko());
             else
                 return new ReadOnlyStringWrapper("");
         });
@@ -136,7 +136,7 @@ public class StudentNoteController implements ParametrizedController {
         params.put("mode", mode);
         params.put("id", id);
         if (mode.equals(Roles.STUDENT))
-            Main.setRoot("menu/studentMenuForm", params, WindowSize.studenMenuForm);
+            Main.setRoot("menu/studentMenuForm", params, WindowSize.studentMenuForm);
         else
             Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
