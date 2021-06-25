@@ -4,10 +4,13 @@ import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Klasy;
 import pl.polsl.entities.Uczniowie;
+import pl.polsl.entities.Uzytkownicy;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SchoolClass implements ManageDataBase {
     /**
@@ -28,10 +31,14 @@ public class SchoolClass implements ManageDataBase {
     public Klasy getClassByLeader(Integer Id)
     {
         em = MyManager.getEntityManager();
-        TypedQuery query = em.createNamedQuery("klasy.findByLeader", Klasy.class);
-        query.setParameter("idPrzewodniczacego", Id);
-        Klasy result = (Klasy) query.getSingleResult();
-        return result;
+        try {TypedQuery query = em.createNamedQuery("klasy.findByLeader", Klasy.class);
+            query.setParameter("idPrzewodniczacego", Id);
+            Klasy result = (Klasy) query.getResultList();
+            return result;
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.INFO, "This user wasn't a leader of any class");
+            return null;
+        }
     }
 
     public Integer getClassId(String num)
