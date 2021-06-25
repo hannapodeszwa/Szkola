@@ -23,7 +23,6 @@ public class ManageSubjectsController{
     private TableView<Przedmioty> tableSubjects;
     @FXML
     private TableColumn<Przedmioty, String> nameC;
-
     @FXML
     public void initialize()
     {

@@ -47,12 +47,12 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     public void receiveArguments(Map params) {
         if (params.get("mode") == "add") {
             mode = md.Add;
-            title.setText("Dodawanie przedmiotu:");
+            title.setText("Dodawanie przedmiotu");
         }
         else {
             mode = md.Update;
             toUpdate = (Przedmioty) params.get("subject");
-            title.setText("Modyfikacja przedmiotu:");
+            title.setText("Modyfikacja przedmiotu");
         }
 
         if (toUpdate != null) {
