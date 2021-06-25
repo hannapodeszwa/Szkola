@@ -87,7 +87,7 @@ public class StudentCompetitionController implements ParametrizedController {
             comboBoxTeachers.getItems().add(decorate(tea));
         comboBoxCompetitions.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
             competitionName.setText(newSelection.getNazwa());
-            competitionDescription.setText((newSelection.getOpis() != null ? newSelection.getOpis() : "") + (newSelection.getDataOdbyciaSie() != null ? "\nTermin konkursu: " + newSelection.getDataOdbyciaSie().toLocalDate().toString() : ""));
+            competitionDescription.setText((newSelection.getOpis() != null ? newSelection.getOpis() : "") + (newSelection.getDataOdbyciaSie() != null ? "\nTermin: " + newSelection.getDataOdbyciaSie().toLocalDate().toString() : ""));
             if (comboBoxTeachers.getSelectionModel().getSelectedItem() != null)
                 buttonApply.setDisable(false);
         });

@@ -7,7 +7,11 @@
 
 <AnchorPane prefHeight="590.0" prefWidth="956.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.studentActions.StudentScheduleController">
    <children>
-       <Button layoutX="786.0" layoutY="526.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="150.0" text="Powrót" />
+       <Label alignment="CENTER" layoutX="428.0" layoutY="10.0" prefWidth="100.0" text="Plan lekcji">
+           <font>
+             <Font size="18.0" />
+           </font>
+       </Label>
        <TableView fx:id="table" layoutX="20.0" layoutY="46.0" prefHeight="464.0" prefWidth="916.0">
          <columns>
              <TableColumn fx:id="columnNum" editable="false" prefWidth="25.0" resizable="false" sortable="false" />
@@ -21,14 +25,10 @@
        </TableView>
        <ComboBox fx:id="comboboxChildren" layoutX="20.0" layoutY="526.0" onAction="#changeComboboxChildren" prefWidth="150.0" />
        <ComboBox fx:id="comboboxClasses" layoutX="20.0" layoutY="526.0" onAction="#changeComboboxClasses" prefWidth="150.0" visible="false" />
-       <Label alignment="CENTER" layoutX="428.0" layoutY="10.0" prefWidth="100.0" text="Plan lekcji">
-           <font>
-             <Font size="18.0" />
-           </font>
-       </Label>
        <ComboBox fx:id="comboBoxSubject" layoutX="190.0" layoutY="526.0" prefWidth="150.0" visible="false" />
        <ComboBox fx:id="comboBoxTeacher" layoutX="360.0" layoutY="526.0" prefWidth="150.0" visible="false" />
        <ComboBox fx:id="comboBoxClassroom" layoutX="530.0" layoutY="526.0" prefWidth="150.0" visible="false" />
+       <Button layoutX="786.0" layoutY="526.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="150.0" text="Powrót" />
        <Label fx:id="warnings" alignment="CENTER" layoutX="20.0" layoutY="557.0" prefHeight="25.0" prefWidth="916.0" textFill="RED" wrapText="true" />
    </children>
 </AnchorPane>

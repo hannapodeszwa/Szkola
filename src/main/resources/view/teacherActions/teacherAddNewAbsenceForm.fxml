@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="251.0" prefWidth="370.0" stylesheets="@../../css/main.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherAddNewAbsenceController">
    <children>
-      <Button layoutX="195.0" layoutY="206.0" mnemonicParsing="false" onAction="#backAction" prefHeight="25.0" prefWidth="155.0" text="Powrót" />
-      <Button layoutX="20.0" layoutY="206.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="155.0" text="Dodaj" />
-
-
-      <Label alignment="CENTER" layoutX="200.0" layoutY="126.0" prefHeight="20.0" prefWidth="150.0" text="Usprawiedliwiona">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <CheckBox fx:id="excuseCheckBox" layoutX="265.0" layoutY="146.0" />
-      <Label fx:id="infoLabel" layoutX="20.0" layoutY="126.0" prefHeight="70.0" prefWidth="181.0" text="labelInfo" />
       <Label alignment="CENTER" layoutX="35.0" layoutY="10.0" prefHeight="27.0" prefWidth="300.0" text="Dodawanie nieobecności">
          <font>
             <Font size="18.0" />
@@ -64,6 +55,16 @@
             </Label>
          </children>
       </GridPane>
+      <Label fx:id="infoLabel" layoutX="20.0" layoutY="126.0" prefHeight="70.0" prefWidth="181.0" text="labelInfo" />
+
+
+      <Label alignment="CENTER" layoutX="200.0" layoutY="126.0" prefHeight="20.0" prefWidth="150.0" text="Usprawiedliwiona">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <CheckBox fx:id="excuseCheckBox" layoutX="265.0" layoutY="146.0" />
+      <Button layoutX="20.0" layoutY="206.0" mnemonicParsing="false" onAction="#submitAction" prefHeight="25.0" prefWidth="155.0" text="Dodaj" />
+      <Button layoutX="195.0" layoutY="206.0" mnemonicParsing="false" onAction="#backAction" prefHeight="25.0" prefWidth="155.0" text="Powrót" />
 
    </children>
 </AnchorPane>
