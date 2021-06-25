@@ -14,10 +14,11 @@
          <font>
             <Font size="18.0" />
          </font></Label>
+        <TextField fx:id="size" layoutX="132.0" layoutY="109.0" prefHeight="26.0" prefWidth="174.0" />
       <Label layoutX="40.0" layoutY="113.0" text="Liczba miejsc:" AnchorPane.leftAnchor="40.0" />
       <Label layoutX="40.0" layoutY="141.0" text="Rzutnik:" AnchorPane.leftAnchor="40.0" />
       <RadioButton fx:id="yes" layoutX="132.0" layoutY="141.0" mnemonicParsing="false" text="Tak" />
       <RadioButton fx:id="no" layoutX="199.0" layoutY="141.0" mnemonicParsing="false" selected="true" text="Nie" />
-      <TextField fx:id="size" layoutX="132.0" layoutY="109.0" prefHeight="26.0" prefWidth="174.0" />
+
     </children>
 </AnchorPane>
