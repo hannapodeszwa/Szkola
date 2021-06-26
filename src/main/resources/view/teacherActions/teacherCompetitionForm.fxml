@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="347.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherCompetitionController">
+<AnchorPane prefHeight="347.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.teacherActions.TeacherCompetitionController">
    <children>
 
        <Label alignment="CENTER" layoutX="123.0" layoutY="10.0" prefWidth="200.0" text="Konkursy">
@@ -27,7 +28,7 @@
        <TextField fx:id="achievementField" layoutX="20.0" layoutY="255.0" prefHeight="25.0" prefWidth="255.0" />
 
        <Button layoutX="450.0" layoutY="79.0" mnemonicParsing="false" onAction="#clickButtonAdd" prefWidth="150.0" text="Dodaj konkurs" />
-       <Button fx:id="buttonAchievement" layoutX="289.0" layoutY="255.0" mnemonicParsing="false" onAction="#clickButtonAchievement" prefHeight="25.0" prefWidth="150.0" text="Zmień osiągnięcie" />
+       <Button fx:id="buttonAchievement" disable="true" layoutX="289.0" layoutY="255.0" mnemonicParsing="false" onAction="#clickButtonAchievement" prefHeight="25.0" prefWidth="150.0" text="Zmień osiągnięcie" />
 
        <Button fx:id="buttonAssign" layoutX="450.0" layoutY="111.0" mnemonicParsing="false" onAction="#clickButtonAssign" prefHeight="25.0" prefWidth="150.0" text="Przypisz uczestników" />
       <Label fx:id="infoLabel" alignment="TOP_LEFT" layoutX="276.0" layoutY="176.0" prefHeight="60.0" prefWidth="150.0" wrapText="true" />

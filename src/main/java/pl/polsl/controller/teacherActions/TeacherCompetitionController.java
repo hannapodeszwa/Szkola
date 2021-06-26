@@ -15,9 +15,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class TeacherCompetitionController implements ParametrizedController {
 
+    @FXML
+    private Button buttonAchievement;
     @FXML
     private TextField achievementField;
     @FXML
@@ -88,10 +91,12 @@ public class TeacherCompetitionController implements ParametrizedController {
         Uczniowie tym = table.getSelectionModel().getSelectedItem();
         if (tym == null){
             buttonUnassign.setDisable(true);
+            buttonAchievement.setDisable(true);
             achievementField.setText("");
         }
         else{
             buttonUnassign.setDisable(false);
+            buttonAchievement.setDisable(false);
             for(Udzialwkonkursie act : participationList) {
                 if (act.getIdUcznia().equals(tym.getID())) {
                     achievementField.setText(act.getOsiagniecie());
@@ -130,15 +135,13 @@ public class TeacherCompetitionController implements ParametrizedController {
         Main.setRoot("teacherActions/teacherAssignStudentToCompetitionForm", params, WindowSize.TeacherAssignStudentToCompetitionForm);
     }
 
-    public void clickButtonAchievement() throws IOException {
-        Integer studentID = studentList.get(table.getSelectionModel().getSelectedIndex()).getID();
-        Integer competitionIndex = comboboxCompetitions.getSelectionModel().getSelectedIndex();
-        Integer competitionID = competitionsList.get(competitionIndex).getID();
-        Udzialwkonkursie p = new CompetitionModel().findByBoth(studentID, competitionID);
-        p.setOsiagniecie(achievementField.getText());
-        (new CompetitionModel()).update(p);
-      //  setParticipants(competitionIndex);
-        changeComboboxCompetitions();
+    public void clickButtonAchievement() {
+        Uczniowie student = table.getSelectionModel().getSelectedItem();
+        Optional<Udzialwkonkursie> opt = participationList.stream().parallel().filter(act -> act.getIdUcznia().equals(student.getID())).findAny();
+        Udzialwkonkursie update = opt.get();
+        update.setOsiagniecie(achievementField.getText());
+        (new CompetitionModel()).update(update);
+        //changeComboboxCompetitions();
      }
 
     public void clickButtonDelete() {
