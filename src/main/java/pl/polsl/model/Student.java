@@ -103,6 +103,14 @@ public class Student implements ManageDataBase {
 
     }
 
+    public List getGradeFromSubject(Integer Id){
+        entityManager = MyManager.getEntityManager();
+        TypedQuery query = entityManager.createNamedQuery("uczniowie.getGradeFromSubject", Uczniowie.class);
+        query.setParameter("id", Id);
+        List<Uczniowie> result = query.getResultList();
+        return result;
+    }
+
 
     /*public Nauczyciele getStudentByName(String s)
     {
