@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageParentsController implements ManageDataBase {
+public class ManageParentsController  {
     @FXML
     private TableView<Rodzice> tableParents;
     @FXML
