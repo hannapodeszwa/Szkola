@@ -8,6 +8,9 @@ import pl.polsl.model.Student;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.swing.*;
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
@@ -44,28 +47,84 @@ public class RaportMenuController {
 
 class HelloWorldPrinter implements Printable {
 
-    public int print(Graphics g, PageFormat pf, int page) throws
+    private String textToPrint;
+
+    public String getTextToPrint() {
+        return textToPrint;
+    }
+
+    public void setTextToPrint(String textToPrint) {
+        this.textToPrint = textToPrint;
+    }
+
+
+    int[] pageBreaks;  // array of page break line positions.
+
+    /* Synthesise some sample lines of text */
+    String[] textLines;
+    private void initTextLines() {
+        if (textLines == null) {
+            int numLines=200;
+            textLines = new String[numLines];
+            for (int i=0;i<numLines;i++) {
+                textLines[i]= "This is line number " + i;
+            }
+        }
+    }
+
+    public int print(Graphics g, PageFormat pf, int pageIndex) throws
             PrinterException {
 
-        if (page > 0) { /* We have only one page, and 'page' is zero-based */
+        Font font = new Font("Serif", Font.PLAIN, 10);
+        FontMetrics metrics = g.getFontMetrics(font);
+        int lineHeight = metrics.getHeight();
+
+        if (pageBreaks == null) {
+            initTextLines();
+            int linesPerPage = (int)(pf.getImageableHeight()/lineHeight);
+            int numBreaks = (textLines.length-1)/linesPerPage;
+            pageBreaks = new int[numBreaks];
+            for (int b=0; b<numBreaks; b++) {
+                pageBreaks[b] = (b+1)*linesPerPage;
+            }
+        }
+
+        if (pageIndex > pageBreaks.length) {
             return NO_SUCH_PAGE;
         }
 
-        /* User (0,0) is typically outside the imageable area, so we must
-         * translate by the X and Y values in the PageFormat to avoid clipping
-         */
-        Graphics2D g2d = (Graphics2D) g;
+        Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
 
-        /* Now we perform our rendering */
-        g.drawString("Hello world!", 100, 100);
+        /* Draw each line that is on this page.
+         * Increment 'y' position by lineHeight for each line.
+         */
+        int y = 0;
+        int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex-1];
+        int end   = (pageIndex == pageBreaks.length)
+                ? textLines.length : pageBreaks[pageIndex];
+        for (int line=start; line<end; line++) {
+            y += lineHeight;
+            g.drawString(textLines[line], 0, y);
+        }
 
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
     }
 
-    public void printingCall() {
+    public void printingCall() {try {
+        String cn = UIManager.getSystemLookAndFeelClassName();
+        UIManager.setLookAndFeel(cn);
+        }
+        catch (Exception cnf) {
+        }
+
         PrinterJob job = PrinterJob.getPrinterJob();
+        PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
+        PageFormat pf = job.pageDialog(aset);
+
+
+        //PrinterJob job = PrinterJob.getPrinterJob();
         job.setPrintable(this);
         boolean ok = job.printDialog();
         if (ok) {
