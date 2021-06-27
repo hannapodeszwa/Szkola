@@ -1,6 +1,7 @@
 package pl.polsl.controller.principal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -26,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RaportMenuController {
+
+    @FXML
+    private Button highestAvg;
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
@@ -34,6 +38,14 @@ public class RaportMenuController {
     public void initialize()
     {
         displayTableSubjects();
+        tableSubjects.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                highestAvg.setDisable(false);
+            }
+            else {
+                highestAvg.setDisable(true);
+            }
+        });
     }
 
     private void displayTableSubjects()
