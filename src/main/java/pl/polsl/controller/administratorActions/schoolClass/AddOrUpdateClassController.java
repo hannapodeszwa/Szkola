@@ -18,6 +18,7 @@ import pl.polsl.model.Student;
 import pl.polsl.model.Teacher;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,10 +32,12 @@ public class AddOrUpdateClassController  implements ParametrizedController {
 
     private Klasy toUpdate;
     public enum md {Add, Update}
-    private md mode = md.Update;
+    private md procedure = md.Update;
 
     List <Nauczyciele> teachers;
     List <Uczniowie> students;
+
+    private String mode;
 
     @FXML
     public void initialize()
@@ -83,15 +86,17 @@ private void disableButton()
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add")
+        mode = (String)params.get("mode");
+
+        if (params.get("procedure") == "add")
         {
-            mode = md.Add;
+            procedure = md.Add;
             title.setText("Dodawanie klasy:");
 leader.setDisable(true);
             displayStudents();
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
             toUpdate = (Klasy) params.get("class");
             title.setText("Modyfikacja klasy:");
             if(toUpdate.getIdWychowawcy() != null) {
@@ -112,16 +117,17 @@ leader.setDisable(true);
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == md.Add) {
+        if (procedure == md.Add) {
             Klasy k = new Klasy();
             setNewValues(k);
             (new SchoolClass()).persist(k);
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             setNewValues(toUpdate);
             (new SchoolClass()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/class/manageClassForm",
-                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
     }
     private void setNewValues(Klasy k)
     {
@@ -149,8 +155,9 @@ leader.setDisable(true);
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("administratorActions/class/manageClassForm",
-                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
     }
 
 

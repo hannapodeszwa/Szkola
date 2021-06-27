@@ -8,9 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 
@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageParentsController  {
+public class ManageParentsController implements ParametrizedController {
+
     @FXML
     private TableView<Rodzice> tableParents;
     @FXML
@@ -44,7 +45,7 @@ public class ManageParentsController  {
 
     private String login;
     private ObservableList<Rodzice> parents;
-
+    private String mode;
 
     @FXML
     public void initialize()
@@ -54,6 +55,11 @@ public class ManageParentsController  {
         changeLabels();
         search();
 
+    }
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String)params.get("mode");
     }
 
     private void search()
@@ -128,9 +134,10 @@ public class ManageParentsController  {
     public void addParentButton() throws IOException
     {
         Map params = new HashMap<String, String>();
-        params.put("mode","add");
+        params.put("procedure","add");
+        params.put("mode", mode);
         Main.setRoot("administratorActions/parent/addOrUpdateParentForm",params,
-                WindowSize.addOrUpdateParentForm.getWidth(),  WindowSize.addOrUpdateParentForm.getHeight());
+                WindowSize.addOrUpdateParentForm);
     }
 
     public void updateParentButton() throws IOException
@@ -143,9 +150,9 @@ public class ManageParentsController  {
         else {
             Map params = new HashMap<String, String>();
             params.put("parent", tableParents.getSelectionModel().getSelectedItem());
-            params.put("mode", "update");
-            Main.setRoot("administratorActions/parent/addOrUpdateParentForm", params,
-                    WindowSize.addOrUpdateParentForm.getWidth(),  WindowSize.addOrUpdateParentForm.getHeight());
+            params.put("procedure", "update");
+            params.put("mode", mode);
+            Main.setRoot("administratorActions/parent/addOrUpdateParentForm", params, WindowSize.addOrUpdateParentForm);
         }
     }
 
@@ -155,7 +162,7 @@ public class ManageParentsController  {
 
         if(toDelete==null)
         {
-           chooseParentAlert(false);
+            chooseParentAlert(false);
         }
         else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -167,9 +174,9 @@ public class ManageParentsController  {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
 
-               deleteUser(toDelete);
-               deleteMessages(toDelete);
-               deleteParenthood(toDelete);
+                deleteUser(toDelete);
+                deleteMessages(toDelete);
+                deleteParenthood(toDelete);
 
                 (new ParentModel()).delete(toDelete);
                 parents.remove(toDelete);
@@ -232,7 +239,11 @@ public class ManageParentsController  {
 
     public void cancelButton() throws IOException
     {
-        Main.setRoot("menu/adminMenuForm",
-                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
 }

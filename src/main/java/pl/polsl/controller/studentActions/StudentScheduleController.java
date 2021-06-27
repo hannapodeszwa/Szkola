@@ -381,7 +381,7 @@ public class StudentScheduleController implements ParametrizedController {
     public void receiveArguments(Map<String, Object> params) {
         mode = (String) params.get("mode");
 
-        if (mode.equals(Roles.ADMIN)) {
+        if (mode.equals(Roles.ADMIN) || mode.equals(Roles.PRINCIPAL)) {
             adminInitialize();
             hour = FXCollections.observableArrayList((new LessonTimeModel()).getTime());
             Klasy firstClass = (Klasy) (new SchoolClass()).displayClass().get(0);
@@ -428,11 +428,16 @@ public class StudentScheduleController implements ParametrizedController {
 
 
     public void clickButtonBack() throws IOException {
-        if (mode.equals(Roles.ADMIN))
-            Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.ADMIN)|| mode.equals(Roles.PRINCIPAL)) {
+            if (mode.equals(Roles.PRINCIPAL))
+                Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+            else {
+                Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
+            }
+        }
         else {
-            Map<String, Object> params = new HashMap<>();
-            params.put("mode", mode);
             params.put("id", id);
             if (mode.equals(Roles.STUDENT))
                 Main.setRoot("menu/studentMenuForm", params, WindowSize.studentMenuForm);
