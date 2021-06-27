@@ -1,5 +1,6 @@
 package pl.polsl.controller.teacherActions;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -138,10 +139,12 @@ public class TeacherCompetitionController implements ParametrizedController {
     public void clickButtonAchievement() {
         Uczniowie student = table.getSelectionModel().getSelectedItem();
         Optional<Udzialwkonkursie> opt = participationList.stream().parallel().filter(act -> act.getIdUcznia().equals(student.getID())).findAny();
-        Udzialwkonkursie update = opt.get();
-        update.setOsiagniecie(achievementField.getText());
-        (new CompetitionModel()).update(update);
-        //changeComboboxCompetitions();
+        Udzialwkonkursie update = opt.orElse(null);
+        if (update != null) {
+            update.setOsiagniecie(achievementField.getText());
+            (new CompetitionModel()).update(update);
+        }
+        changeComboboxCompetitions();
      }
 
     public void clickButtonDelete() {
@@ -188,10 +191,31 @@ public class TeacherCompetitionController implements ParametrizedController {
         studentList = FXCollections.observableArrayList((new Student()).getStudentInCompetition(competitionId));
         participationList = FXCollections.observableArrayList((new CompetitionModel().findByCompetitionId(competitionId)));
 
-        columnClass.setCellValueFactory(CellData -> new SimpleStringProperty((new SchoolClass()).getClassById(CellData.getValue().getIdKlasy()).getNumer()));
-        columnStudent.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie() + " " + CellData.getValue().getNazwisko()));
-        columnAchievement.setCellValueFactory(CellData -> new SimpleStringProperty((new CompetitionModel()).findByBoth(CellData.getValue().getID(), competitionId).getOsiagniecie()));
+        List<Klasy> schooldClassList = (new SchoolClass()).displayClass();
+        List<Udzialwkonkursie> achivementList = (new CompetitionModel()).findByCompetitionId(competitionId);
 
+        columnClass.setCellValueFactory(CellData -> {
+            Integer idClass = CellData.getValue().getIdKlasy();
+            Optional<Klasy> opt = schooldClassList.stream().parallel().filter(act -> act.getID().equals(idClass)).findAny();
+            Klasy classact = opt.orElse(null);
+            String className = "";
+            if (classact != null) {
+                className = classact.getNumer();
+            }
+            return new ReadOnlyStringWrapper(className);
+        });
+        columnStudent.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getImie() + " " + CellData.getValue().getNazwisko()));
+        //columnAchievement.setCellValueFactory(CellData -> new SimpleStringProperty((new CompetitionModel()).findByBoth(CellData.getValue().getID(), competitionId).getOsiagniecie()));
+        columnAchievement.setCellValueFactory(CellData -> {
+            Integer idStudent = CellData.getValue().getID();
+            Optional<Udzialwkonkursie> opt = achivementList.stream().parallel().filter(act -> act.getIdUcznia().equals(idStudent)).findAny();
+            Udzialwkonkursie achivemnentact = opt.orElse(null);
+            String achivemnent = "";
+            if (achivemnentact != null) {
+                achivemnent = achivemnentact.getOsiagniecie();
+            }
+            return new ReadOnlyStringWrapper(achivemnent);
+        });
 
         table.setItems(studentList);
     }
