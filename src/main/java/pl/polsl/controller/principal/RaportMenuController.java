@@ -30,7 +30,7 @@ public class RaportMenuController {
         List l=s.getAllStudents();
 
         (new StudentsPrinter()).printingCall(l);
-        (new HelloWorldPrinter()).printingCall();
+       // (new HelloWorldPrinter()).printingCall();
     }
 
 
@@ -138,8 +138,13 @@ class HelloWorldPrinter implements Printable {
 }
     class StudentsPrinter implements Printable {
         List <Uczniowie>students;
+
+
         public int print(Graphics g, PageFormat pf, int page) throws
                 PrinterException {
+            Font font = new Font("Serif", Font.PLAIN, 10);
+            FontMetrics metrics = g.getFontMetrics(font);
+            int lineHeight = metrics.getHeight();
 
             if (page > 0) { /* We have only one page, and 'page' is zero-based */
                 return NO_SUCH_PAGE;
@@ -150,13 +155,12 @@ class HelloWorldPrinter implements Printable {
 
             /* Now we perform our rendering */
             //g.drawString((students.size(), 100, 100);
-            int y=100;
+            int y=10;
             for(Uczniowie u: students)
             {
                 g.drawString(u.getImie() + " " + u.getNazwisko(), 100, y);
-                y+=100;
+                y+=lineHeight;
             }
-            g.drawString("Hello world!", 100, 100);
 
             /* tell the caller that this page is part of the printed document */
             return PAGE_EXISTS;
