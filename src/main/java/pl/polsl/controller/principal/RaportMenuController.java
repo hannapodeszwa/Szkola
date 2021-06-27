@@ -1,21 +1,27 @@
 package pl.polsl.controller.principal;
 import javafx.event.ActionEvent;
 import pl.polsl.Main;
+import pl.polsl.entities.Przedmioty;
+import pl.polsl.model.ParentModel;
+import pl.polsl.model.Student;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+import java.util.List;
 
 public class RaportMenuController {
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
-
+        Student s = new Student();
+        Przedmioty p;
+        List l=s.getGradeFromSubject(p);
     }
 
 
     public void clickButtonBack(ActionEvent event) throws IOException {
         Main.setRoot("menu/adminMenuForm.fxml",
-                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
+                WindowSize.principalMenuForm);
     }
 
 }
