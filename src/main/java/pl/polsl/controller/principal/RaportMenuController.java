@@ -1,7 +1,25 @@
 package pl.polsl.controller.principal;
+import javafx.event.ActionEvent;
+import pl.polsl.Main;
+import pl.polsl.utils.WindowSize;
 
+import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+
+public class RaportMenuController {
+    public void clickButtonAverageSubject(ActionEvent event) throws IOException {
+
+    }
+
+
+    public void clickButtonBack(ActionEvent event) throws IOException {
+        Main.setRoot("menu/adminMenuForm.fxml",
+                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
+    }
+
+}
+
 
 class HelloWorldPrinter implements Printable {
 
@@ -39,5 +57,4 @@ class HelloWorldPrinter implements Printable {
     }
 }
 
-public class RaportMenuController {
-}
+
