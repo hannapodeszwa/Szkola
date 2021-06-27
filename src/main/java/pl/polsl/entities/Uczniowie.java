@@ -22,6 +22,11 @@ import java.io.Serializable;
                 query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkole p ON p.idUcznia = u.ID WHERE p.idKola = :idKola"),
         @NamedQuery(name = "uczniowie.getStudentInCompetition",
                 query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkonkursie p ON p.idUcznia = u.ID WHERE p.idKonkursu = :idKonkursu")
+        @NamedQuery(name = "uczniowie.getGradeFromSubject",
+                query = "SELECT u FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
+                        " o.idPrzedmiotu = p.ID AND p.ID = :id"),
+
+
 })
 public class Uczniowie implements Serializable {
 
