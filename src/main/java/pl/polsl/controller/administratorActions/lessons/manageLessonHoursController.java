@@ -6,9 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class manageLessonHoursController {
+public class manageLessonHoursController implements ParametrizedController {
 
     public TextField textFormBegin;
     public TextField textFormEnd;
@@ -28,6 +30,13 @@ public class manageLessonHoursController {
     public TableColumn<GodzinyLekcji,Integer> columnNum;
     public TableColumn<GodzinyLekcji,String> columnBegin;
     public TableColumn<GodzinyLekcji,String> columnEnd;
+
+    private String mode;
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String)params.get("mode");
+    }
 
     private ListChangeListener<? extends TablePosition> cellSelectListener = (ListChangeListener.Change<? extends TablePosition> change) -> {
         if (change.getList().size() > 0) {
@@ -69,7 +78,13 @@ public class manageLessonHoursController {
     }
 
     public void clickButtonBack() throws IOException {
-        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
+
     }
 
     public void clickButtonAccept() throws IOException, ParseException {

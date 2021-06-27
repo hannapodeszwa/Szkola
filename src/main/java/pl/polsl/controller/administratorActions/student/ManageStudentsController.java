@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.*;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
@@ -20,7 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ManageStudentsController {
+public class ManageStudentsController implements ParametrizedController {
 
     @FXML
     private Button buttonDeleteStudent;
@@ -41,7 +42,7 @@ public class ManageStudentsController {
 
 
     private ObservableList<Uczniowie> students;
-
+    private String mode;
 
 
     @FXML
@@ -80,6 +81,10 @@ public class ManageStudentsController {
         search();
     }
 
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String)params.get("mode");
+    }
 
     private void search()
     {
@@ -113,8 +118,9 @@ public class ManageStudentsController {
     {
         Map params = new HashMap<String, String>();
 
-        params.put("mode","add");
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm.getWidth(), WindowSize.addOrUpdateStudentForm.getHeight());
+        params.put("procedure","add");
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
     public void updateStudentsButton(ActionEvent event) throws IOException
@@ -122,9 +128,10 @@ public class ManageStudentsController {
         Map params = new HashMap<String, String>();
 
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
-        params.put("mode","update");
+        params.put("procedure","update");
+        params.put("mode", mode);
 
-        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm.getWidth(), WindowSize.addOrUpdateStudentForm.getHeight());
+        Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
     public void deleteStudentsButton(ActionEvent event) throws IOException
@@ -191,6 +198,11 @@ public class ManageStudentsController {
 
 
     public void goBackButtonClick(ActionEvent event) throws IOException {
-        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
 }

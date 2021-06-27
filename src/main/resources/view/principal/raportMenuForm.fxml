@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane onDragDetected="#clickButtonBack" prefHeight="400.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.principal.RaportMenuController">
+<AnchorPane onDragDetected="#clickButtonBack" prefHeight="432.0" prefWidth="583.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.principal.RaportMenuController">
    <children>
       <Label alignment="CENTER" layoutX="20.0" layoutY="10.0" prefWidth="190.0" text="Raporty">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <TableView fx:id="tableSubjects" layoutX="257.0" layoutY="46.0" prefHeight="250.0" prefWidth="236.0">
+         <columns>
+            <TableColumn id="nameC" fx:id="nameC" prefWidth="220.0" resizable="false" text="Nazwa" />
+         </columns>
+      </TableView>
       <Button layoutX="20.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickButtonAverageGrade" prefWidth="190.0" text="Średnia ocen" />
       <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAverageSubject" prefWidth="190.0" text="Najwyższa średnia z przedmiotu" />
       <Button layoutX="20.0" layoutY="314.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="190.0" text="Powrót" />

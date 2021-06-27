@@ -13,6 +13,7 @@ import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AddOrUpdateSubjectController implements ParametrizedController {
@@ -23,7 +24,8 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
 
     private Przedmioty toUpdate;
     public enum md {Add, Update}
-    private md mode = md.Update;
+    private md procedure = md.Update;
+    private String mode;
 
     @FXML
     public void initialize()
@@ -45,12 +47,14 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add") {
-            mode = md.Add;
+        mode = (String)params.get("mode");
+
+        if (params.get("procedure") == "add") {
+            procedure = md.Add;
             title.setText("Dodawanie przedmiotu");
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
             toUpdate = (Przedmioty) params.get("subject");
             title.setText("Modyfikacja przedmiotu");
         }
@@ -62,17 +66,18 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == md.Add) {
+        if (procedure == md.Add) {
             Przedmioty p = new Przedmioty();
             p.setNazwa(name.getText());
 
             (new Subject()).persist(p);
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             toUpdate.setNazwa(name.getText());
             (new Subject()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/subject/manageSubjectsForm",
-                WindowSize.manageSubjectsForm.getWidth(), WindowSize.manageSubjectsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
     }
 
     private void setNewValues(Przedmioty p)
@@ -81,7 +86,8 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("administratorActions/subject/manageSubjectsForm",
-                WindowSize.manageSubjectsForm.getWidth(), WindowSize.manageSubjectsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
     }
 }

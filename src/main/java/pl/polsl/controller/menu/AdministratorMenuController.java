@@ -74,7 +74,6 @@ public class AdministratorMenuController implements ParametrizedController {
     public void pressCreateScheduleButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        //params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
 
@@ -129,6 +128,7 @@ public class AdministratorMenuController implements ParametrizedController {
             }
         }
     }
+
 
 
 }

@@ -63,7 +63,6 @@ public class StudentMenuController implements ParametrizedController{
     public void buttonMessagesAction() throws IOException {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", "menu/studentMenuForm");
-        parameters.put("role", Roles.STUDENT);
         parameters.put("id", id);
         parameters.put("login", login);
         parameters.put("mode", mode);

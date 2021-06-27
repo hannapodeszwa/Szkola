@@ -21,19 +21,28 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class AddOrUpdateParentController implements ParametrizedController, CredentialsGenerator {
-    public TextField name;
-    public TextField name2;
-    public TextField surname;
-    public TextField email;
-    public TextField phone;
-    public TextField adress;
-    public Label title;
-    public Button confirm;
 
+    @FXML
+    private TextField name;
+    @FXML
+    private TextField name2;
+    @FXML
+    private TextField surname;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField phone;
+    @FXML
+    private TextField adress;
+    @FXML
+    private Label title;
+    @FXML
+    private Button confirm;
     @FXML
     private TableView<ParenthoodModel> tableStudents;
     @FXML
@@ -48,8 +57,9 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     private Rodzice toUpdate;
     public enum md {Add, Update}
-    private AddOrUpdateParentController.md mode = AddOrUpdateParentController.md.Update;
+    private AddOrUpdateParentController.md procedure = AddOrUpdateParentController.md.Update;
     private   ObservableList<ParenthoodModel> parentchoodList = FXCollections.observableArrayList();
+    private String mode;
 
     @FXML
     public void initialize()
@@ -145,12 +155,14 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add") {
-            mode = md.Add;
+        mode = (String)params.get("mode");
+
+        if (params.get("procedure") == "add") {
+            procedure = md.Add;
             title.setText("Dodawanie rodzica:");
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
             toUpdate = (Rodzice) params.get("parent");
             title.setText("Modyfikacja rodzica:");
         }
@@ -169,7 +181,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == AddOrUpdateParentController.md.Add) {
+        if (procedure == AddOrUpdateParentController.md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Rodzice r = new Rodzice();
             if(!setNewValues(r))
@@ -183,7 +195,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             (new UserModel()).persist(u);
             addChildren(r);
 
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             if(!setNewValues(toUpdate))
             {
                 wrongEmailAlert();
@@ -192,8 +204,9 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             (new ParentModel()).update(toUpdate);
             addChildren(toUpdate);
         }
-        Main.setRoot("administratorActions/parent/manageParentsForm",
-                WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 
     private void wrongEmailAlert()
@@ -218,7 +231,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     private void addChildren(Rodzice parent)
     {
-        if(mode == md.Update)
+        if(procedure == md.Update)
         {
             deleteChildren();
         }
@@ -259,8 +272,9 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
     public void discardChangesButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("administratorActions/parent/manageParentsForm",
-                WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 
 }

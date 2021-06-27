@@ -8,6 +8,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageSubjectsController{
+public class ManageSubjectsController implements ParametrizedController {
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
@@ -27,6 +29,13 @@ public class ManageSubjectsController{
     public void initialize()
     {
         displayTableSubjects();
+    }
+
+    private String mode;
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String)params.get("mode");
     }
 
     private void displayTableSubjects()
@@ -43,7 +52,8 @@ public class ManageSubjectsController{
     public void addSubjectButton(ActionEvent event) throws IOException
     {
         Map params = new HashMap<String, String>();
-        params.put("mode","add");
+        params.put("procedure","add");
+        params.put("mode", mode);
         Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
                 WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
     }
@@ -58,7 +68,8 @@ public class ManageSubjectsController{
         else {
             Map params = new HashMap<String, String>();
             params.put("subject", toUpdate);
-            params.put("mode", "update");
+            params.put("procedure", "update");
+            params.put("mode", mode);
             Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
                     WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
         }
@@ -139,7 +150,11 @@ public class ManageSubjectsController{
 
     public void cancelButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("menu/adminMenuForm",
-                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
 }

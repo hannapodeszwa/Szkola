@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageClassController {
+public class ManageClassController implements ParametrizedController {
 
     @FXML
     private TableView<Klasy> tableClass;
@@ -28,11 +30,17 @@ public class ManageClassController {
     @FXML
     private Label leader;
 
+    private String mode;
 
     @FXML
     public void initialize() {
         displayTableClass();
         changeLabels();
+    }
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String)params.get("mode");
     }
 
     private void displayTableClass() {
@@ -74,9 +82,9 @@ public class ManageClassController {
     public void addClassButton(ActionEvent event) throws IOException {
         Map params = new HashMap<String, String>();
 
-        params.put("mode", "add");
-        Main.setRoot("administratorActions/class/addOrUpdateClassForm", params,
-                WindowSize.addOrUpdateClassForm.getWidth(), WindowSize.addOrUpdateClassForm.getHeight());
+        params.put("procedure", "add");
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/class/addOrUpdateClassForm", params, WindowSize.addOrUpdateClassForm);
     }
 
     public void updateClassButton(ActionEvent event) throws IOException {
@@ -86,9 +94,9 @@ public class ManageClassController {
         } else {
             Map params = new HashMap<String, String>();
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
-            params.put("mode", "update");
-            Main.setRoot("administratorActions/class/addOrUpdateClassForm", params,
-                    WindowSize.addOrUpdateClassForm.getWidth(), WindowSize.addOrUpdateClassForm.getHeight());
+            params.put("procedure", "update");
+            params.put("mode", mode);
+            Main.setRoot("administratorActions/class/addOrUpdateClassForm", params, WindowSize.addOrUpdateClassForm);
         }
     }
 
@@ -157,7 +165,11 @@ public class ManageClassController {
     }
 
     public void cancelButton(ActionEvent event) throws IOException {
-        Main.setRoot("menu/adminMenuForm",
-                WindowSize.adminMenuForm.getWidth(), WindowSize.adminMenuForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
 }

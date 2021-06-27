@@ -18,6 +18,7 @@ import pl.polsl.model.UserModel;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AddOrUpdateTeachersController  implements ParametrizedController, CredentialsGenerator {
@@ -32,7 +33,8 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
 
     private Nauczyciele toUpdate;
     public enum md {Add, Update}
-    private md mode = md.Update;
+    private md procedure = md.Update;
+    private String mode;
 
     @FXML
     public void initialize()
@@ -82,12 +84,14 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add") {
-            mode = md.Add;
+        mode = (String)params.get("mode");
+
+        if (params.get("procedure") == "add") {
+            procedure = md.Add;
             title.setText("Dodawanie nauczyciela:");
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
            toUpdate = (Nauczyciele) params.get("teacher");
             title.setText("Modyfikacja nauczyciela:");
         }
@@ -103,7 +107,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == md.Add) {
+        if (procedure == md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Nauczyciele n = new Nauczyciele();
             if(!setNewValues(n))
@@ -116,7 +120,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
             setNewValues(u, n.getImie(), n.getNazwisko(), n.getID());
             (new UserModel()).persist(u);
 
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             if(!setNewValues(toUpdate))
             {
                 wrongEmailAlert();
@@ -124,8 +128,9 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
             }
             (new Teacher()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
     }
 
     private void wrongEmailAlert()
@@ -160,8 +165,9 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
 
     public void discardChangesButton(ActionEvent event) throws IOException
     {
-        Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
     }
 
 }
