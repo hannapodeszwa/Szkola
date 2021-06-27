@@ -18,7 +18,7 @@ public class RaportMenuController {
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
         Student s = new Student();
         Przedmioty p;
-        List l=s.getGradeFromSubject(p);
+       //List l=s.getGradeFromSubject(p);
     }
 
     public void clickButtonSelectStudent(ActionEvent event) throws IOException {
@@ -35,6 +35,8 @@ public class RaportMenuController {
         Main.setRoot("menu/adminMenuForm.fxml", params, WindowSize.principalMenuForm);
     }
 
+    public void clickButtonAverageGrade(ActionEvent actionEvent) {
+    }
 }
 
 
