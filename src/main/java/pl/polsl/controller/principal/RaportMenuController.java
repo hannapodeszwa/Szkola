@@ -43,7 +43,7 @@ public class RaportMenuController {
     public void clickButtonBack(ActionEvent event) throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", Roles.PRINCIPAL);
-        Main.setRoot("menu/adminMenuForm.fxml", params, WindowSize.principalMenuForm);
+        Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
     }
 
     public void clickButtonAverageGrade(ActionEvent actionEvent) {
