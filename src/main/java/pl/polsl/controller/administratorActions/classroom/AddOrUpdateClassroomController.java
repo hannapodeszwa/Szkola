@@ -12,6 +12,7 @@ import pl.polsl.entities.Sale;
 import pl.polsl.model.Classroom;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class AddOrUpdateClassroomController implements ParametrizedController {
@@ -25,8 +26,9 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
 
     private Sale toUpdate;
     public enum md {Add, Update}
-    private md mode = md.Update;
+    private md procedure = md.Update;
     private boolean selectedYes;
+    private String mode;
 
     @FXML
     public void initialize()
@@ -79,12 +81,14 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add") {
-            mode = md.Add;
+
+        mode = (String)params.get("mode");
+        if (params.get("procedure") == "add") {
+            procedure = md.Add;
             title.setText("Dodawanie sali:");
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
             toUpdate = (Sale) params.get("classroom");
             title.setText("Modyfikacja sali:");
         }
@@ -100,17 +104,18 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
 
     public void confirmChangesButton(ActionEvent event) throws IOException
     {
-        if (mode == md.Add) {
+        if (procedure == md.Add) {
             Sale s = new Sale();
             setNewValues(s);
 
             (new Classroom()).persist(s);
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             setNewValues(toUpdate);
             (new Classroom()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/classroom/manageClassroomsForm",
-                WindowSize.manageClassroomsForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 
     private void setNewValues(Sale s)
@@ -123,7 +128,8 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     }
 
     public void discardChangesButton(ActionEvent event) throws IOException {
-        Main.setRoot("administratorActions/classroom/manageClassroomsForm",
-                WindowSize.manageClassroomsForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 }

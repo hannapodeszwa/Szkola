@@ -16,6 +16,7 @@ import pl.polsl.model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +40,9 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     private Label title;
 
     private Uczniowie modyfikowany;
+    public enum md {Add, Update}
+    private md procedure = md.Update;
+    private String mode;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
         buttonAccept.setDisable(poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty());
@@ -62,12 +66,14 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
     @Override
     public void receiveArguments(Map params) {
-        if (params.get("mode") == "add"){
-            mode = md.Add;
+        mode = (String)params.get("mode");
+
+        if (params.get("procedure") == "add"){
+            procedure = md.Add;
             title.setText("Dodawanie ucznia");
         }
         else {
-            mode = md.Update;
+            procedure = md.Update;
             modyfikowany = (Uczniowie) params.get("student");
             title.setText("Modyfikacja ucznia");
         }
@@ -86,13 +92,9 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
     }
 
-    public enum md {Add, Update}
-
-    private md mode = md.Update;
-
     public void confirmChangesButton() throws IOException {
 
-        if (mode == md.Add) {
+        if (procedure == md.Add) {
             System.out.println("Dodawanie nowego ucznia");
             Uczniowie u = new Uczniowie();
             u.setImie(poleImie.getText());
@@ -115,7 +117,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
             sendCredentialsByEmail(usr.getLogin(), usr.getHaslo(), u.getEmail());
 
 
-        } else if (mode == md.Update) {
+        } else if (procedure == md.Update) {
             System.out.println("Modyfikowanie profilu ucznia");
             modyfikowany.setImie(poleImie.getText());
             modyfikowany.setDrugieImie(poleDrugieImie.getText());
@@ -139,12 +141,16 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
             (new Student()).update(toUpdate);
         }
-        Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
     }
 
     public void discardChangesButton() throws IOException {
         System.out.println("Zmiany anulowano");
-        Main.setRoot("administratorActions/student/manageStudentsForm", WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
     }
 
 }

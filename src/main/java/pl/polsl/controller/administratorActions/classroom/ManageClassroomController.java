@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
@@ -17,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class ManageClassroomController {
+public class ManageClassroomController implements ParametrizedController {
     @FXML
     private TableView<Sale> tableClassrooms;
     @FXML
@@ -27,27 +29,30 @@ public class ManageClassroomController {
     @FXML
     private Label projector;
 
+    private String mode;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         displayTableClassrooms();
         changeLabels();
     }
 
-    private void displayTableClassrooms()
-    {
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        mode = (String) params.get("mode");
+    }
+
+    private void displayTableClassrooms() {
         tableClassrooms.getItems().clear();
         Classroom c = new Classroom();
-        List l=c.getAllClassrooms();
+        List l = c.getAllClassrooms();
         nameC.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
-        for (Object s: l) {
+        for (Object s : l) {
             tableClassrooms.getItems().add((Sale) s);
         }
     }
 
-    private void changeLabels()
-    {
+    private void changeLabels() {
         ObservableList<Sale> selectedClassroom = tableClassrooms.getSelectionModel().getSelectedItems();
         selectedClassroom.addListener(new ListChangeListener<Sale>() {
             @Override
@@ -57,51 +62,44 @@ public class ManageClassroomController {
 
                 if (selectedSize != null) {
                     size.setText(selectedSize.toString());
-                }
-                else
+                } else
                     size.setText("");
-                if(selectedProjector) {
+                if (selectedProjector) {
                     projector.setText("Tak");
-                }
-                else {
+                } else {
                     projector.setText("Nie");
                 }
             }
         });
     }
 
-    public void addClassroomButton(ActionEvent event) throws IOException
-    {
-        Map params = new HashMap<String, String>();
-        params.put("mode","add");
-        Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm",params,
+    public void addClassroomButton(ActionEvent event) throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("procedure", "add");
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params,
                 WindowSize.addOrUpdateClassroomForm);
     }
 
-    public void updateClassroomButton(ActionEvent event) throws IOException
-    {
+    public void updateClassroomButton(ActionEvent event) throws IOException {
         Sale toUpdate = tableClassrooms.getSelectionModel().getSelectedItem();
-        if(toUpdate==null)
-        {
+        if (toUpdate == null) {
             chooseClassroomAlert(true);
-        }
-        else {
-            Map params = new HashMap<String, String>();
+        } else {
+            Map<String, Object> params = new HashMap<>();
             params.put("classroom", toUpdate);
-            params.put("mode", "update");
-            Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm",params,
+            params.put("procedure", "update");
+            params.put("mode", mode);
+            Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params,
                     WindowSize.addOrUpdateClassroomForm);
         }
     }
 
-    public void deleteClassroomButton(ActionEvent event) throws IOException
-    {
+    public void deleteClassroomButton(ActionEvent event) throws IOException {
         Sale toDelete = tableClassrooms.getSelectionModel().getSelectedItem();
-        if(toDelete==null)
-        {
+        if (toDelete == null) {
             chooseClassroomAlert(false);
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Usuwanie sali");
             alert.setHeaderText("Czy na pewno chcesz usunąć tą salę?");
@@ -117,27 +115,22 @@ public class ManageClassroomController {
         }
     }
 
-    private void deleteSchedule(Sale toDelete)
-    {
+    private void deleteSchedule(Sale toDelete) {
         List<Rozklady> classroomScheduleList = (new ScheduleModel()).findByClassroom(toDelete);
-        if(!(classroomScheduleList.isEmpty())) {
-            for (Rozklady r: classroomScheduleList) {
+        if (!(classroomScheduleList.isEmpty())) {
+            for (Rozklady r : classroomScheduleList) {
                 r.setIdSali(null);
                 (new ScheduleModel()).update(r);
             }
         }
     }
 
-    private void chooseClassroomAlert(boolean update)
-    {
+    private void chooseClassroomAlert(boolean update) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        if(update)
-        {
+        if (update) {
             alert.setTitle("Modyfikacja sali");
             alert.setContentText("Wybierz salę do modyfikacji.");
-        }
-        else
-        {
+        } else {
             alert.setTitle("Usuwanie sali");
             alert.setContentText("Wybierz salę do usunięcia.");
         }
@@ -145,9 +138,14 @@ public class ManageClassroomController {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException
-    {
-        Main.setRoot("menu/adminMenuForm",
-                WindowSize.adminMenuForm);
+    public void cancelButton(ActionEvent event) throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        if (mode.equals(Roles.PRINCIPAL))
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
+        else
+            Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
+
+
 }

@@ -18,7 +18,7 @@
       </TableView>
       <Button layoutX="20.0" layoutY="46.0" mnemonicParsing="false" onAction="#clickButtonAverageGrade" prefWidth="190.0" text="Średnia ocen" />
       <Button layoutX="20.0" layoutY="86.0" mnemonicParsing="false" onAction="#clickButtonAverageSubject" prefWidth="190.0" text="Najwyższa średnia z przedmiotu" />
-      <Button layoutX="20.0" layoutY="314.0" mnemonicParsing="false" prefWidth="190.0" text="Powrót" />
+      <Button layoutX="20.0" layoutY="314.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="190.0" text="Powrót" />
       <Button layoutX="20.0" layoutY="126.0" mnemonicParsing="false" onAction="#clickButtonSelectStudent" prefWidth="190.0" text="Wypisz studentów" />
    </children>
 </AnchorPane>
