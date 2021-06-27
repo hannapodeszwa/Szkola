@@ -69,7 +69,7 @@ public class RaportMenuController {
 
         for(Object o: l)
         {
-            if(!(sum.keySet().contains((Uczniowie) o)))
+            if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Uczniowie) o)))
             {
                 sum.put((Uczniowie) o, ((Oceny) o).getOcena());
                 size.put((Uczniowie) o, 1);
@@ -138,7 +138,7 @@ public class RaportMenuController {
 
             for(Object o: l2)
             {
-                if(!(sum.keySet().contains((Przedmioty) o)))
+                if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Przedmioty) o)))
                 {
                     sum.put((Przedmioty) o, ((Oceny) o).getOcena());
                     size.put((Przedmioty) o, 1);
