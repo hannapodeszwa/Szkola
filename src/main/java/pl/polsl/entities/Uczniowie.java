@@ -23,8 +23,8 @@ import java.io.Serializable;
         @NamedQuery(name = "uczniowie.getStudentInCompetition",
                 query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkonkursie p ON p.idUcznia = u.ID WHERE p.idKonkursu = :idKonkursu")
         @NamedQuery(name = "uczniowie.getGradeFromSubject",
-                query = "SELECT u FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
-                        " o.idPrzedmiotu = p.ID AND p.ID = :id"),
+                query = "SELECT o, u FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
+                        " o.idPrzedmiotu = p.ID AND p.ID = :idPrzedmiotu"),
 
 
 })
