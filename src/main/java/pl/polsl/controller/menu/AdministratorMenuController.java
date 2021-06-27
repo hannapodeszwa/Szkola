@@ -1,8 +1,13 @@
 package pl.polsl.controller.menu;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.model.ParentModel;
@@ -16,7 +21,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AdministratorMenuController {
+public class AdministratorMenuController implements ParametrizedController {
+
+    @FXML
+    private Button buttonLogout;
+    @FXML
+    private Button buttonRaport;
+    @FXML
+    private Label labelTitle;
+
+    private String mode;
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+
+        mode = (String)params.get("mode");
+        if(Roles.ADMIN.equals(mode)){
+            labelTitle.setText("Konto administratora");
+            buttonRaport.setVisible(false);
+            buttonCompetitions.setVisible(false);
+            buttonLogout.setLayoutY(246);
+        }
+        else{
+            labelTitle.setText("Konto dyrektora");
+        }
+    }
 
 
     public void pressManageStudentsButton() throws IOException
@@ -95,5 +124,8 @@ public class AdministratorMenuController {
                 done.showAndWait();
             }
         }
+    }
+
+    public void pressButtonRaport(ActionEvent actionEvent) {
     }
 }
