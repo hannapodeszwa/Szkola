@@ -131,7 +131,7 @@ public class RaportMenuController {
 
         for(Uczniowie u :l)
         {
-            List l2=s.getGradeFromSubject(u.ID);
+            List l2=s.getGradeFromStudent(u.ID);
 
             Map<Przedmioty, Float> sum = new HashMap<>();
             Map<Przedmioty, Integer> size = new HashMap<>();
