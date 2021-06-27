@@ -63,9 +63,9 @@ class HelloWorldPrinter implements Printable {
         this.textLines = textToPrint;
     }
 
-    int[] pageBreaks;  // array of page break line positions.
+    private int[] pageBreaks;
 
-    int margin = 60;
+    private int margin = 60;
 
     public int print(Graphics g, PageFormat pf, int pageIndex) throws
             PrinterException {
@@ -90,9 +90,6 @@ class HelloWorldPrinter implements Printable {
         Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
 
-        /* Draw each line that is on this page.
-         * Increment 'y' position by lineHeight for each line.
-         */
         int y = margin;
         int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex-1];
         int end   = (pageIndex == pageBreaks.length)
@@ -102,7 +99,6 @@ class HelloWorldPrinter implements Printable {
             g.drawString(textLines.get(line), 50, y);
         }
 
-        /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
     }
 
@@ -117,14 +113,18 @@ class HelloWorldPrinter implements Printable {
         PrinterJob job = PrinterJob.getPrinterJob();
         PrintRequestAttributeSet aset = new HashPrintRequestAttributeSet();
 
+        Book book = new Book();
+        book.append(this, job.defaultPage());
+        job.setPageable(book);
+
         job.setPrintable(this);
-        boolean ok = job.printDialog();
+        boolean ok = job.printDialog(aset);
         if (ok) {
             try {
                 job.print();
             } catch (PrinterException ex) {
-                /* The job did not successfully complete */
             }
         }
     }
 }
+
