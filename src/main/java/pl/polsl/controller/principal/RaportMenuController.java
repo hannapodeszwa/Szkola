@@ -136,7 +136,7 @@ public class RaportMenuController {
             Map<Przedmioty, Float> sum = new HashMap<>();
             Map<Przedmioty, Integer> size = new HashMap<>();
 
-            for(Object o: l)
+            for(Object o: l2)
             {
                 if(!(sum.keySet().contains((Przedmioty) o)))
                 {
