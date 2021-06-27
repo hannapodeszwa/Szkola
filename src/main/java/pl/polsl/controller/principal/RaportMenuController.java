@@ -14,6 +14,7 @@ import javax.swing.*;
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,10 +28,15 @@ public class RaportMenuController {
 
     public void clickButtonSelectStudent(ActionEvent event) throws IOException {
         Student s = new Student();
-        List l=s.getAllStudents();
+        List<Uczniowie> l=s.getAllStudents();
 
-        (new StudentsPrinter()).printingCall(l);
-       // (new HelloWorldPrinter()).printingCall();
+        ArrayList<String> textToPrint = new ArrayList<>();
+
+        for (Uczniowie u : l) {
+            textToPrint.add(u.getImie() + " " + u.getNazwisko());
+        }
+
+        (new HelloWorldPrinter()).printingCall(textToPrint);
     }
 
 
@@ -47,30 +53,17 @@ public class RaportMenuController {
 
 class HelloWorldPrinter implements Printable {
 
-    private String textToPrint;
+    private ArrayList<String> textLines;
 
-    public String getTextToPrint() {
-        return textToPrint;
+    public ArrayList<String> getTextToPrint() {
+        return textLines;
     }
 
-    public void setTextToPrint(String textToPrint) {
-        this.textToPrint = textToPrint;
+    public void setTextToPrint(ArrayList<String> textToPrint) {
+        this.textLines = textToPrint;
     }
-
 
     int[] pageBreaks;  // array of page break line positions.
-
-    /* Synthesise some sample lines of text */
-    String[] textLines;
-    private void initTextLines() {
-        if (textLines == null) {
-            int numLines=200;
-            textLines = new String[numLines];
-            for (int i=0;i<numLines;i++) {
-                textLines[i]= "This is line number " + i;
-            }
-        }
-    }
 
     int margin = 60;
 
@@ -82,9 +75,8 @@ class HelloWorldPrinter implements Printable {
         int lineHeight = metrics.getHeight();
 
         if (pageBreaks == null) {
-            initTextLines();
             int linesPerPage = (int)((pf.getImageableHeight() - margin * 2)/lineHeight);
-            int numBreaks = (textLines.length-1)/linesPerPage;
+            int numBreaks = (textLines.size()-1)/linesPerPage;
             pageBreaks = new int[numBreaks];
             for (int b=0; b<numBreaks; b++) {
                 pageBreaks[b] = (b+1)*linesPerPage;
@@ -104,17 +96,18 @@ class HelloWorldPrinter implements Printable {
         int y = margin;
         int start = (pageIndex == 0) ? 0 : pageBreaks[pageIndex-1];
         int end   = (pageIndex == pageBreaks.length)
-                ? textLines.length : pageBreaks[pageIndex];
+                ? textLines.size() : pageBreaks[pageIndex];
         for (int line=start; line<end; line++) {
             y += lineHeight;
-            g.drawString(textLines[line], 50, y);
+            g.drawString(textLines.get(line), 50, y);
         }
 
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
     }
 
-    public void printingCall() {try {
+    public void printingCall(ArrayList<String> text) {try {
+        this.setTextToPrint(text);
         String cn = UIManager.getSystemLookAndFeelClassName();
         UIManager.setLookAndFeel(cn);
         }
@@ -135,50 +128,3 @@ class HelloWorldPrinter implements Printable {
         }
     }
 }
-    class StudentsPrinter implements Printable {
-        List <Uczniowie>students;
-
-
-        public int print(Graphics g, PageFormat pf, int page) throws
-                PrinterException {
-            Font font = new Font("Serif", Font.PLAIN, 10);
-            FontMetrics metrics = g.getFontMetrics(font);
-            int lineHeight = metrics.getHeight();
-
-            if (page > 0) { /* We have only one page, and 'page' is zero-based */
-                return NO_SUCH_PAGE;
-            }
-
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.translate(pf.getImageableX(), pf.getImageableY());
-
-            /* Now we perform our rendering */
-            //g.drawString((students.size(), 100, 100);
-            int y=10;
-            for(Uczniowie u: students)
-            {
-                g.drawString(u.getImie() + " " + u.getNazwisko(), 100, y);
-                y+=lineHeight;
-            }
-
-            /* tell the caller that this page is part of the printed document */
-            return PAGE_EXISTS;
-        }
-
-        public void printingCall(List <Uczniowie>students) {
-            this.students=students;
-            PrinterJob job = PrinterJob.getPrinterJob();
-            job.setPrintable(this);
-            boolean ok = job.printDialog();
-            if (ok) {
-                try {
-                    job.print();
-                } catch (PrinterException ex) {
-                    /* The job did not successfully complete */
-                }
-            }
-        }
-
-}
-
-
