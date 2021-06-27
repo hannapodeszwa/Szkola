@@ -3,7 +3,6 @@ import javafx.event.ActionEvent;
 import pl.polsl.Main;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
@@ -32,11 +31,13 @@ public class RaportMenuController {
 
         ArrayList<String> textToPrint = new ArrayList<>();
 
+        textToPrint.add("Lista studentów:");
+        textToPrint.add("");
         for (Uczniowie u : l) {
             textToPrint.add(u.getImie() + " " + u.getNazwisko());
         }
 
-        (new HelloWorldPrinter()).printingCall(textToPrint);
+        (new RaportPrinter()).printingCall(textToPrint);
     }
 
 
@@ -51,7 +52,7 @@ public class RaportMenuController {
 }
 
 
-class HelloWorldPrinter implements Printable {
+class RaportPrinter implements Printable {
 
     private ArrayList<String> textLines;
 
