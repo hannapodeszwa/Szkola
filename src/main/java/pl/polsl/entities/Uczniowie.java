@@ -25,6 +25,9 @@ import java.io.Serializable;
         @NamedQuery(name = "uczniowie.getGradeFromSubject",
                 query = "SELECT o, u FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
                         " o.idPrzedmiotu = p.ID AND p.ID = :idPrzedmiotu"),
+        @NamedQuery(name = "uczniowie.getGradeFromStudent",
+                query = "SELECT o, p FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
+                        " o.idPrzedmiotu = p.ID AND u.ID = :id"),
 
 
 })

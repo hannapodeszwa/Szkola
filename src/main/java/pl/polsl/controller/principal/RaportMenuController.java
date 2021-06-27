@@ -53,8 +53,6 @@ public class RaportMenuController {
         Przedmioty p = tableSubjects.getSelectionModel().getSelectedItem();
         List l=s.getGradeFromSubject(p.getID());
 
-
-
         Map<Uczniowie, Float> sum = new HashMap<>();
         Map<Uczniowie, Integer> size = new HashMap<>();
 
@@ -112,6 +110,48 @@ public class RaportMenuController {
     }
 
     public void clickButtonAverageGrade(ActionEvent actionEvent) {
+        Student s = new Student();
+        List<Uczniowie> l=s.getAllStudents();
+
+        for(Uczniowie u :l)
+        {
+            List l2=s.getGradeFromSubject(u.ID);
+
+            Map<Przedmioty, Float> sum = new HashMap<>();
+            Map<Przedmioty, Integer> size = new HashMap<>();
+
+            for(Object o: l)
+            {
+                if(!(sum.keySet().contains((Przedmioty) o)))
+                {
+                    sum.put((Przedmioty) o, ((Oceny) o).getOcena());
+                    size.put((Przedmioty) o, 1);
+                }
+                else
+                {
+                    int oldSize = size.get((Przedmioty) o);
+                    float oldGrade = sum.get((Przedmioty) o);
+
+                    size.remove((Przedmioty) o);
+                    sum.remove((Przedmioty) o);
+
+                    size.put((Przedmioty) o, oldSize+1);
+                    sum.put((Przedmioty) o, oldGrade + ((Oceny) o).getOcena());
+                }
+            }
+
+            Map<Przedmioty, Float> avg = new HashMap<>();
+            for(Przedmioty p :sum.keySet())
+            {
+                avg.put(p,sum.get(u)/size.get(u));
+            }
+
+            ArrayList list = new ArrayList();
+            avg.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue())
+                    .forEach(m -> list.add(m));
+
+        }
     }
 }
 
