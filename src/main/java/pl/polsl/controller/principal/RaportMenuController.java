@@ -91,9 +91,11 @@ class HelloWorldPrinter implements Printable {
 
             /* Now we perform our rendering */
             //g.drawString((students.size(), 100, 100);
+            int y=100;
             for(Uczniowie u: students)
             {
-                g.drawString(u.getImie() + " " + u.getNazwisko(), 100, 100);
+                g.drawString(u.getImie() + " " + u.getNazwisko(), 100, y);
+                y+=100;
             }
             g.drawString("Hello world!", 100, 100);
 
