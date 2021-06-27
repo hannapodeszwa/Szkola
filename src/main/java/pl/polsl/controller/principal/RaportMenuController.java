@@ -100,6 +100,8 @@ public class RaportMenuController {
         avg.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(m -> list.add(m)/*string += m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()*/);
+
+        (new RaportPrinter()).printingCall(list);
     }
 
     public void clickButtonSelectStudent(ActionEvent event) throws IOException {
