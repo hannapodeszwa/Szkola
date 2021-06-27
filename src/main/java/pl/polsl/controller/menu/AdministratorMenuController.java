@@ -97,7 +97,7 @@ public class AdministratorMenuController implements ParametrizedController {
     }
 
     public void pressButtonRaport() throws IOException {
-        Main.setRoot("principal", WindowSize.raportMenuForm);
+        Main.setRoot("principal/raportMenuForm", WindowSize.raportMenuForm);
     }
 
     public void pressLogOutButton() throws IOException {

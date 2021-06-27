@@ -4,12 +4,15 @@ import pl.polsl.Main;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
+import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RaportMenuController {
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
@@ -27,8 +30,9 @@ public class RaportMenuController {
 
 
     public void clickButtonBack(ActionEvent event) throws IOException {
-        Main.setRoot("menu/adminMenuForm.fxml",
-                WindowSize.principalMenuForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", Roles.PRINCIPAL);
+        Main.setRoot("menu/adminMenuForm.fxml", params, WindowSize.principalMenuForm);
     }
 
 }
