@@ -107,7 +107,7 @@ public class Student implements ManageDataBase {
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.getGradeFromSubject", Uczniowie.class);
         query.setParameter("id", Id);
-        List<Uczniowie> result = query.getResultList();
+        List<Object> result = query.getResultList();
         return result;
     }
 
