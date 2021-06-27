@@ -1,6 +1,7 @@
 package pl.polsl.controller.principal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -8,7 +9,6 @@ import pl.polsl.Main;
 import pl.polsl.entities.Oceny;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Uczniowie;
-import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
 import pl.polsl.model.Subject;
 import pl.polsl.utils.Roles;
@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 
 public class RaportMenuController {
+
+    @FXML
+    private Button highestAvg;
     @FXML
     private TableView<Przedmioty> tableSubjects;
     @FXML
@@ -35,6 +38,14 @@ public class RaportMenuController {
     public void initialize()
     {
         displayTableSubjects();
+        tableSubjects.getSelectionModel().selectedItemProperty().addListener((observable, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                highestAvg.setDisable(false);
+            }
+            else {
+                highestAvg.setDisable(true);
+            }
+        });
     }
 
     private void displayTableSubjects()
@@ -87,6 +98,8 @@ public class RaportMenuController {
         avg.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(m -> list.add(m)/*string += m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()*/);
+
+        (new RaportPrinter()).printingCall(list);
     }
 
     public void clickButtonSelectStudent(ActionEvent event) throws IOException {
@@ -95,11 +108,13 @@ public class RaportMenuController {
 
         ArrayList<String> textToPrint = new ArrayList<>();
 
+        textToPrint.add("Lista studentów:");
+        textToPrint.add("");
         for (Uczniowie u : l) {
             textToPrint.add(u.getImie() + " " + u.getNazwisko());
         }
 
-        (new HelloWorldPrinter()).printingCall(textToPrint);
+        (new RaportPrinter()).printingCall(textToPrint);
     }
 
 
@@ -156,7 +171,7 @@ public class RaportMenuController {
 }
 
 
-class HelloWorldPrinter implements Printable {
+class RaportPrinter implements Printable {
 
     private ArrayList<String> textLines;
 
