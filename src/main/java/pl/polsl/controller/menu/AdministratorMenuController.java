@@ -35,66 +35,72 @@ public class AdministratorMenuController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
 
-        mode = (String)params.get("mode");
-        if(Roles.ADMIN.equals(mode)){
+        mode = (String) params.get("mode");
+        if (Roles.ADMIN.equals(mode)) {
             labelTitle.setText("Konto administratora");
             buttonRaport.setVisible(false);
             buttonLogout.setLayoutY(406);
-        }
-        else{
+        } else {
             labelTitle.setText("Konto dyrektora");
         }
     }
 
 
-    public void pressManageStudentsButton() throws IOException
-    {
-       Main.setRoot("administratorActions/student/manageStudentsForm",
-               WindowSize.manageStudentsForm.getWidth(), WindowSize.manageStudentsForm.getHeight());
+    public void pressManageStudentsButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
 
     }
-    public void pressManageTeacherButton() throws IOException
-    {
-        Main.setRoot("administratorActions/teacher/manageTeachersForm",
-                WindowSize.manageTeachersForm.getWidth(), WindowSize.manageTeachersForm.getHeight());
-    }
-    public void pressManageSubjectButton() throws IOException
-    {
-        Main.setRoot("administratorActions/subject/manageSubjectsForm",
-                WindowSize.manageSubjectsForm.getWidth(), WindowSize.manageSubjectsForm.getHeight());
-    }
-    public void pressManageClassButton() throws IOException
-    {
-        Main.setRoot("administratorActions/class/manageClassForm",
-                WindowSize.manageClassForm.getWidth(), WindowSize.manageClassForm.getHeight());
-    }
-    public void pressCreateScheduleButton() throws IOException
-    {
+
+    public void pressManageTeacherButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
-        params.put("mode", Roles.ADMIN);
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
+    }
+
+    public void pressManageSubjectButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
+    }
+
+    public void pressManageClassButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
+    }
+
+    public void pressCreateScheduleButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
         //params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
-    public void pressManageParentButton() throws IOException
-    {
-        Main.setRoot("administratorActions/parent/manageParentsForm",
-                WindowSize.manageParentsForm.getWidth(), WindowSize.manageParentsForm.getHeight());
+
+    public void pressManageParentButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 
-    public void pressManageClassroomsButton() throws IOException
-    {
-        Main.setRoot("administratorActions/classroom/manageClassroomsForm",
-                WindowSize.manageClassroomsForm);
+    public void pressManageClassroomsButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 
-    public void pressLessonHoursButton() throws IOException
-    {
-        Main.setRoot("administratorActions/manageLessonHoursForm",
-                WindowSize.manageLessonHoursForm);
+    public void pressLessonHoursButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/manageLessonHoursForm", params, WindowSize.manageLessonHoursForm);
     }
 
-    public void pressLogOutButton() throws IOException
-    {
+    public void pressButtonRaport() throws IOException {
+        Main.setRoot("principal", WindowSize.raportMenuForm);
+    }
+
+    public void pressLogOutButton() throws IOException {
         Main.setRoot("common/signIn", WindowSize.signIn);
     }
 
@@ -104,18 +110,17 @@ public class AdministratorMenuController implements ParametrizedController {
         toDelete.addAll((new Teacher()).getUnusedTeachers());
         toDelete.addAll((new ParentModel()).getUnusedParents());
         toDelete.addAll((new UserModel()).getUnusedAccounts());
-        if(toDelete.isEmpty()) {
+        if (toDelete.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, "Brak kont do usunięcia.", ButtonType.OK);
             alert.setHeaderText("");
             alert.setTitle("Czyszczenie kont");
             alert.showAndWait();
-        }
-        else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Znaleziono " + toDelete.size() + " nieużywanych kont. Czy na pewno chcesz je usunąć?", ButtonType.OK, ButtonType.CANCEL);
             alert.setHeaderText("");
             alert.setTitle("Czyszczenie kont");
             alert.showAndWait();
-            if (alert.getResult() == ButtonType.OK){
+            if (alert.getResult() == ButtonType.OK) {
                 (new Student()).delete(toDelete);
                 Alert done = new Alert(Alert.AlertType.INFORMATION, "Nieużywane konta zostały usunięte.", ButtonType.OK);
                 done.setHeaderText("");
@@ -125,6 +130,5 @@ public class AdministratorMenuController implements ParametrizedController {
         }
     }
 
-    public void pressButtonRaport(ActionEvent actionEvent) {
-    }
+
 }

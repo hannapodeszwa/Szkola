@@ -61,11 +61,11 @@ public class SignInController {
                         break;
                     case Roles.ADMIN:
                         params.put("mode", Roles.ADMIN);
-                        Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
+                        Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
                         break;
                     case Roles.PRINCIPAL:
                         params.put("mode", Roles.PRINCIPAL);
-                        Main.setRoot("menu/adminMenuForm", WindowSize.principalMenuForm);
+                        Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
                         break;
                 }
             } else errorLabel.setText("Błedny login lub hasło");

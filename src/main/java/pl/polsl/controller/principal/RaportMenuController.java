@@ -23,6 +23,9 @@ public class RaportMenuController {
         List l=s.getAllStudents();
     }
 
+    public void clickButtonSelectStudent(ActionEvent actionEvent) {
+        (new HelloWorldPrinter()).printingCall();
+    }
 
     public void clickButtonBack(ActionEvent event) throws IOException {
         Main.setRoot("menu/adminMenuForm.fxml",
