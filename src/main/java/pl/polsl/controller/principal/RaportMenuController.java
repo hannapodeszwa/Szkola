@@ -18,6 +18,11 @@ public class RaportMenuController {
         List l=s.getGradeFromSubject(p);
     }
 
+    public void clickButtonSelectStudent(ActionEvent event) throws IOException {
+        Student s = new Student();
+        List l=s.getAllStudents();
+    }
+
 
     public void clickButtonBack(ActionEvent event) throws IOException {
         Main.setRoot("menu/adminMenuForm.fxml",
