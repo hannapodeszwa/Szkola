@@ -12,8 +12,8 @@
                <Font size="18.0" />
            </font>
        </Label>
-       <ComboBox fx:id="searchC" layoutX="20.0" layoutY="46.0" prefHeight="26.0" prefWidth="133.0" />
-       <TextField fx:id="searchT" layoutX="163.0" layoutY="46.0" prefHeight="26.0" prefWidth="133.0" promptText="wyszukiwarka" />
+       <ComboBox fx:id="searchC" layoutX="20.0" layoutY="46.0" prefWidth="133.0" />
+       <TextField fx:id="searchT" layoutX="163.0" layoutY="46.0" prefWidth="133.0" promptText="wyszukiwarka" />
       <TableView fx:id="tableStudents" layoutX="20.0" layoutY="86.0" prefHeight="250.0" prefWidth="276.0">
             <columns>
                 <TableColumn id="nameC" fx:id="nameC" prefWidth="100.0" resizable="false" text="Imię" />
