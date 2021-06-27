@@ -1,28 +1,94 @@
 package pl.polsl.controller.principal;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.entities.Oceny;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.ParentModel;
 import pl.polsl.model.Student;
+import pl.polsl.model.Subject;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
+import javax.swing.text.TabableView;
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class RaportMenuController {
+    @FXML
+    private TableView<Przedmioty> tableSubjects;
+    @FXML
+    private TableColumn<Przedmioty, String> nameC;
+    @FXML
+    public void initialize()
+    {
+        displayTableSubjects();
+    }
+
+    private void displayTableSubjects()
+    {
+        tableSubjects.getItems().clear();
+        Subject s= new Subject();
+        List l=s.displaySubjects();
+        nameC.setCellValueFactory(new PropertyValueFactory<>("nazwa"));
+        for (Object p: l) {
+            tableSubjects.getItems().add((Przedmioty) p);
+        }
+    }
+
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
         Student s = new Student();
-        Przedmioty p;
-       //List l=s.getGradeFromSubject(p);
+        Przedmioty p = tableSubjects.getSelectionModel().getSelectedItem();
+        List l=s.getGradeFromSubject(p.getID());
+
+
+
+        Map<Uczniowie, Float> sum = new HashMap<>();
+        Map<Uczniowie, Integer> size = new HashMap<>();
+
+        for(Object o: l)
+        {
+            if(!(sum.keySet().contains((Uczniowie) o)))
+            {
+                sum.put((Uczniowie) o, ((Oceny) o).getOcena());
+                size.put((Uczniowie) o, 1);
+            }
+            else
+            {
+                int oldSize = size.get((Uczniowie) o);
+                float oldGrade = sum.get((Uczniowie) o);
+
+                size.remove((Uczniowie) o);
+                sum.remove((Uczniowie) o);
+
+                size.put((Uczniowie) o, oldSize+1);
+                sum.put((Uczniowie) o, oldGrade + ((Oceny) o).getOcena());
+            }
+        }
+
+        Map<Uczniowie, Float> avg = new HashMap<>();
+        for(Uczniowie u :sum.keySet())
+        {
+            avg.put(u,sum.get(u)/size.get(u));
+        }
+
+        ArrayList list = new ArrayList();
+        String string = "Średnia z przedmiotu: " + p.getNazwa();
+        avg.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(m -> list.add(m)/*string += m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()*/);
     }
 
     public void clickButtonSelectStudent(ActionEvent event) throws IOException {
