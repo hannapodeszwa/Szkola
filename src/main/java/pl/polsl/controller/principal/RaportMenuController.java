@@ -26,7 +26,7 @@ public class RaportMenuController {
         Student s = new Student();
         List l=s.getAllStudents();
 
-        (new StudentsPrinter(l)).printingCall();
+        (new StudentsPrinter()).printingCall(l);
         (new HelloWorldPrinter()).printingCall();
     }
 
