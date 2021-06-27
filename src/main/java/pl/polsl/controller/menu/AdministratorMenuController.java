@@ -39,8 +39,7 @@ public class AdministratorMenuController implements ParametrizedController {
         if(Roles.ADMIN.equals(mode)){
             labelTitle.setText("Konto administratora");
             buttonRaport.setVisible(false);
-            buttonCompetitions.setVisible(false);
-            buttonLogout.setLayoutY(246);
+            buttonLogout.setLayoutY(406);
         }
         else{
             labelTitle.setText("Konto dyrektora");
