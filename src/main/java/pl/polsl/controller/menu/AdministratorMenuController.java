@@ -38,8 +38,8 @@ public class AdministratorMenuController implements ParametrizedController {
         mode = (String) params.get("mode");
         if (Roles.ADMIN.equals(mode)) {
             labelTitle.setText("Konto administratora");
-            buttonRaport.setVisible(false);
-            buttonLogout.setLayoutY(406);
+            //buttonRaport.setVisible(false);
+            //buttonLogout.setLayoutY(406);
         } else {
             labelTitle.setText("Konto dyrektora");
         }
