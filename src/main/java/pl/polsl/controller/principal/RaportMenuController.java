@@ -127,6 +127,7 @@ public class RaportMenuController {
     public void clickButtonAverageGrade(ActionEvent actionEvent) {
         Student s = new Student();
         List<Uczniowie> l=s.getAllStudents();
+        Map<Uczniowie, Float> average = new HashMap<>();
 
         for(Uczniowie u :l)
         {
@@ -156,17 +157,20 @@ public class RaportMenuController {
             }
 
             Map<Przedmioty, Float> avg = new HashMap<>();
+            float allAvg=0;
             for(Przedmioty p :sum.keySet())
             {
-                avg.put(p,sum.get(u)/size.get(u));
+                float a =sum.get(u)/size.get(u);
+                avg.put(p,a);
+                allAvg +=a;
             }
 
-            ArrayList list = new ArrayList();
-            avg.entrySet().stream()
-                    .sorted(Map.Entry.comparingByValue())
-                    .forEach(m -> list.add(m));
-
+            average.put(u, allAvg/avg.keySet().size());
         }
+        ArrayList list = new ArrayList();
+        average.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue())
+                .forEach(m -> list.add(m));
     }
 }
 
