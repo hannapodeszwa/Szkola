@@ -131,28 +131,28 @@ public class RaportMenuController {
 
         for(Uczniowie u :l)
         {
-            List l2=s.getGradeFromStudent(u.ID);
+            List <Object[]> l2=s.getGradeFromStudent(u.ID);
 
             Map<Przedmioty, Float> sum = new HashMap<>();
             Map<Przedmioty, Integer> size = new HashMap<>();
 
-            for(Object o: l2)
+            for(Object[] o: l2)
             {
-                if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Przedmioty) o)))
+                if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Przedmioty) o[1])))
                 {
-                    sum.put((Przedmioty) o, ((Oceny) o).getOcena());
-                    size.put((Przedmioty) o, 1);
+                    sum.put((Przedmioty) o[1], ((Oceny)o[0]).getOcena());
+                    size.put((Przedmioty) o[1], 1);
                 }
                 else
                 {
-                    int oldSize = size.get((Przedmioty) o);
-                    float oldGrade = sum.get((Przedmioty) o);
+                    int oldSize = size.get((Przedmioty) o[1]);
+                    float oldGrade = sum.get((Przedmioty) o[1]);
 
-                    size.remove((Przedmioty) o);
-                    sum.remove((Przedmioty) o);
+                    size.remove((Przedmioty) o[1]);
+                    sum.remove((Przedmioty) o[1]);
 
-                    size.put((Przedmioty) o, oldSize+1);
-                    sum.put((Przedmioty) o, oldGrade + ((Oceny) o).getOcena());
+                    size.put((Przedmioty) o[1], oldSize+1);
+                    sum.put((Przedmioty) o[1], oldGrade + ((Oceny) o[0]).getOcena());
                 }
             }
 
