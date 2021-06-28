@@ -21,10 +21,8 @@ import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class RaportMenuController {
 
@@ -127,7 +125,7 @@ public class RaportMenuController {
         list.add("Średnia z przedmiotu: " + p.getNazwa());
         list.add("");
         avg.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEach(m -> list.add(m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()));
         (new RaportPrinter()).printingCall(list);
     }
@@ -212,7 +210,7 @@ public class RaportMenuController {
         list.add("");
 
         average.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .forEach(m -> list.add(m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()));
 
         (new RaportPrinter()).printingCall(list);
