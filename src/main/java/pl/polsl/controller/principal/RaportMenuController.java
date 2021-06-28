@@ -160,7 +160,7 @@ public class RaportMenuController {
             float allAvg=0;
             for(Przedmioty p :sum.keySet())
             {
-                float a =sum.get(u)/size.get(u);
+                float a =sum.get(p)/size.get(p);
                 avg.put(p,a);
                 allAvg +=a;
             }
