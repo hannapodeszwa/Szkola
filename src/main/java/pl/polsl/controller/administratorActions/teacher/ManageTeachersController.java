@@ -68,10 +68,10 @@ public class ManageTeachersController implements ParametrizedController {
             switch (searchC.getValue().toString())
             {
                 case "Imię":
-                    filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                    filter.setPredicate(p -> p.getImie().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by first name
                     break;
                 case "Nazwisko":
-                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by last name
                     break;
             }
         });
