@@ -62,28 +62,28 @@ public class RaportMenuController {
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
         Student s = new Student();
         Przedmioty p = tableSubjects.getSelectionModel().getSelectedItem();
-        List l=s.getGradeFromSubject(p.getID());
+        List <Object []> l=s.getGradeFromSubject(p.getID());
 
         Map<Uczniowie, Float> sum = new HashMap<>();
         Map<Uczniowie, Integer> size = new HashMap<>();
 
-        for(Object o: l)
+        for(Object o[]: l)
         {
-            if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Uczniowie) o)))
+            if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Uczniowie) o[1])))
             {
-                sum.put((Uczniowie) o, ((Oceny) o).getOcena());
-                size.put((Uczniowie) o, 1);
+                sum.put((Uczniowie) o[1], ((Oceny) o[0]).getOcena());
+                size.put((Uczniowie) o[1], 1);
             }
             else
             {
-                int oldSize = size.get((Uczniowie) o);
-                float oldGrade = sum.get((Uczniowie) o);
+                int oldSize = size.get((Uczniowie) o[1]);
+                float oldGrade = sum.get((Uczniowie) o[1]);
 
-                size.remove((Uczniowie) o);
-                sum.remove((Uczniowie) o);
+                size.remove((Uczniowie) o[1]);
+                sum.remove((Uczniowie) o[1]);
 
-                size.put((Uczniowie) o, oldSize+1);
-                sum.put((Uczniowie) o, oldGrade + ((Oceny) o).getOcena());
+                size.put((Uczniowie) o[1], oldSize+1);
+                sum.put((Uczniowie) o[1], oldGrade + ((Oceny) o[0]).getOcena());
             }
         }
 
