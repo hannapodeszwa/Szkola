@@ -205,8 +205,9 @@ public class TeacherGradesController implements ParametrizedController {
             });
 
             table.setItems(gradeList);
+            buttonAverage.setDisable(gradeList.isEmpty());
         }
-        buttonAverage.setDisable(gradeList.isEmpty());
+
 
     }
     public void changeComboboxStudent() {
