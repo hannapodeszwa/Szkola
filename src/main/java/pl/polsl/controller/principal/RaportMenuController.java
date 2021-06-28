@@ -65,18 +65,18 @@ public class RaportMenuController {
         List <Object []> l=s.getGradeFromSubject(p.getID());
 
         Map<Uczniowie, Float> sum = new HashMap<>();
-        Map<Uczniowie, Integer> size = new HashMap<>();
+        Map<Uczniowie, Float> size = new HashMap<>();
 
         for(Object o[]: l)
         {
             if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Uczniowie) o[1])))
             {
-                sum.put((Uczniowie) o[1], ((Oceny) o[0]).getOcena());
-                size.put((Uczniowie) o[1], 1);
+                sum.put((Uczniowie) o[1],((Oceny)o[0]).getWaga() * ((Oceny) o[0]).getOcena());
+                size.put((Uczniowie) o[1], ((Oceny)o[0]).getWaga());
             }
             else
             {
-                int oldSize = size.get((Uczniowie) o[1]);
+                float oldSize = size.get((Uczniowie) o[1]);
                 float oldGrade = sum.get((Uczniowie) o[1]);
 
                 size.remove((Uczniowie) o[1]);
@@ -133,18 +133,18 @@ public class RaportMenuController {
             List <Object[]> l2=s.getGradeFromStudent(u.ID);
 
             Map<Przedmioty, Float> sum = new HashMap<>();
-            Map<Przedmioty, Integer> size = new HashMap<>();
+            Map<Przedmioty, Float> size = new HashMap<>();
 
             for(Object[] o: l2)
             {
                 if((sum.keySet().isEmpty()) || !(sum.keySet().contains((Przedmioty) o[1])))
                 {
-                    sum.put((Przedmioty) o[1], ((Oceny)o[0]).getOcena());
-                    size.put((Przedmioty) o[1], 1);
+                    sum.put((Przedmioty) o[1], ((Oceny)o[0]).getWaga() * ((Oceny)o[0]).getOcena());
+                    size.put((Przedmioty) o[1], ((Oceny)o[0]).getWaga());
                 }
                 else
                 {
-                    int oldSize = size.get((Przedmioty) o[1]);
+                    float oldSize = size.get((Przedmioty) o[1]);
                     float oldGrade = sum.get((Przedmioty) o[1]);
 
                     size.remove((Przedmioty) o[1]);
