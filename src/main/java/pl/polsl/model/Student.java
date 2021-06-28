@@ -2,10 +2,12 @@ package pl.polsl.model;
 
 import javax.persistence.*;
 
+import javafx.scene.control.DatePicker;
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.*;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.logging.Level;
@@ -103,18 +105,22 @@ public class Student implements ManageDataBase {
 
     }
 
-    public List getGradeFromSubject(Integer Id){
+    public List getGradeFromSubject(Integer Id, Date date1, Date date2){
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.getGradeFromSubject", Uczniowie.class);
         query.setParameter("idPrzedmiotu", Id);
+        query.setParameter("data1", date1);
+        query.setParameter("data2", date2);
         List<Object> result = query.getResultList();
         return result;
     }
 
-    public List getGradeFromStudent(Integer Id){
+    public List getGradeFromStudent(Integer Id,Date date1, Date date2){
         entityManager = MyManager.getEntityManager();
         TypedQuery query = entityManager.createNamedQuery("uczniowie.getGradeFromStudent", Uczniowie.class);
         query.setParameter("id", Id);
+        query.setParameter("data1", date1);
+        query.setParameter("data2", date2);
         List<Object> result = query.getResultList();
         return result;
     }

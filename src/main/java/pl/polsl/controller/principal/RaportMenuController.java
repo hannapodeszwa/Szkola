@@ -1,9 +1,8 @@
 package pl.polsl.controller.principal;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.entities.Oceny;
@@ -21,6 +20,7 @@ import javax.swing.text.TabableView;
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +34,10 @@ public class RaportMenuController {
     private TableView<Przedmioty> tableSubjects;
     @FXML
     private TableColumn<Przedmioty, String> nameC;
+    @FXML
+    private DatePicker date1;
+    @FXML
+    private DatePicker date2;
     @FXML
     public void initialize()
     {
@@ -58,11 +62,23 @@ public class RaportMenuController {
             tableSubjects.getItems().add((Przedmioty) p);
         }
     }
-
+    private void alert()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Niepoprawne daty");
+            alert.setContentText("Data początku jest większa niż data końca!!!");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
+        if((Date.valueOf(date1.getValue())).compareTo(Date.valueOf(date2.getValue()))>0)
+        {
+           alert();
+            return;
+        }
         Student s = new Student();
         Przedmioty p = tableSubjects.getSelectionModel().getSelectedItem();
-        List <Object []> l=s.getGradeFromSubject(p.getID());
+        List <Object []> l=s.getGradeFromSubject(p.getID(), (Date.valueOf(date1.getValue())),(Date.valueOf(date2.getValue())));
 
         Map<Uczniowie, Float> sum = new HashMap<>();
         Map<Uczniowie, Float> size = new HashMap<>();
@@ -125,13 +141,18 @@ public class RaportMenuController {
     }
 
     public void clickButtonAverageGrade(ActionEvent actionEvent) {
+        if((Date.valueOf(date1.getValue())).compareTo(Date.valueOf(date2.getValue()))>0)
+        {
+            alert();
+            return;
+        }
         Student s = new Student();
         List<Uczniowie> l=s.getAllStudents();
         Map<Uczniowie, Float> average = new HashMap<>();
 
         for(Uczniowie u :l)
         {
-            List <Object[]> l2=s.getGradeFromStudent(u.ID);
+            List <Object[]> l2=s.getGradeFromStudent(u.ID,(Date.valueOf(date1.getValue())),(Date.valueOf(date2.getValue())));
 
             Map<Przedmioty, Float> sum = new HashMap<>();
             Map<Przedmioty, Float> size = new HashMap<>();
