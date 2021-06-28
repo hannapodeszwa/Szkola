@@ -171,6 +171,7 @@ public class RaportMenuController {
                 .sorted(Map.Entry.comparingByValue())
                 .forEach(m -> list.add(m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()));
 
+        (new RaportPrinter()).printingCall(list);
     }
 }
 
