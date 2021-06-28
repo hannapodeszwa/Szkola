@@ -97,8 +97,7 @@ public class RaportMenuController {
         String string = "Średnia z przedmiotu: " + p.getNazwa();
         avg.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .forEach(m -> list.add(m)/*string += m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()*/);
-
+                .forEach(m -> list.add(m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()));
         (new RaportPrinter()).printingCall(list);
     }
 
@@ -170,7 +169,8 @@ public class RaportMenuController {
         ArrayList list = new ArrayList();
         average.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
-                .forEach(m -> list.add(m));
+                .forEach(m -> list.add(m.getKey().getImie() + " " + m.getKey().getNazwisko() +": " + m.getValue()));
+
     }
 }
 
