@@ -13,7 +13,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     manageSubjectsForm(461,356),
     addOrUpdateSubjectForm(255,186),
     //student
-    manageStudentsForm(593, 435),
+    manageStudentsForm(501, 396),
     addOrUpdateStudentForm(270, 321),
     //teacher
     manageTeachersForm (516, 430),
@@ -56,7 +56,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     signIn(205,290),
     //principal
     principalMenuForm(205,531),
-    raportMenuForm(600,440),
+    raportMenuForm(505,356),
     ;
 
 
