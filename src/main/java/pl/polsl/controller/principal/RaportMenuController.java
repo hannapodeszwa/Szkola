@@ -70,7 +70,21 @@ public class RaportMenuController {
         alert.setHeaderText(null);
         alert.showAndWait();
     }
+
+    private void alertNull()
+    {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Niepoprawne daty");
+        alert.setContentText("Podaj daty!!!");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
     public void clickButtonAverageSubject(ActionEvent event) throws IOException {
+        if(date1.getValue()==null || date2.getValue()==null)
+        {
+            alertNull();
+            return;
+        }
         if((Date.valueOf(date1.getValue())).compareTo(Date.valueOf(date2.getValue()))>0)
         {
            alert();
@@ -141,6 +155,11 @@ public class RaportMenuController {
     }
 
     public void clickButtonAverageGrade(ActionEvent actionEvent) {
+        if(date1.getValue()==null || date2.getValue()==null)
+        {
+            alertNull();
+            return;
+        }
         if((Date.valueOf(date1.getValue())).compareTo(Date.valueOf(date2.getValue()))>0)
         {
             alert();
