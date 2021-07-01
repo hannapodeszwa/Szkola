@@ -2,7 +2,6 @@ package pl.polsl.controller.administratorActions.classroom;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -73,7 +72,7 @@ public class ManageClassroomController implements ParametrizedController {
         });
     }
 
-    public void addClassroomButton(ActionEvent event) throws IOException {
+    public void addClassroomButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("procedure", "add");
         params.put("mode", mode);
@@ -81,7 +80,7 @@ public class ManageClassroomController implements ParametrizedController {
                 WindowSize.addOrUpdateClassroomForm);
     }
 
-    public void updateClassroomButton(ActionEvent event) throws IOException {
+    public void updateClassroomButton() throws IOException {
         Sale toUpdate = tableClassrooms.getSelectionModel().getSelectedItem();
         if (toUpdate == null) {
             chooseClassroomAlert(true);
@@ -95,7 +94,7 @@ public class ManageClassroomController implements ParametrizedController {
         }
     }
 
-    public void deleteClassroomButton(ActionEvent event) throws IOException {
+    public void deleteClassroomButton() {
         Sale toDelete = tableClassrooms.getSelectionModel().getSelectedItem();
         if (toDelete == null) {
             chooseClassroomAlert(false);
@@ -138,7 +137,7 @@ public class ManageClassroomController implements ParametrizedController {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException {
+    public void cancelButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         if (mode.equals(Roles.PRINCIPAL))

@@ -48,7 +48,7 @@ public class TeacherGradesController implements ParametrizedController {
     List<Klasy> classList;
     ObservableList<Uczniowie> studentList;
     ObservableList<Przedmioty> subjectsList;
-    ObservableList<Oceny> gradeList;
+    ObservableList<Oceny> gradeList = FXCollections.observableArrayList();
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
@@ -107,6 +107,7 @@ public class TeacherGradesController implements ParametrizedController {
         params.put("student", studentList.get(comboboxStudent.getSelectionModel().getSelectedIndex()));
         params.put("subject", subjectsList.get(comboboxSubject.getSelectionModel().getSelectedIndex()));
         params.put("classNumber",comboboxClass.getSelectionModel().getSelectedIndex());
+        params.put("classID", classList.get(comboboxClass.getSelectionModel().getSelectedIndex()).getID());
         params.put("subjectNumber",comboboxSubject.getSelectionModel().getSelectedIndex());
         params.put("studentNumber",comboboxStudent.getSelectionModel().getSelectedIndex());
         Main.setRoot("teacherActions/teacherAddNewGradeForm", params, WindowSize.teacherAddNewGradeForm);
@@ -207,7 +208,6 @@ public class TeacherGradesController implements ParametrizedController {
             table.setItems(gradeList);
         }
         buttonAverage.setDisable(gradeList.isEmpty());
-
     }
     public void changeComboboxStudent() {
         gradeList.clear();

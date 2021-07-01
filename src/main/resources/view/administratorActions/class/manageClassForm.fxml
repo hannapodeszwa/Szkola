@@ -14,7 +14,7 @@
       </Label>
         <TableView fx:id="tableClass" layoutX="20.0" layoutY="46.0" prefHeight="234.0" prefWidth="96.0">
             <columns>
-                <TableColumn id="nameC" fx:id="nameC" editable="false" text="Nazwa" />
+                <TableColumn id="nameC" fx:id="nameC" editable="false" resizable="false" text="Nazwa" />
             </columns>
         </TableView>
         <Button layoutX="136.0" layoutY="46.0" mnemonicParsing="false" onAction="#addClassButton" prefHeight="26.0" prefWidth="150.0" text="Dodaj nową klasę" />

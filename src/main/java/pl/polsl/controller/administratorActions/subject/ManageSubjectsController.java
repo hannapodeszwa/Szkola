@@ -1,6 +1,5 @@
 package pl.polsl.controller.administratorActions.subject;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -49,16 +48,16 @@ public class ManageSubjectsController implements ParametrizedController {
         }
     }
 
-    public void addSubjectButton(ActionEvent event) throws IOException
+    public void addSubjectButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("procedure","add");
         params.put("mode", mode);
         Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
                 WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
     }
 
-    public void updateSubjectButton(ActionEvent event) throws IOException
+    public void updateSubjectButton() throws IOException
     {
         Przedmioty toUpdate = tableSubjects.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
@@ -66,7 +65,7 @@ public class ManageSubjectsController implements ParametrizedController {
             chooseSubjectAlert(true);
         }
         else {
-            Map params = new HashMap<String, String>();
+            Map<String, Object> params = new HashMap<>();
             params.put("subject", toUpdate);
             params.put("procedure", "update");
             params.put("mode", mode);
@@ -75,7 +74,7 @@ public class ManageSubjectsController implements ParametrizedController {
         }
     }
 
-    public void deleteSubjectButton(ActionEvent event) throws IOException
+    public void deleteSubjectButton()
     {
         Przedmioty toDelete = tableSubjects.getSelectionModel().getSelectedItem();
         if(toDelete==null)
@@ -148,7 +147,7 @@ public class ManageSubjectsController implements ParametrizedController {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException
+    public void cancelButton() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);

@@ -4,7 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -68,10 +67,10 @@ public class ManageTeachersController implements ParametrizedController {
             switch (searchC.getValue().toString())
             {
                 case "Imię":
-                    filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
+                    filter.setPredicate(p -> p.getImie().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by first name
                     break;
                 case "Nazwisko":
-                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by last name
+                    filter.setPredicate(p -> p.getNazwisko().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by last name
                     break;
             }
         });
@@ -114,15 +113,15 @@ public class ManageTeachersController implements ParametrizedController {
         });
     }
 
-    public void addTeacherButton(ActionEvent event) throws IOException
+    public void addTeacherButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("procedure","add");
         params.put("mode", mode);
        Main.setRoot("administratorActions/teacher/addOrUpdateTeacherForm",params, WindowSize.addOrUpdateTeacherForm);
     }
 
-    public void updateTeacherButton(ActionEvent event) throws IOException
+    public void updateTeacherButton() throws IOException
     {
         Nauczyciele toUpdate = tableTeachers.getSelectionModel().getSelectedItem();
         if(toUpdate==null)
@@ -134,7 +133,7 @@ public class ManageTeachersController implements ParametrizedController {
             alert.showAndWait();
         }
         else {
-            Map params = new HashMap<String, String>();
+            Map<String, Object> params = new HashMap<>();
             params.put("teacher", tableTeachers.getSelectionModel().getSelectedItem());
             params.put("procedure", "update");
             params.put("mode", mode);
@@ -142,7 +141,7 @@ public class ManageTeachersController implements ParametrizedController {
         }
     }
 
-    public void deleteTeacherButton(ActionEvent event) throws IOException
+    public void deleteTeacherButton()
     {
         Nauczyciele toDelete = tableTeachers.getSelectionModel().getSelectedItem();
 
@@ -194,7 +193,7 @@ public class ManageTeachersController implements ParametrizedController {
            (new UserModel()).delete(userToDelete);
        }
 
-        deleteMessages(toDelete);
+        deleteMessages();
         deleteSchedule(toDelete);
         deleteNote(toDelete);
         deleteCompetition(toDelete);
@@ -236,18 +235,17 @@ public class ManageTeachersController implements ParametrizedController {
         }
     }
 
-    private void deleteMessages(Nauczyciele toDelete) {
+    private void deleteMessages() {
         List<Wiadomosci> messagesList = (new MessageModel()).findByTeacher(login);
         if (!(messagesList.isEmpty())) {
 
             for (Wiadomosci w : messagesList) {
                 if (w.getNadawca().equals(login)) {
                     w.setNadawca(null);
-                    (new MessageModel()).update(w);
                 } else {
                     w.setOdbiorca(null);
-                    (new MessageModel()).update(w);
                 }
+                (new MessageModel()).update(w);
             }
         }
             }
@@ -275,7 +273,7 @@ public class ManageTeachersController implements ParametrizedController {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException
+    public void cancelButton() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);

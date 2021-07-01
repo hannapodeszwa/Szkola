@@ -24,10 +24,10 @@ import java.io.Serializable;
                 query = "SELECT DISTINCT u FROM Uczniowie u INNER JOIN Udzialwkonkursie p ON p.idUcznia = u.ID WHERE p.idKonkursu = :idKonkursu"),
         @NamedQuery(name = "uczniowie.getGradeFromSubject",
                 query = "SELECT o, u FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
-                        " o.idPrzedmiotu = p.ID AND p.ID = :idPrzedmiotu"),
+                        " o.idPrzedmiotu = p.ID AND p.ID = :idPrzedmiotu AND o.data >= :data1 AND o.data <= :data2"),
         @NamedQuery(name = "uczniowie.getGradeFromStudent",
                 query = "SELECT o, p FROM Uczniowie u, Oceny o, Przedmioty p  WHERE o.idUcznia = u.ID AND" +
-                        " o.idPrzedmiotu = p.ID AND u.ID = :id"),
+                        " o.idPrzedmiotu = p.ID AND u.ID = :id AND o.data >= :data1 AND o.data <= :data2"),
 
 
 })

@@ -28,7 +28,7 @@
       <Label layoutX="316.0" layoutY="251.0" prefWidth="165.0" text="Email:" />
       <Label fx:id="email" layoutX="316.0" layoutY="271.0" prefWidth="165.0" />
       <Label layoutX="316.0" layoutY="296.0" prefWidth="165.0" text="Numer kontaktowy:" />
-      <Label fx:id="phone" layoutX="316.0" layoutY="316.0" prefWidth="165.0" text="qwrqweqw" />
+      <Label fx:id="phone" layoutX="316.0" layoutY="316.0" prefWidth="165.0" />
         <Button layoutX="316.0" layoutY="345.0" mnemonicParsing="false" onAction="#cancelButton" prefWidth="165.0" text="Powrót" />
     </children>
 </AnchorPane>

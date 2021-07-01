@@ -2,12 +2,10 @@ package pl.polsl.controller.administratorActions.lessons;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.ListChangeListener;
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
-import pl.polsl.controller.menu.StudentMenuController;
 import pl.polsl.entities.*;
 import pl.polsl.model.*;
 import pl.polsl.utils.Roles;
@@ -87,7 +85,7 @@ public class manageLessonHoursController implements ParametrizedController {
 
     }
 
-    public void clickButtonAccept() throws IOException, ParseException {
+    public void clickButtonAccept() {
         DateFormat format = new SimpleDateFormat("HH:mm");
         String begin = textFormBegin.getText();
         String end = textFormEnd.getText();

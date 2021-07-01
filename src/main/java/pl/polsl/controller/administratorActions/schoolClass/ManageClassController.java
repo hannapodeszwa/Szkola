@@ -2,7 +2,6 @@ package pl.polsl.controller.administratorActions.schoolClass;
 
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -79,20 +78,20 @@ public class ManageClassController implements ParametrizedController {
         });
     }
 
-    public void addClassButton(ActionEvent event) throws IOException {
-        Map params = new HashMap<String, String>();
+    public void addClassButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
 
         params.put("procedure", "add");
         params.put("mode", mode);
         Main.setRoot("administratorActions/class/addOrUpdateClassForm", params, WindowSize.addOrUpdateClassForm);
     }
 
-    public void updateClassButton(ActionEvent event) throws IOException {
+    public void updateClassButton() throws IOException {
         Klasy toUpdate = tableClass.getSelectionModel().getSelectedItem();
         if (toUpdate == null) {
             chooseClassAlert(true);
         } else {
-            Map params = new HashMap<String, String>();
+            Map<String, Object> params = new HashMap<>();
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
             params.put("procedure", "update");
             params.put("mode", mode);
@@ -100,7 +99,7 @@ public class ManageClassController implements ParametrizedController {
         }
     }
 
-    public void deleteClassButton(ActionEvent event) throws IOException {
+    public void deleteClassButton() {
         Klasy toDelete = tableClass.getSelectionModel().getSelectedItem();
         if (toDelete == null) {
            chooseClassAlert(false);
@@ -164,7 +163,7 @@ public class ManageClassController implements ParametrizedController {
         alert.showAndWait();
     }
 
-    public void cancelButton(ActionEvent event) throws IOException {
+    public void cancelButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         if (mode.equals(Roles.PRINCIPAL))

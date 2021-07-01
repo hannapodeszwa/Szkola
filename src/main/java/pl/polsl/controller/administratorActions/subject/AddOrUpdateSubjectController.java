@@ -1,16 +1,15 @@
 package pl.polsl.controller.administratorActions.subject;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Przedmioty;
 import pl.polsl.model.Subject;
+import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -46,7 +45,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     };
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
 
         if (params.get("procedure") == "add") {
@@ -64,15 +63,14 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
         }
     }
 
-    public void confirmChangesButton(ActionEvent event) throws IOException
+    public void confirmChangesButton() throws IOException
     {
         if (procedure == md.Add) {
             Przedmioty p = new Przedmioty();
-            p.setNazwa(name.getText());
-
+            setNewValues(p);
             (new Subject()).persist(p);
         } else if (procedure == md.Update) {
-            toUpdate.setNazwa(name.getText());
+            setNewValues(toUpdate);
             (new Subject()).update(toUpdate);
         }
         Map<String, Object> params = new HashMap<>();
@@ -85,7 +83,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
         p.setNazwa( (name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException {
+    public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
