@@ -23,7 +23,7 @@
       <Label layoutX="281.0" layoutY="106.0" text="Koniec" />
       <TextField fx:id="textFormEnd" layoutX="281.0" layoutY="126.0" prefHeight="26.0" prefWidth="100.0" />
       <Button layoutX="281.0" layoutY="171.0" mnemonicParsing="false" onAction="#clickButtonAccept" prefHeight="26.0" prefWidth="100.0" text="Zatwierdź" />
-      <Button layoutX="281.0" layoutY="216.0" mnemonicParsing="false" onAction="#clickAddNewButton" prefHeight="26.0" prefWidth="100.0" text="Dodaj nową" />
+      <Button fx:id="addingButton" layoutX="281.0" layoutY="216.0" mnemonicParsing="false" onAction="#clickAddNewButton" prefHeight="26.0" prefWidth="100.0" text="Dodaj nową" />
       <Button fx:id="buttonBack" layoutX="281.0" layoutY="262.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="100.0" text="Powrót" />
    </children>
 </AnchorPane>

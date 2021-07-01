@@ -16,9 +16,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class manageLessonHoursController implements ParametrizedController {
 
@@ -28,8 +26,28 @@ public class manageLessonHoursController implements ParametrizedController {
     public TableColumn<GodzinyLekcji,Integer> columnNum;
     public TableColumn<GodzinyLekcji,String> columnBegin;
     public TableColumn<GodzinyLekcji,String> columnEnd;
+    public Button addingButton;
 
     private String mode;
+
+
+    public void initialize() {
+        columnNum.setCellValueFactory(new PropertyValueFactory<>("numer"));
+        columnBegin.setCellValueFactory(CellData -> {
+            DateFormat format = new SimpleDateFormat("HH:mm");
+            String begin = format.format(CellData.getValue().getPoczatek());
+            return new ReadOnlyStringWrapper(begin);
+        });
+        columnEnd.setCellValueFactory(CellData -> {
+            DateFormat format = new SimpleDateFormat("HH:mm");
+            String begin = format.format(CellData.getValue().getKoniec());
+            return new ReadOnlyStringWrapper(begin);
+        });
+        List<GodzinyLekcji> classHours = (new LessonTimeModel().getTime());
+        table.getItems().addAll(classHours);
+        addingButton.setDisable(classHours.size() >= 14);
+        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) cellSelectListener);
+    }
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
@@ -52,26 +70,11 @@ public class manageLessonHoursController implements ParametrizedController {
 
         table.getSelectionModel().getSelectedCells().removeListener((ListChangeListener<? super TablePosition>) cellSelectListener);
         table.getItems().clear();
-        table.getItems().addAll(new LessonTimeModel().getTime());
+        List<GodzinyLekcji> classHours = (new LessonTimeModel().getTime());
+        table.getItems().addAll(classHours);
+        addingButton.setDisable(classHours.size() >= 14);
         table.getSelectionModel().select(index);
         table.getFocusModel().focus(index);
-        table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) cellSelectListener);
-    }
-
-    public void initialize() {
-        columnNum.setCellValueFactory(new PropertyValueFactory<>("numer"));
-        columnBegin.setCellValueFactory(CellData -> {
-            DateFormat format = new SimpleDateFormat("HH:mm");
-            String begin = format.format(CellData.getValue().getPoczatek());
-            return new ReadOnlyStringWrapper(begin);
-        });
-        columnEnd.setCellValueFactory(CellData -> {
-            DateFormat format = new SimpleDateFormat("HH:mm");
-            String begin = format.format(CellData.getValue().getKoniec());
-            return new ReadOnlyStringWrapper(begin);
-        });
-
-        table.getItems().addAll(new LessonTimeModel().getTime());
         table.getSelectionModel().getSelectedCells().addListener((ListChangeListener<? super TablePosition>) cellSelectListener);
     }
 
