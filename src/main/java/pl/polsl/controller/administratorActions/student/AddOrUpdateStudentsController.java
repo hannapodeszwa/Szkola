@@ -65,7 +65,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     }
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
 
         if (params.get("procedure") == "add"){
@@ -129,7 +129,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
 
             List<Object> toUpdate = new ArrayList<>();
 
-            if (classId != modyfikowany.getID()) {
+            if (!classId.equals(modyfikowany.getID())) {
                 Klasy k = (new SchoolClass()).getClassByLeader(modyfikowany.getID());
                 if (k != null) {
                     k.setIdPrzewodniczacego(null);

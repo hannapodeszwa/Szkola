@@ -4,7 +4,6 @@ import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -28,7 +27,7 @@ public class ManageStudentsController implements ParametrizedController {
     @FXML
     private Button buttonUpdateStudent;
     @FXML
-    private ComboBox searchC;
+    private ComboBox<String> searchC;
     @FXML
     private TextField searchT;
     @FXML
@@ -97,7 +96,7 @@ public class ManageStudentsController implements ParametrizedController {
         searchC.setValue("Nazwisko");
 
         searchT.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (searchC.getValue().toString())
+            switch (searchC.getValue())
             {
                 case "Imię":
                     filter.setPredicate(p -> p.getImie().toLowerCase().contains(newValue.toLowerCase().trim()));//filter table by first name
@@ -114,18 +113,18 @@ public class ManageStudentsController implements ParametrizedController {
 
 
 
-    public void addStudentsButton(ActionEvent event) throws IOException
+    public void addStudentsButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
 
         params.put("procedure","add");
         params.put("mode", mode);
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
-    public void updateStudentsButton(ActionEvent event) throws IOException
+    public void updateStudentsButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
 
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
         params.put("procedure","update");
@@ -134,7 +133,7 @@ public class ManageStudentsController implements ParametrizedController {
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
-    public void deleteStudentsButton(ActionEvent event) throws IOException
+    public void deleteStudentsButton()
     {
 
         Uczniowie u = tableStudents.getSelectionModel().getSelectedItem();
@@ -197,7 +196,7 @@ public class ManageStudentsController implements ParametrizedController {
     }
 
 
-    public void goBackButtonClick(ActionEvent event) throws IOException {
+    public void goBackButtonClick() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         if (mode.equals(Roles.PRINCIPAL))

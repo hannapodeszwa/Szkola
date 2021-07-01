@@ -1,7 +1,6 @@
 package pl.polsl.controller.administratorActions.schoolClass;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -85,7 +84,7 @@ private void disableButton()
     };
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
 
         if (params.get("procedure") == "add")
@@ -115,7 +114,7 @@ leader.setDisable(true);
         }
     }
 
-    public void confirmChangesButton(ActionEvent event) throws IOException
+    public void confirmChangesButton() throws IOException
     {
         if (procedure == md.Add) {
             Klasy k = new Klasy();
@@ -134,7 +133,7 @@ leader.setDisable(true);
         k.setNumer((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
 
         int tutorIndex = tutor.getSelectionModel().getSelectedIndex()-1;
-        Nauczyciele selectedTutor = null;
+        Nauczyciele selectedTutor;
         if(tutorIndex>=0)
         {
            selectedTutor = teachers.get(tutorIndex);
@@ -145,7 +144,7 @@ leader.setDisable(true);
 
 
         int leaderIndex = leader.getSelectionModel().getSelectedIndex()-1;
-        Uczniowie selectedLeader  = null;
+        Uczniowie selectedLeader;
         if(leaderIndex>=0)
         {
             selectedLeader = students.get(leaderIndex);
@@ -154,7 +153,7 @@ leader.setDisable(true);
         k.setIdPrzewodniczacego(null);
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException {
+    public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);

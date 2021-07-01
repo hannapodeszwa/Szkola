@@ -2,7 +2,6 @@ package pl.polsl.controller.administratorActions.classroom;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
@@ -79,7 +78,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     };
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
 
         mode = (String)params.get("mode");
         if (params.get("procedure") == "add") {
@@ -101,7 +100,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
         }
     }
 
-    public void confirmChangesButton(ActionEvent event) throws IOException
+    public void confirmChangesButton() throws IOException
     {
         if (procedure == md.Add) {
             Sale s = new Sale();
@@ -126,7 +125,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
         s.setCzyJestRzutnik(selectedYes);
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException {
+    public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
