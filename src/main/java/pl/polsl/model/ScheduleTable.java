@@ -9,6 +9,8 @@ import pl.polsl.entities.Rozklady;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -89,12 +91,13 @@ public class ScheduleTable implements ManageDataBase {
 
         ObservableList<ScheduleTable> list = FXCollections.observableArrayList();
 
+        DateFormat format = new SimpleDateFormat("HH:mm");
+
         for(Integer i = 0; i<lessonTime.size();i++){
             list.add(new ScheduleTable());
             list.get(i).number= lessonTime.get(i).getNumer();
-            list.get(i).hours = lessonTime.get(i).getPoczatek().getHours() + ":" +lessonTime.get(i).getPoczatek().getMinutes()+  " - " + lessonTime.get(i).getKoniec().getHours() + ":" +lessonTime.get(i).getKoniec().getMinutes();
+            list.get(i).hours = format.format(lessonTime.get(i).getPoczatek()) +  " - " + format.format(lessonTime.get(i).getKoniec());
         }
-
 
         for(Rozklady act : results){
             Integer num= (new LessonTimeModel()).getNumberById(act.getGodzina());
