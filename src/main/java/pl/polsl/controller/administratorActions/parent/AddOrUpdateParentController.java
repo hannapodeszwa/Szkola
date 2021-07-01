@@ -108,11 +108,10 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         disableButton();
     };
 
-    private List <Integer> checkChildren(List <Uczniowie> students)
+    private List <Integer> checkChildren()
     {
         List<Rodzicielstwo> parenthoodList = (new ParenthoodModel()).findByParent(toUpdate);
         List <Integer> studentsId =new ArrayList<>();
-        List children = new ArrayList();
         for( Rodzicielstwo r: parenthoodList)
         {
             studentsId.add(r.getIdUcznia());
@@ -129,7 +128,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
         List <Integer> childrenId = new ArrayList<>();
         if(toUpdate!=null) {
-           childrenId = checkChildren(l);
+           childrenId = checkChildren();
         }
         for (Uczniowie u : l) {
             ParenthoodModel p = new ParenthoodModel(u);
@@ -172,16 +171,15 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             name2.setText(toUpdate.getDrugieImie());
             surname.setText(toUpdate.getNazwisko());
             email.setText(toUpdate.getEmail());
-            phone.setText(toUpdate.getNrKontaktowy().toString());
+            phone.setText(toUpdate.getNrKontaktowy());
             adress.setText(toUpdate.getAdres());
-            //checkChildren();
         }
         displayStudents();
     }
 
-    public void confirmChangesButton(ActionEvent event) throws IOException
+    public void confirmChangesButton() throws IOException
     {
-        if (procedure == AddOrUpdateParentController.md.Add) {
+        if (procedure == md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Rodzice r = new Rodzice();
             if(!setNewValues(r))
@@ -238,7 +236,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
 
         for(ParenthoodModel ph : parentchoodList )
         {
-            if(ph.choose.isSelected()==true)
+            if(ph.choose.isSelected())
             {
                 Rodzicielstwo r = new Rodzicielstwo();
                 r.setIdRodzica(parent.getID());
@@ -270,7 +268,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         u.setID(id);
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException
+    public void discardChangesButton() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
