@@ -193,43 +193,45 @@ public class TeacherAbsenceController implements ParametrizedController {
         return result.toString();
     }
 
-    public void setAbsence(Integer index ){
-        absenceList = FXCollections.observableArrayList((new AbsenceModel()).displayPresent(studentList.get(index).getID()));
+    public void setAbsence(Integer index){
+        if(!studentList.isEmpty()) {
+            absenceList = FXCollections.observableArrayList((new AbsenceModel()).displayPresent(studentList.get(index).getID()));
 
 
-        columnLessonEnd.setCellValueFactory(CellData -> {
-            String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getKoniec().toString();
-            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonEnd.getWidth()));
-        });
+            columnLessonEnd.setCellValueFactory(CellData -> {
+                String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getKoniec().toString();
+                return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonEnd.getWidth()));
+            });
 
-        columnSubject.setCellValueFactory(CellData -> {
-            String tym = (new Subject()).getSubjectName(CellData.getValue().getPrzedmiotyId());
-            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnSubject.getWidth()));
-        });
+            columnSubject.setCellValueFactory(CellData -> {
+                String tym = (new Subject()).getSubjectName(CellData.getValue().getPrzedmiotyId());
+                return new ReadOnlyStringWrapper(wrapString(tym, (int) columnSubject.getWidth()));
+            });
 
-        columnDate.setCellValueFactory(CellData -> {
-            String tym = CellData.getValue().getData().toString();
-            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnDate.getWidth()));
-        });
+            columnDate.setCellValueFactory(CellData -> {
+                String tym = CellData.getValue().getData().toString();
+                return new ReadOnlyStringWrapper(wrapString(tym, (int) columnDate.getWidth()));
+            });
 
-       columnExcuse.setCellValueFactory(CellData -> {
-            Integer pom = CellData.getValue().getCzyUsprawiedliwiona();
-            String tym;
-            if(pom.equals(0)){
-                tym = "Nie";
-            } else {
-                tym = "Tak";
-            }
-            return new ReadOnlyStringWrapper(wrapString(tym, (int)columnExcuse.getWidth()));
-        });
+            columnExcuse.setCellValueFactory(CellData -> {
+                Integer pom = CellData.getValue().getCzyUsprawiedliwiona();
+                String tym;
+                if (pom.equals(0)) {
+                    tym = "Nie";
+                } else {
+                    tym = "Tak";
+                }
+                return new ReadOnlyStringWrapper(wrapString(tym, (int) columnExcuse.getWidth()));
+            });
 
-        columnLessonStart.setCellValueFactory(CellData -> {
-            String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getPoczatek().toString();
+            columnLessonStart.setCellValueFactory(CellData -> {
+                String tym = (new LessonTimeModel()).getById(CellData.getValue().getGodzina()).getPoczatek().toString();
 
-            return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonStart.getWidth()));
-        });
+                return new ReadOnlyStringWrapper(wrapString(tym, (int) columnLessonStart.getWidth()));
+            });
 
-        table.setItems(absenceList);
+            table.setItems(absenceList);
+        }
     }
 
     public void changeComboboxStudent() {
