@@ -2,7 +2,6 @@ package pl.polsl.controller.administratorActions.teacher;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
@@ -83,7 +82,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
     };
 
     @Override
-    public void receiveArguments(Map params) {
+    public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
 
         if (params.get("procedure") == "add") {
@@ -105,7 +104,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
         }
     }
 
-    public void confirmChangesButton(ActionEvent event) throws IOException
+    public void confirmChangesButton() throws IOException
     {
         if (procedure == md.Add) {
             Uzytkownicy u = new Uzytkownicy();
@@ -163,7 +162,7 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
        u.setID(id);
     }
 
-    public void discardChangesButton(ActionEvent event) throws IOException
+    public void discardChangesButton() throws IOException
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);

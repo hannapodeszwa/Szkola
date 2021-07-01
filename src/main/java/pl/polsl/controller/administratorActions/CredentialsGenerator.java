@@ -1,9 +1,7 @@
 package pl.polsl.controller.administratorActions;
-import javafx.application.Platform;
+
 import pl.polsl.model.UserModel;
 import pl.polsl.model.email.MailSenderModel;
-
-import java.util.Locale;
 import java.util.Random;
 
 public interface CredentialsGenerator {
