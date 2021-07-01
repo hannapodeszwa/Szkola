@@ -37,11 +37,11 @@ public class ManageParentsController implements ParametrizedController {
     @FXML
     private Label phone;
     @FXML
-    private ListView children;
+    private ListView<String> children;
     @FXML
     private TextField searchT;
     @FXML
-    private ComboBox searchC;
+    private ComboBox<String> searchC;
 
     private String login;
     private ObservableList<Rodzice> parents;
@@ -69,7 +69,7 @@ public class ManageParentsController implements ParametrizedController {
         searchC.setValue("Nazwisko");
 
         searchT.textProperty().addListener((obs, oldValue, newValue) -> {
-            switch (searchC.getValue().toString())
+            switch (searchC.getValue())
             {
                 case "Imię":
                     filter.setPredicate(p -> p.getImie().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by first name
@@ -132,7 +132,7 @@ public class ManageParentsController implements ParametrizedController {
 
     public void addParentButton() throws IOException
     {
-        Map params = new HashMap<String, String>();
+        Map<String, Object> params = new HashMap<>();
         params.put("procedure","add");
         params.put("mode", mode);
         Main.setRoot("administratorActions/parent/addOrUpdateParentForm",params,
@@ -147,7 +147,7 @@ public class ManageParentsController implements ParametrizedController {
             chooseParentAlert(true);
         }
         else {
-            Map params = new HashMap<String, String>();
+            Map<String, Object> params = new HashMap<>();
             params.put("parent", tableParents.getSelectionModel().getSelectedItem());
             params.put("procedure", "update");
             params.put("mode", mode);
@@ -174,7 +174,7 @@ public class ManageParentsController implements ParametrizedController {
             if (result.get() == ButtonType.OK) {
 
                 deleteUser(toDelete);
-                deleteMessages(toDelete);
+                deleteMessages();
                 deleteParenthood(toDelete);
 
                 (new ParentModel()).delete(toDelete);
@@ -193,7 +193,7 @@ public class ManageParentsController implements ParametrizedController {
         }
     }
 
-    private void deleteMessages(Rodzice toDelete)
+    private void deleteMessages()
     {
         List<Wiadomosci> messagesList = (new MessageModel()).findByParent(login);
         if(!(messagesList.isEmpty())) {
