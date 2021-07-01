@@ -20,7 +20,6 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     public TextField size;
     public RadioButton yes;
     public RadioButton no;
-    public ToggleGroup group;
     public Label title;
     public Button confirm;
 

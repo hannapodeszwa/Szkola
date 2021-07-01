@@ -111,7 +111,6 @@ public class ManageParentsController implements ParametrizedController {
                     Uczniowie selectedStudent = (new Student()).getStudentById(r.getIdUcznia());
                     children.getItems().add(selectedStudent.getImie() + " " + selectedStudent.getNazwisko());
                 }
-
             }
         });
     }

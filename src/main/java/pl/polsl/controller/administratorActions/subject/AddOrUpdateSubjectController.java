@@ -68,11 +68,10 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     {
         if (procedure == md.Add) {
             Przedmioty p = new Przedmioty();
-            p.setNazwa(name.getText());
-
+            setNewValues(p);
             (new Subject()).persist(p);
         } else if (procedure == md.Update) {
-            toUpdate.setNazwa(name.getText());
+            setNewValues(toUpdate);
             (new Subject()).update(toUpdate);
         }
         Map<String, Object> params = new HashMap<>();

@@ -16,7 +16,6 @@ import pl.polsl.utils.WindowSize;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.swing.*;
-import javax.swing.text.TabableView;
 import java.io.IOException;
 import java.awt.print.*;
 import java.awt.*;
