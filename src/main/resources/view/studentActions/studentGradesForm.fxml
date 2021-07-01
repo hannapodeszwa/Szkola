@@ -22,7 +22,7 @@
            </columns>
        </TableView>
        <ComboBox fx:id="comboboxChildren" layoutX="20.0" layoutY="317.0" onAction="#changeComboboxChildren" prefWidth="200.0" />
-       <Button layoutX="406.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="100.0" text="Powrót" />
       <ComboBox fx:id="comboboxSubject" layoutX="240.0" layoutY="317.0" onAction="#changeComboboxSubject" prefWidth="150.0" />
+       <Button layoutX="406.0" layoutY="317.0" mnemonicParsing="false" onAction="#clickButtonBack" prefHeight="25.0" prefWidth="100.0" text="Powrót" />
    </children>
 </AnchorPane>
