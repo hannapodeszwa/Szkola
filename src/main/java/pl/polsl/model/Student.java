@@ -125,26 +125,4 @@ public class Student implements ManageDataBase {
         return result;
     }
 
-    /*public Nauczyciele getStudentByName(String s)
-    {
-        em = MyManager.getEntityManager();
-        String[] splited = s.split("\\s+");
-        TypedQuery query = em.createNamedQuery("nauczyciele.findByName", Nauczyciele.class);
-        query.setParameter("name", splited[0]);
-        query.setParameter("surname", splited[1]);
-        Nauczyciele results = (Nauczyciele) query.getSingleResult();
-        return results;
-    }*/
-
-//    public void updateStudent(Uczniowie u) {
-//        TypedQuery query = em.createNamedQuery("uczniowie.updateOne", Uczniowie.class).setParameter("ID", u.getID())
-//                .setParameter("Klasa", u.getIdKlasy())
-//                .setParameter("Imie", u.getImie())
-//                .setParameter("DrugieImie", u.getDrugieImie())
-//                .setParameter("Nazwisko", u.getNazwisko())
-//                .setParameter("Adres", u.getAdres());
-//    }
-
-
-
 }

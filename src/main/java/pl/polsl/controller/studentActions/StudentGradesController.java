@@ -12,20 +12,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Oceny;
+import pl.polsl.entities.Przedmioty;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.model.Grade;
 import pl.polsl.model.Student;
 import pl.polsl.model.Subject;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class StudentGradesController implements ParametrizedController {
 
+    @FXML
+    private ComboBox<String> comboboxSubject;
     @FXML
     private TableView<Oceny> table;
     @FXML
@@ -45,7 +45,8 @@ public class StudentGradesController implements ParametrizedController {
     private String mode;
     private Integer id_child;
     private ObservableList<Uczniowie> children;
-    private ObservableList<Oceny> list;
+    private List<Oceny> gradeList;
+    private ObservableList<Przedmioty> subjectList;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
@@ -61,37 +62,80 @@ public class StudentGradesController implements ParametrizedController {
                 }
                 comboboxChildren.getSelectionModel().select(0);
                 id_child = children.get(0).getID();
-                setTable();
+                setSubject();
             }
         }
         else {
             comboboxChildren.setVisible(false);
             id_child = id;
-            setTable();
+            setSubject();
         }
     }
 
-    void setTable(){
+    void setSubject(){
 
-        list = FXCollections.observableArrayList((new Grade()).getGradeByStudent(id_child));
+        subjectList = FXCollections.observableArrayList((new Subject()).getSubjectForStudent(id_child));
+        if(!subjectList.isEmpty()) {
+            comboboxSubject.getItems().add("Wszystkie");
+            for (Przedmioty act : subjectList) {
+                comboboxSubject.getItems().add(act.getNazwa());
+            }
+            comboboxSubject.getSelectionModel().select(0);
+            initTable();
+        }
+    }
 
+    void tableSetItem(List<Oceny> Items){
+        for(Oceny grade : Items)
+            table.getItems().add(grade);
+    }
+
+    void initTable(){
+
+        gradeList = FXCollections.observableArrayList((new Grade()).getGradeByStudent(id_child));
         columnGrade.setCellValueFactory(new PropertyValueFactory<>("ocena"));
         columnWeight.setCellValueFactory(new PropertyValueFactory<>("waga"));
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
         columnDescription.setCellValueFactory(new PropertyValueFactory<>("opis"));
         columnSubject.setCellValueFactory(CellData -> {
             Integer idPrzedmiotu = CellData.getValue().getIdPrzedmiotu();
-            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);
+            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);//TODO
             return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
         });
 
-        table.setItems(list);
+        tableSetItem(gradeList);
+    }
+
+    void setTable(){
+
+        if(comboboxSubject.getSelectionModel().getSelectedIndex() == 0){
+            tableSetItem(gradeList);
+        }
+        else{
+            Integer subject = subjectList.get(comboboxSubject.getSelectionModel().getSelectedIndex()-1).getID();
+            for(Oceny grade : gradeList) {
+                if (grade.getIdPrzedmiotu().equals(subject))
+                    table.getItems().add(grade);
+            }
+        }
+
     }
 
     public void changeComboboxChildren() {
         id_child = children.get(comboboxChildren.getSelectionModel().getSelectedIndex()).getID();
-        list.clear();
-        setTable();
+        gradeList.clear();
+        subjectList.clear();
+        table.getItems().clear();
+        comboboxSubject.getItems().clear();
+        setSubject();
+    }
+
+
+    public void changeComboboxSubject() {
+        if(comboboxSubject.getSelectionModel().getSelectedIndex()!=-1) {
+            table.getItems().clear();
+            setTable();
+        }
     }
 
     public void clickButtonBack() throws IOException {
@@ -103,4 +147,5 @@ public class StudentGradesController implements ParametrizedController {
         else
             Main.setRoot("menu/studentMenuForm", params,WindowSize.parentMenuForm);
     }
+
 }
