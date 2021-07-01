@@ -12,6 +12,7 @@ import javax.persistence.TypedQuery;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 
 public class ScheduleTable implements ManageDataBase {
@@ -99,24 +100,28 @@ public class ScheduleTable implements ManageDataBase {
             list.get(i).hours = format.format(lessonTime.get(i).getPoczatek()) +  " - " + format.format(lessonTime.get(i).getKoniec());
         }
 
-        for(Rozklady act : results){
-            Integer num= (new LessonTimeModel()).getNumberById(act.getGodzina());
-            switch (act.getDzien()){
-                case "pon":
-                    list.get(num-1).mon = act;
-                    break;
-                case "wto":
-                    list.get(num-1).tue = act;
-                    break;
-                case "sro":
-                    list.get(num-1).wen = act;
-                    break;
-                case "czw":
-                    list.get(num-1).thu = act;
-                    break;
-                case "pia":
-                    list.get(num-1).fri = act;
-                    break;
+        for(Rozklady act : results) {
+            Optional<GodzinyLekcji> opt = lessonTime.stream().findAny().filter(a -> a.getNumer().equals(act.getGodzina()));
+            GodzinyLekcji hour = opt.orElse(null);
+            if (hour != null) {
+                Integer num = hour.getNumer();
+                switch (act.getDzien()) {
+                    case "pon":
+                        list.get(num - 1).mon = act;
+                        break;
+                    case "wto":
+                        list.get(num - 1).tue = act;
+                        break;
+                    case "sro":
+                        list.get(num - 1).wen = act;
+                        break;
+                    case "czw":
+                        list.get(num - 1).thu = act;
+                        break;
+                    case "pia":
+                        list.get(num - 1).fri = act;
+                        break;
+                }
             }
         }
 

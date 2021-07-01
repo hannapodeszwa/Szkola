@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Optional;
 
 public class ScheduleTableTeacher {
 
@@ -97,27 +98,30 @@ public class ScheduleTableTeacher {
             list.get(i).hours = format.format(lessonTime.get(i).getPoczatek()) +  " - " + format.format(lessonTime.get(i).getKoniec());}
 
 
-        for(Rozklady act : results){
-            Integer num= (new LessonTimeModel()).getNumberById(act.getGodzina());
-            switch (act.getDzien()){
-                case "pon":
-                    list.get(num-1).mon = new ScheduleTeacher(act);
-                    break;
-                case "wto":
-                    list.get(num-1).tue = new ScheduleTeacher(act);
-                    break;
-                case "sro":
-                    list.get(num-1).wen = new ScheduleTeacher(act);
-                    break;
-                case "czw":
-                    list.get(num-1).thu = new ScheduleTeacher(act);
-                    break;
-                case "pia":
-                    list.get(num-1).fri = new ScheduleTeacher(act);
-                    break;
+        for(Rozklady act : results) {
+            Optional<GodzinyLekcji> opt = lessonTime.stream().findAny().filter(a -> a.getNumer().equals(act.getGodzina()));
+            GodzinyLekcji hour = opt.orElse(null);
+            if (hour != null) {
+                Integer num = hour.getNumer();
+                switch (act.getDzien()) {
+                    case "pon":
+                        list.get(num - 1).mon = new ScheduleTeacher(act);
+                        break;
+                    case "wto":
+                        list.get(num - 1).tue = new ScheduleTeacher(act);
+                        break;
+                    case "sro":
+                        list.get(num - 1).wen = new ScheduleTeacher(act);
+                        break;
+                    case "czw":
+                        list.get(num - 1).thu = new ScheduleTeacher(act);
+                        break;
+                    case "pia":
+                        list.get(num - 1).fri = new ScheduleTeacher(act);
+                        break;
+                }
             }
         }
-
         return list;
     }
 
