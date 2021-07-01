@@ -20,9 +20,9 @@
         <Button layoutX="136.0" layoutY="46.0" mnemonicParsing="false" onAction="#addClassButton" prefHeight="26.0" prefWidth="150.0" text="Dodaj nową klasę" />
         <Button layoutX="136.0" layoutY="86.0" mnemonicParsing="false" onAction="#updateClassButton" prefHeight="26.0" prefWidth="150.0" text="Modyfikuj klasę" />
         <Button layoutX="136.0" layoutY="126.0" mnemonicParsing="false" onAction="#deleteClassButton" prefHeight="26.0" prefWidth="150.0" text="Usuń klasę" />
-        <Label alignment="CENTER" layoutX="136.0" layoutY="165.0" prefWidth="150.0" text="Wychowawca:" />
+        <Label alignment="TOP_LEFT" layoutX="136.0" layoutY="165.0" prefWidth="150.0" text="Wychowawca:" />
         <Label fx:id="tutor" alignment="CENTER" layoutX="136.0" layoutY="185.0" prefWidth="150.0" />
-        <Label alignment="CENTER" layoutX="136.0" layoutY="210.0" prefWidth="150.0" text="Przewodniczący:" />
+        <Label alignment="TOP_LEFT" layoutX="136.0" layoutY="210.0" prefWidth="150.0" text="Przewodniczący:" />
         <Label fx:id="leader" alignment="CENTER" layoutX="136.0" layoutY="230.0" prefWidth="150.0" />
         <Button layoutX="136.0" layoutY="255.0" mnemonicParsing="false" onAction="#cancelButton" prefWidth="150.0" text="Powrót" />
     </children>
