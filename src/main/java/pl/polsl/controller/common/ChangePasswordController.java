@@ -38,7 +38,7 @@ public class ChangePasswordController implements ParametrizedController, Notific
         login = (String) params.get("login");
         role = (String) params.get("role");
         id = (Integer) params.get("id");
-        providePasswordLabel.setText("Provide a new password for user: " + login);
+        providePasswordLabel.setText("Wprowadź nowe hasło \ndla uzytkownika: " + login);
     }
 
     @FXML

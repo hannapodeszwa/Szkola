@@ -48,7 +48,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     studentCompetitionsForm(591, 375),
     studentNoteForm(425, 415),
     //common
-    changePasswordForm(205,291),
+    changePasswordForm(210,320),
     messageForm(855,440),
     messagerForm(855,440),
     resetPasswordForm(205,385),
