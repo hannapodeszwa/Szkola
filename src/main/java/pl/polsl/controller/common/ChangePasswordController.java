@@ -48,6 +48,7 @@ public class ChangePasswordController implements ParametrizedController, Notific
         newPasswordTextField.textProperty().addListener((observable) -> errorLabel.setText(""));
         confirmPasswordTextField.textProperty().addListener((observable) -> errorLabel.setText(""));
         confirmationCodeTextField.textProperty().addListener((observable) -> errorLabel.setText(""));
+        errorLabel.setText("");
     }
 
     public void changePasswordAction() throws IOException {
