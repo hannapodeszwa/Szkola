@@ -177,12 +177,14 @@ public class MessengerController implements ParametrizedController {
         if (!receivedList.isEmpty()) {
             for (Wiadomosci message : receivedList) {
                 Uzytkownicy user = userModel.getUserByLogin(message.getNadawca());
-                fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getNadawca() + "]";
-                Map<String, Object> item = new HashMap<>();
-                item.put("senderRColumn", fullName);
-                item.put("topicRColumn", message.getTemat());
-                item.put("dateRColumn", message.getData());
-                items.add(item);
+                if(user != null) {
+                    fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getNadawca() + "]";
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("senderRColumn", fullName);
+                    item.put("topicRColumn", message.getTemat());
+                    item.put("dateRColumn", message.getData());
+                    items.add(item);
+                }
             }
             receivedTable.getItems().addAll(items);
         }
@@ -197,12 +199,14 @@ public class MessengerController implements ParametrizedController {
         if (!sentList.isEmpty()) {
             for (Wiadomosci message : sentList) {
                 Uzytkownicy user = userModel.getUserByLogin(message.getOdbiorca());
-                fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getOdbiorca() + "]";
-                Map<String, Object> item = new HashMap<>();
-                item.put("receiverSColumn", fullName);
-                item.put("topicSColumn", message.getTemat());
-                item.put("dateSColumn", message.getData());
-                items.add(item);
+                if(user != null) {
+                    fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getOdbiorca() + "]";
+                    Map<String, Object> item = new HashMap<>();
+                    item.put("receiverSColumn", fullName);
+                    item.put("topicSColumn", message.getTemat());
+                    item.put("dateSColumn", message.getData());
+                    items.add(item);
+                }
             }
             sentTable.getItems().addAll(items);
 
