@@ -18,6 +18,16 @@ public class NewPrincipalController {
     @FXML
     private TextField password;
 
+    private Uzytkownicy principal;
+
+    @FXML
+    public void initialize()
+    {
+         principal = (new UserModel()).getPrincipal();
+         login.setText(principal.getLogin());
+         password.setText(principal.getHaslo());
+    }
+
     public void pressChange()
     {
         Uzytkownicy u = new Uzytkownicy();
@@ -45,10 +55,9 @@ public class NewPrincipalController {
     }
     private void deleteUser()
     {
-        Uzytkownicy userToDelete = (new UserModel()).getPrincipal();
-        if(userToDelete !=null)
+        if(principal !=null)
         {
-            (new UserModel()).delete(userToDelete);
+            (new UserModel()).delete(principal);
         }
     }
 
