@@ -21,8 +21,6 @@ public class Main extends Application {
     private static Stage stage;
     private static final double defaultWidth = 600;
     private static final double defaultHeight =600;
-    private static double xPosition;
-    private static double yPosition;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -35,29 +33,21 @@ public class Main extends Application {
     }
 
     public static void setRoot(String fxml, Map<String, Object> params, double... size) throws IOException {
-        getPosition();
         scene.setRoot(loadFXML(fxml, params));
         resizeScene(size);
-        setPosition();
     }
     public static void setRoot(String fxml,double... size) throws IOException {
-        getPosition();
         scene.setRoot(loadFXML(fxml));
         resizeScene(size);
-        setPosition();
     }
 
     public static void setRoot(String fxml, Map<String, Object> params, WindowSize size) throws IOException {
-        getPosition();
         scene.setRoot(loadFXML(fxml, params));
         resizeScene(size);
-        setPosition();
     }
     public static void setRoot(String fxml, WindowSize size) throws IOException {
-        getPosition();
         scene.setRoot(loadFXML(fxml));
         resizeScene(size);
-        setPosition();
     }
 
     public static void resizeScene(double[] size) {
@@ -68,19 +58,6 @@ public class Main extends Application {
             stage.setWidth(defaultWidth);
             stage.setHeight(defaultHeight);
          }
-    }
-
-    public static void getPosition() {
-//        xPosition = scene.getWidth()/2;
-//        yPosition = scene.getHeight()/2;
-    }
-
-    public static void setPosition(){
-//        double a = xPosition - stage.getWidth();
-//        double b = yPosition - stage.getHeight();
-//        stage.setX(stage.getX()  + a/2);
-//        stage.setY(stage.getY() + b/2);
-//        Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, xPosition + ", " + yPosition+ " -> " + stage.getX() + ", " + stage.getY());
     }
 
     public static void resizeScene(WindowSize size) {
