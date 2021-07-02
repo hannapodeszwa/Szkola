@@ -98,9 +98,13 @@ public class StudentGradesController implements ParametrizedController {
         columnDate.setCellValueFactory(new PropertyValueFactory<>("data"));
         columnDescription.setCellValueFactory(new PropertyValueFactory<>("opis"));
         columnSubject.setCellValueFactory(CellData -> {
-            Integer idPrzedmiotu = CellData.getValue().getIdPrzedmiotu();
-            String nazwaPrzedmiotu = (new Subject()).getSubjectName(idPrzedmiotu);//TODO
-            return new ReadOnlyStringWrapper(nazwaPrzedmiotu);
+            Integer idSubject = CellData.getValue().getIdPrzedmiotu();
+            Optional<Przedmioty> opt = subjectList.stream().filter(a -> a.getID().equals(idSubject)).findFirst();
+            Przedmioty subject = opt.orElse(null);
+            String result = "";
+            if (subject != null)
+                result = subject.getNazwa();
+            return new ReadOnlyStringWrapper(result);
         });
 
         tableSetItem(gradeList);

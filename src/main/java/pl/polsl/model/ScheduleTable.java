@@ -101,7 +101,7 @@ public class ScheduleTable implements ManageDataBase {
         }
 
         for(Rozklady act : results) {
-            Optional<GodzinyLekcji> opt = lessonTime.stream().findAny().filter(a -> a.getNumer().equals(act.getGodzina()));
+            Optional<GodzinyLekcji> opt = lessonTime.stream().filter(a -> a.getNumer().equals(act.getGodzina())).findAny();
             GodzinyLekcji hour = opt.orElse(null);
             if (hour != null) {
                 Integer num = hour.getNumer();
