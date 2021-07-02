@@ -24,5 +24,7 @@
       <DatePicker fx:id="date1" layoutX="280.0" layoutY="171.0" prefHeight="26.0" prefWidth="190.0" />
       <DatePicker fx:id="date2" layoutX="280.0" layoutY="216.0" prefHeight="26.0" prefWidth="190.0" />
       <Button layoutX="280.0" layoutY="261.0" mnemonicParsing="false" onAction="#clickButtonBack" prefWidth="190.0" text="Powrót" />
+      <Label layoutX="280.0" layoutY="157.0" text="Od:" />
+      <Label layoutX="280.0" layoutY="202.0" text="Do:" />
    </children>
 </AnchorPane>

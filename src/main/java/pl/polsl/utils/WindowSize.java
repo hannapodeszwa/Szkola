@@ -57,7 +57,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     //principal
     principalMenuForm(205,531),
     raportMenuForm(505,346),
-   newPrincipalForm(505,346),
+    newPrincipalForm(375,179),
     ;
 
 
