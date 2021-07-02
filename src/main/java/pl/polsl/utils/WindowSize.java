@@ -2,7 +2,7 @@ package pl.polsl.utils;
 
 public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +40
     //ADMINISTRATOR
-    adminMenuForm (205,491),
+    adminMenuForm (205,531),
     //class
     manageClassForm (321,340),
     addOrUpdateClassForm(305,251),
@@ -57,6 +57,7 @@ public enum WindowSize {//należy dodać do okienka z scenbuildera w: +15, h: +4
     //principal
     principalMenuForm(205,531),
     raportMenuForm(505,346),
+   newPrincipalForm(505,346),
     ;
 
 

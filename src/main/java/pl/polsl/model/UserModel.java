@@ -3,6 +3,7 @@ package pl.polsl.model;
 import pl.polsl.MyManager;
 import pl.polsl.controller.ManageDataBase;
 import pl.polsl.entities.Uzytkownicy;
+import pl.polsl.utils.Roles;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -41,6 +42,17 @@ public class UserModel implements ManageDataBase {
         try {
             return entityManager.createNamedQuery("Uzytkownicy.getUserByLogin", Uzytkownicy.class)
                     .setParameter("LOGIN", login)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login");
+            return null;
+        }
+    }
+
+    public Uzytkownicy getPrincipal() {
+        entityManager = MyManager.getEntityManager();
+        try {
+            return entityManager.createNamedQuery("Uzytkownicy.getPrincipal", Uzytkownicy.class)
                     .getSingleResult();
         } catch (Exception e) {
             Logger.getLogger(UserModel.class.getName()).log(Level.WARNING, "Could not get user by login");

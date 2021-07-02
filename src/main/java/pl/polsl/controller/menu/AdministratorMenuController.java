@@ -27,6 +27,8 @@ public class AdministratorMenuController implements ParametrizedController {
     @FXML
     private Button buttonRaport;
     @FXML
+    private Button buttonPrincipal;
+    @FXML
     private Label labelTitle;
 
     private String mode;
@@ -38,9 +40,14 @@ public class AdministratorMenuController implements ParametrizedController {
         if (Roles.ADMIN.equals(mode)) {
             labelTitle.setText("Konto administratora");
             buttonRaport.setVisible(false);
-            buttonLogout.setLayoutY(406);
+            buttonPrincipal.setVisible(true);
+
+           // buttonLogout.setLayoutY(buttonLogout.getLayoutY() - 40);
+
         } else {
             labelTitle.setText("Konto dyrektora");
+            buttonRaport.setVisible(true);
+            buttonPrincipal.setVisible(false);
         }
     }
 
@@ -100,6 +107,10 @@ public class AdministratorMenuController implements ParametrizedController {
 
     public void pressLogOutButton() throws IOException {
         Main.setRoot("common/signIn", WindowSize.signIn);
+    }
+
+    public void pressChangePrincipalButton() throws IOException {
+        Main.setRoot("principal/newPrincipalForm", WindowSize.newPrincipalForm);
     }
 
     public void pressDeleteUnusedButton() {

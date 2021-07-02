@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="531.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.AdministratorMenuController">
+<AnchorPane prefHeight="531.0" prefWidth="190.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.polsl.controller.menu.AdministratorMenuController">
    <children>
       <Label fx:id="labelTitle" alignment="CENTER" layoutY="10.0" prefWidth="190.0" text="Konto administratora">
          <font>
@@ -23,6 +22,7 @@
       <Button layoutX="20.0" layoutY="366.0" mnemonicParsing="false" onAction="#pressDeleteUnusedButton" prefWidth="150.0" text="Usuń nieużywane konta" />
       <Button fx:id="buttonRaport" layoutX="20.0" layoutY="406.0" mnemonicParsing="false" onAction="#pressButtonRaport" prefWidth="150.0" text="Raporty" />
       <Button fx:id="buttonLogout" layoutX="20.0" layoutY="446.0" mnemonicParsing="false" onAction="#pressLogOutButton" prefWidth="150.0" text="Wyloguj się" />
+      <Button fx:id="buttonPrincipal" layoutX="20.0" layoutY="405.0" mnemonicParsing="false" onAction="#pressChangePrincipalButton" prefHeight="26.0" prefWidth="150.0" text="Zmień dyrektora" />
 
    </children>
 </AnchorPane>

@@ -33,7 +33,9 @@ import java.io.Serializable;
                 query = "UPDATE Uzytkownicy U SET U.haslo = :PASSWORD WHERE U.ID = :ID AND U.dostep = :ROLE"),
 
         @NamedQuery(name = "Uzytkownicy.getLoginByIdAndRole",
-                query = "SELECT U.login FROM Uzytkownicy U WHERE U.ID = :ID AND U.dostep = :ROLE")
+                query = "SELECT U.login FROM Uzytkownicy U WHERE U.ID = :ID AND U.dostep = :ROLE"),
+        @NamedQuery(name = "Uzytkownicy.getPrincipal",
+                query = "SELECT U FROM Uzytkownicy U WHERE U.dostep = 'dyrektor'"),
 })
 @Table(name = "uzytkownicy")
 public class Uzytkownicy implements Serializable {
