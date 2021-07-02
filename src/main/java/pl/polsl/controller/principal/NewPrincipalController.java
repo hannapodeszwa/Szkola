@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.entities.Nauczyciele;
-import pl.polsl.entities.Rodzice;
 import pl.polsl.entities.Uzytkownicy;
-import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
@@ -21,7 +18,7 @@ public class NewPrincipalController {
     @FXML
     private TextField password;
 
-    public void pressChange() throws IOException
+    public void pressChange()
     {
         Uzytkownicy u = new Uzytkownicy();
 
@@ -41,8 +38,8 @@ public class NewPrincipalController {
     private void alert()
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Zmiana dyrektora");
-            alert.setContentText("Dyrektor został zmieniony.");
+        alert.setTitle("Zmiana dyrektora");
+        alert.setContentText("Dyrektor został zmieniony.");
         alert.setHeaderText(null);
         alert.showAndWait();
     }
