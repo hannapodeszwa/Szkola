@@ -48,6 +48,7 @@ public class ResetPasswordController {
     private ParentModel parentModel;
     private Student studentModel;
     private Teacher teacherModel;
+    private AdminModel adminModel;
 
     @FXML
     public void initialize() {
@@ -57,6 +58,7 @@ public class ResetPasswordController {
         parentModel = new ParentModel();
         studentModel = new Student();
         teacherModel = new Teacher();
+        adminModel = new AdminModel();
         emailValidator = new EmailAddressController();
         loginTextField.textProperty().addListener((observable, oldVal, newVal) -> {
             loginSet = !newVal.isEmpty();
@@ -154,6 +156,8 @@ public class ResetPasswordController {
                 return parentModel.getParentEmailByID(id);
             case Roles.TEACHER:
                 return teacherModel.getTeacherEmailByID(id);
+            case Roles.ADMIN:
+                return adminModel.getAdminEmailByID(id);
         }
         return null;
     }

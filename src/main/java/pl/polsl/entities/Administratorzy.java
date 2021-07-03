@@ -8,6 +8,9 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "administratorzy")
+@NamedQueries({
+        @NamedQuery(name = "administratorzy.getAdminEmailByID", query = "SELECT a.email FROM Administratorzy a WHERE a.ID = :ID")
+})
 public class Administratorzy implements Serializable {
 
     private static final long serialVersionUID = 1L;
