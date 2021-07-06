@@ -61,6 +61,7 @@ public class ManageTeachersController implements ParametrizedController {
 
     private void search()
     {
+
         FilteredList<Nauczyciele> filter = new FilteredList(teachers, p -> true);
         tableTeachers.setItems(filter);
         searchC.setValue("Nazwisko");
@@ -93,7 +94,7 @@ public class ManageTeachersController implements ParametrizedController {
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
 
-        for (Object n: l) {
+        for (Object n: teachers) {
             tableTeachers.getItems().add((Nauczyciele) n);
         }
     }
@@ -104,13 +105,15 @@ public class ManageTeachersController implements ParametrizedController {
         selectedTeacher.addListener(new ListChangeListener<Nauczyciele>() {
             @Override
             public void onChanged(Change<? extends Nauczyciele> change) {
-                String selectedName2 = selectedTeacher.get(0).getDrugieImie();
-                String selectedEmail = selectedTeacher.get(0).getEmail();
-                String selectedPhone= selectedTeacher.get(0).getNrKontaktowy();
+                if(selectedTeacher.size()!=0) {
+                    String selectedName2 = selectedTeacher.get(0).getDrugieImie();
+                    String selectedEmail = selectedTeacher.get(0).getEmail();
+                    String selectedPhone = selectedTeacher.get(0).getNrKontaktowy();
 
-                name2.setText(selectedName2);
-                email.setText(selectedEmail);
-                phone.setText(selectedPhone);
+                    name2.setText(selectedName2);
+                    email.setText(selectedEmail);
+                    phone.setText(selectedPhone);
+                }
                 }
         });
     }

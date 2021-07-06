@@ -94,24 +94,25 @@ public class ManageParentsController implements ParametrizedController {
         selectedParent.addListener(new ListChangeListener<Rodzice>() {
             @Override
             public void onChanged(Change<? extends Rodzice> change) {
-                String selectedName2 = selectedParent.get(0).getDrugieImie();
-                String selectedEmail = selectedParent.get(0).getEmail();
-                String selectedAdress = selectedParent.get(0).getAdres();
-                String selectedPhone = selectedParent.get(0).getNrKontaktowy();
+                if (selectedParent.size() != 0) {
+                    String selectedName2 = selectedParent.get(0).getDrugieImie();
+                    String selectedEmail = selectedParent.get(0).getEmail();
+                    String selectedAdress = selectedParent.get(0).getAdres();
+                    String selectedPhone = selectedParent.get(0).getNrKontaktowy();
 
-                name2.setText(selectedName2);
-                email.setText(selectedEmail);
-                adress.setText(selectedAdress);
-                phone.setText(selectedPhone);
+                    name2.setText(selectedName2);
+                    email.setText(selectedEmail);
+                    adress.setText(selectedAdress);
+                    phone.setText(selectedPhone);
 
-                children.getItems().clear();
-                ParenthoodModel p = new ParenthoodModel();
-                List <Rodzicielstwo> l=p.findByParent(selectedParent.get(0));
+                    children.getItems().clear();
+                    ParenthoodModel p = new ParenthoodModel();
+                    List<Rodzicielstwo> l = p.findByParent(selectedParent.get(0));
 
-                for( Rodzicielstwo r: l)
-                {
-                    Uczniowie selectedStudent = (new Student()).getStudentById(r.getIdUcznia());
-                    children.getItems().add(selectedStudent.getImie() + " " + selectedStudent.getNazwisko());
+                    for (Rodzicielstwo r : l) {
+                        Uczniowie selectedStudent = (new Student()).getStudentById(r.getIdUcznia());
+                        children.getItems().add(selectedStudent.getImie() + " " + selectedStudent.getNazwisko());
+                    }
                 }
             }
         });
