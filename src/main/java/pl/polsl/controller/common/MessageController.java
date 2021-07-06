@@ -63,8 +63,8 @@ public class MessageController implements ParametrizedController, NotificationsI
     public void receiveArguments(Map<String, Object> params) {
         previousLocation = (String) params.get("previousLocation");
         id = (Integer) params.get("id");
-        login = (String) params.get("login");
         mode = (String) params.get("mode");
+        login = userModel.getLoginByIdAndRole(id, mode);
         if (params.size() > 5) {
             receiverTextField.setText((String) params.get("correspondent"));
             receiverTextField.setDisable(true);
@@ -149,7 +149,6 @@ public class MessageController implements ParametrizedController, NotificationsI
         parameters.put("previousLocation", previousLocation);
         parameters.put("mode", mode);
         parameters.put("id", id);
-        parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 

@@ -45,18 +45,15 @@ public class SignInController {
                     case Roles.STUDENT:
                         params.put("mode", Roles.STUDENT);
                         params.put("id", user.getID());
-                        params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.studentMenuForm);
                         break;
                     case Roles.TEACHER:
                         params.put("id", user.getID());
-                        params.put("login", user.getLogin());
                         Main.setRoot("menu/teacherMenuForm", params, WindowSize.teacherMenuForm);
                         break;
                     case Roles.PARENT:
                         params.put("mode", Roles.PARENT);
                         params.put("id", user.getID());
-                        params.put("login", user.getLogin());
                         Main.setRoot("menu/studentMenuForm", params, WindowSize.parentMenuForm);
                         break;
                     case Roles.ADMIN:

@@ -122,8 +122,8 @@ public class MessengerController implements ParametrizedController {
                 });
         previousLocation = (String) params.get("previousLocation");
         id = (Integer) params.get("id");
-        login = (String) params.get("login");
         mode = (String) params.get("mode");
+        login = userModel.getLoginByIdAndRole(id, mode);
         receivedList = messageModel.getReceivedMessagesByUserLogin(login);
         sentList = messageModel.getSentMessagesByUserLogin(login);
         displayReceivedMessages();
@@ -131,8 +131,7 @@ public class MessengerController implements ParametrizedController {
 
     public void backButtonAction() throws IOException {
         Map<String, Object> params = new HashMap<>();
-         params.put("id", id);
-        params.put("login", login);
+        params.put("id", id);
         params.put("mode", mode);
         WindowSize size;
         switch (mode) {
@@ -157,7 +156,6 @@ public class MessengerController implements ParametrizedController {
         parameters.put("previousLocation", previousLocation);
         parameters.put("mode", mode);
         parameters.put("id", id);
-        parameters.put("login", login);
         Main.setRoot("common/messageForm", parameters, WindowSize.messagerForm);
     }
 
@@ -177,7 +175,7 @@ public class MessengerController implements ParametrizedController {
         if (!receivedList.isEmpty()) {
             for (Wiadomosci message : receivedList) {
                 Uzytkownicy user = userModel.getUserByLogin(message.getNadawca());
-                if(user != null) {
+                if (user != null) {
                     fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getNadawca() + "]";
                     Map<String, Object> item = new HashMap<>();
                     item.put("senderRColumn", fullName);
@@ -199,7 +197,7 @@ public class MessengerController implements ParametrizedController {
         if (!sentList.isEmpty()) {
             for (Wiadomosci message : sentList) {
                 Uzytkownicy user = userModel.getUserByLogin(message.getOdbiorca());
-                if(user != null) {
+                if (user != null) {
                     fullName = getFullName(user.getDostep(), user.getID()) + " [" + message.getOdbiorca() + "]";
                     Map<String, Object> item = new HashMap<>();
                     item.put("receiverSColumn", fullName);

@@ -64,7 +64,6 @@ public class StudentMenuController implements ParametrizedController{
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("previousLocation", "menu/studentMenuForm");
         parameters.put("id", id);
-        parameters.put("login", login);
         parameters.put("mode", mode);
         Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }

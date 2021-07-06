@@ -41,7 +41,6 @@ public class TeacherMenuController implements ParametrizedController {
         parameters.put("previousLocation", "menu/teacherMenuForm");
         parameters.put("mode", Roles.TEACHER);
         parameters.put("id", id);
-        parameters.put("login", login);
         Main.setRoot("common/messengerForm", parameters, WindowSize.messagerForm);
     }
 
