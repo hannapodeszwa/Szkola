@@ -80,12 +80,7 @@ public class ManageParentsController implements ParametrizedController {
                 filter.setPredicate(p -> p.getNazwisko().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by last name
                 break;
             }
-            name2.setText(null);
-            email.setText(null);
-            adress.setText(null);
-            phone.setText(null);
 
-            children.getItems().clear();
         });
     }
     private void displayCategories()
@@ -119,6 +114,15 @@ public class ManageParentsController implements ParametrizedController {
                         Uczniowie selectedStudent = (new Student()).getStudentById(r.getIdUcznia());
                         children.getItems().add(selectedStudent.getImie() + " " + selectedStudent.getNazwisko());
                     }
+                }
+                else
+                {
+                    name2.setText(null);
+                    email.setText(null);
+                    adress.setText(null);
+                    phone.setText(null);
+
+                    children.getItems().clear();
                 }
             }
         });

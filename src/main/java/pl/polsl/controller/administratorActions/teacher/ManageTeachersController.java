@@ -76,9 +76,7 @@ public class ManageTeachersController implements ParametrizedController {
                     filter.setPredicate(p -> p.getNazwisko().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by last name
                     break;
             }
-            name2.setText(null);
-            email.setText(null);
-            phone.setText(null);
+
         });
     }
     private void displayCategories()
@@ -116,6 +114,12 @@ public class ManageTeachersController implements ParametrizedController {
                     name2.setText(selectedName2);
                     email.setText(selectedEmail);
                     phone.setText(selectedPhone);
+                }
+                else
+                {
+                    name2.setText(null);
+                 email.setText(null);
+                 phone.setText(null);
                 }
                 }
         });
