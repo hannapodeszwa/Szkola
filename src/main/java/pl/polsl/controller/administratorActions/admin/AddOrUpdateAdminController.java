@@ -18,11 +18,14 @@ import pl.polsl.model.UserModel;
 import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
+
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static pl.polsl.utils.EmailMessages.*;
 
 public class AddOrUpdateAdminController implements ParametrizedController, CredentialsGenerator {
 
@@ -42,14 +45,15 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
     private Button confirm;
 
     private Administratorzy toUpdate;
+
     public enum md {Add, Update}
+
     private md procedure = md.Update;
     private String mode;
     private Integer id;
 
     @FXML
-    public void initialize()
-    {
+    public void initialize() {
         name.textProperty().addListener(TextListener);
         surname.textProperty().addListener(TextListener);
         email.textProperty().addListener(TextListener);
@@ -57,8 +61,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         checkPhone();
     }
 
-    private boolean checkEmail()
-    {
+    private boolean checkEmail() {
         boolean result = true;
         try {
             InternetAddress emailAddr = new InternetAddress(email.getText());
@@ -69,8 +72,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         return result;
     }
 
-    private void checkPhone()
-    {
+    private void checkPhone() {
         phone.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue,
@@ -82,29 +84,28 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         });
     }
 
-    private void disableButton()
-    {
+    private void disableButton() {
         if (name.getText().isEmpty() || surname.getText().isEmpty() || email.getText().isEmpty())
             confirm.setDisable(true);
         else
             confirm.setDisable(false);
     }
+
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
         disableButton();
     };
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
-        mode = (String)params.get("mode");
+        mode = (String) params.get("mode");
         id = (Integer) params.get("id");
 
         if (params.get("procedure") == "add") {
             procedure = md.Add;
             title.setText("Dodawanie administratora");
-        }
-        else {
+        } else {
             procedure = md.Update;
-           toUpdate = (Administratorzy) params.get("admin");
+            toUpdate = (Administratorzy) params.get("admin");
             title.setText("Modyfikacja administratora");
         }
 
@@ -117,13 +118,11 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         }
     }
 
-    public void confirmChangesButton() throws IOException
-    {
+    public void confirmChangesButton() throws IOException {
         if (procedure == md.Add) {
             Uzytkownicy u = new Uzytkownicy();
             Administratorzy a = new Administratorzy();
-            if(setNewValues(a))
-            {
+            if (setNewValues(a)) {
                 wrongEmailAlert();
                 return;
             }
@@ -132,13 +131,12 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
             setNewValues(u, a.getImie(), a.getNazwisko(), a.getID());
             (new UserModel()).persist(u);
             MailSenderModel mail = new MailSenderModel();
-            mail.setTopic("Dane logowania do sytemu Szkoła");
-            mail.setMessageText("Login: " + u.getLogin() + "\nHasło: " + u.getHaslo());
+            mail.setTopic(ACCOUNT_UPDATED_TOPIC);
+            mail.setMessageText(LOGIN_READY_MESSAGE + u.getLogin() + "\n" + PASSWORD_READY_MESSAGE + u.getHaslo());
             mail.sendMail(a.getEmail());
 
         } else if (procedure == md.Update) {
-            if(setNewValues(toUpdate))
-            {
+            if (setNewValues(toUpdate)) {
                 wrongEmailAlert();
                 return;
             }
@@ -150,8 +148,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdminForm);
     }
 
-    private void wrongEmailAlert()
-    {
+    private void wrongEmailAlert() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Niepoprawny email");
         alert.setHeaderText("Niepoprawny format emaila!!!");
@@ -171,16 +168,14 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         return true;
     }
 
-    private void setNewValues(Uzytkownicy u, String name, String surname, Integer id)
-    {
-       u.setLogin(generateLogin(name,surname));
-       u.setHaslo(generatePassword());
-       u.setDostep(Roles.ADMIN);
-       u.setID(id);
+    private void setNewValues(Uzytkownicy u, String name, String surname, Integer id) {
+        u.setLogin(generateLogin(name, surname));
+        u.setHaslo(generatePassword());
+        u.setDostep(Roles.ADMIN);
+        u.setID(id);
     }
 
-    public void discardChangesButton() throws IOException
-    {
+    public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("id", id);

@@ -4,6 +4,8 @@ import pl.polsl.model.UserModel;
 import pl.polsl.model.email.MailSenderModel;
 import java.util.Random;
 
+import static pl.polsl.utils.EmailMessages.*;
+
 public interface CredentialsGenerator {
     default String generateLogin(String imie, String nazwisko) {
         String generatedLogin = (imie.length() >= 4 ? imie.substring(0,4) : imie) + (nazwisko.length() >= 3 ? nazwisko.substring(0,3) : nazwisko);
@@ -28,8 +30,8 @@ public interface CredentialsGenerator {
     default void sendCredentialsByEmail(String login, String password, String emailAddress) {
         new Thread(() -> {
             MailSenderModel mailSenderModel = new MailSenderModel();
-            mailSenderModel.setTopic("Twoje konto do aplikacji Szkoła jest już gotowe!");
-            mailSenderModel.setMessageText("Twój login: " + login + "\nTwoje hasło: " + password);
+            mailSenderModel.setTopic(ACCOUNT_CREATED_TOPIC);
+            mailSenderModel.setMessageText(LOGIN_READY_MESSAGE + login + "\n" + PASSWORD_READY_MESSAGE + password);
             mailSenderModel.sendMail(emailAddress);
         }).start();
     }
