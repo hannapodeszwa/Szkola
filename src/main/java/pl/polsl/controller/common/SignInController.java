@@ -61,6 +61,7 @@ public class SignInController {
                         break;
                     case Roles.ADMIN:
                         params.put("mode", Roles.ADMIN);
+                        params.put("id", user.getID());
                         Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
                         break;
                     case Roles.PRINCIPAL:

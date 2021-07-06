@@ -46,6 +46,7 @@ public class ManageParentsController implements ParametrizedController {
     private String login;
     private ObservableList<Rodzice> parents;
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -60,6 +61,7 @@ public class ManageParentsController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private void search()
@@ -135,6 +137,7 @@ public class ManageParentsController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("procedure","add");
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/parent/addOrUpdateParentForm",params,
                 WindowSize.addOrUpdateParentForm);
     }
@@ -151,6 +154,7 @@ public class ManageParentsController implements ParametrizedController {
             params.put("parent", tableParents.getSelectionModel().getSelectedItem());
             params.put("procedure", "update");
             params.put("mode", mode);
+            params.put("id", id);
             Main.setRoot("administratorActions/parent/addOrUpdateParentForm", params, WindowSize.addOrUpdateParentForm);
         }
     }
@@ -240,6 +244,7 @@ public class ManageParentsController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else

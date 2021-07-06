@@ -59,6 +59,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     private AddOrUpdateParentController.md procedure = AddOrUpdateParentController.md.Update;
     private   ObservableList<ParenthoodModel> parentchoodList = FXCollections.observableArrayList();
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -154,6 +155,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
 
         if (params.get("procedure") == "add") {
             procedure = md.Add;
@@ -203,6 +205,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
         }
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 
@@ -271,6 +274,7 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 

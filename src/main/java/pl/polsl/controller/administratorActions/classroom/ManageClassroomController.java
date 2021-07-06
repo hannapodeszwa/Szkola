@@ -29,6 +29,7 @@ public class ManageClassroomController implements ParametrizedController {
     private Label projector;
 
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize() {
@@ -39,6 +40,7 @@ public class ManageClassroomController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String) params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private void displayTableClassrooms() {
@@ -76,8 +78,8 @@ public class ManageClassroomController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("procedure", "add");
         params.put("mode", mode);
-        Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params,
-                WindowSize.addOrUpdateClassroomForm);
+        params.put("id", id);
+        Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params, WindowSize.addOrUpdateClassroomForm);
     }
 
     public void updateClassroomButton() throws IOException {
@@ -89,8 +91,8 @@ public class ManageClassroomController implements ParametrizedController {
             params.put("classroom", toUpdate);
             params.put("procedure", "update");
             params.put("mode", mode);
-            Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params,
-                    WindowSize.addOrUpdateClassroomForm);
+            params.put("id", id);
+            Main.setRoot("administratorActions/classroom/addOrUpdateClassroomForm", params, WindowSize.addOrUpdateClassroomForm);
         }
     }
 
@@ -140,6 +142,7 @@ public class ManageClassroomController implements ParametrizedController {
     public void cancelButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else

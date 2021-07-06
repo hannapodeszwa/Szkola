@@ -37,6 +37,7 @@ public class AddOrUpdateClassController  implements ParametrizedController {
     List <Uczniowie> students;
 
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -86,6 +87,7 @@ private void disableButton()
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
 
         if (params.get("procedure") == "add")
         {
@@ -126,6 +128,7 @@ leader.setDisable(true);
         }
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
     }
     private void setNewValues(Klasy k)
@@ -156,6 +159,7 @@ leader.setDisable(true);
     public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
     }
 

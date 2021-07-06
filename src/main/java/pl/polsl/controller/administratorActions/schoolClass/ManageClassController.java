@@ -30,6 +30,7 @@ public class ManageClassController implements ParametrizedController {
     private Label leader;
 
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize() {
@@ -40,6 +41,7 @@ public class ManageClassController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private void displayTableClass() {
@@ -83,6 +85,7 @@ public class ManageClassController implements ParametrizedController {
 
         params.put("procedure", "add");
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/class/addOrUpdateClassForm", params, WindowSize.addOrUpdateClassForm);
     }
 
@@ -95,6 +98,7 @@ public class ManageClassController implements ParametrizedController {
             params.put("class", tableClass.getSelectionModel().getSelectedItem());
             params.put("procedure", "update");
             params.put("mode", mode);
+            params.put("id", id);
             Main.setRoot("administratorActions/class/addOrUpdateClassForm", params, WindowSize.addOrUpdateClassForm);
         }
     }
@@ -166,6 +170,7 @@ public class ManageClassController implements ParametrizedController {
     public void cancelButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else

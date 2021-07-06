@@ -43,6 +43,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     public enum md {Add, Update}
     private md procedure = md.Update;
     private String mode;
+    private Integer id;
 
     private ChangeListener TextListener = (observable, oldValue, newValue) -> {
         buttonAccept.setDisable(poleImie.getText().isEmpty() || poleNazwisko.getText().isEmpty());
@@ -67,6 +68,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
 
         if (params.get("procedure") == "add"){
             procedure = md.Add;
@@ -143,6 +145,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         }
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
     }
 
@@ -150,6 +153,7 @@ public class AddOrUpdateStudentsController implements ParametrizedController, Cr
         System.out.println("Zmiany anulowano");
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
     }
 

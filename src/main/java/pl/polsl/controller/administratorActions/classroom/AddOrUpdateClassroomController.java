@@ -27,6 +27,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     private md procedure = md.Update;
     private boolean selectedYes;
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -81,6 +82,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     public void receiveArguments(Map<String, Object> params) {
 
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
         if (params.get("procedure") == "add") {
             procedure = md.Add;
             title.setText("Dodawanie sali:");
@@ -113,6 +115,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
         }
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 
@@ -128,6 +131,7 @@ public class AddOrUpdateClassroomController implements ParametrizedController {
     public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 }

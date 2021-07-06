@@ -25,6 +25,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     public enum md {Add, Update}
     private md procedure = md.Update;
     private String mode;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -47,6 +48,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
 
         if (params.get("procedure") == "add") {
             procedure = md.Add;
@@ -75,6 +77,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
         }
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
     }
 
@@ -86,6 +89,7 @@ public class AddOrUpdateSubjectController implements ParametrizedController {
     public void discardChangesButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
     }
 }

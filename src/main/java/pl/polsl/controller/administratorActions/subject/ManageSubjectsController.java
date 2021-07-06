@@ -31,10 +31,12 @@ public class ManageSubjectsController implements ParametrizedController {
     }
 
     private String mode;
+    private Integer id;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private void displayTableSubjects()
@@ -53,8 +55,8 @@ public class ManageSubjectsController implements ParametrizedController {
         Map<String, Object> params = new HashMap<>();
         params.put("procedure","add");
         params.put("mode", mode);
-        Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
-                WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
+        params.put("id", id);
+        Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm", params, WindowSize.addOrUpdateSubjectForm);
     }
 
     public void updateSubjectButton() throws IOException
@@ -69,8 +71,8 @@ public class ManageSubjectsController implements ParametrizedController {
             params.put("subject", toUpdate);
             params.put("procedure", "update");
             params.put("mode", mode);
-            Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm",params,
-                    WindowSize.addOrUpdateSubjectForm.getWidth(), WindowSize.addOrUpdateSubjectForm.getHeight());
+            params.put("id", id);
+            Main.setRoot("administratorActions/subject/addOrUpdateSubjectForm", params, WindowSize.addOrUpdateSubjectForm);
         }
     }
 
@@ -151,6 +153,7 @@ public class ManageSubjectsController implements ParametrizedController {
     {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else

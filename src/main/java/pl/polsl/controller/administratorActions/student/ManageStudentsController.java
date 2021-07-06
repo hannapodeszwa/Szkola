@@ -42,7 +42,7 @@ public class ManageStudentsController implements ParametrizedController {
 
     private ObservableList<Uczniowie> students;
     private String mode;
-
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -83,6 +83,7 @@ public class ManageStudentsController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private void search()
@@ -119,6 +120,7 @@ public class ManageStudentsController implements ParametrizedController {
 
         params.put("procedure","add");
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
@@ -129,7 +131,7 @@ public class ManageStudentsController implements ParametrizedController {
         params.put("student", tableStudents.getSelectionModel().getSelectedItem());
         params.put("procedure","update");
         params.put("mode", mode);
-
+        params.put("id", id);
         Main.setRoot("administratorActions/student/addOrUpdateStudentForm",params, WindowSize.addOrUpdateStudentForm);
     }
 
@@ -199,6 +201,7 @@ public class ManageStudentsController implements ParametrizedController {
     public void goBackButtonClick() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else

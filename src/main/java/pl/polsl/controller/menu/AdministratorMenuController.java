@@ -23,8 +23,6 @@ import java.util.Map;
 public class AdministratorMenuController implements ParametrizedController {
 
     @FXML
-    private Button buttonLogout;
-    @FXML
     private Button buttonRaport;
     @FXML
     private Button buttonPrincipal;
@@ -113,8 +111,14 @@ public class AdministratorMenuController implements ParametrizedController {
         Main.setRoot("principal/newPrincipalForm", WindowSize.newPrincipalForm);
     }
 
+    public void pressManageAdminButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("mode", mode);
+        Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdimnForm);
+    }
+
     public void pressDeleteUnusedButton() {
-        List toDelete = new ArrayList<>();
+        List<Object> toDelete = new ArrayList<>();
         toDelete.addAll((new Student()).getUnusedStudents());
         toDelete.addAll((new Teacher()).getUnusedTeachers());
         toDelete.addAll((new ParentModel()).getUnusedParents());

@@ -1,18 +1,21 @@
-package pl.polsl.controller.administratorActions.teacher;
+package pl.polsl.controller.administratorActions.admin;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import pl.polsl.Main;
-import pl.polsl.utils.Roles;
-import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
 import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
+import pl.polsl.utils.Roles;
+import pl.polsl.utils.WindowSize;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -20,7 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AddOrUpdateTeachersController  implements ParametrizedController, CredentialsGenerator {
+public class AddOrUpdateAdminController implements ParametrizedController, CredentialsGenerator {
 
     public TextField name;
     public TextField name2;

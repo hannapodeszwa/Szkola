@@ -29,6 +29,7 @@ public class manageLessonHoursController implements ParametrizedController {
     public Button addingButton;
 
     private String mode;
+    private Integer id;
 
 
     public void initialize() {
@@ -52,6 +53,7 @@ public class manageLessonHoursController implements ParametrizedController {
     @Override
     public void receiveArguments(Map<String, Object> params) {
         mode = (String)params.get("mode");
+        id = (Integer) params.get("id");
     }
 
     private ListChangeListener<? extends TablePosition> cellSelectListener = (ListChangeListener.Change<? extends TablePosition> change) -> {
@@ -81,6 +83,7 @@ public class manageLessonHoursController implements ParametrizedController {
     public void clickButtonBack() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         if (mode.equals(Roles.PRINCIPAL))
             Main.setRoot("menu/adminMenuForm", params, WindowSize.principalMenuForm);
         else
