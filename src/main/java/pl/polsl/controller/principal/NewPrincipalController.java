@@ -4,21 +4,25 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import pl.polsl.Main;
+import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Uzytkownicy;
 import pl.polsl.model.UserModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
-public class NewPrincipalController {
+public class NewPrincipalController  implements ParametrizedController {
     @FXML
     private TextField login;
     @FXML
     private TextField password;
 
     private Uzytkownicy principal;
+    private Integer id;
 
     @FXML
     public void initialize()
@@ -26,6 +30,12 @@ public class NewPrincipalController {
          principal = (new UserModel()).getPrincipal();
          login.setText(principal.getLogin());
          password.setText(principal.getHaslo());
+    }
+
+
+    @Override
+    public void receiveArguments(Map<String, Object> params) {
+        id = (Integer) params.get("id");
     }
 
     public void pressChange()
@@ -61,8 +71,10 @@ public class NewPrincipalController {
         }
     }
 
-    public void cancelButton() throws IOException
-    {
-            Main.setRoot("menu/adminMenuForm", WindowSize.adminMenuForm);
+    public void cancelButton() throws IOException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("mode", Roles.ADMIN);
+        Main.setRoot("menu/adminMenuForm", params, WindowSize.adminMenuForm);
     }
 }

@@ -30,17 +30,18 @@ public class AdministratorMenuController implements ParametrizedController {
     private Label labelTitle;
 
     private String mode;
+    private Integer id;
 
     @Override
     public void receiveArguments(Map<String, Object> params) {
 
         mode = (String) params.get("mode");
+        id = (Integer) params.get("id");
+
         if (Roles.ADMIN.equals(mode)) {
             labelTitle.setText("Konto administratora");
             buttonRaport.setVisible(false);
             buttonPrincipal.setVisible(true);
-
-           // buttonLogout.setLayoutY(buttonLogout.getLayoutY() - 40);
 
         } else {
             labelTitle.setText("Konto dyrektora");
@@ -53,6 +54,7 @@ public class AdministratorMenuController implements ParametrizedController {
     public void pressManageStudentsButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/student/manageStudentsForm", params, WindowSize.manageStudentsForm);
 
     }
@@ -60,42 +62,49 @@ public class AdministratorMenuController implements ParametrizedController {
     public void pressManageTeacherButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
     }
 
     public void pressManageSubjectButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/subject/manageSubjectsForm", params, WindowSize.manageSubjectsForm);
     }
 
     public void pressManageClassButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/class/manageClassForm", params, WindowSize.manageClassForm);
     }
 
     public void pressCreateScheduleButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("studentActions/studentScheduleForm", params, WindowSize.manageScheduleForm);
     }
 
     public void pressManageParentButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/parent/manageParentsForm", params, WindowSize.manageParentsForm);
     }
 
     public void pressManageClassroomsButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/classroom/manageClassroomsForm", params, WindowSize.manageClassroomsForm);
     }
 
     public void pressLessonHoursButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
+        params.put("id", id);
         Main.setRoot("administratorActions/manageLessonHoursForm", params, WindowSize.manageLessonHoursForm);
     }
 
@@ -108,13 +117,16 @@ public class AdministratorMenuController implements ParametrizedController {
     }
 
     public void pressChangePrincipalButton() throws IOException {
-        Main.setRoot("principal/newPrincipalForm", WindowSize.newPrincipalForm);
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        Main.setRoot("principal/newPrincipalForm", params, WindowSize.newPrincipalForm);
     }
 
     public void pressManageAdminButton() throws IOException {
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
-        Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdimnForm);
+        params.put("id", id);
+        Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdminForm);
     }
 
     public void pressDeleteUnusedButton() {

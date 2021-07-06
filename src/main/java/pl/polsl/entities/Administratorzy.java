@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NamedQueries({
         @NamedQuery(name = "administratorzy.getAdminEmailByID", query = "SELECT a.email FROM Administratorzy a WHERE a.ID = :ID"),
         @NamedQuery(name = "administratorzy.findAll", query = "SELECT a FROM Administratorzy a"),
-        @NamedQuery(name = "administratorzy.getAdminById", query = "SELECT a FROM Administratorzy a WHERE a.ID = :ID"),
+        @NamedQuery(name = "administratorzy.getAdminById", query = "SELECT a FROM Administratorzy a WHERE a.ID = :ID")
 })
 public class Administratorzy implements Serializable {
 

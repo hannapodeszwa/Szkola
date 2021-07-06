@@ -91,6 +91,7 @@ public class ManageAdminController implements ParametrizedController {
                     filter.setPredicate(p -> p.getNazwisko().toLowerCase().startsWith(newValue.toLowerCase().trim()));//filter table by last name
                     break;
             }
+
         });
     }
     private void displayCategories()
@@ -108,7 +109,7 @@ public class ManageAdminController implements ParametrizedController {
         nameC.setCellValueFactory(new PropertyValueFactory<>("imie"));
         surnameC.setCellValueFactory(new PropertyValueFactory<>("nazwisko"));
 
-        for (Administratorzy n: l) {
+        for (Administratorzy n: admin) {
             tableAdmin.getItems().add(n);
         }
     }
@@ -117,13 +118,20 @@ public class ManageAdminController implements ParametrizedController {
     {
         ObservableList<Administratorzy> selectedAdmin = tableAdmin.getSelectionModel().getSelectedItems();
         selectedAdmin.addListener((ListChangeListener<Administratorzy>) change -> {
-            String selectedName2 = selectedAdmin.get(0).getDrugieImie();
-            String selectedEmail = selectedAdmin.get(0).getEmail();
-            String selectedPhone= selectedAdmin.get(0).getNrKontaktowy();
+            if(selectedAdmin.size()!=0) {
+                String selectedName2 = selectedAdmin.get(0).getDrugieImie();
+                String selectedEmail = selectedAdmin.get(0).getEmail();
+                String selectedPhone = selectedAdmin.get(0).getNrKontaktowy();
 
-            name2.setText(selectedName2);
-            email.setText(selectedEmail);
-            phone.setText(selectedPhone);
+                name2.setText(selectedName2);
+                email.setText(selectedEmail);
+                phone.setText(selectedPhone);
+            }
+            else{
+                name2.setText("");
+                email.setText("");
+                phone.setText("");
+            }
             });
     }
 
@@ -136,8 +144,14 @@ public class ManageAdminController implements ParametrizedController {
        Main.setRoot("administratorActions/admin/addOrUpdateAdminForm",params, WindowSize.addOrUpdateAdminForm);
     }
 
-    public void changeDateButton() {
+    public void changeDateButton() throws IOException {
         Administratorzy toUpdate = (new AdminModel()).getAdminById(id);
+        Map<String, Object> params = new HashMap<>();
+        params.put("admin", toUpdate);
+        params.put("procedure", "update");
+        params.put("mode", mode);
+        params.put("id", id);
+        Main.setRoot("administratorActions/admin/addOrUpdateAdminForm", params, WindowSize.addOrUpdateAdminForm);
     }
 
     public void updateAdminButton() throws IOException
@@ -153,7 +167,7 @@ public class ManageAdminController implements ParametrizedController {
         }
         else {
             Map<String, Object> params = new HashMap<>();
-            params.put("admin", tableAdmin.getSelectionModel().getSelectedItem());
+            params.put("admin", toUpdate);
             params.put("procedure", "update");
             params.put("mode", mode);
             params.put("id", id);

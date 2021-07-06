@@ -10,13 +10,14 @@ import javafx.scene.control.TextField;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.controller.administratorActions.CredentialsGenerator;
-import pl.polsl.entities.Nauczyciele;
+import pl.polsl.entities.Administratorzy;
 import pl.polsl.entities.Uzytkownicy;
+import pl.polsl.model.AdminModel;
 import pl.polsl.model.Teacher;
 import pl.polsl.model.UserModel;
+import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
-
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import java.io.IOException;
@@ -25,15 +26,22 @@ import java.util.Map;
 
 public class AddOrUpdateAdminController implements ParametrizedController, CredentialsGenerator {
 
-    public TextField name;
-    public TextField name2;
-    public TextField surname;
-    public TextField email;
-    public TextField phone;
-    public Label title;
-    public Button confirm;
+    @FXML
+    private TextField name;
+    @FXML
+    private TextField name2;
+    @FXML
+    private TextField surname;
+    @FXML
+    private TextField email;
+    @FXML
+    private TextField phone;
+    @FXML
+    private Label title;
+    @FXML
+    private Button confirm;
 
-    private Nauczyciele toUpdate;
+    private Administratorzy toUpdate;
     public enum md {Add, Update}
     private md procedure = md.Update;
     private String mode;
@@ -92,12 +100,12 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
 
         if (params.get("procedure") == "add") {
             procedure = md.Add;
-            title.setText("Dodawanie nauczyciela:");
+            title.setText("Dodawanie administratora");
         }
         else {
             procedure = md.Update;
-           toUpdate = (Nauczyciele) params.get("teacher");
-            title.setText("Modyfikacja nauczyciela:");
+           toUpdate = (Administratorzy) params.get("admin");
+            title.setText("Modyfikacja administratora");
         }
 
         if (toUpdate != null) {
@@ -113,19 +121,23 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
     {
         if (procedure == md.Add) {
             Uzytkownicy u = new Uzytkownicy();
-            Nauczyciele n = new Nauczyciele();
-            if(!setNewValues(n))
+            Administratorzy a = new Administratorzy();
+            if(setNewValues(a))
             {
                 wrongEmailAlert();
                 return;
             }
 
-            (new Teacher()).persist(n);
-            setNewValues(u, n.getImie(), n.getNazwisko(), n.getID());
+            (new AdminModel()).persist(a);
+            setNewValues(u, a.getImie(), a.getNazwisko(), a.getID());
             (new UserModel()).persist(u);
+            MailSenderModel mail = new MailSenderModel();
+            mail.setTopic("Dane logowania do sytemu Szkoła");
+            mail.setMessageText("Login: " + u.getLogin() + "\nHasło: " + u.getHaslo());
+            mail.sendMail(a.getEmail());
 
         } else if (procedure == md.Update) {
-            if(!setNewValues(toUpdate))
+            if(setNewValues(toUpdate))
             {
                 wrongEmailAlert();
                 return;
@@ -135,7 +147,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("id", id);
-        Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
+        Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdminForm);
     }
 
     private void wrongEmailAlert()
@@ -147,16 +159,15 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         alert.showAndWait();
     }
 
-    private boolean setNewValues(Nauczyciele n)
-    {
-        n.setImie((name.getText().length() >= 45 ? name.getText().substring(0,45) : name.getText()));
-        n.setDrugieImie((name2.getText().length() >= 45 ? name2.getText().substring(0,45) : name2.getText()));
-        n.setNazwisko((surname.getText().length() >= 45 ? surname.getText().substring(0,45) : surname.getText()));
-        n.setNrKontaktowy((phone.getText().length() >= 45 ? phone.getText().substring(0,45) : phone.getText()));
-        if(checkEmail())
-        n.setEmail((email.getText().length() >= 45 ? email.getText().substring(0,45) : email.getText()));
-        else
+    private boolean setNewValues(Administratorzy n) {
+        n.setImie((name.getText().length() >= 45 ? name.getText().substring(0, 45) : name.getText()));
+        n.setDrugieImie((name2.getText().length() >= 45 ? name2.getText().substring(0, 45) : name2.getText()));
+        n.setNazwisko((surname.getText().length() >= 45 ? surname.getText().substring(0, 45) : surname.getText()));
+        n.setNrKontaktowy((phone.getText().length() >= 45 ? phone.getText().substring(0, 45) : phone.getText()));
+        if (checkEmail()) {
+            n.setEmail((email.getText().length() >= 45 ? email.getText().substring(0, 45) : email.getText()));
             return false;
+        }
         return true;
     }
 
@@ -164,7 +175,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
     {
        u.setLogin(generateLogin(name,surname));
        u.setHaslo(generatePassword());
-       u.setDostep(Roles.TEACHER);
+       u.setDostep(Roles.ADMIN);
        u.setID(id);
     }
 
@@ -173,7 +184,7 @@ public class AddOrUpdateAdminController implements ParametrizedController, Crede
         Map<String, Object> params = new HashMap<>();
         params.put("mode", mode);
         params.put("id", id);
-        Main.setRoot("administratorActions/teacher/manageTeachersForm", params, WindowSize.manageTeachersForm);
+        Main.setRoot("administratorActions/admin/manageAdminForm", params, WindowSize.manageAdminForm);
     }
 
 }
