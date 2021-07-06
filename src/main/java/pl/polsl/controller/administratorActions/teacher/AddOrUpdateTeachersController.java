@@ -5,6 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import pl.polsl.Main;
+import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
@@ -19,6 +20,8 @@ import javax.mail.internet.InternetAddress;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static pl.polsl.utils.EmailMessages.*;
 
 public class AddOrUpdateTeachersController  implements ParametrizedController, CredentialsGenerator {
 
@@ -120,6 +123,10 @@ public class AddOrUpdateTeachersController  implements ParametrizedController, C
             (new Teacher()).persist(n);
             setNewValues(u, n.getImie(), n.getNazwisko(), n.getID());
             (new UserModel()).persist(u);
+            MailSenderModel mail = new MailSenderModel();
+            mail.setTopic(ACCOUNT_UPDATED_TOPIC);
+            mail.setMessageText(LOGIN_READY_MESSAGE + u.getLogin() + "\n" + PASSWORD_READY_MESSAGE + u.getHaslo());
+            mail.sendMail(n.getEmail());
 
         } else if (procedure == md.Update) {
             if(!setNewValues(toUpdate))

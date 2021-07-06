@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pl.polsl.Main;
+import pl.polsl.model.email.MailSenderModel;
 import pl.polsl.utils.Roles;
 import pl.polsl.utils.WindowSize;
 import pl.polsl.controller.ParametrizedController;
@@ -23,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static pl.polsl.utils.EmailMessages.*;
 
 public class AddOrUpdateParentController implements ParametrizedController, CredentialsGenerator {
 
@@ -192,6 +195,10 @@ public class AddOrUpdateParentController implements ParametrizedController, Cred
             (new ParentModel()).persist(r);
             setNewValues(u, r.getImie(), r.getNazwisko(), r.getID());
             (new UserModel()).persist(u);
+            MailSenderModel mail = new MailSenderModel();
+            mail.setTopic(ACCOUNT_UPDATED_TOPIC);
+            mail.setMessageText(LOGIN_READY_MESSAGE + u.getLogin() + "\n" + PASSWORD_READY_MESSAGE + u.getHaslo());
+            mail.sendMail(r.getEmail());
             addChildren(r);
 
         } else if (procedure == md.Update) {
