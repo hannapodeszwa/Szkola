@@ -106,9 +106,11 @@ public class TeacherClubController implements ParametrizedController {
         if(studentList.isEmpty()){
             int tmpId = comboboxClubs.getSelectionModel().getSelectedIndex();
             Kolanaukowe k =  clubsList.get(tmpId);
+            comboboxClubs.getItems().remove(k);
             clubsList.remove(k);
             (new ClubModel()).delete(k);
             refreshClubList(0);
+
         } else {
             infoLabel.setText("Usuń wszystkich\nuczestników przed\nusunięciem koła\nnaukowego!");
         }

@@ -12,11 +12,13 @@ import javafx.scene.text.Text;
 import pl.polsl.Main;
 import pl.polsl.controller.ParametrizedController;
 import pl.polsl.entities.Klasy;
+import pl.polsl.entities.Nauczyciele;
 import pl.polsl.entities.Uczniowie;
 import pl.polsl.entities.Uwagi;
 import pl.polsl.model.NoteModel;
 import pl.polsl.model.SchoolClass;
 import pl.polsl.model.Student;
+import pl.polsl.model.Teacher;
 import pl.polsl.utils.WindowSize;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class TeacherNoteController implements ParametrizedController {
     private TableView<Uwagi> table;
     @FXML
     private TableColumn<Uwagi, String> columnDesc;
+    @FXML
+    private TableColumn<Uwagi, String> columnTeacher;
     @FXML
     private ComboBox<String> comboboxClass;
     @FXML
@@ -170,6 +174,15 @@ public class TeacherNoteController implements ParametrizedController {
 
     void setNote(Integer index){
         noteList = FXCollections.observableArrayList((new NoteModel()).getStudentNote(studentList.get(index).getID()));
+
+        columnTeacher.setCellValueFactory(CellData -> {
+            Integer idTeacher = CellData.getValue().getIdNauczyciela();
+            Nauczyciele act = (new Teacher()).getTeacherById(idTeacher);
+            if (act != null)
+                return new ReadOnlyStringWrapper(act.getImie() + " " + act.getNazwisko());
+            else
+                return new ReadOnlyStringWrapper("");
+        });
 
 
         columnDesc.setCellValueFactory(CellData -> {
