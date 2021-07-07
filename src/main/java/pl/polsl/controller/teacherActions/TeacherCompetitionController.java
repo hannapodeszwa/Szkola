@@ -151,9 +151,10 @@ public class TeacherCompetitionController implements ParametrizedController {
         if(studentList.isEmpty()){
             int tmpId = comboboxCompetitions.getSelectionModel().getSelectedIndex();
             Konkursy k =  competitionsList.get(tmpId);
+            comboboxCompetitions.getItems().remove(k);
+            competitionsList.remove(k);
             (new CompetitionModel()).delete(k);
             refreshDesc(0);
-            competitionsList.clear();
             refreshCompetitionList(0);
         } else {
             infoLabel.setText("Usuń wszystkich uczestników przed usunięciem konkursu!");
